@@ -37,7 +37,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation.expectedFulfillmentCount = 4
 
         metronome?.tempo = Tempo(bpm: 120)
-        metronome?.play()
+        metronome?.start()
 
         wait(for: [tickExpectation].compactMap({ $0 }), timeout: 2)
     }
@@ -48,7 +48,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation.expectedFulfillmentCount = 3
 
         metronome?.tempo = Tempo(bpm: 90)
-        metronome?.play()
+        metronome?.start()
 
         wait(for: [tickExpectation].compactMap({ $0 }), timeout: 2)
     }
@@ -59,7 +59,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation.expectedFulfillmentCount = 2
 
         metronome?.tempo = Tempo(bpm: 60)
-        metronome?.play()
+        metronome?.start()
 
         wait(for: [tickExpectation].compactMap({ $0 }), timeout: 2)
     }

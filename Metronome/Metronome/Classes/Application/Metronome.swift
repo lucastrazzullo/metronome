@@ -20,6 +20,10 @@ class Metronome {
     var tempo: Tempo
     let timeSignature: TimeSignature
 
+    var isPlaying: Bool {
+        return timer?.isValid ?? false
+    }
+
     private var timer: Timer?
     private var tickIteration: Int = 0
 
@@ -34,7 +38,7 @@ class Metronome {
 
     // MARK: Public methods
 
-    func play() {
+    func start() {
         timer = Timer.scheduledTimer(timeInterval: Double(60) / Double(tempo.bpm), target: self, selector: #selector(didTick), userInfo: nil, repeats: true)
     }
 
