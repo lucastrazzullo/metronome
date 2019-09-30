@@ -14,6 +14,9 @@
 		81FAF03823427ED2004A8C51 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81FAF03723427ED2004A8C51 /* Assets.xcassets */; };
 		81FAF03B23427ED2004A8C51 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81FAF03923427ED2004A8C51 /* LaunchScreen.storyboard */; };
 		81FAF04623427ED3004A8C51 /* MetronomeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF04523427ED3004A8C51 /* MetronomeTests.swift */; };
+		81FAF05623427F52004A8C51 /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF05523427F52004A8C51 /* Metronome.swift */; };
+		81FAF05923427F6F004A8C51 /* TimeSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF05823427F6F004A8C51 /* TimeSignature.swift */; };
+		81FAF05B234285E3004A8C51 /* Tempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF05A234285E3004A8C51 /* Tempo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +41,9 @@
 		81FAF04123427ED3004A8C51 /* MetronomeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MetronomeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FAF04523427ED3004A8C51 /* MetronomeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeTests.swift; sourceTree = "<group>"; };
 		81FAF04723427ED3004A8C51 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		81FAF05523427F52004A8C51 /* Metronome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metronome.swift; sourceTree = "<group>"; };
+		81FAF05823427F6F004A8C51 /* TimeSignature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignature.swift; sourceTree = "<group>"; };
+		81FAF05A234285E3004A8C51 /* Tempo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tempo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +104,8 @@
 		81FAF05023427EEA004A8C51 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				81FAF05723427F65004A8C51 /* Entities */,
+				81FAF05423427F48004A8C51 /* Application */,
 				81FAF05123427EF3004A8C51 /* Platform */,
 			);
 			path = Classes;
@@ -129,6 +137,23 @@
 				81FAF03923427ED2004A8C51 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboard;
+			sourceTree = "<group>";
+		};
+		81FAF05423427F48004A8C51 /* Application */ = {
+			isa = PBXGroup;
+			children = (
+				81FAF05523427F52004A8C51 /* Metronome.swift */,
+			);
+			path = Application;
+			sourceTree = "<group>";
+		};
+		81FAF05723427F65004A8C51 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				81FAF05823427F6F004A8C51 /* TimeSignature.swift */,
+				81FAF05A234285E3004A8C51 /* Tempo.swift */,
+			);
+			path = Entities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -232,7 +257,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81FAF05623427F52004A8C51 /* Metronome.swift in Sources */,
 				81FAF03323427ED1004A8C51 /* ViewController.swift in Sources */,
+				81FAF05923427F6F004A8C51 /* TimeSignature.swift in Sources */,
+				81FAF05B234285E3004A8C51 /* Tempo.swift in Sources */,
 				81FAF02F23427ED1004A8C51 /* AppDelegate.swift in Sources */,
 				81FAF03123427ED1004A8C51 /* SceneDelegate.swift in Sources */,
 			);
