@@ -12,7 +12,6 @@ import SwiftUI
 struct MetronomeView: View {
 
     var model: MetronomeViewModel
-    var toggleAction: (() -> ())?
 
 
     // MARK: Body
@@ -20,11 +19,17 @@ struct MetronomeView: View {
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
+            VStack(alignment: .center, spacing: 0) {
+                Spacer()
+                Text(model.tempoLabel).font(Font.system(.headline)).foregroundColor(Color.blue)
+            }.padding([.bottom], 24)
             HStack(alignment: .center, spacing: 40) {
                 ForEach(model.circles, id: \.self) { circle in
-                    Circle().stroke(self.borderColor(for: circle), lineWidth: self.lineWidth(for: circle))
+                    ZStack {
+                        Text(String(circle)).font(Font.system(.caption)).foregroundColor(self.color(for: circle))
+                        Circle().stroke(self.color(for: circle), lineWidth: self.lineWidth(for: circle))
+                    }
                 }
-                Button(model.toggleLabel, action: { self.toggleAction?() }).foregroundColor(Color.green).frame(width: 80, height: nil, alignment: .center)
             }.padding([.trailing, .leading], 24)
         }
     }
@@ -32,20 +37,20 @@ struct MetronomeView: View {
 
     // MARK: Private helper methods
 
-    private func borderColor(for index: Int) -> Color {
+    private func color(for index: Int) -> Color {
         if let currentIndex = model.currentCircleIndex, currentIndex == index {
             return currentIndex == 0 ? Color.yellow : Color.blue
         } else {
-            return Color.gray
+            return Color.white.opacity(0.2)
         }
     }
 
 
     private func lineWidth(for index: Int) -> CGFloat {
         if let currentIndex = model.currentCircleIndex, currentIndex == index {
-            return 6
+            return 2
         } else {
-            return 4
+            return 1
         }
     }
 }

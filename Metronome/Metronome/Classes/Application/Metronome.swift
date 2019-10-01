@@ -22,7 +22,7 @@ class Metronome {
         }
     }
 
-    private var configuration: MetronomeConfiguration
+    private(set) var configuration: MetronomeConfiguration
     private var ticker: MetronomeTicker
 
 

@@ -19,7 +19,7 @@ class MetronomeViewController: UIHostingController<MetronomeView> {
 
     init(with configuration: MetronomeConfiguration) {
         metronome = Metronome(with: configuration)
-        super.init(rootView: MetronomeView(model: MetronomeViewModel(currentBit: nil, timeSignature: configuration.timeSignature)))
+        super.init(rootView: MetronomeView(model: MetronomeViewModel(timeSignature: configuration.timeSignature, tempo: configuration.tempo)))
     }
 
 
@@ -35,8 +35,6 @@ class MetronomeViewController: UIHostingController<MetronomeView> {
 
         metronome.delegate = self
         metronome.tickerDelegate = self
-
-        rootView.toggleAction = toggle
     }
 
 
@@ -46,19 +44,27 @@ class MetronomeViewController: UIHostingController<MetronomeView> {
         metronome.reset()
         metronome.delegate = nil
         metronome.tickerDelegate = nil
-
-        rootView.toggleAction = nil
     }
 
 
-    // MARK: UI Callbacks
+    // MARK: Public methods
 
-    private func toggle() {
+    func toggle() {
         if metronome.isRunning {
             metronome.reset()
         } else {
             metronome.start()
         }
+    }
+
+
+    func getCurrentConfiguration() -> MetronomeConfiguration {
+        return metronome.configuration
+    }
+
+
+    func setNewConfiguration(_ configuration: MetronomeConfiguration) {
+        metronome.update(with: configuration)
     }
 }
 
@@ -67,6 +73,7 @@ extension MetronomeViewController: MetronomeDelegate {
 
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
         rootView.model.set(timesignature: configuration.timeSignature)
+        rootView.model.set(tempo: configuration.tempo)
     }
 }
 

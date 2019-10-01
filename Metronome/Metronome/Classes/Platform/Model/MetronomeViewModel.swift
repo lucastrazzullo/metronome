@@ -12,13 +12,14 @@ struct MetronomeViewModel {
 
     private var isRunning: Bool = false
     private var currentBit: Int?
+    private var tempo: Tempo
     private var timeSignature: TimeSignature
 
 
     // MARK: Object life cycle
 
-    init(currentBit: Int?, timeSignature: TimeSignature) {
-        self.currentBit = currentBit
+    init(timeSignature: TimeSignature, tempo: Tempo) {
+        self.tempo = tempo
         self.timeSignature = timeSignature
     }
 
@@ -40,6 +41,11 @@ struct MetronomeViewModel {
     }
 
 
+    var tempoLabel: String {
+        return "\(tempo.bpm) BPM"
+    }
+
+
     // MARK: Mutating methods
 
     mutating func set(isRunning: Bool) {
@@ -54,5 +60,10 @@ struct MetronomeViewModel {
 
     mutating func set(timesignature: TimeSignature) {
         self.timeSignature = timesignature
+    }
+
+
+    mutating func set(tempo: Tempo) {
+        self.tempo = tempo
     }
 }

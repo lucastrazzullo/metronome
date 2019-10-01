@@ -10,7 +10,7 @@ import Foundation
 
 struct MetronomeConfiguration {
     let timeSignature: TimeSignature
-    let tempo: Tempo
+    var tempo: Tempo
 }
 
 

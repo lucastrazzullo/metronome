@@ -9,12 +9,22 @@
 import Foundation
 
 struct Tempo {
+
     let bpm: Int
+
+
+    // MARK: Object life cycle
+
+    init?(bpm: Int?) {
+        guard let bpm = bpm, bpm > 0, bpm < 200 else { return nil }
+        self.bpm = bpm
+    }
 }
+
 
 extension Tempo {
 
     static var `default`: Tempo {
-        return Tempo(bpm: 120)
+        return Tempo(bpm: 120)!
     }
 }
