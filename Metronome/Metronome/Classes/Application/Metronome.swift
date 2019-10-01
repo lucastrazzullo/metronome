@@ -13,19 +13,34 @@ protocol MetronomeDelegate: AnyObject {
 }
 
 
+protocol MetronomeStatusDelegate: AnyObject {
+    func metronomeDidStart(_ metronome: Metronome)
+    func metronomeDidReset(_ metronome: Metronome)
+}
+
+
 class Metronome {
 
     weak var delegate: MetronomeDelegate?
+    weak var statusDelegate: MetronomeStatusDelegate?
 
     var tempo: Tempo
-    let timeSignature: TimeSignature
-
-    var isPlaying: Bool {
-        return timer?.isValid ?? false
-    }
+    var timeSignature: TimeSignature
 
     private var timer: Timer?
     private var tickIteration: Int = 0
+
+
+    // MARK: Public getters
+
+    var isRunning: Bool {
+        return timer?.isValid ?? false
+    }
+
+
+    var currentBit: Int {
+        return getCurrentBit()
+    }
 
 
     // MARK: Object life cycle
@@ -39,7 +54,8 @@ class Metronome {
     // MARK: Public methods
 
     func start() {
-        timer = Timer.scheduledTimer(timeInterval: Double(60) / Double(tempo.bpm), target: self, selector: #selector(didTick), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: getTimeInterval(), target: self, selector: #selector(didTick), userInfo: nil, repeats: true)
+        statusDelegate?.metronomeDidStart(self)
     }
 
 
@@ -48,13 +64,26 @@ class Metronome {
         timer = nil
 
         tickIteration = 0
+        statusDelegate?.metronomeDidReset(self)
     }
 
 
     // MARK: Actions
 
     @objc private func didTick() {
+        delegate?.metronome(self, didTick: getCurrentBit())
         tickIteration += 1
-        delegate?.metronome(self, didTick: tickIteration % timeSignature.bits + 1)
+    }
+
+
+    // MARK: Private helper methods
+
+    private func getCurrentBit() -> Int {
+        return tickIteration % timeSignature.bits + 1
+    }
+
+
+    private func getTimeInterval() -> TimeInterval {
+        return Double(60) / Double(tempo.bpm) / (Double(timeSignature.noteLength) / Double(4))
     }
 }
