@@ -19,6 +19,7 @@
 		81FAF05B234285E3004A8C51 /* Tempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF05A234285E3004A8C51 /* Tempo.swift */; };
 		81FAF05F23429A00004A8C51 /* MetronomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF05E23429A00004A8C51 /* MetronomeView.swift */; };
 		81FAF06123429A24004A8C51 /* MetronomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF06023429A24004A8C51 /* MetronomeViewController.swift */; };
+		81FAF06723435823004A8C51 /* MetronomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF06623435823004A8C51 /* MetronomeViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		81FAF05A234285E3004A8C51 /* Tempo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tempo.swift; sourceTree = "<group>"; };
 		81FAF05E23429A00004A8C51 /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
 		81FAF06023429A24004A8C51 /* MetronomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeViewController.swift; sourceTree = "<group>"; };
+		81FAF06623435823004A8C51 /* MetronomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 			children = (
 				81FAF02E23427ED1004A8C51 /* AppDelegate.swift */,
 				81FAF03023427ED1004A8C51 /* SceneDelegate.swift */,
+				81FAF06523435816004A8C51 /* Model */,
 				81FAF05D234299DE004A8C51 /* View */,
 				81FAF05C234299D4004A8C51 /* Controller */,
 			);
@@ -176,6 +179,14 @@
 				81FAF05E23429A00004A8C51 /* MetronomeView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		81FAF06523435816004A8C51 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				81FAF06623435823004A8C51 /* MetronomeViewModel.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -279,6 +290,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81FAF06723435823004A8C51 /* MetronomeViewModel.swift in Sources */,
 				81FAF05623427F52004A8C51 /* Metronome.swift in Sources */,
 				81FAF03323427ED1004A8C51 /* MainViewController.swift in Sources */,
 				81FAF05923427F6F004A8C51 /* TimeSignature.swift in Sources */,

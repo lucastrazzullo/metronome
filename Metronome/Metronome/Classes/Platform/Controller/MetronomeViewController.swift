@@ -12,14 +12,14 @@ import Combine
 
 class MetronomeViewController: UIHostingController<MetronomeView> {
 
-    private let metronome: Metronome
+    private let metronome: Metronome = Metronome()
 
 
     // MARK: Object life cycle
 
     init() {
-        metronome = Metronome()
-        super.init(rootView: MetronomeView(bpm: metronome.tempo.bpm))
+        let viewModel = MetronomeViewModel(currentBit: nil, timeSignature: metronome.timeSignature)
+        super.init(rootView: MetronomeView(model: viewModel))
     }
 
 
@@ -66,7 +66,7 @@ class MetronomeViewController: UIHostingController<MetronomeView> {
 extension MetronomeViewController: MetronomeDelegate {
 
     func metronome(_ metronome: Metronome, didTick bit: Int) {
-        rootView.currentBit = bit
+        rootView.model.set(currentBit: bit)
     }
 }
 
@@ -74,12 +74,17 @@ extension MetronomeViewController: MetronomeDelegate {
 extension MetronomeViewController: MetronomeStatusDelegate {
 
     func metronomeDidStart(_ metronome: Metronome) {
-        rootView.isRunning = true
+        rootView.model.set(isRunning: true)
     }
 
 
     func metronomeDidReset(_ metronome: Metronome) {
-        rootView.isRunning = false
-        rootView.currentBit = nil
+        rootView.model.set(isRunning: false)
+        rootView.model.set(currentBit: nil)
+    }
+
+
+    func metronome(_ metronome: Metronome, didUpdate tempo: Tempo, timeSignature: TimeSignature) {
+        rootView.model.set(timesignature: timeSignature)
     }
 }

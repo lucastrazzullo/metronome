@@ -16,6 +16,7 @@ protocol MetronomeDelegate: AnyObject {
 protocol MetronomeStatusDelegate: AnyObject {
     func metronomeDidStart(_ metronome: Metronome)
     func metronomeDidReset(_ metronome: Metronome)
+    func metronome(_ metronome: Metronome, didUpdate tempo: Tempo, timeSignature: TimeSignature)
 }
 
 
@@ -24,8 +25,16 @@ class Metronome {
     weak var delegate: MetronomeDelegate?
     weak var statusDelegate: MetronomeStatusDelegate?
 
-    var tempo: Tempo
-    var timeSignature: TimeSignature
+    var tempo: Tempo {
+        didSet {
+            statusDelegate?.metronome(self, didUpdate: tempo, timeSignature: timeSignature)
+        }
+    }
+    var timeSignature: TimeSignature {
+        didSet {
+            statusDelegate?.metronome(self, didUpdate: tempo, timeSignature: timeSignature)
+        }
+   }
 
     private var timer: Timer?
     private var tickIteration: Int = 0
