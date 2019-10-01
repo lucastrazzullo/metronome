@@ -12,14 +12,14 @@ import Combine
 
 class MetronomeViewController: UIHostingController<MetronomeView> {
 
-    private let metronome: Metronome = Metronome()
+    private let metronome: Metronome
 
 
     // MARK: Object life cycle
 
-    init() {
-        let viewModel = MetronomeViewModel(currentBit: nil, timeSignature: metronome.timeSignature)
-        super.init(rootView: MetronomeView(model: viewModel))
+    init(with configuration: MetronomeConfiguration) {
+        metronome = Metronome(with: configuration)
+        super.init(rootView: MetronomeView(model: MetronomeViewModel(currentBit: nil, timeSignature: configuration.timeSignature)))
     }
 
 
@@ -34,7 +34,7 @@ class MetronomeViewController: UIHostingController<MetronomeView> {
         super.viewDidAppear(animated)
 
         metronome.delegate = self
-        metronome.statusDelegate = self
+        metronome.tickerDelegate = self
 
         rootView.toggleAction = toggle
     }
@@ -45,7 +45,7 @@ class MetronomeViewController: UIHostingController<MetronomeView> {
 
         metronome.reset()
         metronome.delegate = nil
-        metronome.statusDelegate = nil
+        metronome.tickerDelegate = nil
 
         rootView.toggleAction = nil
     }
@@ -65,26 +65,27 @@ class MetronomeViewController: UIHostingController<MetronomeView> {
 
 extension MetronomeViewController: MetronomeDelegate {
 
-    func metronome(_ metronome: Metronome, didTick bit: Int) {
-        rootView.model.set(currentBit: bit)
+    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
+        rootView.model.set(timesignature: configuration.timeSignature)
     }
 }
 
 
-extension MetronomeViewController: MetronomeStatusDelegate {
+extension MetronomeViewController: MetronomeTickerDelegate {
 
-    func metronomeDidStart(_ metronome: Metronome) {
+    func metronomeTickerDidStart(_ ticker: MetronomeTicker) {
         rootView.model.set(isRunning: true)
+        rootView.model.set(currentBit: nil)
     }
 
 
-    func metronomeDidReset(_ metronome: Metronome) {
+    func metronomeTickerDidReset(_ ticker: MetronomeTicker) {
         rootView.model.set(isRunning: false)
         rootView.model.set(currentBit: nil)
     }
 
 
-    func metronome(_ metronome: Metronome, didUpdate tempo: Tempo, timeSignature: TimeSignature) {
-        rootView.model.set(timesignature: timeSignature)
+    func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
+        rootView.model.set(currentBit: iteration)
     }
 }

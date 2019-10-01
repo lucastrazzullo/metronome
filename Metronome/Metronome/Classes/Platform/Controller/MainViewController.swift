@@ -13,7 +13,8 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let metronomeViewController = MetronomeViewController()
+        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 6, noteLength: 8), tempo: Tempo.default)
+        let metronomeViewController = MetronomeViewController(with: configuration)
         addChildViewController(metronomeViewController, in: view)
     }
 

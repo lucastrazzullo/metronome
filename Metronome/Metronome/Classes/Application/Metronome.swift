@@ -9,90 +9,53 @@
 import Foundation
 
 protocol MetronomeDelegate: AnyObject {
-    func metronome(_ metronome: Metronome, didTick bit: Int)
-}
-
-
-protocol MetronomeStatusDelegate: AnyObject {
-    func metronomeDidStart(_ metronome: Metronome)
-    func metronomeDidReset(_ metronome: Metronome)
-    func metronome(_ metronome: Metronome, didUpdate tempo: Tempo, timeSignature: TimeSignature)
+    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration)
 }
 
 
 class Metronome {
 
     weak var delegate: MetronomeDelegate?
-    weak var statusDelegate: MetronomeStatusDelegate?
-
-    var tempo: Tempo {
+    weak var tickerDelegate: MetronomeTickerDelegate? {
         didSet {
-            statusDelegate?.metronome(self, didUpdate: tempo, timeSignature: timeSignature)
+            ticker.delegate = tickerDelegate
         }
     }
-    var timeSignature: TimeSignature {
-        didSet {
-            statusDelegate?.metronome(self, didUpdate: tempo, timeSignature: timeSignature)
-        }
-   }
 
-    private var timer: Timer?
-    private var tickIteration: Int = 0
+    private var configuration: MetronomeConfiguration
+    private var ticker: MetronomeTicker
 
 
     // MARK: Public getters
 
     var isRunning: Bool {
-        return timer?.isValid ?? false
-    }
-
-
-    var currentBit: Int {
-        return getCurrentBit()
+        return ticker.isRunning
     }
 
 
     // MARK: Object life cycle
 
-    init() {
-        self.tempo = Tempo.default
-        self.timeSignature = TimeSignature.default
+    init(with configuration: MetronomeConfiguration) {
+        self.configuration = configuration
+        self.ticker = MetronomeTicker()
     }
 
 
     // MARK: Public methods
 
     func start() {
-        timer = Timer.scheduledTimer(timeInterval: getTimeInterval(), target: self, selector: #selector(didTick), userInfo: nil, repeats: true)
-        statusDelegate?.metronomeDidStart(self)
+        ticker.start(with: configuration.getTimeInterval(), loopLength: configuration.barLength())
     }
 
 
     func reset() {
-        timer?.invalidate()
-        timer = nil
-
-        tickIteration = 0
-        statusDelegate?.metronomeDidReset(self)
+        ticker.reset()
     }
 
 
-    // MARK: Actions
-
-    @objc private func didTick() {
-        delegate?.metronome(self, didTick: getCurrentBit())
-        tickIteration += 1
-    }
-
-
-    // MARK: Private helper methods
-
-    private func getCurrentBit() -> Int {
-        return tickIteration % timeSignature.bits + 1
-    }
-
-
-    private func getTimeInterval() -> TimeInterval {
-        return Double(60) / Double(tempo.bpm) / (Double(timeSignature.noteLength) / Double(4))
+    func update(with newConfiguration: MetronomeConfiguration) {
+        configuration = newConfiguration
+        delegate?.metronome(self, didUpdate: configuration)
+        reset()
     }
 }

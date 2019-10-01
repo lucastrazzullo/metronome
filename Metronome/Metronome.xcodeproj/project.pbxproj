@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		819E341B2343678700D56E92 /* MetronomeTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E341A2343678700D56E92 /* MetronomeTicker.swift */; };
 		81FAF02F23427ED1004A8C51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF02E23427ED1004A8C51 /* AppDelegate.swift */; };
 		81FAF03123427ED1004A8C51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF03023427ED1004A8C51 /* SceneDelegate.swift */; };
 		81FAF03323427ED1004A8C51 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF03223427ED1004A8C51 /* MainViewController.swift */; };
@@ -20,6 +21,7 @@
 		81FAF05F23429A00004A8C51 /* MetronomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF05E23429A00004A8C51 /* MetronomeView.swift */; };
 		81FAF06123429A24004A8C51 /* MetronomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF06023429A24004A8C51 /* MetronomeViewController.swift */; };
 		81FAF06723435823004A8C51 /* MetronomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF06623435823004A8C51 /* MetronomeViewModel.swift */; };
+		81FAF06923436475004A8C51 /* MetronomeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF06823436475004A8C51 /* MetronomeConfiguration.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		819E341A2343678700D56E92 /* MetronomeTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeTicker.swift; sourceTree = "<group>"; };
 		81FAF02B23427ED1004A8C51 /* Metronome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metronome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FAF02E23427ED1004A8C51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81FAF03023427ED1004A8C51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -50,6 +53,7 @@
 		81FAF05E23429A00004A8C51 /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
 		81FAF06023429A24004A8C51 /* MetronomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeViewController.swift; sourceTree = "<group>"; };
 		81FAF06623435823004A8C51 /* MetronomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeViewModel.swift; sourceTree = "<group>"; };
+		81FAF06823436475004A8C51 /* MetronomeConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeConfiguration.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,6 +154,8 @@
 		81FAF05423427F48004A8C51 /* Application */ = {
 			isa = PBXGroup;
 			children = (
+				81FAF06823436475004A8C51 /* MetronomeConfiguration.swift */,
+				819E341A2343678700D56E92 /* MetronomeTicker.swift */,
 				81FAF05523427F52004A8C51 /* Metronome.swift */,
 			);
 			path = Application;
@@ -291,12 +297,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				81FAF06723435823004A8C51 /* MetronomeViewModel.swift in Sources */,
+				819E341B2343678700D56E92 /* MetronomeTicker.swift in Sources */,
 				81FAF05623427F52004A8C51 /* Metronome.swift in Sources */,
 				81FAF03323427ED1004A8C51 /* MainViewController.swift in Sources */,
 				81FAF05923427F6F004A8C51 /* TimeSignature.swift in Sources */,
 				81FAF05F23429A00004A8C51 /* MetronomeView.swift in Sources */,
 				81FAF05B234285E3004A8C51 /* Tempo.swift in Sources */,
 				81FAF06123429A24004A8C51 /* MetronomeViewController.swift in Sources */,
+				81FAF06923436475004A8C51 /* MetronomeConfiguration.swift in Sources */,
 				81FAF02F23427ED1004A8C51 /* AppDelegate.swift in Sources */,
 				81FAF03123427ED1004A8C51 /* SceneDelegate.swift in Sources */,
 			);

@@ -11,18 +11,11 @@ import XCTest
 
 class MetronomeTests: XCTestCase {
 
-    private var tickExpectation: XCTestExpectation!
+    private var tickExpectation: XCTestExpectation?
     private var metronome: Metronome?
 
 
     // MARK: Test life cycle
-
-    override func setUp() {
-        super.setUp()
-        metronome = Metronome()
-        metronome?.delegate = self
-    }
-
 
     override func tearDown() {
         super.tearDown()
@@ -34,37 +27,40 @@ class MetronomeTests: XCTestCase {
 
     func test120bpm44ts() {
         tickExpectation = expectation(description: "120-4/4")
-        tickExpectation.expectedFulfillmentCount = 4
+        tickExpectation?.expectedFulfillmentCount = 4
 
-        metronome?.tempo = Tempo(bpm: 120)
-        metronome?.timeSignature = TimeSignature(bits: 4, noteLength: 4)
+        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: 4), tempo: Tempo(bpm: 120))
+        metronome = Metronome(with: configuration)
+        metronome?.tickerDelegate = self
         metronome?.start()
 
-        wait(for: [tickExpectation].compactMap({ $0 }), timeout: 2)
+        wait(for: [tickExpectation!], timeout: 2.2)
     }
 
 
     func test90bpm44ts() {
         tickExpectation = expectation(description: "90-4/4")
-        tickExpectation.expectedFulfillmentCount = 3
+        tickExpectation?.expectedFulfillmentCount = 3
 
-        metronome?.tempo = Tempo(bpm: 90)
-        metronome?.timeSignature = TimeSignature(bits: 4, noteLength: 4)
+        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: 4), tempo: Tempo(bpm: 90))
+        metronome = Metronome(with: configuration)
+        metronome?.tickerDelegate = self
         metronome?.start()
 
-        wait(for: [tickExpectation].compactMap({ $0 }), timeout: 2)
+        wait(for: [tickExpectation!], timeout: 2)
     }
 
 
     func test60bpm44ts() {
         tickExpectation = expectation(description: "60-4/4")
-        tickExpectation.expectedFulfillmentCount = 2
+        tickExpectation?.expectedFulfillmentCount = 2
 
-        metronome?.tempo = Tempo(bpm: 60)
-        metronome?.timeSignature = TimeSignature(bits: 4, noteLength: 4)
+        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: 4), tempo: Tempo(bpm: 60))
+        metronome = Metronome(with: configuration)
+        metronome?.tickerDelegate = self
         metronome?.start()
 
-        wait(for: [tickExpectation].compactMap({ $0 }), timeout: 2)
+        wait(for: [tickExpectation!], timeout: 2)
     }
 
 
@@ -72,20 +68,29 @@ class MetronomeTests: XCTestCase {
 
     func test120bpm48ts() {
         tickExpectation = expectation(description: "120-4/8")
-        tickExpectation.expectedFulfillmentCount = 8
+        tickExpectation?.expectedFulfillmentCount = 8
 
-        metronome?.tempo = Tempo(bpm: 120)
-        metronome?.timeSignature = TimeSignature(bits: 4, noteLength: 8)
+        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: 8), tempo: Tempo(bpm: 120))
+        metronome = Metronome(with: configuration)
+        metronome?.tickerDelegate = self
         metronome?.start()
 
-        wait(for: [tickExpectation].compactMap({ $0 }), timeout: 2)
+        wait(for: [tickExpectation!], timeout: 2)
     }
 }
 
 
-extension MetronomeTests: MetronomeDelegate {
+extension MetronomeTests: MetronomeTickerDelegate {
 
-    func metronome(_ metronome: Metronome, didTick bit: Int) {
-        tickExpectation.fulfill()
+    func metronomeTickerDidStart(_ ticker: MetronomeTicker) {
+    }
+
+
+    func metronomeTickerDidReset(_ ticker: MetronomeTicker) {
+    }
+
+
+    func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
+        tickExpectation?.fulfill()
     }
 }
