@@ -16,7 +16,7 @@ struct Tempo {
     // MARK: Object life cycle
 
     init?(bpm: Int?) {
-        guard let bpm = bpm, bpm > 0, bpm < 200 else { return nil }
+        guard let bpm = bpm, bpm > 0 else { return nil }
         self.bpm = bpm
     }
 }
