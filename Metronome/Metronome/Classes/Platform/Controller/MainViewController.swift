@@ -11,7 +11,12 @@ import UIKit
 class MainViewController: UIViewController {
 
     private var metronomeViewController: MetronomeViewController?
+
+    private var tempoUpdaterGestureRecogniser: UIPanGestureRecognizer?
     private var tempoUpdaterViewController: TempoUpdaterViewController?
+
+    private var barLengthUpdaterGestureRecogniser: UIPanGestureRecognizer?
+    private var barLengthUpdaterViewController: TimeSignatureUpdaterViewController?
 
 
     // MARK: View life cycle
@@ -19,7 +24,7 @@ class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 6, noteLength: 8), tempo: Tempo.default)
+        let configuration = MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default)
         let metronomeViewController = MetronomeViewController(with: configuration)
         self.metronomeViewController = metronomeViewController
         addChildViewController(metronomeViewController, in: view)
@@ -32,8 +37,13 @@ class MainViewController: UIViewController {
         let tapGestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(toggle))
         view.addGestureRecognizer(tapGestureRecogniser)
 
-        let panGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(updateTempo(with:)))
-        view.addGestureRecognizer(panGestureRecogniser)
+        tempoUpdaterGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(updateBpm(with:)))
+        tempoUpdaterGestureRecogniser?.delegate = self
+        view.addGestureRecognizer(tempoUpdaterGestureRecogniser!)
+
+        barLengthUpdaterGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(updateBarLength(with:)))
+        barLengthUpdaterGestureRecogniser?.delegate = self
+        view.addGestureRecognizer(barLengthUpdaterGestureRecogniser!)
     }
 
 
@@ -44,7 +54,7 @@ class MainViewController: UIViewController {
     }
 
 
-    @objc private func updateTempo(with gestureRecogniser: UIPanGestureRecognizer) {
+    @objc private func updateBpm(with gestureRecogniser: UIPanGestureRecognizer) {
         switch gestureRecogniser.state {
         case .began:
             if let configuration = metronomeViewController?.getCurrentConfiguration() {
@@ -52,14 +62,36 @@ class MainViewController: UIViewController {
                 addChildViewController(tempoUpdaterViewController!, in: view)
             }
         case .changed:
-            tempoUpdaterViewController?.update(with: -gestureRecogniser.translation(in: view).y)
+            tempoUpdaterViewController?.updateBpm(with: -gestureRecogniser.translation(in: view).y)
         case .ended:
-            if let configuration = metronomeViewController?.getCurrentConfiguration(), let newTempo = tempoUpdaterViewController?.finalTempo {
+            if let configuration = metronomeViewController?.getCurrentConfiguration(), let newTempo = tempoUpdaterViewController?.tempo {
                 var newConfiguration = configuration
                 newConfiguration.tempo = newTempo
                 metronomeViewController?.setNewConfiguration(newConfiguration)
             }
             removeChildViewController(tempoUpdaterViewController)
+        default:
+            break
+        }
+    }
+
+
+    @objc private func updateBarLength(with gestureRecogniser: UIPanGestureRecognizer) {
+        switch gestureRecogniser.state {
+        case .began:
+            if let configuration = metronomeViewController?.getCurrentConfiguration() {
+                barLengthUpdaterViewController = TimeSignatureUpdaterViewController(timeSignature: configuration.timeSignature)
+                addChildViewController(barLengthUpdaterViewController!, in: view)
+            }
+        case .changed:
+            barLengthUpdaterViewController?.updateBarLength(with: gestureRecogniser.translation(in: view).x)
+        case .ended:
+            if let configuration = metronomeViewController?.getCurrentConfiguration(), let newTimeSignature = barLengthUpdaterViewController?.timeSignature {
+                var newConfiguration = configuration
+                newConfiguration.timeSignature = newTimeSignature
+                metronomeViewController?.setNewConfiguration(newConfiguration)
+            }
+            removeChildViewController(barLengthUpdaterViewController)
         default:
             break
         }
@@ -88,5 +120,19 @@ class MainViewController: UIViewController {
         viewController?.view.removeFromSuperview()
         viewController?.removeFromParent()
         viewController?.didMove(toParent: nil)
+    }
+}
+
+
+extension MainViewController: UIGestureRecognizerDelegate {
+
+    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
+        if let tempoUpdaterGestureRecogniser = tempoUpdaterGestureRecogniser, tempoUpdaterGestureRecogniser == gestureRecognizer {
+            return abs(tempoUpdaterGestureRecogniser.velocity(in: view).y) > abs(tempoUpdaterGestureRecogniser.velocity(in: view).x)
+        }
+        if let barLengthUpdaterGestureRecogniser = barLengthUpdaterGestureRecogniser, barLengthUpdaterGestureRecogniser == gestureRecognizer {
+            return abs(barLengthUpdaterGestureRecogniser.velocity(in: view).y) < abs(barLengthUpdaterGestureRecogniser.velocity(in: view).x)
+        }
+        return false
     }
 }

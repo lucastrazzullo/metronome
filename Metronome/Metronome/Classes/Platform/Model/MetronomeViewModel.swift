@@ -26,8 +26,8 @@ struct MetronomeViewModel {
 
     // MARK: Getters
 
-    var circles: [Int] {
-        return Array(0..<timeSignature.bits)
+    var bits: [BitViewModel] {
+        return Array(0..<timeSignature.bits).map({ BitViewModel(index: $0, label: String($0 + 1)) })
     }
 
 

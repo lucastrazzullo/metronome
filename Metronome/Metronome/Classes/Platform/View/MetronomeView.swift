@@ -24,13 +24,13 @@ struct MetronomeView: View {
                 Text(model.tempoLabel).font(Font.system(.headline)).foregroundColor(Color.blue)
             }.padding([.bottom], 24)
             HStack(alignment: .center, spacing: 40) {
-                ForEach(model.circles, id: \.self) { circle in
+                ForEach(model.bits, id: \.index) { bitViewModel in
                     ZStack {
-                        Text(String(circle)).font(Font.system(.caption)).foregroundColor(self.color(for: circle))
-                        Circle().stroke(self.color(for: circle), lineWidth: self.lineWidth(for: circle))
+                        Text(String(bitViewModel.label)).font(Font.system(.caption)).foregroundColor(self.color(for: bitViewModel.index))
+                        Circle().stroke(self.color(for: bitViewModel.index), lineWidth: self.lineWidth(for: bitViewModel.index))
                     }
                 }
-            }.padding([.trailing, .leading], 24)
+            }.padding(.all, 24)
         }
     }
 

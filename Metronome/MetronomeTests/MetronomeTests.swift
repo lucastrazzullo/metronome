@@ -29,7 +29,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation = expectation(description: "120-4/4")
         tickExpectation?.expectedFulfillmentCount = 4
 
-        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: 4), tempo: Tempo(bpm: 120)!)
+        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: .quarter)!, tempo: Tempo(bpm: 120)!)
         metronome = Metronome(with: configuration)
         metronome?.tickerDelegate = self
         metronome?.start()
@@ -42,7 +42,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation = expectation(description: "90-4/4")
         tickExpectation?.expectedFulfillmentCount = 3
 
-        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: 4), tempo: Tempo(bpm: 90)!)
+        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: .quarter)!, tempo: Tempo(bpm: 90)!)
         metronome = Metronome(with: configuration)
         metronome?.tickerDelegate = self
         metronome?.start()
@@ -55,7 +55,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation = expectation(description: "60-4/4")
         tickExpectation?.expectedFulfillmentCount = 2
 
-        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: 4), tempo: Tempo(bpm: 60)!)
+        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: .quarter)!, tempo: Tempo(bpm: 60)!)
         metronome = Metronome(with: configuration)
         metronome?.tickerDelegate = self
         metronome?.start()
@@ -70,7 +70,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation = expectation(description: "120-4/8")
         tickExpectation?.expectedFulfillmentCount = 8
 
-        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: 8), tempo: Tempo(bpm: 120)!)
+        let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: .eigth)!, tempo: Tempo(bpm: 120)!)
         metronome = Metronome(with: configuration)
         metronome?.tickerDelegate = self
         metronome?.start()

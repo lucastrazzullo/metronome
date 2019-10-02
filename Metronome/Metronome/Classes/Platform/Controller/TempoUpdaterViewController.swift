@@ -11,14 +11,14 @@ import SwiftUI
 class TempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
 
     private var initialTempo: Tempo
-    private(set) var finalTempo: Tempo
+    private(set) var tempo: Tempo
 
 
     // MARK: Object life cycle
 
     init(tempo: Tempo) {
-        initialTempo = tempo
-        finalTempo = tempo
+        self.initialTempo = tempo
+        self.tempo = tempo
         super.init(rootView: TempoUpdaterView(bpm: tempo.bpm))
     }
 
@@ -30,10 +30,10 @@ class TempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
 
     // MARK: Public methods
 
-    func update(with translation: CGFloat) {
-        if let newTempo = Tempo(bpm: initialTempo.bpm + (Int(translation)) / 8) {
+    func updateBpm(with offset: CGFloat) {
+        if let newTempo = Tempo(bpm: initialTempo.bpm + (Int(offset)) / 8) {
             rootView.bpm = newTempo.bpm
-            finalTempo = newTempo
+            tempo = newTempo
         }
     }
 }
