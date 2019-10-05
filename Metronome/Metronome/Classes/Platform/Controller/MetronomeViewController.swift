@@ -14,12 +14,14 @@ class MetronomeViewController: UIHostingController<MetronomeView>, MetronomeCont
 
     let metronome: Metronome
 
+    private let impactGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .soft)
+
 
     // MARK: Object life cycle
 
     init(with configuration: MetronomeConfiguration) {
         metronome = Metronome(with: configuration)
-        super.init(rootView: MetronomeView(model: MetronomeViewModel(timeSignature: configuration.timeSignature, tempo: configuration.tempo)))
+        super.init(rootView: MetronomeView(model: MetronomeViewModel(timeSignature: configuration.timeSignature)))
     }
 
 
@@ -52,7 +54,6 @@ extension MetronomeViewController: MetronomeDelegate {
 
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
         rootView.model.set(timesignature: configuration.timeSignature)
-        rootView.model.set(tempo: configuration.tempo)
     }
 }
 
@@ -73,5 +74,6 @@ extension MetronomeViewController: MetronomeTickerDelegate {
 
     func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
         rootView.model.set(currentBit: iteration)
+        impactGenerator.impactOccurred()
     }
 }

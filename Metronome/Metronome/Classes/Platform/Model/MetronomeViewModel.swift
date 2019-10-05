@@ -12,14 +12,12 @@ struct MetronomeViewModel {
 
     private var isRunning: Bool = false
     private var currentBit: Int?
-    private var tempo: Tempo
     private var timeSignature: TimeSignature
 
 
     // MARK: Object life cycle
 
-    init(timeSignature: TimeSignature, tempo: Tempo) {
-        self.tempo = tempo
+    init(timeSignature: TimeSignature) {
         self.timeSignature = timeSignature
     }
 
@@ -33,16 +31,6 @@ struct MetronomeViewModel {
 
     var currentCircleIndex: Int? {
         return currentBit != nil ? currentBit! - 1 : nil
-    }
-
-
-    var toggleLabel: String {
-        return isRunning ? "Reset" : "Play"
-    }
-
-
-    var tempoLabel: String {
-        return "\(tempo.bpm) BPM"
     }
 
 
@@ -60,10 +48,5 @@ struct MetronomeViewModel {
 
     mutating func set(timesignature: TimeSignature) {
         self.timeSignature = timesignature
-    }
-
-
-    mutating func set(tempo: Tempo) {
-        self.tempo = tempo
     }
 }

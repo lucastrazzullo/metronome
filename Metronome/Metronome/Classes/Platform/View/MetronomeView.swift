@@ -19,38 +19,36 @@ struct MetronomeView: View {
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
-            VStack(alignment: .center, spacing: 0) {
-                Spacer()
-                Text(model.tempoLabel).font(Font.system(.headline)).foregroundColor(Color.blue)
-            }.padding([.bottom], 24)
-            HStack(alignment: .center, spacing: 40) {
+            HStack(alignment: .center, spacing: 1) {
                 ForEach(model.bits, id: \.index) { bitViewModel in
                     ZStack {
-                        Text(String(bitViewModel.label)).font(Font.system(.caption)).foregroundColor(self.color(for: bitViewModel.index))
-                        Circle().stroke(self.color(for: bitViewModel.index), lineWidth: self.lineWidth(for: bitViewModel.index))
+                        self.backgroundColor(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
+                        Text(String(bitViewModel.label))
+                            .font(Font.system(.largeTitle))
+                            .foregroundColor(self.foregroundColor(forBitAt: bitViewModel.index))
                     }
                 }
-            }.padding(.all, 24)
+            }
         }
     }
 
 
     // MARK: Private helper methods
 
-    private func color(for index: Int) -> Color {
+    private func backgroundColor(for index: Int) -> Color {
         if let currentIndex = model.currentCircleIndex, currentIndex == index {
-            return currentIndex == 0 ? Color.yellow : Color.blue
+            return Color.yellow
         } else {
-            return Color.white.opacity(0.2)
+            return Color.white.opacity(0.05)
         }
     }
 
 
-    private func lineWidth(for index: Int) -> CGFloat {
+    private func foregroundColor(forBitAt index: Int) -> Color {
         if let currentIndex = model.currentCircleIndex, currentIndex == index {
-            return 2
+            return Color.white
         } else {
-            return 1
+            return Color.white.opacity(0.1)
         }
     }
 }
