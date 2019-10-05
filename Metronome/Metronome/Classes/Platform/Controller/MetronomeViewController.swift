@@ -10,9 +10,9 @@ import UIKit
 import SwiftUI
 import Combine
 
-class MetronomeViewController: UIHostingController<MetronomeView> {
+class MetronomeViewController: UIHostingController<MetronomeView>, MetronomeController {
 
-    private let metronome: Metronome
+    let metronome: Metronome
 
 
     // MARK: Object life cycle
@@ -44,27 +44,6 @@ class MetronomeViewController: UIHostingController<MetronomeView> {
         metronome.reset()
         metronome.delegate = nil
         metronome.tickerDelegate = nil
-    }
-
-
-    // MARK: Public methods
-
-    func toggle() {
-        if metronome.isRunning {
-            metronome.reset()
-        } else {
-            metronome.start()
-        }
-    }
-
-
-    func getCurrentConfiguration() -> MetronomeConfiguration {
-        return metronome.configuration
-    }
-
-
-    func setNewConfiguration(_ configuration: MetronomeConfiguration) {
-        metronome.update(with: configuration)
     }
 }
 
