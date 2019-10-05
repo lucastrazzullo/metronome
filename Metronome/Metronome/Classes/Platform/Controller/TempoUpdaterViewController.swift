@@ -30,8 +30,8 @@ class TempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
 
     // MARK: Public methods
 
-    func updateBpm(with offset: CGFloat) {
-        if let newTempo = Tempo(bpm: initialTempo.bpm + (Int(offset)) / 8) {
+    func updateBpm(with offset: Int) {
+        if let newTempo = Tempo(bpm: initialTempo.bpm + offset) {
             rootView.bpm = newTempo.bpm
             tempo = newTempo
         }

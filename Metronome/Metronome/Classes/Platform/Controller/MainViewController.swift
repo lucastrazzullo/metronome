@@ -16,7 +16,8 @@ class MainViewController: UIViewController {
     private var tempoUpdaterViewController: TempoUpdaterViewController?
 
     private var barLengthUpdaterGestureRecogniser: UIPanGestureRecognizer?
-    private var barLengthUpdaterViewController: TimeSignatureUpdaterViewController?
+    private var noteLengthUpdaterGestureRecogniser: UIPinchGestureRecognizer?
+    private var timeSignatureUpdaterViewController: TimeSignatureUpdaterViewController?
 
 
     // MARK: View life cycle
@@ -39,11 +40,17 @@ class MainViewController: UIViewController {
 
         tempoUpdaterGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(updateBpm(with:)))
         tempoUpdaterGestureRecogniser?.delegate = self
+        tempoUpdaterGestureRecogniser?.minimumNumberOfTouches = 2
         view.addGestureRecognizer(tempoUpdaterGestureRecogniser!)
 
         barLengthUpdaterGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(updateBarLength(with:)))
         barLengthUpdaterGestureRecogniser?.delegate = self
+        barLengthUpdaterGestureRecogniser?.minimumNumberOfTouches = 2
         view.addGestureRecognizer(barLengthUpdaterGestureRecogniser!)
+
+        noteLengthUpdaterGestureRecogniser = UIPinchGestureRecognizer(target: self, action: #selector(updateNoteLength(with:)))
+        noteLengthUpdaterGestureRecogniser?.delegate = self
+        view.addGestureRecognizer(noteLengthUpdaterGestureRecogniser!)
     }
 
 
@@ -62,7 +69,7 @@ class MainViewController: UIViewController {
                 addChildViewController(tempoUpdaterViewController!, in: view)
             }
         case .changed:
-            tempoUpdaterViewController?.updateBpm(with: -gestureRecogniser.translation(in: view).y)
+            tempoUpdaterViewController?.updateBpm(with: Int(-gestureRecogniser.translation(in: view).y / 8))
         case .ended:
             if let configuration = metronomeViewController?.getCurrentConfiguration(), let newTempo = tempoUpdaterViewController?.tempo {
                 var newConfiguration = configuration
@@ -80,18 +87,40 @@ class MainViewController: UIViewController {
         switch gestureRecogniser.state {
         case .began:
             if let configuration = metronomeViewController?.getCurrentConfiguration() {
-                barLengthUpdaterViewController = TimeSignatureUpdaterViewController(timeSignature: configuration.timeSignature)
-                addChildViewController(barLengthUpdaterViewController!, in: view)
+                timeSignatureUpdaterViewController = TimeSignatureUpdaterViewController(timeSignature: configuration.timeSignature)
+                addChildViewController(timeSignatureUpdaterViewController!, in: view)
             }
         case .changed:
-            barLengthUpdaterViewController?.updateBarLength(with: gestureRecogniser.translation(in: view).x)
+            timeSignatureUpdaterViewController?.updateBarLength(with: Int(gestureRecogniser.translation(in: view).x))
         case .ended:
-            if let configuration = metronomeViewController?.getCurrentConfiguration(), let newTimeSignature = barLengthUpdaterViewController?.timeSignature {
+            if let configuration = metronomeViewController?.getCurrentConfiguration(), let newTimeSignature = timeSignatureUpdaterViewController?.timeSignature {
                 var newConfiguration = configuration
                 newConfiguration.timeSignature = newTimeSignature
                 metronomeViewController?.setNewConfiguration(newConfiguration)
             }
-            removeChildViewController(barLengthUpdaterViewController)
+            removeChildViewController(timeSignatureUpdaterViewController)
+        default:
+            break
+        }
+    }
+
+
+    @objc private func updateNoteLength(with gestureRecogniser: UIPinchGestureRecognizer) {
+        switch gestureRecogniser.state {
+        case .began:
+            if let configuration = metronomeViewController?.getCurrentConfiguration() {
+                timeSignatureUpdaterViewController = TimeSignatureUpdaterViewController(timeSignature: configuration.timeSignature)
+                addChildViewController(timeSignatureUpdaterViewController!, in: view)
+            }
+        case .changed:
+            timeSignatureUpdaterViewController?.updateNoteLength(with: (Int(round(gestureRecogniser.scale * 10)) - 10) / 2)
+        case .ended:
+            if let configuration = metronomeViewController?.getCurrentConfiguration(), let newTimeSignature = timeSignatureUpdaterViewController?.timeSignature {
+                var newConfiguration = configuration
+                newConfiguration.timeSignature = newTimeSignature
+                metronomeViewController?.setNewConfiguration(newConfiguration)
+            }
+            removeChildViewController(timeSignatureUpdaterViewController)
         default:
             break
         }
@@ -132,6 +161,9 @@ extension MainViewController: UIGestureRecognizerDelegate {
         }
         if let barLengthUpdaterGestureRecogniser = barLengthUpdaterGestureRecogniser, barLengthUpdaterGestureRecogniser == gestureRecognizer {
             return abs(barLengthUpdaterGestureRecogniser.velocity(in: view).y) < abs(barLengthUpdaterGestureRecogniser.velocity(in: view).x)
+        }
+        if let noteLengthUpdaterGestureRecogniser = noteLengthUpdaterGestureRecogniser, noteLengthUpdaterGestureRecogniser == gestureRecognizer {
+            return true
         }
         return false
     }

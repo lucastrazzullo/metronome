@@ -10,7 +10,7 @@ import Foundation
 
 struct TimeSignature {
 
-    enum NoteLength: Int {
+    enum NoteLength: Int, CaseIterable {
         case full = 1
         case half = 2
         case quarter = 4
