@@ -94,6 +94,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		81265BEB234910D8001648E1 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				81811B5C2348B4E200C06204 /* MetronomeController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		81FAF02223427ED1004A8C51 = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +146,7 @@
 			children = (
 				81FAF05723427F65004A8C51 /* Entities */,
 				81FAF05423427F48004A8C51 /* Application */,
+				81265BEB234910D8001648E1 /* Controllers */,
 				81FAF05123427EF3004A8C51 /* Platform */,
 			);
 			path = Classes;
@@ -176,10 +185,9 @@
 		81FAF05423427F48004A8C51 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				81FAF06823436475004A8C51 /* MetronomeConfiguration.swift */,
 				819E341A2343678700D56E92 /* MetronomeTicker.swift */,
+				81FAF06823436475004A8C51 /* MetronomeConfiguration.swift */,
 				81FAF05523427F52004A8C51 /* Metronome.swift */,
-				81811B5C2348B4E200C06204 /* MetronomeController.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";

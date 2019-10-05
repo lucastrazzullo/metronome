@@ -21,7 +21,7 @@ class MetronomeViewController: UIHostingController<MetronomeView>, MetronomeCont
 
     init(with configuration: MetronomeConfiguration) {
         metronome = Metronome(with: configuration)
-        super.init(rootView: MetronomeView(model: MetronomeViewModel(timeSignature: configuration.timeSignature)))
+        super.init(rootView: MetronomeView(model: MetronomeViewModel(configuration: configuration)))
     }
 
 

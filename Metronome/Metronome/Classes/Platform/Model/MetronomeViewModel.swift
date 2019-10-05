@@ -12,25 +12,36 @@ struct MetronomeViewModel {
 
     private var isRunning: Bool = false
     private var currentBit: Int?
-    private var timeSignature: TimeSignature
+
+    private var configuration: MetronomeConfiguration
 
 
     // MARK: Object life cycle
 
-    init(timeSignature: TimeSignature) {
-        self.timeSignature = timeSignature
+    init(configuration: MetronomeConfiguration) {
+        self.configuration = configuration
     }
 
 
     // MARK: Getters
 
     var bits: [BitViewModel] {
-        return Array(0..<timeSignature.bits).map({ BitViewModel(index: $0, label: String($0 + 1)) })
+        return Array(0..<configuration.timeSignature.bits).map({ BitViewModel(index: $0, label: String($0 + 1)) })
     }
 
 
     var currentCircleIndex: Int? {
         return currentBit != nil ? currentBit! - 1 : nil
+    }
+
+
+    var timeSignatureLabel: String {
+        return "\(configuration.timeSignature.bits)/\(configuration.timeSignature.noteLength.rawValue)"
+    }
+
+
+    var tempoLabel: String {
+        return "\(configuration.tempo.bpm)BPM"
     }
 
 
@@ -47,6 +58,6 @@ struct MetronomeViewModel {
 
 
     mutating func set(timesignature: TimeSignature) {
-        self.timeSignature = timesignature
+        self.configuration.timeSignature = timesignature
     }
 }

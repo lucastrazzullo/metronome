@@ -29,6 +29,16 @@ struct MetronomeView: View {
                     }
                 }
             }
+            VStack {
+                Spacer()
+                ZStack {
+                    HStack(alignment: .center, spacing: 24) {
+                        Text(model.timeSignatureLabel)
+                        Text(model.tempoLabel)
+                        Spacer()
+                    }.foregroundColor(Color.white.opacity(0.7))
+                }.frame(width: nil, height: 40, alignment: .center)
+            }.padding(0)
         }
     }
 

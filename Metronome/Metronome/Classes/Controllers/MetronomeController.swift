@@ -12,7 +12,6 @@ protocol MetronomeController: AnyObject {
     var metronome: Metronome { get }
 
     func toggle()
-
     func updateTempo(_ tempo: Tempo?)
     func updateTimeSignature(_ timeSignature: TimeSignature?)
 }
