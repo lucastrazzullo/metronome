@@ -31,9 +31,7 @@ class TempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
     // MARK: Public methods
 
     func updateBpm(with offset: Int) {
-        if let newTempo = Tempo(bpm: initialTempo.bpm + offset) {
-            rootView.bpm = newTempo.bpm
-            tempo = newTempo
-        }
+        tempo = Tempo(bpm: initialTempo.bpm + offset)
+        rootView.bpm = tempo.bpm
     }
 }

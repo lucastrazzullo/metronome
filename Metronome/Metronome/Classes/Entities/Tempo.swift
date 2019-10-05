@@ -15,9 +15,8 @@ struct Tempo {
 
     // MARK: Object life cycle
 
-    init?(bpm: Int?) {
-        guard let bpm = bpm, bpm > 0 else { return nil }
-        self.bpm = bpm
+    init(bpm: Int) {
+        self.bpm = max(1, bpm)
     }
 }
 
@@ -25,6 +24,6 @@ struct Tempo {
 extension Tempo {
 
     static var `default`: Tempo {
-        return Tempo(bpm: 120)!
+        return Tempo(bpm: 120)
     }
 }

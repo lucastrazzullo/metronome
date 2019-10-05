@@ -27,9 +27,8 @@ struct TimeSignature {
 
     // MARK: Object life cycle
 
-    init?(bits: Int, noteLength: NoteLength) {
-        guard bits > 1 else { return nil }
-        self.bits = bits
+    init(bits: Int, noteLength: NoteLength) {
+        self.bits = max(1, bits)
         self.noteLength = noteLength
     }
 }
@@ -38,6 +37,6 @@ struct TimeSignature {
 extension TimeSignature {
 
     static var `default`: TimeSignature {
-        return TimeSignature(bits: 4, noteLength: .quarter)!
+        return TimeSignature(bits: 4, noteLength: .quarter)
     }
 }

@@ -31,18 +31,16 @@ class TimeSignatureUpdaterViewController: UIHostingController<BarLengthUpdaterVi
     // MARK: Public methods
 
     func updateBarLength(with offset: Int) {
-        if let newTimeSignature = TimeSignature(bits: initialTimeSignature.bits + (offset / 32), noteLength: initialTimeSignature.noteLength) {
-            rootView.timeSignature = newTimeSignature
-            timeSignature = newTimeSignature
-        }
+        timeSignature = TimeSignature(bits: initialTimeSignature.bits + (offset / 32), noteLength: initialTimeSignature.noteLength)
+        rootView.timeSignature = timeSignature
     }
 
 
     func updateNoteLength(with offset: Int) {
         let noteLengths = TimeSignature.NoteLength.allCases
-        if let currentIndex = noteLengths.firstIndex(of: initialTimeSignature.noteLength), currentIndex + offset >= 0, currentIndex + offset < noteLengths.count , let newTimeSignature = TimeSignature(bits: initialTimeSignature.bits, noteLength: noteLengths[currentIndex + offset]) {
-            rootView.timeSignature = newTimeSignature
-            timeSignature = newTimeSignature
+        if let currentIndex = noteLengths.firstIndex(of: initialTimeSignature.noteLength), currentIndex + offset >= 0, currentIndex + offset < noteLengths.count {
+            timeSignature = TimeSignature(bits: initialTimeSignature.bits, noteLength: noteLengths[currentIndex + offset])
+            rootView.timeSignature = timeSignature
         }
     }
 }
