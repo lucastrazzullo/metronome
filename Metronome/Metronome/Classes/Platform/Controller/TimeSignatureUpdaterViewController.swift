@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class TimeSignatureUpdaterViewController: UIHostingController<BarLengthUpdaterView> {
+class TimeSignatureUpdaterViewController: UIHostingController<TimeSignatureUpdaterView> {
 
     private var initialTimeSignature: TimeSignature
     private(set) var timeSignature: TimeSignature
@@ -19,7 +19,7 @@ class TimeSignatureUpdaterViewController: UIHostingController<BarLengthUpdaterVi
     init(timeSignature: TimeSignature) {
         self.initialTimeSignature = timeSignature
         self.timeSignature = timeSignature
-        super.init(rootView: BarLengthUpdaterView(timeSignature: timeSignature))
+        super.init(rootView: TimeSignatureUpdaterView(timeSignature: timeSignature))
     }
 
 
@@ -33,6 +33,7 @@ class TimeSignatureUpdaterViewController: UIHostingController<BarLengthUpdaterVi
     func updateBarLength(with offset: Int) {
         timeSignature = TimeSignature(bits: initialTimeSignature.bits + (offset / 32), noteLength: initialTimeSignature.noteLength)
         rootView.timeSignature = timeSignature
+        rootView.color = .red
     }
 
 
@@ -41,6 +42,7 @@ class TimeSignatureUpdaterViewController: UIHostingController<BarLengthUpdaterVi
         if let currentIndex = noteLengths.firstIndex(of: initialTimeSignature.noteLength), currentIndex + offset >= 0, currentIndex + offset < noteLengths.count {
             timeSignature = TimeSignature(bits: initialTimeSignature.bits, noteLength: noteLengths[currentIndex + offset])
             rootView.timeSignature = timeSignature
+            rootView.color = .orange
         }
     }
 }

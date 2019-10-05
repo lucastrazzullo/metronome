@@ -1,5 +1,5 @@
 //
-//  BarLengthUpdaterView.swift
+//  TimeSignatureUpdaterView.swift
 //  Metronome
 //
 //  Created by luca strazzullo on 2/10/19.
@@ -8,13 +8,14 @@
 
 import SwiftUI
 
-struct BarLengthUpdaterView: View {
+struct TimeSignatureUpdaterView: View {
 
     var timeSignature: TimeSignature
+    var color: Color = .orange
 
     var body: some View {
         ZStack {
-            Color.purple.edgesIgnoringSafeArea(.all)
+            color.edgesIgnoringSafeArea(.all)
             Text("\(timeSignature.bits)/\(timeSignature.noteLength.rawValue)").font(Font.system(.largeTitle))
         }
     }

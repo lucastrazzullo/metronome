@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftUI
-import Combine
+import AVFoundation
 
 class MetronomeViewController: UIHostingController<MetronomeView>, MetronomeController {
 
