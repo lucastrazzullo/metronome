@@ -12,6 +12,7 @@ protocol MetronomeController: AnyObject {
     var metronome: Metronome { get }
 
     func toggle()
+    func reset()
     func updateTempo(_ tempo: Tempo?)
     func updateTimeSignature(_ timeSignature: TimeSignature?)
 }
@@ -51,5 +52,10 @@ extension MetronomeController {
         } else {
             metronome.start()
         }
+    }
+
+
+    func reset() {
+        metronome.reset()
     }
 }

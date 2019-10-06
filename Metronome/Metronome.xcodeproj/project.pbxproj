@@ -11,6 +11,9 @@
 		8166679423439D2B002DC01A /* TempoUpdaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8166679323439D2B002DC01A /* TempoUpdaterViewController.swift */; };
 		8166679623439D42002DC01A /* TempoUpdaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8166679523439D42002DC01A /* TempoUpdaterView.swift */; };
 		8166679823451E7F002DC01A /* TimeSignatureUpdaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */; };
+		8169CFAC234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8169CFAB234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift */; };
+		8169CFAE234A7F57009EFB1C /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8169CFAD234A7F57009EFB1C /* HelpViewController.swift */; };
+		8169CFB0234A7F71009EFB1C /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8169CFAF234A7F71009EFB1C /* HelpView.swift */; };
 		81811B592348B1F600C06204 /* GestureMetronomePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81811B582348B1F600C06204 /* GestureMetronomePlayerViewController.swift */; };
 		81811B5B2348B29D00C06204 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81811B5A2348B29D00C06204 /* ContainerViewController.swift */; };
 		81811B5D2348B4E200C06204 /* MetronomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81811B5C2348B4E200C06204 /* MetronomeController.swift */; };
@@ -49,6 +52,9 @@
 		8166679323439D2B002DC01A /* TempoUpdaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoUpdaterViewController.swift; sourceTree = "<group>"; };
 		8166679523439D42002DC01A /* TempoUpdaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoUpdaterView.swift; sourceTree = "<group>"; };
 		8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignatureUpdaterViewController.swift; sourceTree = "<group>"; };
+		8169CFAB234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIForceTapGestureRecogniser.swift; sourceTree = "<group>"; };
+		8169CFAD234A7F57009EFB1C /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		8169CFAF234A7F71009EFB1C /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
 		81811B582348B1F600C06204 /* GestureMetronomePlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureMetronomePlayerViewController.swift; sourceTree = "<group>"; };
 		81811B5A2348B29D00C06204 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		81811B5C2348B4E200C06204 /* MetronomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeController.swift; sourceTree = "<group>"; };
@@ -204,12 +210,14 @@
 		81FAF05C234299D4004A8C51 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				8169CFAB234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift */,
 				81811B5A2348B29D00C06204 /* ContainerViewController.swift */,
 				81FAF03223427ED1004A8C51 /* MainViewController.swift */,
 				81FAF06023429A24004A8C51 /* MetronomeViewController.swift */,
 				81811B582348B1F600C06204 /* GestureMetronomePlayerViewController.swift */,
 				8166679323439D2B002DC01A /* TempoUpdaterViewController.swift */,
 				8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */,
+				8169CFAD234A7F57009EFB1C /* HelpViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -220,6 +228,7 @@
 				81FAF05E23429A00004A8C51 /* MetronomeView.swift */,
 				8166679523439D42002DC01A /* TempoUpdaterView.swift */,
 				81C0B37E23492DB700D01072 /* TimeSignatureUpdaterView.swift */,
+				8169CFAF234A7F71009EFB1C /* HelpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -336,10 +345,13 @@
 			files = (
 				8166679823451E7F002DC01A /* TimeSignatureUpdaterViewController.swift in Sources */,
 				81811B5D2348B4E200C06204 /* MetronomeController.swift in Sources */,
+				8169CFAC234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift in Sources */,
 				81FAF06723435823004A8C51 /* MetronomeViewModel.swift in Sources */,
 				819E341B2343678700D56E92 /* MetronomeTicker.swift in Sources */,
+				8169CFB0234A7F71009EFB1C /* HelpView.swift in Sources */,
 				81FAF05623427F52004A8C51 /* Metronome.swift in Sources */,
 				81FAF03323427ED1004A8C51 /* MainViewController.swift in Sources */,
+				8169CFAE234A7F57009EFB1C /* HelpViewController.swift in Sources */,
 				81FAF05923427F6F004A8C51 /* TimeSignature.swift in Sources */,
 				81811B592348B1F600C06204 /* GestureMetronomePlayerViewController.swift in Sources */,
 				81FAF05F23429A00004A8C51 /* MetronomeView.swift in Sources */,
