@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="14868" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="KdS-mI-kpo">
+    <device id="watch38"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="14643"/>
+    </dependencies>
+    <scenes>
+        <!--Metronome View Controller-->
+        <scene sceneID="6Bq-Mq-bnO">
+            <objects>
+                <hostingController fullScreen="YES" id="KdS-mI-kpo" customClass="MetronomeViewController" customModule="Metronome_Watch_WatchKit_Extension"/>
+            </objects>
+            <point key="canvasLocation" x="83" y="150"/>
+        </scene>
+    </scenes>
+</document>

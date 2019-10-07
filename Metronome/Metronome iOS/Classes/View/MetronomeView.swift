@@ -46,7 +46,7 @@ struct MetronomeView: View {
     // MARK: Private helper methods
 
     private func backgroundColor(for index: Int) -> Color {
-        if let currentIndex = model.currentCircleIndex, currentIndex == index {
+        if let currentIndex = model.currentBitIndex, currentIndex == index {
             return Color.yellow
         } else {
             return Color.white.opacity(0.05)
@@ -55,7 +55,7 @@ struct MetronomeView: View {
 
 
     private func foregroundColor(forBitAt index: Int) -> Color {
-        if let currentIndex = model.currentCircleIndex, currentIndex == index {
+        if let currentIndex = model.currentBitIndex, currentIndex == index {
             return Color.white
         } else {
             return Color.white.opacity(0.1)

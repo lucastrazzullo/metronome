@@ -53,6 +53,7 @@ class MetronomeViewController: UIHostingController<MetronomeView>, MetronomeCont
 extension MetronomeViewController: MetronomeDelegate {
 
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
+        rootView.model.set(tempo: configuration.tempo)
         rootView.model.set(timesignature: configuration.timeSignature)
     }
 }

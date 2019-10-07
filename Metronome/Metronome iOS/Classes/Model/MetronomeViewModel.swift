@@ -30,7 +30,7 @@ struct MetronomeViewModel {
     }
 
 
-    var currentCircleIndex: Int? {
+    var currentBitIndex: Int? {
         return currentBit != nil ? currentBit! - 1 : nil
     }
 
@@ -54,6 +54,11 @@ struct MetronomeViewModel {
 
     mutating func set(currentBit: Int?) {
         self.currentBit = currentBit
+    }
+
+
+    mutating func set(tempo: Tempo) {
+        self.configuration.tempo = tempo
     }
 
 
