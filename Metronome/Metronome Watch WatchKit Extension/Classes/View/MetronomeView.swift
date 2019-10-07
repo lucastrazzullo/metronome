@@ -7,17 +7,21 @@
 //
 
 import SwiftUI
+import Combine
 
 struct MetronomeView: View {
 
-    var model: MetronomeViewModel
+    @ObservedObject var observed: ObservableMetronome<MetronomeViewModel>
+
+
+    // MARK: Body
 
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             VStack(alignment: .center, spacing: 12) {
                 HStack(alignment: .center, spacing: 1) {
-                    ForEach(model.bits, id: \.index) { bitViewModel in
+                    ForEach(observed.snapshot.bits, id: \.index) { bitViewModel in
                         ZStack {
                             self.backgroundColor(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
                             Text(String(bitViewModel.label))
@@ -27,10 +31,12 @@ struct MetronomeView: View {
                     }
                 }
                 HStack(alignment: .center, spacing: 24) {
-                    Text(model.timeSignatureLabel).font(Font.system(.footnote))
-                    Text(model.tempoLabel).font(Font.system(.footnote))
+                    Text(observed.snapshot.timeSignatureLabel).font(Font.system(.footnote))
+                    Text(observed.snapshot.tempoLabel).font(Font.system(.footnote))
                 }.foregroundColor(Color.white.opacity(0.7))
-                Button(action: {}, label: { return Text(self.model.toggleLabel) })
+                Button(action: { self.observed.toggle() }, label: {
+                    return Text(self.observed.snapshot.toggleLabel)
+                })
             }
         }
     }
@@ -39,7 +45,7 @@ struct MetronomeView: View {
     // MARK: Private helper methods
 
     private func backgroundColor(for index: Int) -> Color {
-        if let currentIndex = model.currentBitIndex, currentIndex == index {
+        if observed.snapshot.currentBitIndex == index {
             return Color.yellow
         } else {
             return Color.white.opacity(0.05)
@@ -48,7 +54,7 @@ struct MetronomeView: View {
 
 
     private func foregroundColor(forBitAt index: Int) -> Color {
-        if let currentIndex = model.currentBitIndex, currentIndex == index {
+        if observed.snapshot.currentBitIndex == index {
             return Color.white
         } else {
             return Color.white.opacity(0.1)

@@ -8,19 +8,22 @@
 
 import WatchKit
 import SwiftUI
+import Combine
 
 class MetronomeViewController: WKHostingController<MetronomeView> {
 
-    private var metronome: Metronome
-    private var rootView: MetronomeView
+    private let observableMetronome: ObservableMetronome<MetronomeViewModel>
+    private var observer: Cancellable?
+
+    private let rootView: MetronomeView
 
 
     // MARK: Object life cycle
 
     override init() {
-        let configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
-        metronome = Metronome(with: configuration)
-        rootView = MetronomeView(model: MetronomeViewModel(configuration: configuration))
+        let configuration = MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default)
+        observableMetronome = ObservableMetronome<MetronomeViewModel>(with: configuration)
+        rootView = MetronomeView(observed: observableMetronome)
         super.init()
     }
 
@@ -29,20 +32,21 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        metronome.delegate = self
-        metronome.tickerDelegate = self
+        observer = observableMetronome.$snapshot.sink { [weak self] value in
+            if value?.currentIteration != self?.rootView.observed.snapshot.currentIteration {
+                WKInterfaceDevice.current().play(WKHapticType.start)
+            }
+        }
     }
 
 
     override func willActivate() {
-        metronome.start()
         WKExtension.shared().isAutorotating = true
         super.willActivate()
     }
 
 
     override func didDeactivate() {
-        metronome.reset()
         WKExtension.shared().isAutorotating = false
         super.didDeactivate()
     }
@@ -52,37 +56,5 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
     override var body: MetronomeView {
         return rootView
-    }
-}
-
-
-extension MetronomeViewController: MetronomeDelegate {
-
-    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
-        rootView.model.set(tempo: configuration.tempo)
-        rootView.model.set(timesignature: configuration.timeSignature)
-        setNeedsBodyUpdate()
-    }
-}
-
-
-extension MetronomeViewController: MetronomeTickerDelegate {
-
-    func metronomeTickerDidStart(_ ticker: MetronomeTicker) {
-        rootView.model.set(isRunning: true)
-        setNeedsBodyUpdate()
-    }
-
-
-    func metronomeTickerDidReset(_ ticker: MetronomeTicker) {
-        rootView.model.set(isRunning: false)
-        setNeedsBodyUpdate()
-    }
-
-
-    func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
-        rootView.model.set(currentBit: iteration)
-        setNeedsBodyUpdate()
-        WKInterfaceDevice.current().play(WKHapticType.start)
     }
 }
