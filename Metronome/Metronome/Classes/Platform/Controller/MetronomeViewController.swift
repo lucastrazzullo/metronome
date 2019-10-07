@@ -63,12 +63,14 @@ extension MetronomeViewController: MetronomeTickerDelegate {
     func metronomeTickerDidStart(_ ticker: MetronomeTicker) {
         rootView.model.set(isRunning: true)
         rootView.model.set(currentBit: nil)
+        UIApplication.shared.isIdleTimerDisabled = true
     }
 
 
     func metronomeTickerDidReset(_ ticker: MetronomeTicker) {
         rootView.model.set(isRunning: false)
         rootView.model.set(currentBit: nil)
+        UIApplication.shared.isIdleTimerDisabled = false
     }
 
 
