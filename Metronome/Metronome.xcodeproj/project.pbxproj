@@ -20,6 +20,7 @@
 		81919FB3234B4F220061571A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 81919FB2234B4F220061571A /* Localizable.strings */; };
 		81919FB5234B515C0061571A /* HelpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB4234B515C0061571A /* HelpViewModel.swift */; };
 		81919FB7234B51960061571A /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB6234B51960061571A /* TipViewModel.swift */; };
+		81919FBA234B58900061571A /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB9234B58900061571A /* ColorExtensions.swift */; };
 		819E341B2343678700D56E92 /* MetronomeTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E341A2343678700D56E92 /* MetronomeTicker.swift */; };
 		81BE0C0E2348C8B5000053C6 /* TempoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0D2348C8B5000053C6 /* TempoTests.swift */; };
 		81BE0C102348C926000053C6 /* TimeSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */; };
@@ -64,6 +65,7 @@
 		81919FB2234B4F220061571A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		81919FB4234B515C0061571A /* HelpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewModel.swift; sourceTree = "<group>"; };
 		81919FB6234B51960061571A /* TipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewModel.swift; sourceTree = "<group>"; };
+		81919FB9234B58900061571A /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		819E341A2343678700D56E92 /* MetronomeTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeTicker.swift; sourceTree = "<group>"; };
 		81BE0C0D2348C8B5000053C6 /* TempoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoTests.swift; sourceTree = "<group>"; };
 		81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignatureTests.swift; sourceTree = "<group>"; };
@@ -122,6 +124,14 @@
 			path = String;
 			sourceTree = "<group>";
 		};
+		81919FB8234B58840061571A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				81919FB9234B58900061571A /* ColorExtensions.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		81FAF02223427ED1004A8C51 = {
 			isa = PBXGroup;
 			children = (
@@ -177,6 +187,7 @@
 			children = (
 				81FAF02E23427ED1004A8C51 /* AppDelegate.swift */,
 				81FAF03023427ED1004A8C51 /* SceneDelegate.swift */,
+				81919FB8234B58840061571A /* Extension */,
 				81FAF06523435816004A8C51 /* Model */,
 				81FAF05D234299DE004A8C51 /* View */,
 				81FAF05C234299D4004A8C51 /* Controller */,
@@ -362,6 +373,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8166679823451E7F002DC01A /* TimeSignatureUpdaterViewController.swift in Sources */,
+				81919FBA234B58900061571A /* ColorExtensions.swift in Sources */,
 				81811B5D2348B4E200C06204 /* MetronomeController.swift in Sources */,
 				8169CFAC234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift in Sources */,
 				81FAF06723435823004A8C51 /* MetronomeViewModel.swift in Sources */,

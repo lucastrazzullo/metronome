@@ -14,7 +14,7 @@ struct TempoUpdaterView: View {
 
     var body: some View {
         ZStack {
-            Color.blue.edgesIgnoringSafeArea(.all)
+            Color.yellow.edgesIgnoringSafeArea(.all)
             Text("\(bpm)BPM").font(Font.system(.largeTitle))
         }
     }
