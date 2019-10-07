@@ -124,7 +124,6 @@
 		81249741234B61C00047F3E3 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		81249745234B61C00047F3E3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		81249747234B61C00047F3E3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		8124975D234B631A0047F3E3 /* Metronome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metronome.swift; sourceTree = "<group>"; };
 		8124977E234B68FF0047F3E3 /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
 		81249781234B6B630047F3E3 /* MetronomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeViewModel.swift; sourceTree = "<group>"; };
 		81249783234B6BCB0047F3E3 /* BitViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitViewModel.swift; sourceTree = "<group>"; };
@@ -222,14 +221,6 @@
 			path = Metronome;
 			sourceTree = "<group>";
 		};
-		8124975C234B631A0047F3E3 /* Metronome */ = {
-			isa = PBXGroup;
-			children = (
-				8124975D234B631A0047F3E3 /* Metronome.swift */,
-			);
-			path = Metronome;
-			sourceTree = "<group>";
-		};
 		8124977A234B65E80047F3E3 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -307,7 +298,6 @@
 				81FAF02D23427ED1004A8C51 /* Metronome iOS */,
 				8124972F234B61BF0047F3E3 /* Metronome Watch WatchKit App */,
 				8124973E234B61C00047F3E3 /* Metronome Watch WatchKit Extension */,
-				8124975C234B631A0047F3E3 /* Metronome */,
 				81FAF02C23427ED1004A8C51 /* Products */,
 			);
 			sourceTree = "<group>";
