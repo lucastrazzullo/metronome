@@ -58,6 +58,29 @@ class Metronome {
     }
 
 
+    func toggle() {
+        if isRunning { reset() } else { start() }
+    }
+
+
+    func updateTempo(_ tempo: Tempo?) {
+        guard let tempo = tempo else { return }
+        var configuration = self.configuration
+        configuration.tempo = tempo
+        update(with: configuration)
+    }
+
+
+    func updateTimeSignature(_ timeSignature: TimeSignature?) {
+        guard let timeSignature = timeSignature else { return }
+        var configuration = self.configuration
+        configuration.timeSignature = timeSignature
+        update(with: configuration)
+    }
+
+
+    // MARK: Private helper methods
+
     func update(with newConfiguration: MetronomeConfiguration) {
         configuration = newConfiguration
         delegate?.metronome(self, didUpdate: configuration)

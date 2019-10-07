@@ -6,20 +6,22 @@
 //  Copyright © 2019 luca strazzullo. All rights reserved.
 //
 
-import UIKit
 import SwiftUI
+import Combine
 
 class MetronomeViewController: UIHostingController<MetronomeView> {
 
-    private let metronomeController: ObservableMetronomeController<MetronomeViewModel>
+    private let observableMetronome: ObservableMetronome<MetronomeViewModel>
+    private var observer: Cancellable?
+
     private let impactGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .soft)
 
 
     // MARK: Object life cycle
 
-    init(with observableMetronomeController: ObservableMetronomeController<MetronomeViewModel>) {
-        metronomeController = observableMetronomeController
-        super.init(rootView: MetronomeView(observed: observableMetronomeController))
+    init(with observableMetronome: ObservableMetronome<MetronomeViewModel>) {
+        self.observableMetronome = observableMetronome
+        super.init(rootView: MetronomeView(observed: observableMetronome))
     }
 
 
@@ -30,27 +32,24 @@ class MetronomeViewController: UIHostingController<MetronomeView> {
 
     // MARK: View life cycle
 
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        observer = observableMetronome.$snapshot.sink(receiveValue: { [weak self] value in
+            if let isRunning = value?.isRunning, isRunning {
+                UIApplication.shared.isIdleTimerDisabled = true
+            } else {
+                UIApplication.shared.isIdleTimerDisabled = false
+            }
+            if value?.currentIteration != self?.rootView.observed.snapshot.currentIteration {
+                self?.impactGenerator.impactOccurred()
+            }
+        })
+    }
+
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        metronomeController.reset()
+        observableMetronome.reset()
+        observer?.cancel()
     }
 }
-
-
-//
-//extension MetronomeViewController: MetronomeTickerDelegate {
-//
-//    func metronomeTickerDidStart(_ ticker: MetronomeTicker) {
-//        UIApplication.shared.isIdleTimerDisabled = true
-//    }
-//
-//
-//    func metronomeTickerDidReset(_ ticker: MetronomeTicker) {
-//        UIApplication.shared.isIdleTimerDisabled = false
-//    }
-//
-//
-//    func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
-//        impactGenerator.impactOccurred()
-//    }
-//}

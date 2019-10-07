@@ -20,8 +20,7 @@ class MainViewController: UIViewController, ContainerViewController {
         super.viewDidLoad()
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default)
-        let metronome = Metronome(with: configuration)
-        let observableMetronome = ObservableMetronomeController<MetronomeViewModel>(metronome: metronome)
+        let observableMetronome = ObservableMetronome<MetronomeViewModel>(with: configuration)
 
         let metronomeViewController = MetronomeViewController(with: observableMetronome)
         self.metronomeViewController = metronomeViewController
