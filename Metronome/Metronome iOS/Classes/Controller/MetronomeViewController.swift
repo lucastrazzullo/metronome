@@ -8,20 +8,18 @@
 
 import UIKit
 import SwiftUI
-import AVFoundation
 
-class MetronomeViewController: UIHostingController<MetronomeView>, MetronomeController {
+class MetronomeViewController: UIHostingController<MetronomeView> {
 
-    let metronome: Metronome
-
+    private let metronomeController: ObservableMetronomeController<MetronomeViewModel>
     private let impactGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .soft)
 
 
     // MARK: Object life cycle
 
-    init(with configuration: MetronomeConfiguration) {
-        metronome = Metronome(with: configuration)
-        super.init(rootView: MetronomeView(model: MetronomeViewModel(configuration: configuration)))
+    init(with observableMetronomeController: ObservableMetronomeController<MetronomeViewModel>) {
+        metronomeController = observableMetronomeController
+        super.init(rootView: MetronomeView(observed: observableMetronomeController))
     }
 
 
@@ -32,51 +30,27 @@ class MetronomeViewController: UIHostingController<MetronomeView>, MetronomeCont
 
     // MARK: View life cycle
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-
-        metronome.delegate = self
-        metronome.tickerDelegate = self
-    }
-
-
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-
-        metronome.reset()
-        metronome.delegate = nil
-        metronome.tickerDelegate = nil
+        metronomeController.reset()
     }
 }
 
 
-extension MetronomeViewController: MetronomeDelegate {
-
-    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
-        rootView.model.set(tempo: configuration.tempo)
-        rootView.model.set(timesignature: configuration.timeSignature)
-    }
-}
-
-
-extension MetronomeViewController: MetronomeTickerDelegate {
-
-    func metronomeTickerDidStart(_ ticker: MetronomeTicker) {
-        rootView.model.set(isRunning: true)
-        rootView.model.set(currentBit: nil)
-        UIApplication.shared.isIdleTimerDisabled = true
-    }
-
-
-    func metronomeTickerDidReset(_ ticker: MetronomeTicker) {
-        rootView.model.set(isRunning: false)
-        rootView.model.set(currentBit: nil)
-        UIApplication.shared.isIdleTimerDisabled = false
-    }
-
-
-    func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
-        rootView.model.set(currentBit: iteration)
-        impactGenerator.impactOccurred()
-    }
-}
+//
+//extension MetronomeViewController: MetronomeTickerDelegate {
+//
+//    func metronomeTickerDidStart(_ ticker: MetronomeTicker) {
+//        UIApplication.shared.isIdleTimerDisabled = true
+//    }
+//
+//
+//    func metronomeTickerDidReset(_ ticker: MetronomeTicker) {
+//        UIApplication.shared.isIdleTimerDisabled = false
+//    }
+//
+//
+//    func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
+//        impactGenerator.impactOccurred()
+//    }
+//}

@@ -26,7 +26,7 @@ class MetronomeTicker {
 
     weak var delegate: MetronomeTickerDelegate?
 
-    private(set) var iteration: Int?
+    private(set) var iteration: Int = 0
     private var timer: Timer?
 
 
@@ -49,7 +49,7 @@ class MetronomeTicker {
     func reset() {
         timer?.invalidate()
         timer = nil
-        iteration = nil
+        iteration = 0
 
         delegate?.metronomeTickerDidReset(self)
     }
@@ -58,20 +58,19 @@ class MetronomeTicker {
     // MARK: Actions
 
     @objc private func didTick() {
-        iteration = nextIteration(with: (timer?.userInfo as? [String: Any])?[Keys.loopLength] as? Int)
+        iteration = nextIteration(with: (timer?.userInfo as! [String: Any])[Keys.loopLength] as! Int)
 
-        delegate?.metronomeTicker(self, didTick: iteration!)
+        delegate?.metronomeTicker(self, didTick: iteration)
     }
 
 
     // MARK: Private helper methods
 
-    private func nextIteration(with loopLength: Int?) -> Int {
-        guard let tickIteration = iteration else { return 1 }
-        guard let loopLength = loopLength else { return 1 }
+    private func nextIteration(with loopLength: Int) -> Int {
+        guard iteration > 0 else { return 1 }
 
-        if tickIteration < loopLength {
-            return tickIteration + 1
+        if iteration < loopLength {
+            return iteration + 1
         } else {
             return 1
         }

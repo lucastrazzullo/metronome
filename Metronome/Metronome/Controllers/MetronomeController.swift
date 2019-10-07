@@ -10,11 +10,6 @@ import UIKit
 
 protocol MetronomeController: AnyObject {
     var metronome: Metronome { get }
-
-    func toggle()
-    func reset()
-    func updateTempo(_ tempo: Tempo?)
-    func updateTimeSignature(_ timeSignature: TimeSignature?)
 }
 
 
@@ -27,6 +22,21 @@ extension MetronomeController {
 
     var timeSignature: TimeSignature {
         return metronome.configuration.timeSignature
+    }
+
+
+    func toggle() {
+        if metronome.isRunning { metronome.reset() } else { metronome.start() }
+    }
+
+
+    func start() {
+        metronome.start()
+    }
+
+
+    func reset() {
+        metronome.reset()
     }
 
 
@@ -43,19 +53,5 @@ extension MetronomeController {
         var configuration = metronome.configuration
         configuration.timeSignature = timeSignature
         metronome.update(with: configuration)
-    }
-
-
-    func toggle() {
-        if metronome.isRunning {
-            metronome.reset()
-        } else {
-            metronome.start()
-        }
-    }
-
-
-    func reset() {
-        metronome.reset()
     }
 }

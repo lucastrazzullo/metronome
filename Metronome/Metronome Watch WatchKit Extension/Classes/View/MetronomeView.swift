@@ -15,7 +15,7 @@ struct MetronomeView: View {
     var body: some View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
-            VStack(alignment: .center, spacing: 24) {
+            VStack(alignment: .center, spacing: 12) {
                 HStack(alignment: .center, spacing: 1) {
                     ForEach(model.bits, id: \.index) { bitViewModel in
                         ZStack {
@@ -30,6 +30,7 @@ struct MetronomeView: View {
                     Text(model.timeSignatureLabel).font(Font.system(.footnote))
                     Text(model.tempoLabel).font(Font.system(.footnote))
                 }.foregroundColor(Color.white.opacity(0.7))
+                Button(action: {}, label: { return Text(self.model.toggleLabel) })
             }
         }
     }

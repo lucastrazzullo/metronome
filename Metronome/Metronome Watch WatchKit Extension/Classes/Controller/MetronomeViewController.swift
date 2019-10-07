@@ -9,9 +9,9 @@
 import WatchKit
 import SwiftUI
 
-class MetronomeViewController: WKHostingController<MetronomeView>, MetronomeController {
+class MetronomeViewController: WKHostingController<MetronomeView> {
 
-    var metronome: Metronome
+    private var metronome: Metronome
     private var rootView: MetronomeView
 
 

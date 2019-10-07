@@ -27,7 +27,8 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
 
     // MARK: Object life cycle
 
-    init() {
+    init(with metronomeController: MetronomeController) {
+        self.metronomeController = metronomeController
         super.init(nibName: nil, bundle: nil)
     }
 

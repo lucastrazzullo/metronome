@@ -33,6 +33,11 @@ class Metronome {
     }
 
 
+    var currentIteration: Int {
+        return ticker.iteration
+    }
+
+
     // MARK: Object life cycle
 
     init(with configuration: MetronomeConfiguration) {

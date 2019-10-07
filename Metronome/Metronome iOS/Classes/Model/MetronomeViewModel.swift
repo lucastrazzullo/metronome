@@ -8,19 +8,11 @@
 
 import Foundation
 
-struct MetronomeViewModel {
+struct MetronomeViewModel: MetronomeSnapshot {
 
-    private var isRunning: Bool = false
-    private var currentBit: Int?
-
-    private var configuration: MetronomeConfiguration
-
-
-    // MARK: Object life cycle
-
-    init(configuration: MetronomeConfiguration) {
-        self.configuration = configuration
-    }
+    var configuration: MetronomeConfiguration
+    var isRunning: Bool
+    var currentIteration: Int
 
 
     // MARK: Getters
@@ -30,8 +22,8 @@ struct MetronomeViewModel {
     }
 
 
-    var currentBitIndex: Int? {
-        return currentBit != nil ? currentBit! - 1 : nil
+    var currentBitIndex: Int {
+        return currentIteration - 1
     }
 
 
@@ -42,27 +34,5 @@ struct MetronomeViewModel {
 
     var tempoLabel: String {
         return "\(configuration.tempo.bpm)BPM"
-    }
-
-
-    // MARK: Mutating methods
-
-    mutating func set(isRunning: Bool) {
-        self.isRunning = isRunning
-    }
-
-
-    mutating func set(currentBit: Int?) {
-        self.currentBit = currentBit
-    }
-
-
-    mutating func set(tempo: Tempo) {
-        self.configuration.tempo = tempo
-    }
-
-
-    mutating func set(timesignature: TimeSignature) {
-        self.configuration.timeSignature = timesignature
     }
 }

@@ -45,6 +45,11 @@ struct MetronomeViewModel {
     }
 
 
+    var toggleLabel: String {
+        return isRunning ? "Reset" : "Start"
+    }
+
+
     // MARK: Mutating methods
 
     mutating func set(isRunning: Bool) {

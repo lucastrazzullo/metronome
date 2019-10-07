@@ -6,12 +6,12 @@
 //  Copyright © 2019 luca strazzullo. All rights reserved.
 //
 
-import UIKit
 import SwiftUI
+import Combine
 
 struct MetronomeView: View {
 
-    var model: MetronomeViewModel
+    @ObservedObject var observed: ObservableMetronome<MetronomeViewModel>
 
 
     // MARK: Body
@@ -20,7 +20,7 @@ struct MetronomeView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             HStack(alignment: .center, spacing: 1) {
-                ForEach(model.bits, id: \.index) { bitViewModel in
+                ForEach(observed.snapshot.bits, id: \.index) { bitViewModel in
                     ZStack {
                         self.backgroundColor(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
                         Text(String(bitViewModel.label))
@@ -33,8 +33,8 @@ struct MetronomeView: View {
                 Spacer()
                 ZStack {
                     HStack(alignment: .center, spacing: 24) {
-                        Text(model.timeSignatureLabel)
-                        Text(model.tempoLabel)
+                        Text(observed.snapshot.timeSignatureLabel)
+                        Text(observed.snapshot.tempoLabel)
                         Spacer()
                     }.foregroundColor(Color.white.opacity(0.7))
                 }.frame(width: nil, height: 40, alignment: .center)
@@ -46,7 +46,7 @@ struct MetronomeView: View {
     // MARK: Private helper methods
 
     private func backgroundColor(for index: Int) -> Color {
-        if let currentIndex = model.currentBitIndex, currentIndex == index {
+        if observed.snapshot.isRunning, observed.snapshot.currentBitIndex == index {
             return Color.yellow
         } else {
             return Color.white.opacity(0.05)
@@ -55,7 +55,7 @@ struct MetronomeView: View {
 
 
     private func foregroundColor(forBitAt index: Int) -> Color {
-        if let currentIndex = model.currentBitIndex, currentIndex == index {
+        if observed.snapshot.isRunning, observed.snapshot.currentBitIndex == index {
             return Color.white
         } else {
             return Color.white.opacity(0.1)
