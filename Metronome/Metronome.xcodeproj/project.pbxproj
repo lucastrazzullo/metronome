@@ -17,6 +17,9 @@
 		81811B592348B1F600C06204 /* GestureMetronomePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81811B582348B1F600C06204 /* GestureMetronomePlayerViewController.swift */; };
 		81811B5B2348B29D00C06204 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81811B5A2348B29D00C06204 /* ContainerViewController.swift */; };
 		81811B5D2348B4E200C06204 /* MetronomeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81811B5C2348B4E200C06204 /* MetronomeController.swift */; };
+		81919FB3234B4F220061571A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 81919FB2234B4F220061571A /* Localizable.strings */; };
+		81919FB5234B515C0061571A /* HelpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB4234B515C0061571A /* HelpViewModel.swift */; };
+		81919FB7234B51960061571A /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB6234B51960061571A /* TipViewModel.swift */; };
 		819E341B2343678700D56E92 /* MetronomeTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E341A2343678700D56E92 /* MetronomeTicker.swift */; };
 		81BE0C0E2348C8B5000053C6 /* TempoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0D2348C8B5000053C6 /* TempoTests.swift */; };
 		81BE0C102348C926000053C6 /* TimeSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */; };
@@ -58,6 +61,9 @@
 		81811B582348B1F600C06204 /* GestureMetronomePlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureMetronomePlayerViewController.swift; sourceTree = "<group>"; };
 		81811B5A2348B29D00C06204 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		81811B5C2348B4E200C06204 /* MetronomeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeController.swift; sourceTree = "<group>"; };
+		81919FB2234B4F220061571A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		81919FB4234B515C0061571A /* HelpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewModel.swift; sourceTree = "<group>"; };
+		81919FB6234B51960061571A /* TipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewModel.swift; sourceTree = "<group>"; };
 		819E341A2343678700D56E92 /* MetronomeTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeTicker.swift; sourceTree = "<group>"; };
 		81BE0C0D2348C8B5000053C6 /* TempoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoTests.swift; sourceTree = "<group>"; };
 		81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignatureTests.swift; sourceTree = "<group>"; };
@@ -106,6 +112,14 @@
 				81811B5C2348B4E200C06204 /* MetronomeController.swift */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		81919FB1234B4EEF0061571A /* String */ = {
+			isa = PBXGroup;
+			children = (
+				81919FB2234B4F220061571A /* Localizable.strings */,
+			);
+			path = String;
 			sourceTree = "<group>";
 		};
 		81FAF02223427ED1004A8C51 = {
@@ -173,6 +187,7 @@
 		81FAF05223427F00004A8C51 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				81919FB1234B4EEF0061571A /* String */,
 				81FAF05323427F07004A8C51 /* Storyboard */,
 				81FAF03723427ED2004A8C51 /* Assets.xcassets */,
 			);
@@ -238,6 +253,8 @@
 			children = (
 				81FAF06623435823004A8C51 /* MetronomeViewModel.swift */,
 				813C8D5B234529E500DE9E82 /* BitViewModel.swift */,
+				81919FB4234B515C0061571A /* HelpViewModel.swift */,
+				81919FB6234B51960061571A /* TipViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -324,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				81FAF03B23427ED2004A8C51 /* LaunchScreen.storyboard in Resources */,
+				81919FB3234B4F220061571A /* Localizable.strings in Resources */,
 				81FAF03823427ED2004A8C51 /* Assets.xcassets in Resources */,
 				81FAF03623427ED1004A8C51 /* Main.storyboard in Resources */,
 			);
@@ -364,6 +382,8 @@
 				81FAF02F23427ED1004A8C51 /* AppDelegate.swift in Sources */,
 				81811B5B2348B29D00C06204 /* ContainerViewController.swift in Sources */,
 				81C0B37F23492DB700D01072 /* TimeSignatureUpdaterView.swift in Sources */,
+				81919FB5234B515C0061571A /* HelpViewModel.swift in Sources */,
+				81919FB7234B51960061571A /* TipViewModel.swift in Sources */,
 				81FAF03123427ED1004A8C51 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

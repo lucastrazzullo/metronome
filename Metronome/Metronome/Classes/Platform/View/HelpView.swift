@@ -10,10 +10,25 @@ import SwiftUI
 
 struct HelpView: View {
 
-    var body: some View {
+    var model: HelpViewModel
+
+    var body: some View {        
         ZStack {
-            Color.white.edgesIgnoringSafeArea(.all)
-            Text("Tap to play. Slide two fingers up/down or left/right").foregroundColor(.black).font(Font.system(.largeTitle))
+            Color.white.opacity(0.9).edgesIgnoringSafeArea(.all)
+            VStack(alignment: .center, spacing: 40) {
+                Text(model.titleLabel).font(Font.system(.title))
+                HStack(alignment: .top, spacing: 60) {
+                    ForEach(model.tips, id: \.self) { tipViewModel in
+                        VStack(alignment: .center, spacing: 40) {
+                            Image(tipViewModel.illustration).frame(width: 90, height: 90, alignment: .center)
+                            VStack(alignment: .leading, spacing: 8) {
+                                Text(tipViewModel.title).multilineTextAlignment(.leading).font(Font.system(.headline))
+                                Text(tipViewModel.description).multilineTextAlignment(.leading).font(Font.system(.callout))
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }

@@ -87,8 +87,8 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
         if let helpGestureRecogniser = helpGestureRecogniser, helpGestureRecogniser == gestureRecogniser {
             impactGenerator.impactOccurred()
             metronomeController?.reset()
-            helpViewController = HelpViewController(rootView: HelpView())
-            addChildViewController(helpViewController!, in: view)
+            helpViewController = HelpViewController(rootView: HelpView(model: HelpViewModel()))
+            present(helpViewController!, animated: true, completion: nil)
         }
         if let tempoUpdaterGestureRecogniser = tempoUpdaterGestureRecogniser, tempoUpdaterGestureRecogniser == gestureRecogniser {
             if let tempo = metronomeController?.tempo {
@@ -127,7 +127,7 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
     private func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         if let helpGestureRecogniser = helpGestureRecogniser, helpGestureRecogniser == gestureRecogniser {
             impactGenerator.impactOccurred(intensity: 0.5)
-            removeChildViewController(helpViewController)
+            helpViewController?.dismiss(animated: true, completion: nil)
         }
         if let togglerGestureRecogniser = togglerGestureRecogniser, togglerGestureRecogniser == gestureRecogniser {
             metronomeController?.toggle()
