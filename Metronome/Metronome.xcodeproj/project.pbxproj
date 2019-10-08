@@ -49,7 +49,7 @@
 		81919FB5234B515C0061571A /* HelpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB4234B515C0061571A /* HelpViewModel.swift */; };
 		81919FB7234B51960061571A /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB6234B51960061571A /* TipViewModel.swift */; };
 		81919FBA234B58900061571A /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB9234B58900061571A /* ColorExtensions.swift */; };
-		81AB357E234CB118004C1BCD /* Metronome Watch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 817F992C234CAD0300DA1043 /* Metronome Watch.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		81AB357E234CB118004C1BCD /* Metronome.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 817F992C234CAD0300DA1043 /* Metronome.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		81BE0C0E2348C8B5000053C6 /* TempoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0D2348C8B5000053C6 /* TempoTests.swift */; };
 		81BE0C102348C926000053C6 /* TimeSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */; };
 		81C0B37F23492DB700D01072 /* TimeSignatureUpdaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0B37E23492DB700D01072 /* TimeSignatureUpdaterView.swift */; };
@@ -107,7 +107,7 @@
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				81AB357E234CB118004C1BCD /* Metronome Watch.app in Embed Watch Content */,
+				81AB357E234CB118004C1BCD /* Metronome.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,7 +129,7 @@
 		8169CFAB234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIForceTapGestureRecogniser.swift; sourceTree = "<group>"; };
 		8169CFAD234A7F57009EFB1C /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		8169CFAF234A7F71009EFB1C /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
-		817F992C234CAD0300DA1043 /* Metronome Watch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Metronome Watch.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		817F992C234CAD0300DA1043 /* Metronome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metronome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		817F992F234CAD0300DA1043 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		817F9931234CAD0400DA1043 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		817F9933234CAD0400DA1043 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -146,7 +146,7 @@
 		81BE0C0D2348C8B5000053C6 /* TempoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoTests.swift; sourceTree = "<group>"; };
 		81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignatureTests.swift; sourceTree = "<group>"; };
 		81C0B37E23492DB700D01072 /* TimeSignatureUpdaterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSignatureUpdaterView.swift; sourceTree = "<group>"; };
-		81FAF02B23427ED1004A8C51 /* Metronome iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Metronome iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		81FAF02B23427ED1004A8C51 /* Metronome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metronome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FAF02E23427ED1004A8C51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81FAF03023427ED1004A8C51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		81FAF03223427ED1004A8C51 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -305,9 +305,9 @@
 		81FAF02C23427ED1004A8C51 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				81FAF02B23427ED1004A8C51 /* Metronome iOS.app */,
+				81FAF02B23427ED1004A8C51 /* Metronome.app */,
 				81FAF04123427ED3004A8C51 /* MetronomeTests.xctest */,
-				817F992C234CAD0300DA1043 /* Metronome Watch.app */,
+				817F992C234CAD0300DA1043 /* Metronome.app */,
 				817F9938234CAD0400DA1043 /* Metronome Watch Extension.appex */,
 			);
 			name = Products;
@@ -439,7 +439,7 @@
 			);
 			name = "Metronome Watch";
 			productName = "Metronome Watch";
-			productReference = 817F992C234CAD0300DA1043 /* Metronome Watch.app */;
+			productReference = 817F992C234CAD0300DA1043 /* Metronome.app */;
 			productType = "com.apple.product-type.application.watchapp2";
 		};
 		817F9937234CAD0400DA1043 /* Metronome Watch Extension */ = {
@@ -475,7 +475,7 @@
 			);
 			name = "Metronome iOS";
 			productName = Metronome;
-			productReference = 81FAF02B23427ED1004A8C51 /* Metronome iOS.app */;
+			productReference = 81FAF02B23427ED1004A8C51 /* Metronome.app */;
 			productType = "com.apple.product-type.application";
 		};
 		81FAF04023427ED3004A8C51 /* MetronomeTests */ = {
@@ -758,7 +758,7 @@
 				IBSC_MODULE = Metronome_Watch_Extension;
 				INFOPLIST_FILE = "Metronome Watch/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucastrazzullo.metronome.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Metronome;
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome watchkitapp - Development";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -780,7 +780,7 @@
 				IBSC_MODULE = Metronome_Watch_Extension;
 				INFOPLIST_FILE = "Metronome Watch/Info.plist";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucastrazzullo.metronome.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Metronome;
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome watchkitapp - Distribution";
 				SDKROOT = watchos;
 				SKIP_INSTALL = YES;
@@ -918,7 +918,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucastrazzullo.metronome;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Metronome;
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome - Development";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -939,7 +939,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucastrazzullo.metronome;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Metronome;
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome - Distribution";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
