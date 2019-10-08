@@ -10,7 +10,7 @@ import UIKit
 
 class GestureMetronomePlayerViewController: UIViewController, ContainerViewController {
 
-    let metronome: Metronome
+    private let metronome: Metronome
 
     private var tempoUpdaterViewController: TempoUpdaterViewController?
     private var timeSignatureUpdaterViewController: TimeSignatureUpdaterViewController?
