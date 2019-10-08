@@ -10,13 +10,18 @@ import Foundation
 
 struct Tempo {
 
+    static let maximumBpm = 300
+
+
+    // MARK: Instance properties
+
     let bpm: Int
 
 
     // MARK: Object life cycle
 
     init(bpm: Int) {
-        self.bpm = max(1, bpm)
+        self.bpm = min(max(1, bpm), Tempo.maximumBpm)
     }
 }
 

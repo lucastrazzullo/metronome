@@ -128,16 +128,22 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
             metronome.toggle()
         }
         if let tempoUpdaterGestureRecogniser = tempoUpdaterGestureRecogniser, tempoUpdaterGestureRecogniser == gestureRecogniser {
-            metronome.updateTempo(tempoUpdaterViewController?.tempo)
-            removeChildViewController(tempoUpdaterViewController)
+            if let tempo = tempoUpdaterViewController?.tempo {
+                metronome.updateTempo(tempo)
+                removeChildViewController(tempoUpdaterViewController)
+            }
         }
         if let barLengthUpdaterGestureRecogniser = barLengthUpdaterGestureRecogniser, barLengthUpdaterGestureRecogniser == gestureRecogniser {
-            metronome.updateTimeSignature(timeSignatureUpdaterViewController?.timeSignature)
-            removeChildViewController(timeSignatureUpdaterViewController)
+            if let timeSignature = timeSignatureUpdaterViewController?.timeSignature {
+                metronome.updateTimeSignature(timeSignature)
+                removeChildViewController(timeSignatureUpdaterViewController)
+            }
         }
         if let noteLengthUpdaterGestureRecogniser = noteLengthUpdaterGestureRecogniser, noteLengthUpdaterGestureRecogniser == gestureRecogniser {
-            metronome.updateTimeSignature(timeSignatureUpdaterViewController?.timeSignature)
-            removeChildViewController(timeSignatureUpdaterViewController)
+            if let timeSignature = timeSignatureUpdaterViewController?.timeSignature {
+                metronome.updateTimeSignature(timeSignature)
+                removeChildViewController(timeSignatureUpdaterViewController)
+            }
         }
     }
 }

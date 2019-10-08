@@ -23,7 +23,7 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
     override init() {
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default)
         observableMetronome = ObservableMetronome<MetronomeViewModel>(with: configuration)
-        rootView = MetronomeView(observed: observableMetronome)
+        rootView = MetronomeView(metronome: observableMetronome)
         super.init()
     }
 
@@ -33,7 +33,7 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
         observer = observableMetronome.$snapshot.sink { [weak self] value in
-            if value?.currentIteration != self?.rootView.observed.snapshot.currentIteration {
+            if value?.currentIteration != self?.rootView.metronome.snapshot.currentIteration {
                 WKInterfaceDevice.current().play(WKHapticType.start)
             }
         }

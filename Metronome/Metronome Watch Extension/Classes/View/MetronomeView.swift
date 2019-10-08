@@ -11,7 +11,9 @@ import Combine
 
 struct MetronomeView: View {
 
-    @ObservedObject var observed: ObservableMetronome<MetronomeViewModel>
+    @ObservedObject var metronome: ObservableMetronome<MetronomeViewModel>
+
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
 
     // MARK: Body
@@ -21,7 +23,7 @@ struct MetronomeView: View {
             Color.black.edgesIgnoringSafeArea(.all)
             VStack(alignment: .center, spacing: 12) {
                 HStack(alignment: .center, spacing: 1) {
-                    ForEach(observed.snapshot.bits, id: \.index) { bitViewModel in
+                    ForEach(metronome.snapshot.bits, id: \.index) { bitViewModel in
                         ZStack {
                             self.backgroundColor(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
                             Text(String(bitViewModel.label))
@@ -31,11 +33,15 @@ struct MetronomeView: View {
                     }
                 }
                 HStack(alignment: .center, spacing: 24) {
-                    Text(observed.snapshot.timeSignatureLabel).font(Font.system(.footnote))
-                    Text(observed.snapshot.tempoLabel).font(Font.system(.footnote))
+                    NavigationLink(destination: UpdateTimeSignatureView(observed: metronome)) {
+                        Text(metronome.snapshot.timeSignatureLabel).font(Font.system(.footnote))
+                    }
+                    NavigationLink(destination: UpdateTempoView(metronome: metronome, selectedTempo: metronome.configuration.tempo.bpm)) {
+                        Text(metronome.snapshot.tempoLabel).font(Font.system(.footnote))
+                    }
                 }.foregroundColor(Color.white.opacity(0.7))
-                Button(action: { self.observed.toggle() }, label: {
-                    return Text(self.observed.snapshot.toggleLabel)
+                Button(action: { self.metronome.toggle() }, label: {
+                    return Text(self.metronome.snapshot.toggleLabel)
                 })
             }
         }
@@ -45,7 +51,7 @@ struct MetronomeView: View {
     // MARK: Private helper methods
 
     private func backgroundColor(for index: Int) -> Color {
-        if observed.snapshot.currentBitIndex == index {
+        if metronome.snapshot.currentBitIndex == index {
             return Color.yellow
         } else {
             return Color.white.opacity(0.05)
@@ -54,7 +60,7 @@ struct MetronomeView: View {
 
 
     private func foregroundColor(forBitAt index: Int) -> Color {
-        if observed.snapshot.currentBitIndex == index {
+        if metronome.snapshot.currentBitIndex == index {
             return Color.white
         } else {
             return Color.white.opacity(0.1)

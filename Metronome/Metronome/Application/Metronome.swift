@@ -63,16 +63,14 @@ class Metronome {
     }
 
 
-    func updateTempo(_ tempo: Tempo?) {
-        guard let tempo = tempo else { return }
+    func updateTempo(_ tempo: Tempo) {
         var configuration = self.configuration
         configuration.tempo = tempo
         update(with: configuration)
     }
 
 
-    func updateTimeSignature(_ timeSignature: TimeSignature?) {
-        guard let timeSignature = timeSignature else { return }
+    func updateTimeSignature(_ timeSignature: TimeSignature) {
         var configuration = self.configuration
         configuration.timeSignature = timeSignature
         update(with: configuration)
