@@ -19,9 +19,4 @@ extension MetronomeConfiguration {
     func getTimeInterval() -> TimeInterval {
         return Double(60) / Double(tempo.bpm) / (Double(timeSignature.noteLength.rawValue) / Double(4))
     }
-
-
-    func barLength() -> Int {
-        return timeSignature.bits
-    }
 }

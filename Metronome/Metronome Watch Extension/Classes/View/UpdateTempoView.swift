@@ -20,22 +20,20 @@ struct UpdateTempoView: View {
     // MARK: Body
 
     var body: some View {
-        GeometryReader { geometry in
-            VStack(alignment: .center, spacing: 8) {
-                Picker(selection: self.$selectedTempo, label:
-                    Text("BPM").padding(2)
-                ) {
-                    ForEach(0 ..< Tempo.maximumBpm) {
-                        Text("\($0)").font(.largeTitle)
-                    }
+        VStack(alignment: .center, spacing: 8) {
+            Picker(selection: self.$selectedTempo, label:
+                Text("BPM").padding(2)
+            ) {
+                ForEach(0 ..< Tempo.maximumBpm) {
+                    Text("\($0)").font(.largeTitle)
                 }
-                Button(action: {
-                    self.metronome.updateTempo(Tempo(bpm: self.selectedTempo))
-                    self.presentationMode.wrappedValue.dismiss()
-                }, label: {
-                    Text("Confirm")
-                })
             }
+            Button(action: {
+                self.metronome.updateTempo(Tempo(bpm: self.selectedTempo))
+                self.presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("Confirm")
+            })
         }
     }
 }

@@ -10,13 +10,16 @@ import Foundation
 
 struct TimeSignature {
 
-    enum NoteLength: Int, CaseIterable {
+    enum NoteLength: Int, CaseIterable, Hashable {
         case full = 1
         case half = 2
         case quarter = 4
         case eigth = 8
         case sixteenth = 16
     }
+
+    static let minimumBarLength: Int = 1
+    static let maximumBarLength: Int = 16
 
 
     // MARK: Instance properties
@@ -28,7 +31,7 @@ struct TimeSignature {
     // MARK: Object life cycle
 
     init(bits: Int, noteLength: NoteLength) {
-        self.bits = max(1, bits)
+        self.bits = min(max(TimeSignature.minimumBarLength, bits), TimeSignature.maximumBarLength)
         self.noteLength = noteLength
     }
 }

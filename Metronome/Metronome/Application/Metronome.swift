@@ -49,7 +49,7 @@ class Metronome {
     // MARK: Public methods
 
     func start() {
-        ticker.start(with: configuration.getTimeInterval(), loopLength: configuration.barLength())
+        ticker.start(with: configuration.getTimeInterval(), loopLength: configuration.timeSignature.bits)
     }
 
 

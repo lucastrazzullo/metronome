@@ -33,10 +33,10 @@ struct MetronomeView: View {
                     }
                 }
                 HStack(alignment: .center, spacing: 24) {
-                    NavigationLink(destination: UpdateTimeSignatureView(observed: metronome)) {
+                    NavigationLink(destination: UpdateTimeSignatureView.build(with: metronome)) {
                         Text(metronome.snapshot.timeSignatureLabel).font(Font.system(.footnote))
                     }
-                    NavigationLink(destination: UpdateTempoView(metronome: metronome, selectedTempo: metronome.configuration.tempo.bpm)) {
+                    NavigationLink(destination: UpdateTempoView(metronome: metronome, selectedTempo: metronome.snapshot.configuration.tempo.bpm)) {
                         Text(metronome.snapshot.tempoLabel).font(Font.system(.footnote))
                     }
                 }.foregroundColor(Color.white.opacity(0.7))
