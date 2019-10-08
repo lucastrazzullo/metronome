@@ -22,6 +22,7 @@ struct MetronomeView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             VStack(alignment: .center, spacing: 12) {
+                Spacer()
                 HStack(alignment: .center, spacing: 1) {
                     ForEach(metronome.snapshot.bits, id: \.index) { bitViewModel in
                         ZStack {
