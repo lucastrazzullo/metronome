@@ -47,6 +47,7 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
 
     override func didDeactivate() {
+        observableMetronome.reset()
         WKExtension.shared().isAutorotating = false
         super.didDeactivate()
     }

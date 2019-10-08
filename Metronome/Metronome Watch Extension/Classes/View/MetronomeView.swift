@@ -27,7 +27,7 @@ struct MetronomeView: View {
                         ZStack {
                             self.backgroundColor(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
                             Text(String(bitViewModel.label))
-                                .font(Font.system(.largeTitle))
+                                .font(Font.system(.title))
                                 .foregroundColor(self.foregroundColor(forBitAt: bitViewModel.index))
                         }.cornerRadius(8)
                     }
@@ -36,7 +36,7 @@ struct MetronomeView: View {
                     NavigationLink(destination: UpdateTimeSignatureView.build(with: metronome)) {
                         Text(metronome.snapshot.timeSignatureLabel).font(Font.system(.footnote))
                     }
-                    NavigationLink(destination: UpdateTempoView(metronome: metronome, selectedTempo: metronome.snapshot.configuration.tempo.bpm)) {
+                    NavigationLink(destination: UpdateTempoView.build(with: metronome)) {
                         Text(metronome.snapshot.tempoLabel).font(Font.system(.footnote))
                     }
                 }.foregroundColor(Color.white.opacity(0.7))

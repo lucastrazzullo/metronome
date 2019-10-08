@@ -17,6 +17,14 @@ struct UpdateTempoView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
 
+    // MARK: Object life cycle
+
+    static func build(with observable: ObservableMetronome<MetronomeViewModel>) -> UpdateTempoView {
+        let tempo = observable.snapshot.configuration.tempo.bpm - Tempo.minimumBpm
+        return UpdateTempoView(metronome: observable, selectedTempo: tempo)
+    }
+
+
     // MARK: Body
 
     var body: some View {
@@ -24,12 +32,13 @@ struct UpdateTempoView: View {
             Picker(selection: self.$selectedTempo, label:
                 Text("BPM").padding(2)
             ) {
-                ForEach(0 ..< Tempo.maximumBpm) {
+                ForEach(Tempo.minimumBpm ..< Tempo.maximumBpm) {
                     Text("\($0)").font(.largeTitle)
                 }
             }
             Button(action: {
-                self.metronome.updateTempo(Tempo(bpm: self.selectedTempo))
+                let bpm = self.selectedTempo + Tempo.minimumBpm
+                self.metronome.updateTempo(Tempo(bpm: bpm))
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Confirm")

@@ -18,9 +18,11 @@ struct UpdateTimeSignatureView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
 
+    // MARK: Object life cycle
+
     static func build(with observable: ObservableMetronome<MetronomeViewModel>) -> UpdateTimeSignatureView {
-        let selectedBarLengthIndex = observable.configuration.timeSignature.bits - TimeSignature.minimumBarLength
-        let selectedNoteLengthIndex = TimeSignature.NoteLength.allCases.firstIndex(of: observable.configuration.timeSignature.noteLength) ?? 0
+        let selectedBarLengthIndex = observable.snapshot.configuration.timeSignature.bits - TimeSignature.minimumBarLength
+        let selectedNoteLengthIndex = TimeSignature.NoteLength.allCases.firstIndex(of: observable.snapshot.configuration.timeSignature.noteLength) ?? 0
         return UpdateTimeSignatureView(metronome: observable, selectedBarLengthIndex: selectedBarLengthIndex, selectedNoteLengthIndex: selectedNoteLengthIndex)
     }
 
