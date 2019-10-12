@@ -8,9 +8,9 @@
 
 import UIKit
 
-class DefaultGestureMetronomeController: GestureController {
+class DefaultGestureMetronomeController: NSObject, GestureController {
 
-    weak var delegate: UIViewController? {
+    weak var delegate: UIContainerViewController? {
         willSet {
             if let delegate = delegate, newValue == nil {
                 tearDown(with: delegate)
@@ -31,7 +31,9 @@ class DefaultGestureMetronomeController: GestureController {
     required init(with metronome: Metronome, gestureRecogniser: UIGestureRecognizer) {
         self.metronome = metronome
         self.gestureRecogniser = gestureRecogniser
-        self.gestureRecogniser.addTarget(self, action: #selector(handleGestureRecogniser))
+        super.init()
+
+        gestureRecogniser.addTarget(self, action: #selector(handleGestureRecogniser))
     }
 
 

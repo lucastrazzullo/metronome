@@ -9,7 +9,7 @@
 import UIKit
 
 protocol GestureController: AnyObject {
-    var delegate: UIViewController? { get set }
+    var delegate: UIContainerViewController? { get set }
     var gestureRecogniser: UIGestureRecognizer { get }
 }
 
@@ -19,10 +19,8 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
     private let metronome: Metronome
     private var gestureControllers: [GestureController]
 
-    private var tempoUpdaterViewController: TempoUpdaterViewController?
     private var timeSignatureUpdaterViewController: TimeSignatureUpdaterViewController?
 
-    private var tempoUpdaterGestureRecogniser: UIPanGestureRecognizer?
     private var barLengthUpdaterGestureRecogniser: UIPanGestureRecognizer?
     private var noteLengthUpdaterGestureRecogniser: UIPinchGestureRecognizer?
 
@@ -53,10 +51,8 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
         togglerController.gestureRecogniser.canBePrevented(by: helpController.gestureRecogniser)
         addGestureController(togglerController)
 
-        tempoUpdaterGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(handleGestureRecogniser(with:)))
-        tempoUpdaterGestureRecogniser?.delegate = self
-        tempoUpdaterGestureRecogniser?.minimumNumberOfTouches = 2
-        view.addGestureRecognizer(tempoUpdaterGestureRecogniser!)
+        let tempoUpdaterController = TempoUpdaterGestureController(with: metronome)
+        addGestureController(tempoUpdaterController)
 
         barLengthUpdaterGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(handleGestureRecogniser(with:)))
         barLengthUpdaterGestureRecogniser?.delegate = self
@@ -94,10 +90,6 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
 
 
     private func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
-        if let tempoUpdaterGestureRecogniser = tempoUpdaterGestureRecogniser, tempoUpdaterGestureRecogniser == gestureRecogniser {
-            tempoUpdaterViewController = TempoUpdaterViewController(tempo: metronome.configuration.tempo)
-            addChildViewController(tempoUpdaterViewController!, in: view)
-        }
         if let barLengthUpdaterGestureRecogniser = barLengthUpdaterGestureRecogniser, barLengthUpdaterGestureRecogniser == gestureRecogniser {
             timeSignatureUpdaterViewController = TimeSignatureUpdaterViewController(timeSignature: metronome.configuration.timeSignature)
             addChildViewController(timeSignatureUpdaterViewController!, in: view)
@@ -110,9 +102,6 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
 
 
     private func handleGestureChanged(for gestureRecogniser: UIGestureRecognizer) {
-        if let tempoUpdaterGestureRecogniser = tempoUpdaterGestureRecogniser, tempoUpdaterGestureRecogniser == gestureRecogniser {
-            tempoUpdaterViewController?.updateBpm(with: Int(-tempoUpdaterGestureRecogniser.translation(in: view).y / 8))
-        }
         if let barLengthUpdaterGestureRecogniser = barLengthUpdaterGestureRecogniser, barLengthUpdaterGestureRecogniser == gestureRecogniser {
             timeSignatureUpdaterViewController?.updateBarLength(with: Int(barLengthUpdaterGestureRecogniser.translation(in: view).x))
         }
@@ -123,12 +112,6 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
 
 
     private func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
-        if let tempoUpdaterGestureRecogniser = tempoUpdaterGestureRecogniser, tempoUpdaterGestureRecogniser == gestureRecogniser {
-            if let tempo = tempoUpdaterViewController?.tempo {
-                metronome.updateTempo(tempo)
-                removeChildViewController(tempoUpdaterViewController)
-            }
-        }
         if let barLengthUpdaterGestureRecogniser = barLengthUpdaterGestureRecogniser, barLengthUpdaterGestureRecogniser == gestureRecogniser {
             if let timeSignature = timeSignatureUpdaterViewController?.timeSignature {
                 metronome.updateTimeSignature(timeSignature)
@@ -148,9 +131,6 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
 extension GestureMetronomePlayerViewController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let tempoUpdaterGestureRecogniser = tempoUpdaterGestureRecogniser, tempoUpdaterGestureRecogniser == gestureRecognizer {
-            return abs(tempoUpdaterGestureRecogniser.velocity(in: view).y) > abs(tempoUpdaterGestureRecogniser.velocity(in: view).x)
-        }
         if let barLengthUpdaterGestureRecogniser = barLengthUpdaterGestureRecogniser, barLengthUpdaterGestureRecogniser == gestureRecognizer {
             return abs(barLengthUpdaterGestureRecogniser.velocity(in: view).y) < abs(barLengthUpdaterGestureRecogniser.velocity(in: view).x)
         }
