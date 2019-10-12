@@ -8,27 +8,32 @@
 
 import UIKit
 
+protocol GestureController: AnyObject {
+    var delegate: UIViewController? { get set }
+    var gestureRecogniser: UIGestureRecognizer { get }
+}
+
+
 class GestureMetronomePlayerViewController: UIViewController, ContainerViewController {
 
     private let metronome: Metronome
+    private var gestureControllers: [GestureController]
 
     private var tempoUpdaterViewController: TempoUpdaterViewController?
     private var timeSignatureUpdaterViewController: TimeSignatureUpdaterViewController?
-    private var helpViewController: HelpViewController?
+    
 
-    private var helpGestureRecogniser: UIForceTapGestureRecogniser?
     private var togglerGestureRecogniser: UITapGestureRecognizer?
     private var tempoUpdaterGestureRecogniser: UIPanGestureRecognizer?
     private var barLengthUpdaterGestureRecogniser: UIPanGestureRecognizer?
     private var noteLengthUpdaterGestureRecogniser: UIPinchGestureRecognizer?
-
-    private var impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
 
 
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
         self.metronome = metronome
+        self.gestureControllers = []
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -43,13 +48,13 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        helpGestureRecogniser = UIForceTapGestureRecogniser(target: self, action: #selector(handleGestureRecogniser(with:)))
-        helpGestureRecogniser?.delegate = self
-        view.addGestureRecognizer(helpGestureRecogniser!)
+        let helpController = HelpGestureController(with: metronome)
+        helpController.delegate = self
+        gestureControllers.append(helpController)
 
         togglerGestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(handleGestureRecogniser(with:)))
         togglerGestureRecogniser?.delegate = self
-        togglerGestureRecogniser?.canBePrevented(by: helpGestureRecogniser!)
+        togglerGestureRecogniser?.canBePrevented(by: helpController.gestureRecogniser)
         view.addGestureRecognizer(togglerGestureRecogniser!)
 
         tempoUpdaterGestureRecogniser = UIPanGestureRecognizer(target: self, action: #selector(handleGestureRecogniser(with:)))
@@ -85,12 +90,6 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
 
 
     private func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
-        if let helpGestureRecogniser = helpGestureRecogniser, helpGestureRecogniser == gestureRecogniser {
-            impactGenerator.impactOccurred()
-            metronome.reset()
-            helpViewController = HelpViewController(rootView: HelpView(model: HelpViewModel()))
-            present(helpViewController!, animated: true, completion: nil)
-        }
         if let tempoUpdaterGestureRecogniser = tempoUpdaterGestureRecogniser, tempoUpdaterGestureRecogniser == gestureRecogniser {
             tempoUpdaterViewController = TempoUpdaterViewController(tempo: metronome.configuration.tempo)
             addChildViewController(tempoUpdaterViewController!, in: view)
@@ -120,10 +119,6 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
 
 
     private func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
-        if let helpGestureRecogniser = helpGestureRecogniser, helpGestureRecogniser == gestureRecogniser {
-            impactGenerator.impactOccurred(intensity: 0.5)
-            helpViewController?.dismiss(animated: true, completion: nil)
-        }
         if let togglerGestureRecogniser = togglerGestureRecogniser, togglerGestureRecogniser == gestureRecogniser {
             metronome.toggle()
         }
