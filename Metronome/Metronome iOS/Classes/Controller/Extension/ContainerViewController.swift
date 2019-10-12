@@ -38,3 +38,5 @@ extension ContainerViewController where Self: UIViewController {
         viewController?.didMove(toParent: nil)
     }
 }
+
+typealias UIContainerViewController = UIViewController & ContainerViewController
