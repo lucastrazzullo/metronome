@@ -16,7 +16,7 @@ class HelpGestureController: DefaultGestureMetronomeController {
 
     // MARK: Object life cycle
 
-    required init(with metronome: Metronome) {
+    init(with metronome: Metronome) {
         let recogniser = UIForceTapGestureRecogniser()
         super.init(with: metronome, gestureRecogniser: recogniser)
     }
