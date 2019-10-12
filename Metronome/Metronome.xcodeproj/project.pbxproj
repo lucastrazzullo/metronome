@@ -53,6 +53,7 @@
 		81A71C792352477C00E86256 /* TempoUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C782352477C00E86256 /* TempoUpdaterGestureController.swift */; };
 		81A71C7B23524B2200E86256 /* BarLengthUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */; };
 		81A8878323524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */; };
+		81A8878523524EE80071BF48 /* GestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878423524EE80071BF48 /* GestureController.swift */; };
 		81AB357E234CB118004C1BCD /* Metronome.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 817F992C234CAD0300DA1043 /* Metronome.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		81AB3583234CB818004C1BCD /* UpdateTempoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB3582234CB818004C1BCD /* UpdateTempoView.swift */; };
 		81AB3585234CB896004C1BCD /* UpdateTimeSignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB3584234CB896004C1BCD /* UpdateTimeSignatureView.swift */; };
@@ -155,6 +156,7 @@
 		81A71C782352477C00E86256 /* TempoUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoUpdaterGestureController.swift; sourceTree = "<group>"; };
 		81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarLengthUpdaterGestureController.swift; sourceTree = "<group>"; };
 		81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLengthUpdaterGestureController.swift; sourceTree = "<group>"; };
+		81A8878423524EE80071BF48 /* GestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureController.swift; sourceTree = "<group>"; };
 		81AB3582234CB818004C1BCD /* UpdateTempoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTempoView.swift; sourceTree = "<group>"; };
 		81AB3584234CB896004C1BCD /* UpdateTimeSignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTimeSignatureView.swift; sourceTree = "<group>"; };
 		81BE0C0D2348C8B5000053C6 /* TempoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoTests.swift; sourceTree = "<group>"; };
@@ -304,6 +306,7 @@
 		81A71C7D23524B7A00E86256 /* Gesture Controller */ = {
 			isa = PBXGroup;
 			children = (
+				81A8878423524EE80071BF48 /* GestureController.swift */,
 				81C0725623523D7F009A9523 /* DefaultGestureMetronomeController.swift */,
 				81C0725423523D23009A9523 /* HelpGestureController.swift */,
 				81A71C762352455100E86256 /* TogglerGestureController.swift */,
@@ -660,6 +663,7 @@
 				81A8878323524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift in Sources */,
 				8166679423439D2B002DC01A /* TempoUpdaterViewController.swift in Sources */,
 				8166679623439D42002DC01A /* TempoUpdaterView.swift in Sources */,
+				81A8878523524EE80071BF48 /* GestureController.swift in Sources */,
 				81A71C772352455100E86256 /* TogglerGestureController.swift in Sources */,
 				81FAF02F23427ED1004A8C51 /* AppDelegate.swift in Sources */,
 				81249771234B643E0047F3E3 /* Metronome.swift in Sources */,

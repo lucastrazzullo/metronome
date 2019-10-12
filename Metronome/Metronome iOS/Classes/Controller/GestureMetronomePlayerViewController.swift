@@ -8,12 +8,6 @@
 
 import UIKit
 
-protocol GestureController: AnyObject {
-    var delegate: UIContainerViewController? { get set }
-    var gestureRecogniser: UIGestureRecognizer { get }
-}
-
-
 class GestureMetronomePlayerViewController: UIViewController, ContainerViewController {
 
     private let metronome: Metronome
