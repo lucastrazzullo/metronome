@@ -157,6 +157,7 @@
 		81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarLengthUpdaterGestureController.swift; sourceTree = "<group>"; };
 		81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLengthUpdaterGestureController.swift; sourceTree = "<group>"; };
 		81A8878423524EE80071BF48 /* GestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureController.swift; sourceTree = "<group>"; };
+		81A887862352501C0071BF48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		81AB3582234CB818004C1BCD /* UpdateTempoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTempoView.swift; sourceTree = "<group>"; };
 		81AB3584234CB896004C1BCD /* UpdateTimeSignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTimeSignatureView.swift; sourceTree = "<group>"; };
 		81BE0C0D2348C8B5000053C6 /* TempoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoTests.swift; sourceTree = "<group>"; };
@@ -327,6 +328,7 @@
 		81FAF02223427ED1004A8C51 = {
 			isa = PBXGroup;
 			children = (
+				81A887862352501C0071BF48 /* README.md */,
 				81249754234B620D0047F3E3 /* Metronome */,
 				81FAF04423427ED3004A8C51 /* MetronomeTests */,
 				81FAF02D23427ED1004A8C51 /* Metronome iOS */,
