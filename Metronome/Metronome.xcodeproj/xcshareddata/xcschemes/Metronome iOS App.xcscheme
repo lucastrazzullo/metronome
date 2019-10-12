@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "81FAF02A23427ED1004A8C51"
-               BuildableName = "Metronome iOS.app"
+               BuildableName = "Metronome.app"
                BlueprintName = "Metronome iOS"
                ReferencedContainer = "container:Metronome.xcodeproj">
             </BuildableReference>
@@ -55,7 +55,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "81FAF02A23427ED1004A8C51"
-            BuildableName = "Metronome iOS.app"
+            BuildableName = "Metronome.app"
             BlueprintName = "Metronome iOS"
             ReferencedContainer = "container:Metronome.xcodeproj">
          </BuildableReference>
@@ -72,7 +72,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "81FAF02A23427ED1004A8C51"
-            BuildableName = "Metronome iOS.app"
+            BuildableName = "Metronome.app"
             BlueprintName = "Metronome iOS"
             ReferencedContainer = "container:Metronome.xcodeproj">
          </BuildableReference>

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MetronomeViewModel: MetronomeSnapshot {
+struct MetronomeViewModel: ObservableMetronomeSnapshot {
 
     var configuration: MetronomeConfiguration
     var isRunning: Bool

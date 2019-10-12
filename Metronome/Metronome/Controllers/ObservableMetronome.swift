@@ -8,7 +8,7 @@
 
 import Combine
 
-class ObservableMetronome<SnapshotType: MetronomeSnapshot>: Metronome, ObservableObject {
+class ObservableMetronome<SnapshotType: ObservableMetronomeSnapshot>: Metronome, ObservableObject {
 
     @Published private(set) var snapshot: SnapshotType!
 
@@ -18,7 +18,7 @@ class ObservableMetronome<SnapshotType: MetronomeSnapshot>: Metronome, Observabl
     override init(with configuration: MetronomeConfiguration) {
         super.init(with: configuration)
 
-        snapshot = SnapshotType(for: self)
+        snapshot = SnapshotType(with: self)
         delegate = self
         tickerDelegate = self
     }
