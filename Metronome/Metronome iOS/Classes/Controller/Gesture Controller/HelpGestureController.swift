@@ -10,9 +10,6 @@ import UIKit
 
 class HelpGestureController: DefaultGestureMetronomeController<HelpViewController> {
 
-    private let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
-
-
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
@@ -33,14 +30,5 @@ class HelpGestureController: DefaultGestureMetronomeController<HelpViewControlle
 
         let viewController = HelpViewController(rootView: HelpView(model: HelpViewModel()))
         presentViewController(viewController)
-        impactGenerator.impactOccurred()
-    }
-
-
-    override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
-        super.handleGestureEnded(for: gestureRecogniser)
-
-        dismissPresentedViewController()
-        impactGenerator.impactOccurred(intensity: 0.5)
     }
 }

@@ -13,6 +13,7 @@ class DefaultGestureMetronomeController<PresentedControllerType: UIViewControlle
     weak var presentedViewController: PresentedControllerType? {
         didSet {
             if presentedViewController != nil {
+                impactGenerator.impactOccurred()
                 metronome.reset()
             }
         }
@@ -32,6 +33,8 @@ class DefaultGestureMetronomeController<PresentedControllerType: UIViewControlle
 
     let gestureRecogniser: UIGestureRecognizer
     let metronome: Metronome
+
+    private let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
 
 
     // MARK: Object life cycle

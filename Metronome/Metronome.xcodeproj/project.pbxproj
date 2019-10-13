@@ -436,11 +436,11 @@
 				81A71C7C23524B5900E86256 /* Extension */,
 				81A71C7D23524B7A00E86256 /* Gesture Controller */,
 				81FAF03223427ED1004A8C51 /* MainViewController.swift */,
+				8169CFAD234A7F57009EFB1C /* HelpViewController.swift */,
 				81FAF06023429A24004A8C51 /* MetronomeViewController.swift */,
 				81811B582348B1F600C06204 /* GestureMetronomePlayerViewController.swift */,
 				8166679323439D2B002DC01A /* TempoUpdaterViewController.swift */,
 				8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */,
-				8169CFAD234A7F57009EFB1C /* HelpViewController.swift */,
 				81A8878A235257770071BF48 /* TapTempoUpdaterViewController.swift */,
 			);
 			path = Controller;
@@ -449,10 +449,10 @@
 		81FAF05D234299DE004A8C51 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8169CFAF234A7F71009EFB1C /* HelpView.swift */,
 				81FAF05E23429A00004A8C51 /* MetronomeView.swift */,
 				8166679523439D42002DC01A /* TempoUpdaterView.swift */,
 				81C0B37E23492DB700D01072 /* TimeSignatureUpdaterView.swift */,
-				8169CFAF234A7F71009EFB1C /* HelpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
