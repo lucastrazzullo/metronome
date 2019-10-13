@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HelpGestureController: DefaultGestureMetronomeController {
+class HelpGestureController: DefaultGestureMetronomeController<HelpViewController> {
 
     private let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
 

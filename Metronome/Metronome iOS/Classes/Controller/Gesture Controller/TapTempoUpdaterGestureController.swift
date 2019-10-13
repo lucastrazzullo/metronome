@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TapTempoUpdaterGestureController: DefaultGestureMetronomeController {
+class TapTempoUpdaterGestureController: DefaultGestureMetronomeController<TapTempoUpdaterViewController> {
 
     private var timer: Timer?
 
@@ -57,8 +57,8 @@ class TapTempoUpdaterGestureController: DefaultGestureMetronomeController {
 
 
     private func complete() {
-        if let viewController = presentedViewController as? TapTempoUpdaterViewController {
-            metronome.updateTempo(viewController.tempo)
+        if let tempo = presentedViewController?.tempo {
+            metronome.updateTempo(tempo)
         }
         dismissPresentedViewController()
     }

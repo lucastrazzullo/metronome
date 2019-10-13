@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BarLengthUpdaterGestureController: DefaultGestureMetronomeController {
+class BarLengthUpdaterGestureController: DefaultGestureMetronomeController<TimeSignatureUpdaterViewController> {
 
     // MARK: Object life cycle
 
@@ -38,8 +38,8 @@ class BarLengthUpdaterGestureController: DefaultGestureMetronomeController {
     override func handleGestureChanged(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureChanged(for: gestureRecogniser)
 
-        if let viewController = presentedViewController as? TimeSignatureUpdaterViewController, let gestureRecogniser = gestureRecogniser as? UIPanGestureRecognizer {
-            viewController.updateBarLength(with: Int(gestureRecogniser.translation(in: gestureRecogniser.view).x))
+        if let gestureRecogniser = gestureRecogniser as? UIPanGestureRecognizer {
+            presentedViewController?.updateBarLength(with: Int(gestureRecogniser.translation(in: gestureRecogniser.view).x))
         }
     }
 
@@ -47,10 +47,10 @@ class BarLengthUpdaterGestureController: DefaultGestureMetronomeController {
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
 
-        if let viewController = presentedViewController as? TimeSignatureUpdaterViewController {
-            metronome.updateTimeSignature(viewController.timeSignature)
-            removeChildViewController()
+        if let timeSignature = presentedViewController?.timeSignature {
+            metronome.updateTimeSignature(timeSignature)
         }
+        removeChildViewController()
     }
 }
 

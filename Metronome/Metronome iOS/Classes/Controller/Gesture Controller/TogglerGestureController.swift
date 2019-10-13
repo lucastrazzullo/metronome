@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TogglerGestureController: DefaultGestureMetronomeController {
+class TogglerGestureController: DefaultGestureMetronomeController<UIViewController> {
 
     // MARK: Object life cycle
 

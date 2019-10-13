@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController {
+class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController<TimeSignatureUpdaterViewController> {
 
     // MARK: Object life cycle
 
@@ -36,8 +36,8 @@ class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController {
     override func handleGestureChanged(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureChanged(for: gestureRecogniser)
 
-        if let viewController = presentedViewController as? TimeSignatureUpdaterViewController, let gestureRecogniser = gestureRecogniser as? UIPinchGestureRecognizer {
-            viewController.updateNoteLength(with: (Int(round(gestureRecogniser.scale * 10)) - 10) / 2)
+        if let gestureRecogniser = gestureRecogniser as? UIPinchGestureRecognizer {
+            presentedViewController?.updateNoteLength(with: (Int(round(gestureRecogniser.scale * 10)) - 10) / 2)
         }
     }
 
@@ -45,9 +45,9 @@ class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController {
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
 
-        if let presentedViewController = presentedViewController as? TimeSignatureUpdaterViewController {
-            metronome.updateTimeSignature(presentedViewController.timeSignature)
-            removeChildViewController()
+        if let timeSignature = presentedViewController?.timeSignature {
+            metronome.updateTimeSignature(timeSignature)
         }
+        removeChildViewController()
     }
 }

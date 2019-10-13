@@ -8,9 +8,9 @@
 
 import UIKit
 
-class DefaultGestureMetronomeController: NSObject, GestureController {
+class DefaultGestureMetronomeController<PresentedControllerType: UIViewController>: NSObject, GestureController {
 
-    weak var presentedViewController: UIViewController? {
+    weak var presentedViewController: PresentedControllerType? {
         didSet {
             if presentedViewController != nil {
                 metronome.reset()
@@ -87,7 +87,7 @@ class DefaultGestureMetronomeController: NSObject, GestureController {
 
     // MARK: Presentation
 
-    func addChildViewController(_ viewController: UIViewController) {
+    func addChildViewController(_ viewController: PresentedControllerType) {
         if let delegate = delegate {
             delegate.addChildViewController(viewController, in: delegate.view)
             presentedViewController = viewController
@@ -95,7 +95,7 @@ class DefaultGestureMetronomeController: NSObject, GestureController {
     }
 
 
-    func presentViewController(_ viewController: UIViewController) {
+    func presentViewController(_ viewController: PresentedControllerType) {
         if let delegate = delegate {
             delegate.present(viewController, animated: true, completion: nil)
             presentedViewController = viewController
