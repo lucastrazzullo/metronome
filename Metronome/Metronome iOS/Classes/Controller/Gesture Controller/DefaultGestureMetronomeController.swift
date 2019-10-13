@@ -8,8 +8,15 @@
 
 import UIKit
 
-class DefaultGestureMetronomeController: NSObject, GestureController {
+class DefaultGestureMetronomeController<PresentedControllerType: UIViewController>: NSObject, GestureController {
 
+    weak var presentedViewController: PresentedControllerType? {
+        didSet {
+            if presentedViewController != nil {
+                metronome.reset()
+            }
+        }
+    }
     weak var delegate: UIContainerViewController? {
         willSet {
             if let delegate = delegate, newValue == nil {
@@ -22,7 +29,8 @@ class DefaultGestureMetronomeController: NSObject, GestureController {
             }
         }
     }
-    var gestureRecogniser: UIGestureRecognizer
+
+    let gestureRecogniser: UIGestureRecognizer
     let metronome: Metronome
 
 
@@ -74,5 +82,33 @@ class DefaultGestureMetronomeController: NSObject, GestureController {
 
 
     func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
+    }
+
+
+    // MARK: Presentation
+
+    func addChildViewController(_ viewController: PresentedControllerType) {
+        if let delegate = delegate {
+            delegate.addChildViewController(viewController, in: delegate.view)
+            presentedViewController = viewController
+        }
+    }
+
+
+    func presentViewController(_ viewController: PresentedControllerType) {
+        if let delegate = delegate {
+            delegate.present(viewController, animated: true, completion: nil)
+            presentedViewController = viewController
+        }
+    }
+
+
+    func removeChildViewController() {
+        delegate?.removeChildViewController(presentedViewController)
+    }
+
+
+    func dismissPresentedViewController() {
+        presentedViewController?.dismiss(animated: true, completion: nil)
     }
 }

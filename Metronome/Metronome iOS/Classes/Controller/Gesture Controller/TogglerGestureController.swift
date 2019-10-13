@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TogglerGestureController: DefaultGestureMetronomeController {
+class TogglerGestureController: DefaultGestureMetronomeController<UIViewController> {
 
     // MARK: Object life cycle
 
@@ -23,7 +23,7 @@ class TogglerGestureController: DefaultGestureMetronomeController {
     }
 
 
-    // MARK: UI Callbacks
+    // MARK: Gesture life cycle
 
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)

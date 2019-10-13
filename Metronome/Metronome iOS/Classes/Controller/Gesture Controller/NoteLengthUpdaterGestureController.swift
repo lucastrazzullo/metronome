@@ -8,10 +8,7 @@
 
 import UIKit
 
-class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController {
-
-    private var timeSignatureUpdaterViewController: TimeSignatureUpdaterViewController?
-
+class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController<TimeSignatureUpdaterViewController> {
 
     // MARK: Object life cycle
 
@@ -26,15 +23,13 @@ class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController {
     }
 
 
-    // MARK: UI Callbacks
+    // MARK: Gesture life cycle
 
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
 
-        if let delegate = delegate {
-            timeSignatureUpdaterViewController = TimeSignatureUpdaterViewController(timeSignature: metronome.configuration.timeSignature)
-            delegate.addChildViewController(timeSignatureUpdaterViewController!, in: delegate.view)
-        }
+        let viewController = TimeSignatureUpdaterViewController(timeSignature: metronome.configuration.timeSignature)
+        addChildViewController(viewController)
     }
 
 
@@ -42,16 +37,17 @@ class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController {
         super.handleGestureChanged(for: gestureRecogniser)
 
         if let gestureRecogniser = gestureRecogniser as? UIPinchGestureRecognizer {
-            timeSignatureUpdaterViewController?.updateNoteLength(with: (Int(round(gestureRecogniser.scale * 10)) - 10) / 2)
+            presentedViewController?.updateNoteLength(with: (Int(round(gestureRecogniser.scale * 10)) - 10) / 2)
         }
     }
+
 
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
 
-        if let timeSignature = timeSignatureUpdaterViewController?.timeSignature {
+        if let timeSignature = presentedViewController?.timeSignature {
             metronome.updateTimeSignature(timeSignature)
-            delegate?.removeChildViewController(timeSignatureUpdaterViewController)
         }
+        removeChildViewController()
     }
 }

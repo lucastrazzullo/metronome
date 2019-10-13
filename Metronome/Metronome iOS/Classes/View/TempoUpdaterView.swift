@@ -10,12 +10,12 @@ import SwiftUI
 
 struct TempoUpdaterView: View {
 
-    var bpm: Int
+    var model: TempoUpdaterViewModel
 
     var body: some View {
         ZStack {
             Color.yellow.edgesIgnoringSafeArea(.all)
-            Text("\(bpm)BPM").font(Font.system(.largeTitle))
+            Text(model.tempoLabel).font(Font.system(.largeTitle))
         }
     }
 }

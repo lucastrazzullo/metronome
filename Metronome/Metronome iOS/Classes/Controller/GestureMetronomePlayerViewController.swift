@@ -37,7 +37,6 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
         addGestureController(helpController)
 
         let togglerController = TogglerGestureController(with: metronome)
-        togglerController.gestureRecogniser.canBePrevented(by: helpController.gestureRecogniser)
         addGestureController(togglerController)
 
         let tempoUpdaterController = TempoUpdaterGestureController(with: metronome)
@@ -48,6 +47,12 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
 
         let noteLengthController = NoteLengthUpdaterGestureController(with: metronome)
         addGestureController(noteLengthController)
+
+        let tempoTapUpdaterController = TapTempoUpdaterGestureController(with: metronome)
+        addGestureController(tempoTapUpdaterController)
+
+        togglerController.gestureRecogniser.canBePrevented(by: helpController.gestureRecogniser)
+        togglerController.gestureRecogniser.canBePrevented(by: tempoTapUpdaterController.gestureRecogniser)
     }
 
 

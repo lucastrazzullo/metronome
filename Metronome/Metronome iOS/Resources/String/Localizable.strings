@@ -7,14 +7,24 @@
 */
 
 
+// MARK: Metronome
+
+"metronome.tempo.format" = "%dBPM";
+"metronome.time_signature.format" = "%d/%d";
+
+
 // MARK: Help
 
 "help.title" = "Need Help?";
+"help.forceTap.title" = "Show help";
+"help.forceTap.description" = "Force touch to present helper";
 "help.tap.title" = "On/Off";
 "help.tap.description" = "Single Tap to toggle on/off";
-"help.vertical_slide.title" = "120BPM";
+"help.vertical_slide.title" = "Tempo";
 "help.vertical_slide.description" = "Slide with two fingers up/down to update tempo";
-"help.horizontal_slide.title" = "4/4";
+"help.horizontal_slide.title" = "Bar Length (4)/4";
 "help.horizontal_slide.description" = "Slide with two fingers left/right to update bar length";
-"help.pinch.title" = "4/4";
+"help.pinch.title" = "Note Length 4/(4)";
 "help.pinch.description" = "Pinch in/out to update note length";
+"help.long_press.title" = "Tap Tempo";
+"help.long_press.description" = "Long press to present tempo tap recogniser";
