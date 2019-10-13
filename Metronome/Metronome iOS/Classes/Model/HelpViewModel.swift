@@ -11,10 +11,6 @@ import Combine
 
 struct HelpViewModel {
 
-    let spacingBetweenTips = 40
-    let numberOfVisibleTips = 4
-
-
     // MARK: Content
 
     private var allTips: [TipViewModel] = [
@@ -33,7 +29,7 @@ struct HelpViewModel {
         return NSLocalizedString("help.title", comment: "")
     }
 
-    var tips: [TipViewModel] {
+    func tips(for numberOfVisibleTips: Int) -> [TipViewModel] {
         return Array(allTips[0..<numberOfVisibleTips])
     }
 

@@ -461,9 +461,9 @@
 			isa = PBXGroup;
 			children = (
 				81919FB9234B58900061571A /* ColorPalette.swift */,
+				81919FB4234B515C0061571A /* HelpViewModel.swift */,
 				81FAF06623435823004A8C51 /* MetronomeViewModel.swift */,
 				813C8D5B234529E500DE9E82 /* BitViewModel.swift */,
-				81919FB4234B515C0061571A /* HelpViewModel.swift */,
 				81919FB6234B51960061571A /* TipViewModel.swift */,
 				81A8878E2353442A0071BF48 /* TempoUpdaterViewModel.swift */,
 				81A8878C235343420071BF48 /* TimeSignatureUpdaterViewModel.swift */,
