@@ -21,14 +21,14 @@ struct HelpView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 10) {
             Button(action: { self.model.prevTip() }) {
-                Image(systemName: "arrow.left.circle.fill").font(.title).foregroundColor(.gray)
+                Image(systemName: "arrow.left.circle.fill").font(.title).foregroundColor(.secondary)
             }
             GeometryReader { geometry in
                 VStack(alignment: .center) {
                     HStack(alignment: .center, spacing: 40) {
                         Text(self.model.titleLabel).font(Font.system(.title))
                         Button(action: { self.dismiss() }) {
-                            Image(systemName: "checkmark.circle.fill").font(.title).foregroundColor(.primary)
+                            Image(systemName: "x.circle.fill").font(.title).foregroundColor(.primary)
                         }
                     }
                     HStack(alignment: .top, spacing: 25) {
@@ -45,7 +45,7 @@ struct HelpView: View {
                 }
             }
             Button(action: { self.model.nextTip() }, label: {
-                Image(systemName: "arrow.right.circle.fill").font(.title).foregroundColor(.gray)
+                Image(systemName: "arrow.right.circle.fill").font(.title).foregroundColor(.secondary)
             })
         }
     }

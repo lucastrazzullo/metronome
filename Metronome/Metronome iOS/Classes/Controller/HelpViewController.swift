@@ -9,10 +9,4 @@
 import SwiftUI
 
 class HelpViewController: UIHostingController<HelpView> {
-
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        
-    }
 }

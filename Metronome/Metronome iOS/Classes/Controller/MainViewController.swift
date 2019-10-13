@@ -11,7 +11,7 @@ import UIKit
 class MainViewController: UIViewController, ContainerViewController {
 
     private var metronomeViewController: MetronomeViewController?
-    private var metronomePlayerViewController: GestureMetronomePlayerViewController?
+    private var metronomeGestureViewController: MetronomeGestureViewController?
 
 
     // MARK: View life cycle
@@ -26,8 +26,8 @@ class MainViewController: UIViewController, ContainerViewController {
         self.metronomeViewController = metronomeViewController
         addChildViewController(metronomeViewController, in: view)
 
-        let metronomePlayerViewController = GestureMetronomePlayerViewController(with: observableMetronome)
-        self.metronomePlayerViewController = metronomePlayerViewController
-        addChildViewController(metronomePlayerViewController, in: view)
+        let metronomeGestureViewController = MetronomeGestureViewController(with: observableMetronome)
+        self.metronomeGestureViewController = metronomeGestureViewController
+        addChildViewController(metronomeGestureViewController, in: view)
     }
 }
