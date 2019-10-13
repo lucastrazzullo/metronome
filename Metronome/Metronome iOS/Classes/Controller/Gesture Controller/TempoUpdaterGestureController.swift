@@ -10,7 +10,7 @@ import UIKit
 
 class TempoUpdaterGestureController: DefaultGestureMetronomeController {
 
-    private var tempoUpdaterViewController: TempoUpdaterViewController?
+    private weak var tempoUpdaterViewController: TempoUpdaterViewController?
 
 
     // MARK: Object life cycle
@@ -28,14 +28,15 @@ class TempoUpdaterGestureController: DefaultGestureMetronomeController {
     }
 
 
-    // MARK: UI Callbacks
+    // MARK: Gesture life cycle
 
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
 
         if let delegate = delegate {
-            tempoUpdaterViewController = TempoUpdaterViewController(tempo: metronome.configuration.tempo)
-            delegate.addChildViewController(tempoUpdaterViewController!, in: delegate.view)
+            let tempoUpdaterViewController = TempoUpdaterViewController(tempo: metronome.configuration.tempo)
+            delegate.addChildViewController(tempoUpdaterViewController, in: delegate.view)
+            self.tempoUpdaterViewController = tempoUpdaterViewController
         }
     }
 

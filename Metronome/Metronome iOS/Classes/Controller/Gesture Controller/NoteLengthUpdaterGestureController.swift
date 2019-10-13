@@ -10,7 +10,7 @@ import UIKit
 
 class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController {
 
-    private var timeSignatureUpdaterViewController: TimeSignatureUpdaterViewController?
+    private weak var timeSignatureUpdaterViewController: TimeSignatureUpdaterViewController?
 
 
     // MARK: Object life cycle
@@ -26,14 +26,15 @@ class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController {
     }
 
 
-    // MARK: UI Callbacks
+    // MARK: Gesture life cycle
 
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
 
         if let delegate = delegate {
-            timeSignatureUpdaterViewController = TimeSignatureUpdaterViewController(timeSignature: metronome.configuration.timeSignature)
-            delegate.addChildViewController(timeSignatureUpdaterViewController!, in: delegate.view)
+            let timeSignatureUpdaterViewController = TimeSignatureUpdaterViewController(timeSignature: metronome.configuration.timeSignature)
+            delegate.addChildViewController(timeSignatureUpdaterViewController, in: delegate.view)
+            self.timeSignatureUpdaterViewController = timeSignatureUpdaterViewController
         }
     }
 

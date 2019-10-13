@@ -54,6 +54,8 @@
 		81A71C7B23524B2200E86256 /* BarLengthUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */; };
 		81A8878323524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */; };
 		81A8878523524EE80071BF48 /* GestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878423524EE80071BF48 /* GestureController.swift */; };
+		81A88789235250FE0071BF48 /* TapTempoUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A88788235250FE0071BF48 /* TapTempoUpdaterGestureController.swift */; };
+		81A8878B235257770071BF48 /* TapTempoUpdaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878A235257770071BF48 /* TapTempoUpdaterViewController.swift */; };
 		81AB357E234CB118004C1BCD /* Metronome.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 817F992C234CAD0300DA1043 /* Metronome.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		81AB3583234CB818004C1BCD /* UpdateTempoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB3582234CB818004C1BCD /* UpdateTempoView.swift */; };
 		81AB3585234CB896004C1BCD /* UpdateTimeSignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB3584234CB896004C1BCD /* UpdateTimeSignatureView.swift */; };
@@ -158,6 +160,8 @@
 		81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLengthUpdaterGestureController.swift; sourceTree = "<group>"; };
 		81A8878423524EE80071BF48 /* GestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureController.swift; sourceTree = "<group>"; };
 		81A887862352501C0071BF48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
+		81A88788235250FE0071BF48 /* TapTempoUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempoUpdaterGestureController.swift; sourceTree = "<group>"; };
+		81A8878A235257770071BF48 /* TapTempoUpdaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempoUpdaterViewController.swift; sourceTree = "<group>"; };
 		81AB3582234CB818004C1BCD /* UpdateTempoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTempoView.swift; sourceTree = "<group>"; };
 		81AB3584234CB896004C1BCD /* UpdateTimeSignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTimeSignatureView.swift; sourceTree = "<group>"; };
 		81BE0C0D2348C8B5000053C6 /* TempoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoTests.swift; sourceTree = "<group>"; };
@@ -314,6 +318,7 @@
 				81A71C782352477C00E86256 /* TempoUpdaterGestureController.swift */,
 				81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */,
 				81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */,
+				81A88788235250FE0071BF48 /* TapTempoUpdaterGestureController.swift */,
 			);
 			path = "Gesture Controller";
 			sourceTree = "<group>";
@@ -430,6 +435,7 @@
 				81FAF06023429A24004A8C51 /* MetronomeViewController.swift */,
 				81811B582348B1F600C06204 /* GestureMetronomePlayerViewController.swift */,
 				8166679323439D2B002DC01A /* TempoUpdaterViewController.swift */,
+				81A8878A235257770071BF48 /* TapTempoUpdaterViewController.swift */,
 				8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */,
 				8169CFAD234A7F57009EFB1C /* HelpViewController.swift */,
 			);
@@ -652,6 +658,7 @@
 				81249770234B643E0047F3E3 /* MetronomeConfiguration.swift in Sources */,
 				81FAF03323427ED1004A8C51 /* MainViewController.swift in Sources */,
 				8124976F234B643E0047F3E3 /* MetronomeTicker.swift in Sources */,
+				81A88789235250FE0071BF48 /* TapTempoUpdaterGestureController.swift in Sources */,
 				8169CFAE234A7F57009EFB1C /* HelpViewController.swift in Sources */,
 				8124978A234B91EA0047F3E3 /* ObservableMetronomeSnapshot.swift in Sources */,
 				81811B592348B1F600C06204 /* GestureMetronomePlayerViewController.swift in Sources */,
@@ -663,6 +670,7 @@
 				813C8D5C234529E500DE9E82 /* BitViewModel.swift in Sources */,
 				81FAF06123429A24004A8C51 /* MetronomeViewController.swift in Sources */,
 				81A8878323524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift in Sources */,
+				81A8878B235257770071BF48 /* TapTempoUpdaterViewController.swift in Sources */,
 				8166679423439D2B002DC01A /* TempoUpdaterViewController.swift in Sources */,
 				8166679623439D42002DC01A /* TempoUpdaterView.swift in Sources */,
 				81A8878523524EE80071BF48 /* GestureController.swift in Sources */,
