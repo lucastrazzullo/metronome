@@ -24,7 +24,7 @@ class TapTempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
     private var tapTimestamps: [TimeInterval] = []
     private var configuration: MetronomeConfiguration {
         didSet {
-            rootView.bpm = tempo.bpm
+            rootView.model.tempo = configuration.tempo
         }
     }
 
@@ -33,7 +33,7 @@ class TapTempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
 
     init(configuration: MetronomeConfiguration) {
         self.configuration = configuration
-        super.init(rootView: TempoUpdaterView(bpm: configuration.tempo.bpm))
+        super.init(rootView: TempoUpdaterView(model: TempoUpdaterViewModel(tempo: configuration.tempo)))
     }
 
 

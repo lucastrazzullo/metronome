@@ -10,13 +10,13 @@ import SwiftUI
 
 struct TimeSignatureUpdaterView: View {
 
-    var timeSignature: TimeSignature
-    var color: Color = .orange
+    var model: TimeSignatureUpdaterViewModel
+    var backgroundColor: Color = .orange
 
     var body: some View {
         ZStack {
-            color.edgesIgnoringSafeArea(.all)
-            Text("\(timeSignature.bits)/\(timeSignature.noteLength.rawValue)").font(Font.system(.largeTitle))
+            backgroundColor.edgesIgnoringSafeArea(.all)
+            Text(model.timeSignatureLabel).font(Font.system(.largeTitle))
         }
     }
 }

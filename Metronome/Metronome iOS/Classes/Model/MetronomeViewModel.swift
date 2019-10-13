@@ -28,11 +28,11 @@ struct MetronomeViewModel: ObservableMetronomeSnapshot {
 
 
     var timeSignatureLabel: String {
-        return "\(configuration.timeSignature.bits)/\(configuration.timeSignature.noteLength.rawValue)"
+        return String(format: NSLocalizedString("metronome.time_signature.format", comment: ""), configuration.timeSignature.bits, configuration.timeSignature.noteLength.rawValue)
     }
 
 
     var tempoLabel: String {
-        return "\(configuration.tempo.bpm)BPM"
+        return String(format: NSLocalizedString("metronome.tempo.format", comment: ""), configuration.tempo.bpm)
     }
 }
