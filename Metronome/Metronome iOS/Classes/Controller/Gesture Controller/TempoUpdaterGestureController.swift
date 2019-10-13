@@ -10,9 +10,6 @@ import UIKit
 
 class TempoUpdaterGestureController: DefaultGestureMetronomeController {
 
-    private weak var tempoUpdaterViewController: TempoUpdaterViewController?
-
-
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
@@ -33,28 +30,26 @@ class TempoUpdaterGestureController: DefaultGestureMetronomeController {
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
 
-        if let delegate = delegate {
-            let tempoUpdaterViewController = TempoUpdaterViewController(tempo: metronome.configuration.tempo)
-            delegate.addChildViewController(tempoUpdaterViewController, in: delegate.view)
-            self.tempoUpdaterViewController = tempoUpdaterViewController
-        }
+        let viewController = TempoUpdaterViewController(tempo: metronome.configuration.tempo)
+        addChildViewController(viewController)
     }
 
 
     override func handleGestureChanged(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureChanged(for: gestureRecogniser)
 
-        if let delegate = delegate, let gestureRecogniser = gestureRecogniser as? UIPanGestureRecognizer {
-            tempoUpdaterViewController?.updateBpm(with: Int(-gestureRecogniser.translation(in: delegate.view).y / 8))
+        if let viewController = presentedViewController as? TempoUpdaterViewController, let gestureRecogniser = gestureRecogniser as? UIPanGestureRecognizer {
+            viewController.updateBpm(with: Int(-gestureRecogniser.translation(in: gestureRecogniser.view).y / 8))
         }
     }
+
 
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
 
-        if let tempo = tempoUpdaterViewController?.tempo {
-            metronome.updateTempo(tempo)
-            delegate?.removeChildViewController(tempoUpdaterViewController)
+        if let viewController = presentedViewController as? TempoUpdaterViewController {
+            metronome.updateTempo(viewController.tempo)
+            removeChildViewController()
         }
     }
 }
@@ -63,7 +58,7 @@ class TempoUpdaterGestureController: DefaultGestureMetronomeController {
 extension TempoUpdaterGestureController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer, let view = delegate?.view {
+        if let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer, let view = gestureRecognizer.view {
             return abs(gestureRecognizer.velocity(in: view).y) > abs(gestureRecognizer.velocity(in: view).x)
         } else {
             return false

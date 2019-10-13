@@ -10,9 +10,6 @@ import UIKit
 
 class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController {
 
-    private weak var timeSignatureUpdaterViewController: TimeSignatureUpdaterViewController?
-
-
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
@@ -31,28 +28,26 @@ class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController {
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
 
-        if let delegate = delegate {
-            let timeSignatureUpdaterViewController = TimeSignatureUpdaterViewController(timeSignature: metronome.configuration.timeSignature)
-            delegate.addChildViewController(timeSignatureUpdaterViewController, in: delegate.view)
-            self.timeSignatureUpdaterViewController = timeSignatureUpdaterViewController
-        }
+        let viewController = TimeSignatureUpdaterViewController(timeSignature: metronome.configuration.timeSignature)
+        addChildViewController(viewController)
     }
 
 
     override func handleGestureChanged(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureChanged(for: gestureRecogniser)
 
-        if let gestureRecogniser = gestureRecogniser as? UIPinchGestureRecognizer {
-            timeSignatureUpdaterViewController?.updateNoteLength(with: (Int(round(gestureRecogniser.scale * 10)) - 10) / 2)
+        if let viewController = presentedViewController as? TimeSignatureUpdaterViewController, let gestureRecogniser = gestureRecogniser as? UIPinchGestureRecognizer {
+            viewController.updateNoteLength(with: (Int(round(gestureRecogniser.scale * 10)) - 10) / 2)
         }
     }
+
 
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
 
-        if let timeSignature = timeSignatureUpdaterViewController?.timeSignature {
-            metronome.updateTimeSignature(timeSignature)
-            delegate?.removeChildViewController(timeSignatureUpdaterViewController)
+        if let presentedViewController = presentedViewController as? TimeSignatureUpdaterViewController {
+            metronome.updateTimeSignature(presentedViewController.timeSignature)
+            removeChildViewController()
         }
     }
 }

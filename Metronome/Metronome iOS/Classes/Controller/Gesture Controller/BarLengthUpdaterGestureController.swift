@@ -10,9 +10,6 @@ import UIKit
 
 class BarLengthUpdaterGestureController: DefaultGestureMetronomeController {
 
-    private weak var timeSignatureUpdaterViewController: TimeSignatureUpdaterViewController?
-
-
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
@@ -33,28 +30,26 @@ class BarLengthUpdaterGestureController: DefaultGestureMetronomeController {
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
 
-        if let delegate = delegate {
-            let timeSignatureUpdaterViewController = TimeSignatureUpdaterViewController(timeSignature: metronome.configuration.timeSignature)
-            delegate.addChildViewController(timeSignatureUpdaterViewController, in: delegate.view)
-            self.timeSignatureUpdaterViewController = timeSignatureUpdaterViewController
-        }
+        let viewController = TimeSignatureUpdaterViewController(timeSignature: metronome.configuration.timeSignature)
+        addChildViewController(viewController)
     }
 
 
     override func handleGestureChanged(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureChanged(for: gestureRecogniser)
 
-        if let delegate = delegate, let gestureRecogniser = gestureRecogniser as? UIPanGestureRecognizer {
-            timeSignatureUpdaterViewController?.updateBarLength(with: Int(gestureRecogniser.translation(in: delegate.view).x))
+        if let viewController = presentedViewController as? TimeSignatureUpdaterViewController, let gestureRecogniser = gestureRecogniser as? UIPanGestureRecognizer {
+            viewController.updateBarLength(with: Int(gestureRecogniser.translation(in: gestureRecogniser.view).x))
         }
     }
+
 
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
 
-        if let timeSignature = timeSignatureUpdaterViewController?.timeSignature {
-            metronome.updateTimeSignature(timeSignature)
-            delegate?.removeChildViewController(timeSignatureUpdaterViewController)
+        if let viewController = presentedViewController as? TimeSignatureUpdaterViewController {
+            metronome.updateTimeSignature(viewController.timeSignature)
+            removeChildViewController()
         }
     }
 }
@@ -63,7 +58,7 @@ class BarLengthUpdaterGestureController: DefaultGestureMetronomeController {
 extension BarLengthUpdaterGestureController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer, let view = delegate?.view {
+        if let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer, let view = gestureRecognizer.view {
             return abs(gestureRecognizer.velocity(in: view).y) < abs(gestureRecognizer.velocity(in: view).x)
         } else {
             return false

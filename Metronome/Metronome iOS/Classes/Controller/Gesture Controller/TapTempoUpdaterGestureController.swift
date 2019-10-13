@@ -32,12 +32,9 @@ class TapTempoUpdaterGestureController: DefaultGestureMetronomeController {
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
 
-        metronome.reset()
-
         let viewController = TapTempoUpdaterViewController(configuration: metronome.configuration)
         viewController.delegate = self
-        delegate?.present(viewController, animated: true, completion: nil)
-        self.tempoTapUpdaterViewController = viewController
+        presentViewController(viewController)
     }
 }
 
@@ -46,6 +43,6 @@ extension TapTempoUpdaterGestureController: TapTempoUpdaterViewControllerDelegat
 
     func tapTempoUpdaterViewController(_ viewController: TapTempoUpdaterViewController, hasSetNew tempo: Tempo) {
         metronome.updateTempo(tempo)
-        viewController.dismiss(animated: true, completion: nil)
+        dismissPresentedViewController()
     }
 }
