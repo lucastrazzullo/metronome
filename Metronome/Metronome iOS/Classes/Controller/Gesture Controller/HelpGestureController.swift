@@ -13,7 +13,8 @@ class HelpGestureController: DefaultGestureMetronomeController<HelpViewControlle
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
-        let recogniser = UIForceTapGestureRecogniser()
+        let recogniser = UISwipeGestureRecognizer()
+        recogniser.direction = .up
         super.init(with: metronome, gestureRecogniser: recogniser)
     }
 
@@ -25,10 +26,10 @@ class HelpGestureController: DefaultGestureMetronomeController<HelpViewControlle
 
     // MARK: Gesture life cycle
 
-    override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
-        super.handleGestureBegan(for: gestureRecogniser)
+    override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
+        super.handleGestureEnded(for: gestureRecogniser)
 
-        let viewController = HelpViewController(rootView: HelpView(model: HelpViewModel()))
+        let viewController = HelpViewController(rootView: HelpView(model: HelpViewModel(), dismiss: dismissPresentedViewController))
         presentViewController(viewController)
     }
 }
