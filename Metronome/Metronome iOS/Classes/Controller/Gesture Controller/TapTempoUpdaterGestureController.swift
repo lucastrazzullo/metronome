@@ -10,7 +10,7 @@ import UIKit
 
 class TapTempoUpdaterGestureController: DefaultGestureMetronomeController {
 
-    private weak var tempoTapUpdaterViewController: TapTempoUpdaterViewController?
+    private var timer: Timer?
 
 
     // MARK: Object life cycle
@@ -36,13 +36,38 @@ class TapTempoUpdaterGestureController: DefaultGestureMetronomeController {
         viewController.delegate = self
         presentViewController(viewController)
     }
+
+
+    override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
+        super.handleGestureEnded(for: gestureRecogniser)
+
+        startIdleTimer()
+    }
+
+
+    // MARK: Private helper methods
+
+    private func startIdleTimer() {
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: {
+            [weak self] timer in
+            self?.complete()
+        })
+    }
+
+
+    private func complete() {
+        if let viewController = presentedViewController as? TapTempoUpdaterViewController {
+            metronome.updateTempo(viewController.tempo)
+        }
+        dismissPresentedViewController()
+    }
 }
 
 
 extension TapTempoUpdaterGestureController: TapTempoUpdaterViewControllerDelegate {
 
     func tapTempoUpdaterViewController(_ viewController: TapTempoUpdaterViewController, hasSetNew tempo: Tempo) {
-        metronome.updateTempo(tempo)
-        dismissPresentedViewController()
+        startIdleTimer()
     }
 }

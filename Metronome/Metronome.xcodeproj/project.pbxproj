@@ -435,9 +435,9 @@
 				81FAF06023429A24004A8C51 /* MetronomeViewController.swift */,
 				81811B582348B1F600C06204 /* GestureMetronomePlayerViewController.swift */,
 				8166679323439D2B002DC01A /* TempoUpdaterViewController.swift */,
-				81A8878A235257770071BF48 /* TapTempoUpdaterViewController.swift */,
 				8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */,
 				8169CFAD234A7F57009EFB1C /* HelpViewController.swift */,
+				81A8878A235257770071BF48 /* TapTempoUpdaterViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";

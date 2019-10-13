@@ -17,37 +17,16 @@ class TapTempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
 
     weak var delegate: TapTempoUpdaterViewControllerDelegate?
 
-    private var tapTimestamps: [TimeInterval] = [] {
-        didSet {
-            if tapTimestamps.count > 5 {
-                tapTimestamps.remove(at: 0)
-            }
-            if let tapFrequency = tapFrequency {
-                configuration.updateTempoWithFrequency(tapFrequency)
-            }
-        }
+    var tempo: Tempo {
+        return configuration.tempo
     }
 
-    private var tapFrequency: TimeInterval? {
-        guard tapTimestamps.count >= 2 else { return nil }
-
-        let frequencies: [Double] = tapTimestamps.enumerated().compactMap { index, timestamp in
-            if index + 1 == tapTimestamps.count {
-                return nil
-            } else {
-                return tapTimestamps[index + 1] - timestamp
-            }
-        }
-        return frequencies.reduce(0, +) / Double(frequencies.count)
-    }
-
+    private var tapTimestamps: [TimeInterval] = []
     private var configuration: MetronomeConfiguration {
         didSet {
-            rootView.bpm = configuration.tempo.bpm
+            rootView.bpm = tempo.bpm
         }
     }
-
-    private var timer: Timer?
 
 
     // MARK: Object life cycle
@@ -76,19 +55,41 @@ class TapTempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
 
     // MARK: UI Callbacks
 
-    @objc func setTempo(with gestureRecogniser: UITapGestureRecognizer) {
+    @objc private func setTempo(with gestureRecogniser: UITapGestureRecognizer) {
         switch gestureRecogniser.state {
         case .recognized:
-            tapTimestamps.append(Date().timeIntervalSinceReferenceDate)
-            timer?.invalidate()
-            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: {
-                [weak self] timer in
-                if let unwrappedSelf = self {
-                    self?.delegate?.tapTempoUpdaterViewController(unwrappedSelf, hasSetNew: unwrappedSelf.configuration.tempo)
-                }
-            })
+            updateConfigutation(withNewTap: Date().timeIntervalSinceReferenceDate)
         default:
             break
         }
+    }
+
+
+    // MARK: Private helper methods
+
+    private func updateConfigutation(withNewTap timestamp: TimeInterval) {
+        tapTimestamps.append(timestamp)
+        if tapTimestamps.count > 5 {
+            tapTimestamps.remove(at: 0)
+        }
+        if let tapFrequency = getTapFrequency() {
+            configuration.updateTempoWithFrequency(tapFrequency)
+        }
+        delegate?.tapTempoUpdaterViewController(self, hasSetNew: tempo)
+    }
+
+
+    private func getTapFrequency() -> TimeInterval? {
+        guard tapTimestamps.count >= 2 else { return nil }
+
+        let frequencies: [Double] = tapTimestamps.enumerated().compactMap { index, timestamp in
+            if index + 1 == tapTimestamps.count {
+                return nil
+            } else {
+                return tapTimestamps[index + 1] - timestamp
+            }
+        }
+
+        return frequencies.reduce(0, +) / Double(frequencies.count)
     }
 }
