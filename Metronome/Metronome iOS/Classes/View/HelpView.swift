@@ -10,7 +10,7 @@ import SwiftUI
 
 struct HelpView: View {
 
-    private let minimumTipWidth: CGFloat = 140
+    private let minimumTipWidth: CGFloat = 145
 
     @State var model: HelpViewModel
     @State var dismiss: () -> ()
@@ -32,7 +32,7 @@ struct HelpView: View {
                         }
                     }
                     HStack(alignment: .top, spacing: 25) {
-                        ForEach(self.model.tips(for: self.numberOfVisibleTips(for: geometry)), id: \.self) { tipViewModel in
+                        ForEach(self.model.tips(for: self.numberOfVisibleTips(for: geometry, spacing: 25)), id: \.self) { tipViewModel in
                             VStack(alignment: .center, spacing: 40) {
                                 Image(tipViewModel.illustration).frame(width: 90, height: 90, alignment: .center)
                                 VStack(alignment: .leading, spacing: 8) {
@@ -53,8 +53,8 @@ struct HelpView: View {
 
     // MARK: Private helper methods
 
-    private func numberOfVisibleTips(for geometry: GeometryProxy) -> Int {
-        let minimumSize: CGFloat = minimumTipWidth
-        return Int(floor(geometry.size.width / minimumSize))
+    private func numberOfVisibleTips(for geometry: GeometryProxy, spacing: CGFloat) -> Int {
+        let minimumSize: CGFloat = minimumTipWidth + spacing
+        return Int(floor((geometry.size.width - spacing) / minimumSize))
     }
 }
