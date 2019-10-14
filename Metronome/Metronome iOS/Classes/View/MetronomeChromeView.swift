@@ -26,7 +26,7 @@ struct MetronomeChromeView: View {
                     Text(observed.snapshot.tempoLabel)
                     Spacer()
                     Button(action: { self.helperIsPresented = true }) {
-                        Image(systemName: "questionmark.circle")
+                        Image(systemName: "questionmark.circle.fill")
                     }.sheet(isPresented: self.$helperIsPresented) {
                         HelpView(model: HelpViewModel(), dismiss: { self.helperIsPresented = false }).onAppear(perform: {
                             self.observed.reset()
