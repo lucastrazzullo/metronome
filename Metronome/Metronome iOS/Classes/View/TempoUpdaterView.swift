@@ -11,11 +11,11 @@ import SwiftUI
 struct TempoUpdaterView: View {
 
     var model: TempoUpdaterViewModel
-    var foregroundColor: Color
+    var backgroundColor: Color = .white
 
     var body: some View {
         ZStack {
-            foregroundColor.edgesIgnoringSafeArea(.all)
+            backgroundColor.edgesIgnoringSafeArea(.all)
             Text(model.tempoLabel).font(Font.system(.largeTitle))
         }
     }

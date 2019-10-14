@@ -48,7 +48,6 @@
 		81919FB3234B4F220061571A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 81919FB2234B4F220061571A /* Localizable.strings */; };
 		81919FB5234B515C0061571A /* HelpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB4234B515C0061571A /* HelpViewModel.swift */; };
 		81919FB7234B51960061571A /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB6234B51960061571A /* TipViewModel.swift */; };
-		81919FBA234B58900061571A /* ColorPalette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB9234B58900061571A /* ColorPalette.swift */; };
 		81A71C772352455100E86256 /* TogglerGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C762352455100E86256 /* TogglerGestureController.swift */; };
 		81A71C792352477C00E86256 /* TempoUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C782352477C00E86256 /* TempoUpdaterGestureController.swift */; };
 		81A71C7B23524B2200E86256 /* BarLengthUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */; };
@@ -154,7 +153,6 @@
 		81919FB2234B4F220061571A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		81919FB4234B515C0061571A /* HelpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewModel.swift; sourceTree = "<group>"; };
 		81919FB6234B51960061571A /* TipViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipViewModel.swift; sourceTree = "<group>"; };
-		81919FB9234B58900061571A /* ColorPalette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPalette.swift; sourceTree = "<group>"; };
 		819E341A2343678700D56E92 /* MetronomeTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeTicker.swift; sourceTree = "<group>"; };
 		81A71C762352455100E86256 /* TogglerGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglerGestureController.swift; sourceTree = "<group>"; };
 		81A71C782352477C00E86256 /* TempoUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoUpdaterGestureController.swift; sourceTree = "<group>"; };
@@ -460,7 +458,6 @@
 		81FAF06523435816004A8C51 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				81919FB9234B58900061571A /* ColorPalette.swift */,
 				81919FB4234B515C0061571A /* HelpViewModel.swift */,
 				81FAF06623435823004A8C51 /* MetronomeViewModel.swift */,
 				813C8D5B234529E500DE9E82 /* BitViewModel.swift */,
@@ -656,7 +653,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8166679823451E7F002DC01A /* TimeSignatureUpdaterViewController.swift in Sources */,
-				81919FBA234B58900061571A /* ColorPalette.swift in Sources */,
 				81FAF06723435823004A8C51 /* MetronomeViewModel.swift in Sources */,
 				81249773234B64420047F3E3 /* Tempo.swift in Sources */,
 				8169CFB0234A7F71009EFB1C /* HelpView.swift in Sources */,

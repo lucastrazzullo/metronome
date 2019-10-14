@@ -33,7 +33,7 @@ class TapTempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
 
     init(configuration: MetronomeConfiguration) {
         self.configuration = configuration
-        super.init(rootView: TempoUpdaterView(model: TempoUpdaterViewModel(tempo: configuration.tempo), foregroundColor: Color.green))
+        super.init(rootView: TempoUpdaterView(model: TempoUpdaterViewModel(tempo: configuration.tempo), backgroundColor: Color("green")))
     }
 
 

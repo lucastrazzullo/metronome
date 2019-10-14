@@ -11,7 +11,7 @@ import SwiftUI
 struct TimeSignatureUpdaterView: View {
 
     var model: TimeSignatureUpdaterViewModel
-    var backgroundColor: Color = .orange
+    var backgroundColor: Color = .white
 
     var body: some View {
         ZStack {

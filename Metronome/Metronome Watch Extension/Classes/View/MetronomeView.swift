@@ -53,7 +53,7 @@ struct MetronomeView: View {
 
     private func backgroundColor(for index: Int) -> Color {
         if metronome.snapshot.currentBitIndex == index {
-            return Color.yellow
+            return Color("yellow")
         } else {
             return Color.white.opacity(0.05)
         }
