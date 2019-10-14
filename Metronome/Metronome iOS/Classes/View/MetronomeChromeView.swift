@@ -34,6 +34,6 @@ struct MetronomeChromeView: View {
                     }
                 }.foregroundColor(Color.white).opacity(0.7).font(.body)
             }.frame(width: nil, height: 40, alignment: .center)
-        }.padding(0)
+        }.padding([.leading, .trailing], 24).padding([.top, .bottom], 10)
     }
 }

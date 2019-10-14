@@ -31,8 +31,8 @@ struct HelpView: View {
                             Image(systemName: "x.circle.fill").font(.title).foregroundColor(.primary)
                         }
                     }
-                    HStack(alignment: .top, spacing: 25) {
-                        ForEach(self.model.tips(for: self.numberOfVisibleTips(for: geometry, spacing: 25)), id: \.self) { tipViewModel in
+                    HStack(alignment: .top, spacing: 20) {
+                        ForEach(self.model.tips(for: self.numberOfVisibleTips(for: geometry, spacing: 20)), id: \.self) { tipViewModel in
                             VStack(alignment: .center, spacing: 40) {
                                 Image(tipViewModel.illustration).frame(width: 90, height: 90, alignment: .center)
                                 VStack(alignment: .leading, spacing: 8) {
@@ -47,7 +47,7 @@ struct HelpView: View {
             Button(action: { self.model.nextTip() }, label: {
                 Image(systemName: "arrow.right.circle.fill").font(.title).foregroundColor(.secondary)
             })
-        }
+        }.padding([.leading, .trailing], 24).padding([.top, .bottom], 10)
     }
 
 
