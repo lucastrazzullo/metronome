@@ -23,9 +23,10 @@
 		8166679423439D2B002DC01A /* TempoUpdaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8166679323439D2B002DC01A /* TempoUpdaterViewController.swift */; };
 		8166679623439D42002DC01A /* TempoUpdaterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8166679523439D42002DC01A /* TempoUpdaterView.swift */; };
 		8166679823451E7F002DC01A /* TimeSignatureUpdaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */; };
-		8169CFAC234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8169CFAB234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift */; };
 		8169CFAE234A7F57009EFB1C /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8169CFAD234A7F57009EFB1C /* HelpViewController.swift */; };
 		8169CFB0234A7F71009EFB1C /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8169CFAF234A7F71009EFB1C /* HelpView.swift */; };
+		8179A9832353A22100B33770 /* MetronomeChromeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179A9822353A22100B33770 /* MetronomeChromeView.swift */; };
+		8179A9872353AE2500B33770 /* MetronomeGestureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179A9862353AE2500B33770 /* MetronomeGestureViewController.swift */; };
 		817F9932234CAD0400DA1043 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 817F9931234CAD0400DA1043 /* Assets.xcassets */; };
 		817F9939234CAD0400DA1043 /* Metronome Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 817F9938234CAD0400DA1043 /* Metronome Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		817F9942234CAD0500DA1043 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 817F9941234CAD0500DA1043 /* Assets.xcassets */; };
@@ -43,7 +44,6 @@
 		817F995A234CADBF00DA1043 /* ObservableMetronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81249785234B8EBA0047F3E3 /* ObservableMetronome.swift */; };
 		817F995C234CAEFF00DA1043 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 817F992E234CAD0300DA1043 /* Interface.storyboard */; };
 		817F995D234CAF2000DA1043 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 817F992E234CAD0300DA1043 /* Interface.storyboard */; };
-		81811B592348B1F600C06204 /* GestureMetronomePlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81811B582348B1F600C06204 /* GestureMetronomePlayerViewController.swift */; };
 		81811B5B2348B29D00C06204 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81811B5A2348B29D00C06204 /* ContainerViewController.swift */; };
 		81919FB3234B4F220061571A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 81919FB2234B4F220061571A /* Localizable.strings */; };
 		81919FB5234B515C0061571A /* HelpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB4234B515C0061571A /* HelpViewModel.swift */; };
@@ -139,9 +139,10 @@
 		8166679323439D2B002DC01A /* TempoUpdaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoUpdaterViewController.swift; sourceTree = "<group>"; };
 		8166679523439D42002DC01A /* TempoUpdaterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoUpdaterView.swift; sourceTree = "<group>"; };
 		8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignatureUpdaterViewController.swift; sourceTree = "<group>"; };
-		8169CFAB234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIForceTapGestureRecogniser.swift; sourceTree = "<group>"; };
 		8169CFAD234A7F57009EFB1C /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		8169CFAF234A7F71009EFB1C /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
+		8179A9822353A22100B33770 /* MetronomeChromeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeChromeView.swift; sourceTree = "<group>"; };
+		8179A9862353AE2500B33770 /* MetronomeGestureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetronomeGestureViewController.swift; sourceTree = "<group>"; };
 		817F992C234CAD0300DA1043 /* Metronome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metronome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		817F992F234CAD0300DA1043 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		817F9931234CAD0400DA1043 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -149,7 +150,6 @@
 		817F9938234CAD0400DA1043 /* Metronome Watch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "Metronome Watch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
 		817F9941234CAD0500DA1043 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		817F9943234CAD0500DA1043 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		81811B582348B1F600C06204 /* GestureMetronomePlayerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GestureMetronomePlayerViewController.swift; sourceTree = "<group>"; };
 		81811B5A2348B29D00C06204 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		81919FB2234B4F220061571A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		81919FB4234B515C0061571A /* HelpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewModel.swift; sourceTree = "<group>"; };
@@ -306,7 +306,6 @@
 		81A71C7C23524B5900E86256 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
-				8169CFAB234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift */,
 				81811B5A2348B29D00C06204 /* ContainerViewController.swift */,
 			);
 			path = Extension;
@@ -436,11 +435,11 @@
 				81A71C7C23524B5900E86256 /* Extension */,
 				81A71C7D23524B7A00E86256 /* Gesture Controller */,
 				81FAF03223427ED1004A8C51 /* MainViewController.swift */,
+				8169CFAD234A7F57009EFB1C /* HelpViewController.swift */,
 				81FAF06023429A24004A8C51 /* MetronomeViewController.swift */,
-				81811B582348B1F600C06204 /* GestureMetronomePlayerViewController.swift */,
+				8179A9862353AE2500B33770 /* MetronomeGestureViewController.swift */,
 				8166679323439D2B002DC01A /* TempoUpdaterViewController.swift */,
 				8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */,
-				8169CFAD234A7F57009EFB1C /* HelpViewController.swift */,
 				81A8878A235257770071BF48 /* TapTempoUpdaterViewController.swift */,
 			);
 			path = Controller;
@@ -449,10 +448,11 @@
 		81FAF05D234299DE004A8C51 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				8169CFAF234A7F71009EFB1C /* HelpView.swift */,
 				81FAF05E23429A00004A8C51 /* MetronomeView.swift */,
+				8179A9822353A22100B33770 /* MetronomeChromeView.swift */,
 				8166679523439D42002DC01A /* TempoUpdaterView.swift */,
 				81C0B37E23492DB700D01072 /* TimeSignatureUpdaterView.swift */,
-				8169CFAF234A7F71009EFB1C /* HelpView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -461,9 +461,9 @@
 			isa = PBXGroup;
 			children = (
 				81919FB9234B58900061571A /* ColorPalette.swift */,
+				81919FB4234B515C0061571A /* HelpViewModel.swift */,
 				81FAF06623435823004A8C51 /* MetronomeViewModel.swift */,
 				813C8D5B234529E500DE9E82 /* BitViewModel.swift */,
-				81919FB4234B515C0061571A /* HelpViewModel.swift */,
 				81919FB6234B51960061571A /* TipViewModel.swift */,
 				81A8878E2353442A0071BF48 /* TempoUpdaterViewModel.swift */,
 				81A8878C235343420071BF48 /* TimeSignatureUpdaterViewModel.swift */,
@@ -657,7 +657,6 @@
 			files = (
 				8166679823451E7F002DC01A /* TimeSignatureUpdaterViewController.swift in Sources */,
 				81919FBA234B58900061571A /* ColorPalette.swift in Sources */,
-				8169CFAC234A72DC009EFB1C /* UIForceTapGestureRecogniser.swift in Sources */,
 				81FAF06723435823004A8C51 /* MetronomeViewModel.swift in Sources */,
 				81249773234B64420047F3E3 /* Tempo.swift in Sources */,
 				8169CFB0234A7F71009EFB1C /* HelpView.swift in Sources */,
@@ -667,8 +666,8 @@
 				81A88789235250FE0071BF48 /* TapTempoUpdaterGestureController.swift in Sources */,
 				8169CFAE234A7F57009EFB1C /* HelpViewController.swift in Sources */,
 				8124978A234B91EA0047F3E3 /* ObservableMetronomeSnapshot.swift in Sources */,
-				81811B592348B1F600C06204 /* GestureMetronomePlayerViewController.swift in Sources */,
 				81FAF05F23429A00004A8C51 /* MetronomeView.swift in Sources */,
+				8179A9872353AE2500B33770 /* MetronomeGestureViewController.swift in Sources */,
 				81A71C792352477C00E86256 /* TempoUpdaterGestureController.swift in Sources */,
 				81C0725723523D7F009A9523 /* DefaultGestureMetronomeController.swift in Sources */,
 				81249787234B8EEE0047F3E3 /* ObservableMetronome.swift in Sources */,
@@ -685,6 +684,7 @@
 				81FAF02F23427ED1004A8C51 /* AppDelegate.swift in Sources */,
 				81A8878F2353442A0071BF48 /* TempoUpdaterViewModel.swift in Sources */,
 				81249771234B643E0047F3E3 /* Metronome.swift in Sources */,
+				8179A9832353A22100B33770 /* MetronomeChromeView.swift in Sources */,
 				81811B5B2348B29D00C06204 /* ContainerViewController.swift in Sources */,
 				81C0B37F23492DB700D01072 /* TimeSignatureUpdaterView.swift in Sources */,
 				81919FB5234B515C0061571A /* HelpViewModel.swift in Sources */,
@@ -764,7 +764,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				INFOPLIST_FILE = "Metronome Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -789,7 +789,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				INFOPLIST_FILE = "Metronome Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -815,7 +815,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				IBSC_MODULE = Metronome_Watch_Extension;
 				INFOPLIST_FILE = "Metronome Watch/Info.plist";
@@ -837,7 +837,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				IBSC_MODULE = Metronome_Watch_Extension;
 				INFOPLIST_FILE = "Metronome Watch/Info.plist";
@@ -972,7 +972,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				INFOPLIST_FILE = "Metronome iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -993,7 +993,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 9;
+				CURRENT_PROJECT_VERSION = 10;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				INFOPLIST_FILE = "Metronome iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (

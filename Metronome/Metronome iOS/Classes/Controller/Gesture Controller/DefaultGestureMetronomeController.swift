@@ -13,25 +13,25 @@ class DefaultGestureMetronomeController<PresentedControllerType: UIViewControlle
     weak var presentedViewController: PresentedControllerType? {
         didSet {
             if presentedViewController != nil {
+                impactGenerator.impactOccurred()
                 metronome.reset()
             }
         }
     }
     weak var delegate: UIContainerViewController? {
-        willSet {
-            if let delegate = delegate, newValue == nil {
-                tearDown(with: delegate)
-            }
-        }
         didSet {
-            if let delegate = delegate {
-                setup(with: delegate)
+            if delegate == nil {
+                tearDown()
+            } else {
+                setup()
             }
         }
     }
 
     let gestureRecogniser: UIGestureRecognizer
     let metronome: Metronome
+
+    private let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
 
 
     // MARK: Object life cycle
@@ -47,13 +47,13 @@ class DefaultGestureMetronomeController<PresentedControllerType: UIViewControlle
 
     // MARK: Setup
 
-    private func setup(with delegate: UIViewController) {
-        delegate.view.addGestureRecognizer(gestureRecogniser)
+    private func setup() {
+        delegate?.view.addGestureRecognizer(gestureRecogniser)
     }
 
 
-    private func tearDown(with delegate: UIViewController) {
-        delegate.view.removeGestureRecognizer(gestureRecogniser)
+    private func tearDown() {
+        delegate?.view.removeGestureRecognizer(gestureRecogniser)
     }
 
 

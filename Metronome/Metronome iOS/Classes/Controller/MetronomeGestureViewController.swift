@@ -1,25 +1,25 @@
 //
-//  GestureMetronomePlayerViewController.swift
+//  MetronomeGestureViewController.swift
 //  Metronome
 //
 //  Created by luca strazzullo on 5/10/19.
 //  Copyright © 2019 luca strazzullo. All rights reserved.
 //
 
-import UIKit
+import SwiftUI
 
-class GestureMetronomePlayerViewController: UIViewController, ContainerViewController {
+class MetronomeGestureViewController: UIHostingController<MetronomeChromeView>, ContainerViewController {
 
-    private let metronome: Metronome
+    private let metronome: ObservableMetronome<MetronomeViewModel>
     private var gestureControllers: [GestureController]
 
 
     // MARK: Object life cycle
 
-    init(with metronome: Metronome) {
+    init(with metronome: ObservableMetronome<MetronomeViewModel>) {
         self.metronome = metronome
         self.gestureControllers = []
-        super.init(nibName: nil, bundle: nil)
+        super.init(rootView: MetronomeChromeView(observed: metronome))
     }
 
 
@@ -30,8 +30,9 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
 
     // MARK: View life cycle
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        view.backgroundColor = .clear
 
         let helpController = HelpGestureController(with: metronome)
         addGestureController(helpController)
@@ -56,10 +57,22 @@ class GestureMetronomePlayerViewController: UIViewController, ContainerViewContr
     }
 
 
-    // MARK: Public methods
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        removeGestureControllers()
+    }
 
-    func addGestureController(_ gestureController: GestureController) {
+
+    // MARK: Private helper methods
+
+    private func addGestureController(_ gestureController: GestureController) {
         gestureController.delegate = self
         gestureControllers.append(gestureController)
+    }
+
+
+    private func removeGestureControllers() {
+        gestureControllers.forEach({ $0.delegate = nil })
+        gestureControllers.removeAll()
     }
 }

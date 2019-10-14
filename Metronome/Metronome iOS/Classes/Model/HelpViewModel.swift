@@ -7,17 +7,14 @@
 //
 
 import Foundation
+import Combine
 
-struct HelpViewModel: Hashable {
-
-    let spacingBetweenTips = 40
-    let numberOfVisibleTips = 4
-
+struct HelpViewModel {
 
     // MARK: Content
 
     private var allTips: [TipViewModel] = [
-        TipViewModel(title: NSLocalizedString("help.forceTap.title", comment: ""), description: NSLocalizedString("help.forceTap.description", comment: ""), illustration: "ForceTap"),
+        TipViewModel(title: NSLocalizedString("help.swipeUp.title", comment: ""), description: NSLocalizedString("help.swipeUp.description", comment: ""), illustration: "SwipeUp"),
         TipViewModel(title: NSLocalizedString("help.tap.title", comment: ""), description: NSLocalizedString("help.tap.description", comment: ""), illustration: "Tap"),
         TipViewModel(title: NSLocalizedString("help.long_press.title", comment: ""), description: NSLocalizedString("help.long_press.description", comment: ""), illustration: "LongPress"),
         TipViewModel(title: NSLocalizedString("help.vertical_slide.title", comment: ""), description: NSLocalizedString("help.vertical_slide.description", comment: ""), illustration: "DoubleFingerVerticalSlide"),
@@ -32,7 +29,7 @@ struct HelpViewModel: Hashable {
         return NSLocalizedString("help.title", comment: "")
     }
 
-    var tips: [TipViewModel] {
+    func tips(for numberOfVisibleTips: Int) -> [TipViewModel] {
         return Array(allTips[0..<numberOfVisibleTips])
     }
 
@@ -42,5 +39,12 @@ struct HelpViewModel: Hashable {
     mutating func nextTip() {
         let firstTip = allTips.remove(at: 0)
         allTips.append(firstTip)
+    }
+
+
+    mutating func prevTip() {
+        if let lastTip = allTips.popLast() {
+            allTips.insert(lastTip, at: 0)
+        }
     }
 }
