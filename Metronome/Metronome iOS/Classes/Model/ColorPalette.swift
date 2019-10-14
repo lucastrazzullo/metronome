@@ -13,6 +13,7 @@ extension Color {
     static var purple = Color(hex: "6236FF")
     static var orange = Color(hex: "FA6400")
     static var yellow = Color(hex: "F7B500")
+    static var green = Color(hex: "37DE94")
     static var blue = Color(hex: "0091FF")
 
 

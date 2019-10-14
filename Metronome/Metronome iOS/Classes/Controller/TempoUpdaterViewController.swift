@@ -19,7 +19,7 @@ class TempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
     init(tempo: Tempo) {
         self.initialTempo = tempo
         self.tempo = tempo
-        super.init(rootView: TempoUpdaterView(model: TempoUpdaterViewModel(tempo: tempo)))
+        super.init(rootView: TempoUpdaterView(model: TempoUpdaterViewModel(tempo: tempo), foregroundColor: Color.yellow))
     }
 
 
