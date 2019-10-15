@@ -27,9 +27,9 @@
 
 // MARK: Help
 
-"help.title" = "Need Help?";
-"help.swipeUp.title" = "Show help";
-"help.swipeUp.description" = "Swipe up to present helper";
+"help.title" = "Tips";
+"help.swipeUp.title" = "Show tips";
+"help.swipeUp.description" = "Swipe up to present tips";
 "help.tap.title" = "On/Off";
 "help.tap.description" = "Single Tap to toggle on/off";
 "help.vertical_slide.title" = "Tempo";
