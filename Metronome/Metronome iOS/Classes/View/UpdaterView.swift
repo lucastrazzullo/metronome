@@ -26,13 +26,13 @@ struct UpdaterView: View {
             Color(model.backgroundColor).edgesIgnoringSafeArea(.all)
             ZStack(alignment: .center) {
                 HStack(alignment: .center) {
-                    Text(model.titleLabel).font(Font.custom("AmericanTypewriter", size: 34))
+                    Text(model.titleLabel).brandFont(.headline)
                     Spacer()
                 }
                 HStack(alignment: .center, spacing: 4) {
-                    Text(model.prefixLabel).font(Font.custom("AmericanTypewriter", size: 22))
-                    Text(model.heroLabel).font(Font.custom("AmericanTypewriter", size: 88))
-                    Text(model.suffixLabel).font(Font.custom("AmericanTypewriter", size: 22))
+                    Text(model.prefixLabel).brandFont(.body)
+                    Text(model.heroLabel).brandFont(.largeTitle)
+                    Text(model.suffixLabel).brandFont(.body)
                 }
             }
         }

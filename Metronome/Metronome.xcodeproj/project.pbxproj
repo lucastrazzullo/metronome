@@ -29,6 +29,8 @@
 		8179A9832353A22100B33770 /* MetronomeChromeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179A9822353A22100B33770 /* MetronomeChromeView.swift */; };
 		8179A9872353AE2500B33770 /* MetronomeGestureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179A9862353AE2500B33770 /* MetronomeGestureViewController.swift */; };
 		817EFA432355C09F004E774D /* SlideTempoUpdaterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817EFA422355C09F004E774D /* SlideTempoUpdaterViewModel.swift */; };
+		817EFA4C2355C60E004E774D /* BrandFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817EFA4B2355C60E004E774D /* BrandFont.swift */; };
+		817EFA4E2355C948004E774D /* TipView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817EFA4D2355C948004E774D /* TipView.swift */; };
 		817F9932234CAD0400DA1043 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 817F9931234CAD0400DA1043 /* Assets.xcassets */; };
 		817F9939234CAD0400DA1043 /* Metronome Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 817F9938234CAD0400DA1043 /* Metronome Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		817F9942234CAD0500DA1043 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 817F9941234CAD0500DA1043 /* Assets.xcassets */; };
@@ -145,6 +147,8 @@
 		8179A9822353A22100B33770 /* MetronomeChromeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeChromeView.swift; sourceTree = "<group>"; };
 		8179A9862353AE2500B33770 /* MetronomeGestureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetronomeGestureViewController.swift; sourceTree = "<group>"; };
 		817EFA422355C09F004E774D /* SlideTempoUpdaterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideTempoUpdaterViewModel.swift; sourceTree = "<group>"; };
+		817EFA4B2355C60E004E774D /* BrandFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandFont.swift; sourceTree = "<group>"; };
+		817EFA4D2355C948004E774D /* TipView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipView.swift; sourceTree = "<group>"; };
 		817F992C234CAD0300DA1043 /* Metronome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metronome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		817F992F234CAD0300DA1043 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
 		817F9931234CAD0400DA1043 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -275,6 +279,14 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		817EFA4A2355C602004E774D /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				817EFA4B2355C60E004E774D /* BrandFont.swift */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
 		817F992D234CAD0300DA1043 /* Metronome Watch */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +406,7 @@
 		81FAF05223427F00004A8C51 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				817EFA4A2355C602004E774D /* Font */,
 				81919FB1234B4EEF0061571A /* String */,
 				81FAF05323427F07004A8C51 /* Storyboard */,
 				81FAF03723427ED2004A8C51 /* Assets.xcassets */,
@@ -449,6 +462,7 @@
 			isa = PBXGroup;
 			children = (
 				8169CFAF234A7F71009EFB1C /* HelpView.swift */,
+				817EFA4D2355C948004E774D /* TipView.swift */,
 				81FAF05E23429A00004A8C51 /* MetronomeView.swift */,
 				8179A9822353A22100B33770 /* MetronomeChromeView.swift */,
 				81C0B37E23492DB700D01072 /* UpdaterView.swift */,
@@ -669,10 +683,12 @@
 				8124978A234B91EA0047F3E3 /* ObservableMetronomeSnapshot.swift in Sources */,
 				81FAF05F23429A00004A8C51 /* MetronomeView.swift in Sources */,
 				8179A9872353AE2500B33770 /* MetronomeGestureViewController.swift in Sources */,
+				817EFA4E2355C948004E774D /* TipView.swift in Sources */,
 				81A71C792352477C00E86256 /* TempoUpdaterGestureController.swift in Sources */,
 				81C0725723523D7F009A9523 /* DefaultGestureMetronomeController.swift in Sources */,
 				81249787234B8EEE0047F3E3 /* ObservableMetronome.swift in Sources */,
 				81C0725523523D23009A9523 /* HelpGestureController.swift in Sources */,
+				817EFA4C2355C60E004E774D /* BrandFont.swift in Sources */,
 				813C8D5C234529E500DE9E82 /* BitViewModel.swift in Sources */,
 				81FAF06123429A24004A8C51 /* MetronomeViewController.swift in Sources */,
 				81A8878323524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift in Sources */,

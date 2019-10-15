@@ -24,8 +24,8 @@ struct MetronomeView: View {
                     ZStack {
                         self.backgroundColor(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
                         Text(String(bitViewModel.label))
-                            .font(Font.system(.largeTitle))
                             .foregroundColor(self.foregroundColor(forBitAt: bitViewModel.index))
+                            .brandFont(.headline)
                     }
                 }
             }
