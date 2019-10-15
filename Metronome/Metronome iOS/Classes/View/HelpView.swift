@@ -37,7 +37,7 @@ struct HelpView: View {
                     HStack(alignment: .top, spacing: 24) {
                         ForEach(self.model.tips(for: self.numberOfVisibleTips(for: geometry, spacing: 24)), id: \.self) {
                             tipViewModel in
-                            TipView(viewModel: tipViewModel).frame(width: TipView.idealWidth, height: nil, alignment: .center)
+                            TipView(viewModel: tipViewModel).frame(width: TipView.minimumWidth, height: nil, alignment: .top)
                         }.animation(.spring())
                     }.frame(width: nil, height: geometry.size.height / 10 * 7, alignment: .center)
                 }
@@ -47,14 +47,14 @@ struct HelpView: View {
                     .brandFont(.title1)
                     .foregroundColor(.secondary)
             })
-        }.padding([.leading, .trailing], 24).padding([.top, .bottom], 10)
+        }.padding([.leading, .trailing], 12).padding([.top, .bottom], 10)
     }
 
 
     // MARK: Private helper methods
 
     private func numberOfVisibleTips(for geometry: GeometryProxy, spacing: CGFloat) -> Int {
-        let minimumSize: CGFloat = TipView.idealWidth + spacing
+        let minimumSize: CGFloat = TipView.minimumWidth + spacing
         return Int(floor((geometry.size.width - spacing) / minimumSize))
     }
 }
