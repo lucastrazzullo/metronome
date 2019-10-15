@@ -10,8 +10,6 @@ import SwiftUI
 
 struct HelpView: View {
 
-    private let minimumTipWidth: CGFloat = 140
-
     @State var model: HelpViewModel
     @State var dismiss: () -> ()
 
@@ -19,42 +17,91 @@ struct HelpView: View {
     // MARK: Body
 
     var body: some View {
-        HStack(alignment: .center, spacing: 10) {
-            Button(action: { self.model.prevTip() }) {
-                Image(systemName: "arrow.left.circle.fill").font(.title).foregroundColor(.secondary)
+        let gesture = DragGesture().onEnded {
+            gesture in
+            if gesture.translation.width < -100 {
+                self.model.nextTip()
+            } else if gesture.translation.width > 100 {
+                self.model.prevTip()
+            } else if gesture.translation.height > 100 {
+                self.dismiss()
             }
-            GeometryReader { geometry in
-                VStack(alignment: .center) {
-                    HStack(alignment: .center, spacing: 40) {
-                        Text(self.model.titleLabel).font(Font.system(.title))
-                        Button(action: { self.dismiss() }) {
-                            Image(systemName: "x.circle.fill").font(.title).foregroundColor(.primary)
-                        }
-                    }
-                    HStack(alignment: .top, spacing: 25) {
-                        ForEach(self.model.tips(for: self.numberOfVisibleTips(for: geometry)), id: \.self) { tipViewModel in
-                            VStack(alignment: .center, spacing: 40) {
-                                Image(tipViewModel.illustration).frame(width: 90, height: 90, alignment: .center)
-                                VStack(alignment: .leading, spacing: 8) {
-                                    Text(tipViewModel.title).multilineTextAlignment(.leading).font(Font.system(.headline))
-                                    Text(tipViewModel.description).multilineTextAlignment(.leading).font(Font.system(.callout))
-                                }
-                            }.frame(width: self.minimumTipWidth, height: nil, alignment: .center)
-                        }.animation(.spring())
-                    }.frame(width: nil, height: geometry.size.height / 10 * 7, alignment: .center)
-                }
-            }
-            Button(action: { self.model.nextTip() }, label: {
-                Image(systemName: "arrow.right.circle.fill").font(.title).foregroundColor(.secondary)
-            })
         }
+
+        return HStack(alignment: .center, spacing: 10) {
+            ButtonView(icon: "arrow.left.circle.fill", action: { self.model.prevTip() })
+
+            GeometryReader { geometry in
+                VStack(alignment: .center, spacing: 20) {
+                    TitleView(title: self.model.titleLabel, dismissIcon: "x.circle.fill", dismiss: self.dismiss)
+                    TipsView(tips: self.model.tips(for: self.numberOfVisibleTips(for: geometry, spacing: 30)), spacing: 30)
+                }
+                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
+                .gesture(gesture)
+            }
+
+            ButtonView(icon: "arrow.right.circle.fill", action: { self.model.nextTip() })
+        }.padding([.leading, .trailing], 12).padding([.top, .bottom], 10)
     }
 
 
     // MARK: Private helper methods
 
-    private func numberOfVisibleTips(for geometry: GeometryProxy) -> Int {
-        let minimumSize: CGFloat = minimumTipWidth
-        return Int(floor(geometry.size.width / minimumSize))
+    private func numberOfVisibleTips(for geometry: GeometryProxy, spacing: CGFloat) -> Int {
+        let minimumSize: CGFloat = TipView.minimumWidth + spacing
+        return Int(floor((geometry.size.width - spacing) / minimumSize))
+    }
+}
+
+
+private struct TipsView: View {
+
+    let tips: [TipViewModel]
+    let spacing: CGFloat
+
+    var body: some View {
+        HStack(alignment: .top, spacing: spacing) {
+            ForEach(tips, id: \.self) { tipViewModel in
+                TipView(viewModel: tipViewModel)
+                    .frame(width: TipView.minimumWidth, height: nil, alignment: .top)
+            }.animation(.spring())
+        }
+    }
+}
+
+
+private struct ButtonView: View {
+
+    let icon: String
+
+    @State var action: () -> ()
+
+    var body: some View {
+        Button(action: { self.action() }) {
+            Image(systemName: icon)
+                .brandFont(.title1)
+                .foregroundColor(.secondary)
+        }
+    }
+}
+
+
+private struct TitleView: View {
+
+    let title: String
+    let dismissIcon: String
+
+    @State var dismiss: () -> ()
+
+    var body: some View {
+        HStack(alignment: .center, spacing: 40) {
+            Text(title)
+                .brandFont(.title1)
+            Button(action: { self.dismiss() }) {
+                Image(systemName: dismissIcon)
+                    .brandFont(.title1)
+                    .foregroundColor(.primary)
+            }
+        }.frame(width: nil, height: 60, alignment: .center)
     }
 }

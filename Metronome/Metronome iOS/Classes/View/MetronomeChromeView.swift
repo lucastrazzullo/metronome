@@ -22,11 +22,11 @@ struct MetronomeChromeView: View {
             Spacer()
             ZStack {
                 HStack(alignment: .center, spacing: 24) {
-                    Text(observed.snapshot.timeSignatureLabel)
-                    Text(observed.snapshot.tempoLabel)
+                    Text(observed.snapshot.timeSignatureLabel).brandFont(.footnote)
+                    Text(observed.snapshot.tempoLabel).brandFont(.footnote)
                     Spacer()
                     Button(action: { self.helperIsPresented = true }) {
-                        Image(systemName: "questionmark.circle")
+                        Image(systemName: "questionmark.circle.fill").brandFont(.footnote)
                     }.sheet(isPresented: self.$helperIsPresented) {
                         HelpView(model: HelpViewModel(), dismiss: { self.helperIsPresented = false }).onAppear(perform: {
                             self.observed.reset()
@@ -34,6 +34,6 @@ struct MetronomeChromeView: View {
                     }
                 }.foregroundColor(Color.white).opacity(0.7).font(.body)
             }.frame(width: nil, height: 40, alignment: .center)
-        }.padding(0)
+        }.padding([.leading, .trailing], 24).padding([.top, .bottom], 10)
     }
 }

@@ -24,8 +24,8 @@ struct MetronomeView: View {
                     ZStack {
                         self.backgroundColor(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
                         Text(String(bitViewModel.label))
-                            .font(Font.system(.largeTitle))
                             .foregroundColor(self.foregroundColor(forBitAt: bitViewModel.index))
+                            .brandFont(.headline)
                     }
                 }
             }
@@ -37,7 +37,7 @@ struct MetronomeView: View {
 
     private func backgroundColor(for index: Int) -> Color {
         if observed.snapshot.isRunning, observed.snapshot.currentBitIndex == index {
-            return Color.yellow
+            return Color("yellow")
         } else {
             return Color.white.opacity(0.05)
         }
