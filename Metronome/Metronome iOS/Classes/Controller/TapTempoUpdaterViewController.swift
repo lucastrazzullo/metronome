@@ -13,7 +13,7 @@ protocol TapTempoUpdaterViewControllerDelegate: AnyObject {
 }
 
 
-class TapTempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
+class TapTempoUpdaterViewController: UIHostingController<UpdaterView> {
 
     weak var delegate: TapTempoUpdaterViewControllerDelegate?
 
@@ -24,7 +24,7 @@ class TapTempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
     private var tapTimestamps: [TimeInterval] = []
     private var configuration: MetronomeConfiguration {
         didSet {
-            rootView.model.tempo = configuration.tempo
+            rootView.model = TapTempoUpdaterViewModel(tempo: configuration.tempo)
         }
     }
 
@@ -33,7 +33,7 @@ class TapTempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
 
     init(configuration: MetronomeConfiguration) {
         self.configuration = configuration
-        super.init(rootView: TempoUpdaterView(model: TempoUpdaterViewModel(tempo: configuration.tempo), backgroundColor: Color("green")))
+        super.init(rootView: UpdaterView(model: TapTempoUpdaterViewModel(tempo: configuration.tempo)))
     }
 
 

@@ -7,10 +7,22 @@
 */
 
 
-// MARK: Metronome
+// MARK: Time Signature
 
-"metronome.tempo.format" = "%dBPM";
 "metronome.time_signature.format" = "%d/%d";
+
+"metronome.time_signature.bar_length.updater.title" = "Bar length";
+"metronome.time_signature.bar_length.updater.suffix.format" = "/%d";
+
+"metronome.time_signature.note_length.updater.title" = "Note length";
+"metronome.time_signature.note_length.updater.prefix.format" = "%d/";
+
+
+// MARK: Tempo
+
+"metronome.tempo.suffix" = "bpm";
+"metronome.tempo.updater.title" = "Tempo";
+"metronome.tempo.updater.tap.title" = "Tap Tempo";
 
 
 // MARK: Help

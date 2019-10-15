@@ -33,6 +33,6 @@ struct MetronomeViewModel: ObservableMetronomeSnapshot {
 
 
     var tempoLabel: String {
-        return String(format: NSLocalizedString("metronome.tempo.format", comment: ""), configuration.tempo.bpm)
+        return String(format: "%d%@", configuration.tempo.bpm, NSLocalizedString("metronome.tempo.suffix", comment: "").uppercased())
     }
 }

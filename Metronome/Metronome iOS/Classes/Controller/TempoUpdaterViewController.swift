@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class TempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
+class TempoUpdaterViewController: UIHostingController<UpdaterView> {
 
     private var initialTempo: Tempo
     private(set) var tempo: Tempo
@@ -19,7 +19,7 @@ class TempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
     init(tempo: Tempo) {
         self.initialTempo = tempo
         self.tempo = tempo
-        super.init(rootView: TempoUpdaterView(model: TempoUpdaterViewModel(tempo: tempo), backgroundColor: Color("yellow")))
+        super.init(rootView: UpdaterView(model: SlideTempoUpdaterViewModel(tempo: tempo)))
     }
 
 
@@ -32,6 +32,6 @@ class TempoUpdaterViewController: UIHostingController<TempoUpdaterView> {
 
     func updateBpm(with offset: Int) {
         tempo = Tempo(bpm: initialTempo.bpm + offset)
-        rootView.model.tempo = tempo
+        rootView.model = SlideTempoUpdaterViewModel(tempo: tempo)
     }
 }
