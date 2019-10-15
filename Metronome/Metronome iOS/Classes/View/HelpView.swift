@@ -23,8 +23,10 @@ struct HelpView: View {
                     .brandFont(.title1)
                     .foregroundColor(.secondary)
             }
+
             GeometryReader { geometry in
-                VStack(alignment: .center) {
+                VStack(alignment: .center, spacing: 20) {
+
                     HStack(alignment: .center, spacing: 40) {
                         Text(self.model.titleLabel)
                             .brandFont(.title1)
@@ -33,15 +35,18 @@ struct HelpView: View {
                                 .brandFont(.title1)
                                 .foregroundColor(.primary)
                         }
-                    }
-                    HStack(alignment: .top, spacing: 24) {
-                        ForEach(self.model.tips(for: self.numberOfVisibleTips(for: geometry, spacing: 24)), id: \.self) {
+                    }.frame(width: nil, height: 60, alignment: .center)
+
+                    HStack(alignment: .top, spacing: 30) {
+                        ForEach(self.model.tips(for: self.numberOfVisibleTips(for: geometry, spacing: 30)), id: \.self) {
                             tipViewModel in
                             TipView(viewModel: tipViewModel).frame(width: TipView.minimumWidth, height: nil, alignment: .top)
                         }.animation(.spring())
-                    }.frame(width: nil, height: geometry.size.height / 10 * 7, alignment: .center)
-                }
+                    }
+
+                }.frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
             }
+
             Button(action: { self.model.nextTip() }, label: {
                 Image(systemName: "arrow.right.circle.fill")
                     .brandFont(.title1)

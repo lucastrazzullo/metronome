@@ -10,7 +10,7 @@ import SwiftUI
 
 struct TipView: View {
 
-    static var minimumWidth: CGFloat = 152
+    static var minimumWidth: CGFloat = 145
 
     var viewModel: TipViewModel
 
