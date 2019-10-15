@@ -3,7 +3,7 @@
     {
       "size" : "24x24",
       "idiom" : "watch",
-      "filename" : "Icon-AppleWatch-24x24@2x.png",
+      "filename" : "App Icon - 24pt x 24pt (48px by 48px).png",
       "scale" : "2x",
       "role" : "notificationCenter",
       "subtype" : "38mm"
@@ -11,7 +11,7 @@
     {
       "size" : "27.5x27.5",
       "idiom" : "watch",
-      "filename" : "Icon-AppleWatch-27.5x27.5@2x.png",
+      "filename" : "App Icon - 27.5pt x 27.5pt (55px by 55px).png",
       "scale" : "2x",
       "role" : "notificationCenter",
       "subtype" : "42mm"
@@ -19,21 +19,21 @@
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "Icon-AppleWatch-29x29@2x.png",
+      "filename" : "App Icon - 29pt x 29pt (58px by 58px).png",
       "role" : "companionSettings",
       "scale" : "2x"
     },
     {
       "size" : "29x29",
       "idiom" : "watch",
-      "filename" : "Icon-AppleWatch-29x29@3x.png",
+      "filename" : "App Icon - 29pt x 29pt (87px by 87px).png",
       "role" : "companionSettings",
       "scale" : "3x"
     },
     {
       "size" : "40x40",
       "idiom" : "watch",
-      "filename" : "Icon-AppleWatch-40x40@2x.png",
+      "filename" : "App Icon - 40pt x 40pt (80px by 80px).png",
       "scale" : "2x",
       "role" : "appLauncher",
       "subtype" : "38mm"
@@ -41,7 +41,7 @@
     {
       "size" : "44x44",
       "idiom" : "watch",
-      "filename" : "Icon-AppleWatch-44x44@2x.png",
+      "filename" : "App Icon - 44pt x 44pt (88px by 88px).png",
       "scale" : "2x",
       "role" : "appLauncher",
       "subtype" : "40mm"
@@ -49,7 +49,7 @@
     {
       "size" : "50x50",
       "idiom" : "watch",
-      "filename" : "Icon-AppleWatch-50x50@2x.png",
+      "filename" : "App Icon - 50pt x 50pt (100px by 100px).png",
       "scale" : "2x",
       "role" : "appLauncher",
       "subtype" : "44mm"
@@ -57,7 +57,7 @@
     {
       "size" : "86x86",
       "idiom" : "watch",
-      "filename" : "Icon-AppleWatch-86x86@2x.png",
+      "filename" : "App Icon - 86pt x 86pt (172px by 172px).png",
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "38mm"
@@ -65,7 +65,7 @@
     {
       "size" : "98x98",
       "idiom" : "watch",
-      "filename" : "Icon-AppleWatch-98x98@2x.png",
+      "filename" : "App Icon - 98pt x 98pt (196px by 196px).png",
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "42mm"
@@ -73,7 +73,7 @@
     {
       "size" : "108x108",
       "idiom" : "watch",
-      "filename" : "Icon-AppleWatch-108x108@2x.png",
+      "filename" : "App Icon - 108pt x 108pt (216px by 216px).png",
       "scale" : "2x",
       "role" : "quickLook",
       "subtype" : "44mm"
@@ -81,7 +81,7 @@
     {
       "size" : "1024x1024",
       "idiom" : "watch-marketing",
-      "filename" : "Icon-AppleWatch-1024x1024.jpg",
+      "filename" : "App Icon - 1024px x 1024px.png",
       "scale" : "1x"
     }
   ],
