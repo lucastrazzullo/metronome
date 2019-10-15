@@ -25,6 +25,7 @@ struct HelpView: View {
             }
 
             GeometryReader { geometry in
+
                 VStack(alignment: .center, spacing: 20) {
 
                     HStack(alignment: .center, spacing: 40) {
@@ -43,8 +44,18 @@ struct HelpView: View {
                             TipView(viewModel: tipViewModel).frame(width: TipView.minimumWidth, height: nil, alignment: .top)
                         }.animation(.spring())
                     }
-
-                }.frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
+                }
+                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
+                .gesture(DragGesture().onEnded {
+                    gesture in
+                    if gesture.translation.width < -100 {
+                        self.model.nextTip()
+                    } else if gesture.translation.width > 100 {
+                        self.model.prevTip()
+                    } else if gesture.translation.height > 100 {
+                        self.dismiss()
+                    }
+                })
             }
 
             Button(action: { self.model.nextTip() }, label: {
