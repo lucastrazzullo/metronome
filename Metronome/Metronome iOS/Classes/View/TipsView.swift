@@ -1,5 +1,5 @@
 //
-//  HelpView.swift
+//  TipsView.swift
 //  Metronome
 //
 //  Created by luca strazzullo on 6/10/19.
@@ -8,9 +8,20 @@
 
 import SwiftUI
 
-struct HelpView: View {
+protocol TipsViewModel {
+    var titleLabel: String { get }
+    var tips: [TipViewModel] { get }
 
-    @State var model: HelpViewModel
+    func tips(with limitCount: Int) -> [TipViewModel]
+
+    mutating func nextTip()
+    mutating func prevTip()
+}
+
+
+struct TipsView: View {
+
+    @State var model: TipsViewModel
     @State var dismiss: () -> ()
 
 
@@ -34,7 +45,7 @@ struct HelpView: View {
             GeometryReader { geometry in
                 VStack(alignment: .center, spacing: 20) {
                     TitleView(title: self.model.titleLabel, dismissIcon: "x.circle.fill", dismiss: self.dismiss)
-                    TipsView(tips: self.model.tips(for: self.numberOfVisibleTips(for: geometry, spacing: 30)), spacing: 30)
+                    TipsListView(tips: self.model.tips(with: self.numberOfVisibleTips(for: geometry, spacing: 30)), spacing: 30)
                 }
                 .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
                 .gesture(gesture)
@@ -54,7 +65,7 @@ struct HelpView: View {
 }
 
 
-private struct TipsView: View {
+private struct TipsListView: View {
 
     let tips: [TipViewModel]
     let spacing: CGFloat

@@ -43,21 +43,22 @@ class WelcomeViewController: UIContainerViewController {
     // MARK: Private helper methods
 
     private func presentIfNeeded() {
-        if UserDefaults.standard.bool(forKey: "hasWelcomeBeenPresented") {
+        if UserDefaults.standard.bool(forKey: "hasWelcomeBeenPresented2") {
             dismiss()
         } else {
             present()
-            UserDefaults.standard.set(true, forKey: "hasWelcomeBeenPresented")
+            UserDefaults.standard.set(true, forKey: "hasWelcomeBeenPresented2")
         }
     }
 
 
     private func present() {
-        let helpModel = HelpViewModel()
-        let helpView = HelpView(model: helpModel, dismiss: dismiss)
-        let helpViewController = HelpViewController(rootView: helpView)
-        self.helpViewController = helpViewController
-        present(helpViewController, animated: true, completion: nil)
+        let tips = TipsViewModelRepository.all
+        let viewModel = WelcomeViewModel(tips: tips)
+        let view = TipsView(model: viewModel, dismiss: dismiss)
+        let viewController = TipsViewController(rootView: view)
+        self.helpViewController = viewController
+        present(viewController, animated: true, completion: nil)
     }
 
 

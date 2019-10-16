@@ -28,7 +28,9 @@ struct ChromeView: View {
                     Button(action: { self.helperIsPresented = true }) {
                         Image(systemName: "questionmark.circle.fill").brandFont(.body)
                     }.sheet(isPresented: self.$helperIsPresented) {
-                        HelpView(model: HelpViewModel(), dismiss: { self.helperIsPresented = false }).onAppear(perform: {
+                        TipsView(model: HelpViewModel(tips: TipsViewModelRepository.all), dismiss: {
+                            self.helperIsPresented = false
+                        }).onAppear(perform: {
                             self.observed.reset()
                         })
                     }

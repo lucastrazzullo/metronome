@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HelpGestureController: DefaultGestureMetronomeController<HelpViewController> {
+class HelpGestureController: DefaultGestureMetronomeController<TipsViewController> {
 
     // MARK: Object life cycle
 
@@ -29,7 +29,10 @@ class HelpGestureController: DefaultGestureMetronomeController<HelpViewControlle
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
 
-        let viewController = HelpViewController(rootView: HelpView(model: HelpViewModel(), dismiss: dismissPresentedViewController))
+        let tips = TipsViewModelRepository.all
+        let viewModel = HelpViewModel(tips: tips)
+        let view = TipsView(model: viewModel, dismiss: dismissPresentedViewController)
+        let viewController = TipsViewController(rootView: view)
         presentViewController(viewController)
     }
 }
