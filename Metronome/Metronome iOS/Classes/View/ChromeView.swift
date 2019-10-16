@@ -1,5 +1,5 @@
 //
-//  MetronomeChromeView.swift
+//  ChromeView.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 13/10/19.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-struct MetronomeChromeView: View {
+struct ChromeView: View {
 
     @ObservedObject var observed: ObservableMetronome<MetronomeViewModel>
 
@@ -26,13 +26,13 @@ struct MetronomeChromeView: View {
                     Text(observed.snapshot.tempoLabel).brandFont(.footnote)
                     Spacer()
                     Button(action: { self.helperIsPresented = true }) {
-                        Image(systemName: "questionmark.circle.fill").brandFont(.footnote)
+                        Image(systemName: "questionmark.circle.fill").brandFont(.body)
                     }.sheet(isPresented: self.$helperIsPresented) {
                         HelpView(model: HelpViewModel(), dismiss: { self.helperIsPresented = false }).onAppear(perform: {
                             self.observed.reset()
                         })
                     }
-                }.foregroundColor(Color.white).opacity(0.7).font(.body)
+                }.foregroundColor(Color.white).opacity(0.7)
             }.frame(width: nil, height: 40, alignment: .center)
         }.padding([.leading, .trailing], 24).padding([.top, .bottom], 10)
     }

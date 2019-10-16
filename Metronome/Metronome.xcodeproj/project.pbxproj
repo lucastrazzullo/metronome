@@ -26,7 +26,7 @@
 		8166679823451E7F002DC01A /* TimeSignatureUpdaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */; };
 		8169CFAE234A7F57009EFB1C /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8169CFAD234A7F57009EFB1C /* HelpViewController.swift */; };
 		8169CFB0234A7F71009EFB1C /* HelpView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8169CFAF234A7F71009EFB1C /* HelpView.swift */; };
-		8179A9832353A22100B33770 /* MetronomeChromeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179A9822353A22100B33770 /* MetronomeChromeView.swift */; };
+		8179A9832353A22100B33770 /* ChromeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179A9822353A22100B33770 /* ChromeView.swift */; };
 		8179A9872353AE2500B33770 /* MetronomeGestureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179A9862353AE2500B33770 /* MetronomeGestureViewController.swift */; };
 		817EFA432355C09F004E774D /* SlideTempoUpdaterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817EFA422355C09F004E774D /* SlideTempoUpdaterViewModel.swift */; };
 		817EFA4C2355C60E004E774D /* BrandFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817EFA4B2355C60E004E774D /* BrandFont.swift */; };
@@ -144,7 +144,7 @@
 		8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignatureUpdaterViewController.swift; sourceTree = "<group>"; };
 		8169CFAD234A7F57009EFB1C /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		8169CFAF234A7F71009EFB1C /* HelpView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpView.swift; sourceTree = "<group>"; };
-		8179A9822353A22100B33770 /* MetronomeChromeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeChromeView.swift; sourceTree = "<group>"; };
+		8179A9822353A22100B33770 /* ChromeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromeView.swift; sourceTree = "<group>"; };
 		8179A9862353AE2500B33770 /* MetronomeGestureViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetronomeGestureViewController.swift; sourceTree = "<group>"; };
 		817EFA422355C09F004E774D /* SlideTempoUpdaterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SlideTempoUpdaterViewModel.swift; sourceTree = "<group>"; };
 		817EFA4B2355C60E004E774D /* BrandFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandFont.swift; sourceTree = "<group>"; };
@@ -464,7 +464,7 @@
 				8169CFAF234A7F71009EFB1C /* HelpView.swift */,
 				817EFA4D2355C948004E774D /* TipView.swift */,
 				81FAF05E23429A00004A8C51 /* MetronomeView.swift */,
-				8179A9822353A22100B33770 /* MetronomeChromeView.swift */,
+				8179A9822353A22100B33770 /* ChromeView.swift */,
 				81C0B37E23492DB700D01072 /* UpdaterView.swift */,
 			);
 			path = View;
@@ -700,7 +700,7 @@
 				817EFA432355C09F004E774D /* SlideTempoUpdaterViewModel.swift in Sources */,
 				81FAF02F23427ED1004A8C51 /* AppDelegate.swift in Sources */,
 				81249771234B643E0047F3E3 /* Metronome.swift in Sources */,
-				8179A9832353A22100B33770 /* MetronomeChromeView.swift in Sources */,
+				8179A9832353A22100B33770 /* ChromeView.swift in Sources */,
 				81811B5B2348B29D00C06204 /* ContainerViewController.swift in Sources */,
 				81C0B37F23492DB700D01072 /* UpdaterView.swift in Sources */,
 				81919FB5234B515C0061571A /* HelpViewModel.swift in Sources */,

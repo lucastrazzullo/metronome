@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class MetronomeGestureViewController: UIHostingController<MetronomeChromeView>, ContainerViewController {
+class MetronomeGestureViewController: UIHostingController<ChromeView>, ContainerViewController {
 
     private let metronome: ObservableMetronome<MetronomeViewModel>
     private var gestureControllers: [GestureController]
@@ -19,7 +19,7 @@ class MetronomeGestureViewController: UIHostingController<MetronomeChromeView>, 
     init(with metronome: ObservableMetronome<MetronomeViewModel>) {
         self.metronome = metronome
         self.gestureControllers = []
-        super.init(rootView: MetronomeChromeView(observed: metronome))
+        super.init(rootView: ChromeView(observed: metronome))
     }
 
 
