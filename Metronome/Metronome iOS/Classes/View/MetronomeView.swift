@@ -22,11 +22,9 @@ struct MetronomeView: View {
             HStack(alignment: .center, spacing: 1) {
                 ForEach(observed.snapshot.bits, id: \.index) { bitViewModel in
                     ZStack {
-                        self.backgroundColor(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
-                        Text(String(bitViewModel.label))
-                            .foregroundColor(self.foregroundColor(forBitAt: bitViewModel.index))
-                            .brandFont(.headline)
-                    }
+                        self.background(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
+                        Text(String(bitViewModel.label)).brandFont(.headline)
+                    }.foregroundColor(self.foregroundColor(forBitAt: bitViewModel.index))
                 }
             }
         }
@@ -35,11 +33,11 @@ struct MetronomeView: View {
 
     // MARK: Private helper methods
 
-    private func backgroundColor(for index: Int) -> Color {
+    private func background(for index: Int) -> some View {
         if observed.snapshot.isRunning, observed.snapshot.currentBitIndex == index {
-            return Color("yellow")
+            return LinearGradient(gradient: Gradient(colors: [Color("green"), Color("blue")]), startPoint: .topLeading, endPoint: .bottomTrailing)
         } else {
-            return Color.white.opacity(0.05)
+            return LinearGradient(gradient: Gradient(colors: [Color.white.opacity(0.05), Color.white.opacity(0.05)]), startPoint: .topLeading, endPoint: .bottomTrailing)
         }
     }
 
