@@ -20,7 +20,6 @@ class ObservableMetronome<SnapshotType: ObservableMetronomeSnapshot>: Metronome,
 
         snapshot = SnapshotType(with: self)
         delegate = self
-        tickerDelegate = self
     }
 }
 
@@ -30,22 +29,21 @@ extension ObservableMetronome: MetronomeDelegate {
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
         snapshot.configuration = configuration
     }
-}
 
 
-extension ObservableMetronome: MetronomeTickerDelegate {
+    func metronome(_ metronome: Metronome, didTick iteration: Int) {
+        snapshot.currentIteration = iteration
+    }
 
-    func metronomeTickerDidStart(_ ticker: MetronomeTicker) {
+
+    func metronome(_ metronome: Metronome, didStartAt iteration: Int) {
         snapshot.isRunning = true
-        snapshot.currentIteration = ticker.iteration
+        snapshot.currentIteration = iteration
     }
 
-    func metronomeTickerDidReset(_ ticker: MetronomeTicker) {
+
+    func metronome(_ metronome: Metronome, didResetAt iteration: Int) {
         snapshot.isRunning = false
-        snapshot.currentIteration = ticker.iteration
-    }
-
-    func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
         snapshot.currentIteration = iteration
     }
 }

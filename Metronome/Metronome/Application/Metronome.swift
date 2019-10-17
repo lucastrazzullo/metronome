@@ -10,17 +10,15 @@ import Foundation
 
 protocol MetronomeDelegate: AnyObject {
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration)
+    func metronome(_ metronome: Metronome, didTick iteration: Int)
+    func metronome(_ metronome: Metronome, didStartAt iteration: Int)
+    func metronome(_ metronome: Metronome, didResetAt iteration: Int)
 }
 
 
 class Metronome {
 
     weak var delegate: MetronomeDelegate?
-    weak var tickerDelegate: MetronomeTickerDelegate? {
-        didSet {
-            ticker.delegate = tickerDelegate
-        }
-    }
 
     var configuration: MetronomeConfiguration {
         didSet {
@@ -66,5 +64,23 @@ class Metronome {
 
     func toggle() {
         if isRunning { reset() } else { start() }
+    }
+}
+
+
+extension Metronome: MetronomeTickerDelegate {
+
+    func metronomeTickerDidStart(_ ticker: MetronomeTicker) {
+        delegate?.metronome(self, didStartAt: ticker.iteration)
+    }
+
+
+    func metronomeTickerDidReset(_ ticker: MetronomeTicker) {
+        delegate?.metronome(self, didResetAt: ticker.iteration)
+    }
+
+
+    func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
+        delegate?.metronome(self, didTick: iteration)
     }
 }
