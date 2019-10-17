@@ -11,7 +11,7 @@ import Combine
 
 struct UpdateTimeSignatureView: View {
 
-    @ObservedObject var metronome: ObservableMetronome<MetronomeViewModel>
+    @ObservedObject var metronomeObserver: MetronomeObserver<MetronomeViewModel>
     @State var selectedBarLengthIndex: Int
     @State var selectedNoteLengthIndex: Int
 
@@ -20,10 +20,10 @@ struct UpdateTimeSignatureView: View {
 
     // MARK: Object life cycle
 
-    static func build(with observable: ObservableMetronome<MetronomeViewModel>) -> UpdateTimeSignatureView {
-        let selectedBarLengthIndex = observable.snapshot.configuration.timeSignature.bits - TimeSignature.minimumBarLength
-        let selectedNoteLengthIndex = TimeSignature.NoteLength.allCases.firstIndex(of: observable.snapshot.configuration.timeSignature.noteLength) ?? 0
-        return UpdateTimeSignatureView(metronome: observable, selectedBarLengthIndex: selectedBarLengthIndex, selectedNoteLengthIndex: selectedNoteLengthIndex)
+    static func build(with metronomeObserver: MetronomeObserver<MetronomeViewModel>) -> UpdateTimeSignatureView {
+        let selectedBarLengthIndex = metronomeObserver.snapshot.configuration.timeSignature.bits - TimeSignature.minimumBarLength
+        let selectedNoteLengthIndex = TimeSignature.NoteLength.allCases.firstIndex(of: metronomeObserver.snapshot.configuration.timeSignature.noteLength) ?? 0
+        return UpdateTimeSignatureView(metronomeObserver: metronomeObserver, selectedBarLengthIndex: selectedBarLengthIndex, selectedNoteLengthIndex: selectedNoteLengthIndex)
     }
 
 
@@ -48,8 +48,8 @@ struct UpdateTimeSignatureView: View {
                 }
             }
             Button(action: {
-                self.metronome.configuration.setBarLength(self.selectedBarLengthIndex + TimeSignature.minimumBarLength)
-                self.metronome.configuration.setNotLength(TimeSignature.NoteLength.allCases[self.selectedNoteLengthIndex])
+                self.metronomeObserver.metronome.configuration.setBarLength(self.selectedBarLengthIndex + TimeSignature.minimumBarLength)
+                self.metronomeObserver.metronome.configuration.setNotLength(TimeSignature.NoteLength.allCases[self.selectedNoteLengthIndex])
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Confirm")

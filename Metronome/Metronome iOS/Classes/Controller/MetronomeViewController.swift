@@ -11,17 +11,17 @@ import Combine
 
 class MetronomeViewController: UIHostingController<MetronomeView> {
 
-    private let observableMetronome: ObservableMetronome<MetronomeViewModel>
-    private var observer: Cancellable?
+    let metronomeObserver: MetronomeObserver<MetronomeViewModel>
+    private var snapshotObserver: Cancellable?
 
     private let impactGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .soft)
 
 
     // MARK: Object life cycle
 
-    init(with observableMetronome: ObservableMetronome<MetronomeViewModel>) {
-        self.observableMetronome = observableMetronome
-        super.init(rootView: MetronomeView(observed: observableMetronome))
+    init(with metronome: Metronome) {
+        self.metronomeObserver = MetronomeObserver<MetronomeViewModel>(with: metronome)
+        super.init(rootView: MetronomeView(metronomeObserver: metronomeObserver))
     }
 
 
@@ -34,13 +34,13 @@ class MetronomeViewController: UIHostingController<MetronomeView> {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        observer = observableMetronome.$snapshot.sink(receiveValue: { [weak self] value in
-            if let isRunning = value?.isRunning, isRunning {
+        snapshotObserver = metronomeObserver.$snapshot.sink(receiveValue: { [weak self] snapShot in
+            if let isRunning = snapShot?.isRunning, isRunning {
                 UIApplication.shared.isIdleTimerDisabled = true
             } else {
                 UIApplication.shared.isIdleTimerDisabled = false
             }
-            if value?.currentIteration != self?.rootView.observed.snapshot.currentIteration {
+            if snapShot?.currentIteration != self?.rootView.metronomeObserver.snapshot.currentIteration {
                 self?.impactGenerator.impactOccurred()
             }
         })
@@ -49,7 +49,7 @@ class MetronomeViewController: UIHostingController<MetronomeView> {
 
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        observableMetronome.reset()
-        observer?.cancel()
+        metronomeObserver.metronome.reset()
+        snapshotObserver?.cancel()
     }
 }

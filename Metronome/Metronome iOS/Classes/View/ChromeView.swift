@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ChromeView: View {
 
-    @ObservedObject var observed: ObservableMetronome<MetronomeViewModel>
+    @ObservedObject var metronomeObserver: MetronomeObserver<MetronomeViewModel>
 
     @State var helperIsPresented = false
 
@@ -22,8 +22,8 @@ struct ChromeView: View {
             Spacer()
             ZStack {
                 HStack(alignment: .center, spacing: 24) {
-                    Text(observed.snapshot.timeSignatureLabel).brandFont(.footnote)
-                    Text(observed.snapshot.tempoLabel).brandFont(.footnote)
+                    Text(metronomeObserver.snapshot.timeSignatureLabel).brandFont(.footnote)
+                    Text(metronomeObserver.snapshot.tempoLabel).brandFont(.footnote)
                     Spacer()
                     Button(action: { self.helperIsPresented = true }) {
                         Image(systemName: "questionmark.circle.fill").brandFont(.body)
@@ -31,7 +31,7 @@ struct ChromeView: View {
                         TipsView(model: HelpViewModel(tips: TipsViewModelRepository.all), dismiss: {
                             self.helperIsPresented = false
                         }).onAppear(perform: {
-                            self.observed.reset()
+                            self.metronomeObserver.metronome.reset()
                         })
                     }
                 }.foregroundColor(Color.white).opacity(0.7)

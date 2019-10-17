@@ -11,7 +11,7 @@ import Combine
 
 struct UpdateTempoView: View {
 
-    @ObservedObject var metronome: ObservableMetronome<MetronomeViewModel>
+    @ObservedObject var metronomeObserver: MetronomeObserver<MetronomeViewModel>
     @State var selectedTempo: Int
 
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -19,9 +19,9 @@ struct UpdateTempoView: View {
 
     // MARK: Object life cycle
 
-    static func build(with observable: ObservableMetronome<MetronomeViewModel>) -> UpdateTempoView {
-        let tempo = observable.snapshot.configuration.tempo.bpm - Tempo.minimumBpm
-        return UpdateTempoView(metronome: observable, selectedTempo: tempo)
+    static func build(with metronomeObserver: MetronomeObserver<MetronomeViewModel>) -> UpdateTempoView {
+        let tempo = metronomeObserver.snapshot.configuration.tempo.bpm - Tempo.minimumBpm
+        return UpdateTempoView(metronomeObserver: metronomeObserver, selectedTempo: tempo)
     }
 
 
@@ -38,7 +38,7 @@ struct UpdateTempoView: View {
             }
             Button(action: {
                 let bpm = self.selectedTempo + Tempo.minimumBpm
-                self.metronome.configuration.setBpm(bpm)
+                self.metronomeObserver.metronome.configuration.setBpm(bpm)
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Confirm")

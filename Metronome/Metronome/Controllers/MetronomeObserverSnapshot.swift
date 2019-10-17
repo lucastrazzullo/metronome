@@ -1,5 +1,5 @@
 //
-//  ObservableMetronomeSnapshot.swift
+//  MetronomeObserverSnapshot.swift
 //  Metronome Watch WatchKit Extension
 //
 //  Created by luca strazzullo on 7/10/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-protocol ObservableMetronomeSnapshot {
+protocol MetronomeObserverSnapshot {
     var configuration: MetronomeConfiguration { get set }
     var isRunning: Bool { get set }
     var currentIteration: Int { get set }
@@ -18,7 +18,7 @@ protocol ObservableMetronomeSnapshot {
 }
 
 
-extension ObservableMetronomeSnapshot {
+extension MetronomeObserverSnapshot {
 
     init(with metronome: Metronome) {
         let configuration = metronome.configuration

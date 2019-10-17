@@ -12,7 +12,7 @@ import Combine
 
 class MetronomeViewController: WKHostingController<MetronomeView> {
 
-    private let observableMetronome: ObservableMetronome<MetronomeViewModel>
+    private let metronomeObserver: MetronomeObserver<MetronomeViewModel>
     private var observer: Cancellable?
 
     private let rootView: MetronomeView
@@ -22,8 +22,9 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
     override init() {
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default)
-        observableMetronome = ObservableMetronome<MetronomeViewModel>(with: configuration)
-        rootView = MetronomeView(metronome: observableMetronome)
+        let metronome = Metronome(with: configuration)
+        metronomeObserver = MetronomeObserver<MetronomeViewModel>(with: metronome)
+        rootView = MetronomeView(metronomeObserver: metronomeObserver)
         super.init()
     }
 
@@ -32,8 +33,8 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        observer = observableMetronome.$snapshot.sink { [weak self] value in
-            if value?.currentIteration != self?.rootView.metronome.snapshot.currentIteration {
+        observer = metronomeObserver.$snapshot.sink { [weak self] value in
+            if value?.currentIteration != self?.rootView.metronomeObserver.snapshot.currentIteration {
                 WKInterfaceDevice.current().play(WKHapticType.start)
             }
         }
@@ -47,7 +48,7 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
 
     override func didDeactivate() {
-        observableMetronome.reset()
+        metronomeObserver.metronome.reset()
         WKExtension.shared().isAutorotating = false
         super.didDeactivate()
     }

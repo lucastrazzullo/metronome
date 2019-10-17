@@ -10,16 +10,16 @@ import SwiftUI
 
 class MetronomeGestureViewController: UIHostingController<ChromeView>, ContainerViewController {
 
-    private let metronome: ObservableMetronome<MetronomeViewModel>
+    private let metronomeObserver: MetronomeObserver<MetronomeViewModel>
     private var gestureControllers: [GestureController]
 
 
     // MARK: Object life cycle
 
-    init(with metronome: ObservableMetronome<MetronomeViewModel>) {
-        self.metronome = metronome
+    init(with metronomeObserver: MetronomeObserver<MetronomeViewModel>) {
+        self.metronomeObserver = metronomeObserver
         self.gestureControllers = []
-        super.init(rootView: ChromeView(observed: metronome))
+        super.init(rootView: ChromeView(metronomeObserver: metronomeObserver))
     }
 
 
@@ -34,22 +34,22 @@ class MetronomeGestureViewController: UIHostingController<ChromeView>, Container
         super.viewDidAppear(animated)
         view.backgroundColor = .clear
 
-        let helpController = HelpGestureController(with: metronome)
+        let helpController = HelpGestureController(with: metronomeObserver.metronome)
         addGestureController(helpController)
 
-        let togglerController = TogglerGestureController(with: metronome)
+        let togglerController = TogglerGestureController(with: metronomeObserver.metronome)
         addGestureController(togglerController)
 
-        let tempoUpdaterController = TempoUpdaterGestureController(with: metronome)
+        let tempoUpdaterController = TempoUpdaterGestureController(with: metronomeObserver.metronome)
         addGestureController(tempoUpdaterController)
 
-        let barLengthController = BarLengthUpdaterGestureController(with: metronome)
+        let barLengthController = BarLengthUpdaterGestureController(with: metronomeObserver.metronome)
         addGestureController(barLengthController)
 
-        let noteLengthController = NoteLengthUpdaterGestureController(with: metronome)
+        let noteLengthController = NoteLengthUpdaterGestureController(with: metronomeObserver.metronome)
         addGestureController(noteLengthController)
 
-        let tempoTapUpdaterController = TapTempoUpdaterGestureController(with: metronome)
+        let tempoTapUpdaterController = TapTempoUpdaterGestureController(with: metronomeObserver.metronome)
         addGestureController(tempoTapUpdaterController)
 
         togglerController.gestureRecogniser.canBePrevented(by: helpController.gestureRecogniser)

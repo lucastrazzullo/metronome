@@ -8,23 +8,24 @@
 
 import Combine
 
-class ObservableMetronome<SnapshotType: ObservableMetronomeSnapshot>: Metronome, ObservableObject {
+class MetronomeObserver<SnapshotType: MetronomeObserverSnapshot>: ObservableObject {
 
     @Published private(set) var snapshot: SnapshotType!
+
+    private(set) var metronome: Metronome
 
 
     // MARK: Object life cycle
 
-    override init(with configuration: MetronomeConfiguration) {
-        super.init(with: configuration)
-
-        snapshot = SnapshotType(with: self)
-        delegate = self
+    init(with metronome: Metronome) {
+        self.snapshot = SnapshotType(with: metronome)
+        self.metronome = metronome
+        self.metronome.delegate = self
     }
 }
 
 
-extension ObservableMetronome: MetronomeDelegate {
+extension MetronomeObserver: MetronomeDelegate {
 
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
         snapshot.configuration = configuration

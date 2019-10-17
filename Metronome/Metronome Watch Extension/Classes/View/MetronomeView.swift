@@ -11,7 +11,7 @@ import Combine
 
 struct MetronomeView: View {
 
-    @ObservedObject var metronome: ObservableMetronome<MetronomeViewModel>
+    @ObservedObject var metronomeObserver: MetronomeObserver<MetronomeViewModel>
 
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
@@ -24,7 +24,7 @@ struct MetronomeView: View {
             VStack(alignment: .center, spacing: 12) {
                 Spacer()
                 HStack(alignment: .center, spacing: 1) {
-                    ForEach(metronome.snapshot.bits, id: \.index) { bitViewModel in
+                    ForEach(metronomeObserver.snapshot.bits, id: \.index) { bitViewModel in
                         ZStack {
                             self.backgroundColor(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
                             Text(String(bitViewModel.label))
@@ -34,15 +34,15 @@ struct MetronomeView: View {
                     }
                 }
                 HStack(alignment: .center, spacing: 24) {
-                    NavigationLink(destination: UpdateTimeSignatureView.build(with: metronome)) {
-                        Text(metronome.snapshot.timeSignatureLabel).font(Font.system(.footnote))
+                    NavigationLink(destination: UpdateTimeSignatureView.build(with: metronomeObserver)) {
+                        Text(metronomeObserver.snapshot.timeSignatureLabel).font(Font.system(.footnote))
                     }
-                    NavigationLink(destination: UpdateTempoView.build(with: metronome)) {
-                        Text(metronome.snapshot.tempoLabel).font(Font.system(.footnote))
+                    NavigationLink(destination: UpdateTempoView.build(with: metronomeObserver)) {
+                        Text(metronomeObserver.snapshot.tempoLabel).font(Font.system(.footnote))
                     }
                 }.foregroundColor(Color.white.opacity(0.7))
-                Button(action: { self.metronome.toggle() }, label: {
-                    return Text(self.metronome.snapshot.toggleLabel)
+                Button(action: { self.metronomeObserver.metronome.toggle() }, label: {
+                    return Text(self.metronomeObserver.snapshot.toggleLabel)
                 })
             }
         }
@@ -52,8 +52,8 @@ struct MetronomeView: View {
     // MARK: Private helper methods
 
     private func backgroundColor(for index: Int) -> Color {
-        if metronome.snapshot.currentBitIndex == index {
-            return Color("yellow")
+        if metronomeObserver.snapshot.currentBitIndex == index {
+            return Color.yellow
         } else {
             return Color.white.opacity(0.05)
         }
@@ -61,7 +61,7 @@ struct MetronomeView: View {
 
 
     private func foregroundColor(forBitAt index: Int) -> Color {
-        if metronome.snapshot.currentBitIndex == index {
+        if metronomeObserver.snapshot.currentBitIndex == index {
             return Color.white
         } else {
             return Color.white.opacity(0.1)
