@@ -48,10 +48,8 @@ struct UpdateTimeSignatureView: View {
                 }
             }
             Button(action: {
-                let barLength = self.selectedBarLengthIndex + TimeSignature.minimumBarLength
-                let noteLength = TimeSignature.NoteLength.allCases[self.selectedNoteLengthIndex]
-                let timeSignature = TimeSignature(bits: barLength, noteLength: noteLength)
-                self.metronome.updateTimeSignature(timeSignature)
+                self.metronome.configuration.setBarLength(self.selectedBarLengthIndex + TimeSignature.minimumBarLength)
+                self.metronome.configuration.setNotLength(TimeSignature.NoteLength.allCases[self.selectedNoteLengthIndex])
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Confirm")

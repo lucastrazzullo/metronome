@@ -22,7 +22,13 @@ class Metronome {
         }
     }
 
-    private(set) var configuration: MetronomeConfiguration
+    var configuration: MetronomeConfiguration {
+        didSet {
+            reset()
+            delegate?.metronome(self, didUpdate: configuration)
+        }
+    }
+
     private var ticker: MetronomeTicker
 
 
@@ -60,28 +66,5 @@ class Metronome {
 
     func toggle() {
         if isRunning { reset() } else { start() }
-    }
-
-
-    func updateTempo(_ tempo: Tempo) {
-        var configuration = self.configuration
-        configuration.tempo = tempo
-        update(with: configuration)
-    }
-
-
-    func updateTimeSignature(_ timeSignature: TimeSignature) {
-        var configuration = self.configuration
-        configuration.timeSignature = timeSignature
-        update(with: configuration)
-    }
-
-
-    // MARK: Private helper methods
-
-    private func update(with newConfiguration: MetronomeConfiguration) {
-        configuration = newConfiguration
-        delegate?.metronome(self, didUpdate: configuration)
-        reset()
     }
 }

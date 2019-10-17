@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TempoUpdaterGestureController: DefaultGestureMetronomeController<TempoUpdaterViewController> {
+class TempoUpdaterGestureController: DefaultGestureMetronomeController<SlideTempoUpdaterViewController> {
 
     // MARK: Object life cycle
 
@@ -30,7 +30,7 @@ class TempoUpdaterGestureController: DefaultGestureMetronomeController<TempoUpda
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
 
-        let viewController = TempoUpdaterViewController(tempo: metronome.configuration.tempo)
+        let viewController = SlideTempoUpdaterViewController(bpm: metronome.configuration.tempo.bpm)
         addChildViewController(viewController)
     }
 
@@ -47,8 +47,8 @@ class TempoUpdaterGestureController: DefaultGestureMetronomeController<TempoUpda
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
 
-        if let tempo = presentedViewController?.tempo {
-            metronome.updateTempo(tempo)
+        if let bpm = presentedViewController?.bpm {
+            metronome.configuration.setBpm(bpm)
         }
         removeChildViewController()
     }

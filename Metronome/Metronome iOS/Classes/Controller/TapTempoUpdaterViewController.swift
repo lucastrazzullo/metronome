@@ -9,7 +9,7 @@
 import SwiftUI
 
 protocol TapTempoUpdaterViewControllerDelegate: AnyObject {
-    func tapTempoUpdaterViewController(_ viewController: TapTempoUpdaterViewController, hasSetNew tempo: Tempo)
+    func tapTempoUpdaterViewController(_ viewController: TapTempoUpdaterViewController, bpmFor timestamps: [TimeInterval]) -> Int?
 }
 
 
@@ -17,23 +17,17 @@ class TapTempoUpdaterViewController: UIHostingController<UpdaterView> {
 
     weak var delegate: TapTempoUpdaterViewControllerDelegate?
 
-    var tempo: Tempo {
-        return configuration.tempo
-    }
-
-    private var tapTimestamps: [TimeInterval] = []
-    private var configuration: MetronomeConfiguration {
+    private var tapTimestamps: [TimeInterval] = [] {
         didSet {
-            rootView.model = TapTempoUpdaterViewModel(tempo: configuration.tempo)
+            rootView.model = TapTempoUpdaterViewModel(bpm: delegate?.tapTempoUpdaterViewController(self, bpmFor: tapTimestamps))
         }
     }
 
 
     // MARK: Object life cycle
 
-    init(configuration: MetronomeConfiguration) {
-        self.configuration = configuration
-        super.init(rootView: UpdaterView(model: TapTempoUpdaterViewModel(tempo: configuration.tempo)))
+    init() {
+        super.init(rootView: UpdaterView(model: TapTempoUpdaterViewModel(bpm: nil)))
     }
 
 
@@ -72,24 +66,5 @@ class TapTempoUpdaterViewController: UIHostingController<UpdaterView> {
         if tapTimestamps.count > 5 {
             tapTimestamps.remove(at: 0)
         }
-        if let tapFrequency = getTapFrequency() {
-            configuration.updateTempoWithFrequency(tapFrequency)
-        }
-        delegate?.tapTempoUpdaterViewController(self, hasSetNew: tempo)
-    }
-
-
-    private func getTapFrequency() -> TimeInterval? {
-        guard tapTimestamps.count >= 2 else { return nil }
-
-        let frequencies: [Double] = tapTimestamps.enumerated().compactMap { index, timestamp in
-            if index + 1 == tapTimestamps.count {
-                return nil
-            } else {
-                return tapTimestamps[index + 1] - timestamp
-            }
-        }
-
-        return frequencies.reduce(0, +) / Double(frequencies.count)
     }
 }

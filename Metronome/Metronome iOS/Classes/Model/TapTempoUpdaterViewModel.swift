@@ -10,7 +10,7 @@ import Foundation
 
 struct TapTempoUpdaterViewModel: UpdaterViewModel {
 
-    var tempo: Tempo
+    var bpm: Int?
 
 
     // Getters
@@ -28,7 +28,11 @@ struct TapTempoUpdaterViewModel: UpdaterViewModel {
     }
 
     var heroLabel: String {
-        return String(tempo.bpm)
+        if let bpm = bpm {
+            return String(bpm)
+        } else {
+            return NSLocalizedString("metronome.tempo.updater.tap.hero.placeholder", comment: "")
+        }
     }
 
     var suffixLabel: String {

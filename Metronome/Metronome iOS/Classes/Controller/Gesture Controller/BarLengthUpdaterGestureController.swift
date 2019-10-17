@@ -48,7 +48,7 @@ class BarLengthUpdaterGestureController: DefaultGestureMetronomeController<TimeS
         super.handleGestureEnded(for: gestureRecogniser)
 
         if let timeSignature = presentedViewController?.timeSignature {
-            metronome.updateTimeSignature(timeSignature)
+            metronome.configuration.timeSignature = timeSignature
         }
         removeChildViewController()
     }

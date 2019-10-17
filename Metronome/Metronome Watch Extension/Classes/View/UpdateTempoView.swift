@@ -38,7 +38,7 @@ struct UpdateTempoView: View {
             }
             Button(action: {
                 let bpm = self.selectedTempo + Tempo.minimumBpm
-                self.metronome.updateTempo(Tempo(bpm: bpm))
+                self.metronome.configuration.setBpm(bpm)
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Confirm")

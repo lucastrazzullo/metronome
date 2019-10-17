@@ -23,6 +23,7 @@
 "metronome.tempo.suffix" = "bpm";
 "metronome.tempo.updater.title" = "Tempo";
 "metronome.tempo.updater.tap.title" = "Tap Tempo";
+"metronome.tempo.updater.tap.hero.placeholder" = "...";
 
 
 // MARK: Help

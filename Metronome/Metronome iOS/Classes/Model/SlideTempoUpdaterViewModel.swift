@@ -10,7 +10,7 @@ import Foundation
 
 struct SlideTempoUpdaterViewModel: UpdaterViewModel {
 
-    var tempo: Tempo
+    var bpm: Int
 
 
     // Getters
@@ -28,7 +28,7 @@ struct SlideTempoUpdaterViewModel: UpdaterViewModel {
     }
 
     var heroLabel: String {
-        return String(tempo.bpm)
+        return String(bpm)
     }
 
     var suffixLabel: String {

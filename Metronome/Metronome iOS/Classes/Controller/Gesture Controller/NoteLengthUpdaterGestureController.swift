@@ -46,7 +46,7 @@ class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController<Time
         super.handleGestureEnded(for: gestureRecogniser)
 
         if let timeSignature = presentedViewController?.timeSignature {
-            metronome.updateTimeSignature(timeSignature)
+            metronome.configuration.timeSignature = timeSignature
         }
         removeChildViewController()
     }
