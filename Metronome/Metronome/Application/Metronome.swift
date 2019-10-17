@@ -47,6 +47,7 @@ class Metronome {
     init(with configuration: MetronomeConfiguration) {
         self.configuration = configuration
         self.ticker = MetronomeTicker()
+        self.ticker.delegate = self
     }
 
 

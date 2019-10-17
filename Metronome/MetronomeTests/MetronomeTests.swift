@@ -30,7 +30,7 @@ class MetronomeTests: XCTestCase {
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: .quarter), tempo: Tempo(bpm: 120))
         metronome = Metronome(with: configuration)
-        metronome?.tickerDelegate = self
+        metronome?.delegate = self
         metronome?.start()
 
         wait(for: [tickExpectation!], timeout: 2.2)
@@ -43,7 +43,7 @@ class MetronomeTests: XCTestCase {
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: .quarter), tempo: Tempo(bpm: 90))
         metronome = Metronome(with: configuration)
-        metronome?.tickerDelegate = self
+        metronome?.delegate = self
         metronome?.start()
 
         wait(for: [tickExpectation!], timeout: 2)
@@ -56,7 +56,7 @@ class MetronomeTests: XCTestCase {
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: .quarter), tempo: Tempo(bpm: 60))
         metronome = Metronome(with: configuration)
-        metronome?.tickerDelegate = self
+        metronome?.delegate = self
         metronome?.start()
 
         wait(for: [tickExpectation!], timeout: 2)
@@ -71,7 +71,7 @@ class MetronomeTests: XCTestCase {
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(bits: 4, noteLength: .eigth), tempo: Tempo(bpm: 120))
         metronome = Metronome(with: configuration)
-        metronome?.tickerDelegate = self
+        metronome?.delegate = self
         metronome?.start()
 
         wait(for: [tickExpectation!], timeout: 2)
@@ -79,17 +79,21 @@ class MetronomeTests: XCTestCase {
 }
 
 
-extension MetronomeTests: MetronomeTickerDelegate {
+extension MetronomeTests: MetronomeDelegate {
 
-    func metronomeTickerDidStart(_ ticker: MetronomeTicker) {
+    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
     }
 
 
-    func metronomeTickerDidReset(_ ticker: MetronomeTicker) {
-    }
-
-
-    func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
+    func metronome(_ metronome: Metronome, didTick iteration: Int) {
         tickExpectation?.fulfill()
+    }
+
+
+    func metronome(_ metronome: Metronome, didStartAt iteration: Int) {
+    }
+
+
+    func metronome(_ metronome: Metronome, didResetAt iteration: Int) {
     }
 }
