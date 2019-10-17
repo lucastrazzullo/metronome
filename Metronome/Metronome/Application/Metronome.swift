@@ -79,7 +79,7 @@ class Metronome {
 
     // MARK: Private helper methods
 
-    func update(with newConfiguration: MetronomeConfiguration) {
+    private func update(with newConfiguration: MetronomeConfiguration) {
         configuration = newConfiguration
         delegate?.metronome(self, didUpdate: configuration)
         reset()
