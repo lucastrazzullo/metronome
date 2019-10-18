@@ -1,5 +1,5 @@
 //
-//  TempoUpdaterGestureController.swift
+//  SlideTempoUpdaterGestureController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 12/10/19.
@@ -8,20 +8,15 @@
 
 import UIKit
 
-class TempoUpdaterGestureController: DefaultGestureMetronomeController<SlideTempoUpdaterViewController> {
+class SlideTempoUpdaterGestureController: GestureMetronomeController<SlideTempoUpdaterViewController> {
 
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
         let recogniser = UIPanGestureRecognizer()
         recogniser.minimumNumberOfTouches = 2
-        super.init(with: metronome, gestureRecogniser: recogniser)
+        super.init(with: recogniser, metronome: metronome)
         recogniser.delegate = self
-    }
-
-
-    required init(with metronome: Metronome, gestureRecogniser: UIGestureRecognizer) {
-        super.init(with: metronome, gestureRecogniser: gestureRecogniser)
     }
 
 
@@ -55,7 +50,7 @@ class TempoUpdaterGestureController: DefaultGestureMetronomeController<SlideTemp
 }
 
 
-extension TempoUpdaterGestureController: UIGestureRecognizerDelegate {
+extension SlideTempoUpdaterGestureController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer, let view = gestureRecognizer.view {

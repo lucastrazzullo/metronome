@@ -11,7 +11,7 @@ import Combine
 
 struct MetronomeView: View {
 
-    @ObservedObject var metronomeObserver: MetronomeObserver<MetronomeViewModel>
+    @ObservedObject var publisher: SnapshotMetronomePublisher<MetronomeViewModel>
 
 
     // MARK: Body
@@ -20,7 +20,7 @@ struct MetronomeView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             HStack(alignment: .center, spacing: 1) {
-                ForEach(metronomeObserver.snapshot.bits, id: \.index) { bitViewModel in
+                ForEach(publisher.snapshot.bits, id: \.index) { bitViewModel in
                     ZStack {
                         self.background(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
                         Text(String(bitViewModel.label)).brandFont(.headline)
@@ -34,7 +34,7 @@ struct MetronomeView: View {
     // MARK: Private helper methods
 
     private func background(for index: Int) -> some View {
-        if metronomeObserver.snapshot.isRunning, metronomeObserver.snapshot.currentBitIndex == index {
+        if publisher.snapshot.isRunning, publisher.snapshot.currentBitIndex == index {
             return LinearGradient(gradient: Gradient(colors: [Color("green"), Color("blue")]), startPoint: .topLeading, endPoint: .bottomTrailing)
         } else {
             return LinearGradient(gradient: Gradient(colors: [Color.white.opacity(0.05), Color.white.opacity(0.05)]), startPoint: .topLeading, endPoint: .bottomTrailing)
@@ -43,7 +43,7 @@ struct MetronomeView: View {
 
 
     private func foregroundColor(forBitAt index: Int) -> Color {
-        if metronomeObserver.snapshot.isRunning, metronomeObserver.snapshot.currentBitIndex == index {
+        if publisher.snapshot.isRunning, publisher.snapshot.currentBitIndex == index {
             return Color.white
         } else {
             return Color.white.opacity(0.1)

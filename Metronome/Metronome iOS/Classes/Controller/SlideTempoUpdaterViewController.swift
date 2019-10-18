@@ -31,6 +31,7 @@ class SlideTempoUpdaterViewController: UIHostingController<UpdaterView> {
     // MARK: Public methods
 
     func updateBpm(with offset: Int) {
-        rootView.model = SlideTempoUpdaterViewModel(bpm: initialBpm + offset)
+        bpm = initialBpm + offset
+        rootView.model = SlideTempoUpdaterViewModel(bpm: bpm)
     }
 }

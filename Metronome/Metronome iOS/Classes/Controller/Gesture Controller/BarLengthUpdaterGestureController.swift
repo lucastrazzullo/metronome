@@ -8,20 +8,15 @@
 
 import UIKit
 
-class BarLengthUpdaterGestureController: DefaultGestureMetronomeController<TimeSignatureUpdaterViewController> {
+class BarLengthUpdaterGestureController: GestureMetronomeController<TimeSignatureUpdaterViewController> {
 
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
         let recogniser = UIPanGestureRecognizer()
         recogniser.minimumNumberOfTouches = 2
-        super.init(with: metronome, gestureRecogniser: recogniser)
+        super.init(with: recogniser, metronome: metronome)
         recogniser.delegate = self
-    }
-
-
-    required init(with metronome: Metronome, gestureRecogniser: UIGestureRecognizer) {
-        super.init(with: metronome, gestureRecogniser: gestureRecogniser)
     }
 
 

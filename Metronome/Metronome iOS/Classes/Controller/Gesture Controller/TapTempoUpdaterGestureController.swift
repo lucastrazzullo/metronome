@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TapTempoUpdaterGestureController: DefaultGestureMetronomeController<TapTempoUpdaterViewController> {
+class TapTempoUpdaterGestureController: GestureMetronomeController<TapTempoUpdaterViewController> {
 
     private var idleTimer: Timer?
 
@@ -16,14 +16,9 @@ class TapTempoUpdaterGestureController: DefaultGestureMetronomeController<TapTem
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
-        let gestureRecogniser = UILongPressGestureRecognizer()
-        gestureRecogniser.minimumPressDuration = 1
-        super.init(with: metronome, gestureRecogniser: gestureRecogniser)
-    }
-
-
-    required init(with metronome: Metronome, gestureRecogniser: UIGestureRecognizer) {
-        super.init(with: metronome, gestureRecogniser: gestureRecogniser)
+        let recogniser = UILongPressGestureRecognizer()
+        recogniser.minimumPressDuration = 1
+        super.init(with: recogniser, metronome: metronome)
     }
 
 

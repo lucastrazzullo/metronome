@@ -1,5 +1,5 @@
 //
-//  DefaultGestureController.swift
+//  GestureMetronomeController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 12/10/19.
@@ -8,37 +8,28 @@
 
 import UIKit
 
-class DefaultGestureMetronomeController<PresentedControllerType: UIViewController>: NSObject, GestureController {
+class GestureMetronomeController<PresentedControllerType: UIViewController>: NSObject, GestureController {
 
     weak var presentedViewController: PresentedControllerType? {
         didSet {
-            if presentedViewController != nil {
-                impactGenerator.impactOccurred()
-                metronome.reset()
-            }
+            metronome.reset()
         }
     }
-    weak var delegate: UIContainerViewController? {
+    weak var presentingViewController: UIContainerViewController? {
         didSet {
-            if delegate == nil {
-                tearDown()
-            } else {
-                setup()
-            }
+            setupOrTearDown()
         }
     }
 
     let gestureRecogniser: UIGestureRecognizer
     let metronome: Metronome
 
-    private let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
-
 
     // MARK: Object life cycle
 
-    required init(with metronome: Metronome, gestureRecogniser: UIGestureRecognizer) {
-        self.metronome = metronome
+    init(with gestureRecogniser: UIGestureRecognizer, metronome: Metronome) {
         self.gestureRecogniser = gestureRecogniser
+        self.metronome = metronome
         super.init()
 
         gestureRecogniser.addTarget(self, action: #selector(handleGestureRecogniser))
@@ -47,13 +38,22 @@ class DefaultGestureMetronomeController<PresentedControllerType: UIViewControlle
 
     // MARK: Setup
 
+    private func setupOrTearDown() {
+        if presentingViewController == nil {
+            tearDown()
+        } else {
+            setup()
+        }
+    }
+
+
     private func setup() {
-        delegate?.view.addGestureRecognizer(gestureRecogniser)
+        presentingViewController?.view.addGestureRecognizer(gestureRecogniser)
     }
 
 
     private func tearDown() {
-        delegate?.view.removeGestureRecognizer(gestureRecogniser)
+        presentingViewController?.view.removeGestureRecognizer(gestureRecogniser)
     }
 
 
@@ -88,23 +88,23 @@ class DefaultGestureMetronomeController<PresentedControllerType: UIViewControlle
     // MARK: Presentation
 
     func addChildViewController(_ viewController: PresentedControllerType) {
-        if let delegate = delegate {
-            delegate.addChildViewController(viewController, in: delegate.view)
+        if let presentingViewController = presentingViewController {
+            presentingViewController.addChildViewController(viewController, in: presentingViewController.view)
             presentedViewController = viewController
         }
     }
 
 
     func presentViewController(_ viewController: PresentedControllerType) {
-        if let delegate = delegate {
-            delegate.present(viewController, animated: true, completion: nil)
+        if let presentingViewController = presentingViewController {
+            presentingViewController.present(viewController, animated: true, completion: nil)
             presentedViewController = viewController
         }
     }
 
 
     func removeChildViewController() {
-        delegate?.removeChildViewController(presentedViewController)
+        presentingViewController?.removeChildViewController(presentedViewController)
     }
 
 
