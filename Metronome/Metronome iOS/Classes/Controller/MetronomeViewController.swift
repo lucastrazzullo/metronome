@@ -37,16 +37,16 @@ extension MetronomeViewController: MetronomeObserver {
     }
 
 
-    func metronome(_ metronome: Metronome, didTick iteration: Int) {
+    func metronome(_ metronome: Metronome, didPulse beat: MetronomeBeat) {
     }
 
 
-    func metronome(_ metronome: Metronome, didStartAt iteration: Int) {
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: MetronomeBeat?) {
         UIApplication.shared.isIdleTimerDisabled = true
     }
 
 
-    func metronome(_ metronome: Metronome, didResetAt iteration: Int) {
+    func metronome(_ metronome: Metronome, willResetDuring beat: MetronomeBeat?) {
         UIApplication.shared.isIdleTimerDisabled = false
     }
 }

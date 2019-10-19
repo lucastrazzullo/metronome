@@ -10,29 +10,45 @@ import Foundation
 
 struct MetronomeViewModel: SnapshotMetronomePublisherModel {
 
-    var configuration: MetronomeConfiguration
-    var isRunning: Bool
-    var currentIteration: Int
+    var configuration: MetronomeConfiguration {
+        didSet {
+            beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
+        }
+    }
+    var currentBeat: MetronomeBeat? {
+        didSet {
+            beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
+        }
+    }
+    var isRunning: Bool {
+        didSet {
+            beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
+        }
+    }
+
+    private(set) var beatViewModels: [BeatViewModel]
 
 
-    // MARK: Getters
+    // MARK: Object life cycle
 
-    var bits: [BitViewModel] {
-        return Array(0..<configuration.timeSignature.bits).map({ BitViewModel(index: $0, label: String($0 + 1)) })
+    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: MetronomeBeat?) {
+        self.configuration = configuration
+        self.currentBeat = currentBeat
+        self.isRunning = isRunning
+
+        self.beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
     }
 
 
-    var currentBitIndex: Int {
-        return currentIteration - 1
-    }
+    // MARK: Private builder helper methods
 
-
-    var timeSignatureLabel: String {
-        return String(format: NSLocalizedString("metronome.time_signature.format", comment: ""), configuration.timeSignature.bits, configuration.timeSignature.noteLength.rawValue)
-    }
-
-
-    var tempoLabel: String {
-        return String(format: "%d%@", configuration.tempo.bpm, NSLocalizedString("metronome.tempo.suffix", comment: "").uppercased())
+    private static func beatViewModels(with configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: MetronomeBeat?) -> [BeatViewModel] {
+        var result: [BeatViewModel] = []
+        for index in 0..<configuration.timeSignature.beats {
+            let beat = MetronomeBeat.with(tickIteration: index)
+            let viewModel = BeatViewModel(with: beat, isHighlighted: isRunning && currentBeat == beat)
+            result.append(viewModel)
+        }
+        return result
     }
 }

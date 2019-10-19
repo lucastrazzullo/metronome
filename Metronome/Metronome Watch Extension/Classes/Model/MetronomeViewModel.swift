@@ -10,34 +10,77 @@ import Foundation
 
 struct MetronomeViewModel: SnapshotMetronomePublisherModel {
 
-    var configuration: MetronomeConfiguration
-    var isRunning: Bool
-    var currentIteration: Int
+    var configuration: MetronomeConfiguration {
+        didSet {
+            beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
+            timeSignatureLabel = MetronomeViewModel.timeSignatureLabel(with: configuration.timeSignature)
+            self.tempoLabel = MetronomeViewModel.tempoLabel(with: configuration.tempo)
+        }
+    }
+    var currentBeat: MetronomeBeat? {
+        didSet {
+            beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
+        }
+    }
+    var isRunning: Bool {
+        didSet {
+            beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
+            toggleLabel = MetronomeViewModel.toggleLabel(with: isRunning)
+        }
+    }
 
 
     // MARK: Getters
 
-    var bits: [BitViewModel] {
-        return Array(0..<configuration.timeSignature.bits).map({ BitViewModel(index: $0, label: String($0 + 1)) })
+    private(set) var beatViewModels: [BeatViewModel]
+    private(set) var timeSignatureLabel: String
+    private(set) var tempoLabel: String
+    private(set) var toggleLabel: String
+
+
+    // MARK: Object life cycle
+
+    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: MetronomeBeat?) {
+        self.configuration = configuration
+        self.currentBeat = currentBeat
+        self.isRunning = isRunning
+
+        self.beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
+        self.timeSignatureLabel = MetronomeViewModel.timeSignatureLabel(with: configuration.timeSignature)
+        self.tempoLabel = MetronomeViewModel.tempoLabel(with: configuration.tempo)
+        self.toggleLabel = MetronomeViewModel.toggleLabel(with: isRunning)
     }
 
 
-    var currentBitIndex: Int {
-        return currentIteration - 1
+    // MARK: Private builder helper methods
+
+    private static func beatViewModels(with configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: MetronomeBeat?) -> [BeatViewModel] {
+        var result: [BeatViewModel] = []
+        for index in 0..<configuration.timeSignature.beats {
+            let beat = MetronomeBeat.with(tickIteration: index)
+            let viewModel = BeatViewModel(with: beat, isHighlighted: isRunning && currentBeat == beat)
+            result.append(viewModel)
+        }
+        return result
     }
 
 
-    var timeSignatureLabel: String {
-        return "\(configuration.timeSignature.bits)/\(configuration.timeSignature.noteLength.rawValue)"
+
+
+
+    // MARK: Private builder helper methods
+
+    private static func timeSignatureLabel(with timeSignature: TimeSignature) -> String {
+        return "\(timeSignature.beats)/\(timeSignature.noteLength.rawValue)"
     }
 
 
-    var tempoLabel: String {
-        return "\(configuration.tempo.bpm)BPM"
+    private static func tempoLabel(with tempo: Tempo) -> String {
+        return "\(tempo.bpm)BPM"
     }
 
 
-    var toggleLabel: String {
+    private static func toggleLabel(with isRunning: Bool) -> String {
         return isRunning ? "Reset" : "Start"
     }
 }

@@ -33,11 +33,11 @@ extension MetronomeConfiguration {
 
 
     mutating func setBarLength(_ length: Int) {
-        timeSignature = TimeSignature(bits: length, noteLength: timeSignature.noteLength)
+        timeSignature = TimeSignature(beats: length, noteLength: timeSignature.noteLength)
     }
 
 
     mutating func setNotLength(_ length: TimeSignature.NoteLength) {
-        timeSignature = TimeSignature(bits: timeSignature.bits, noteLength: length)
+        timeSignature = TimeSignature(beats: timeSignature.beats, noteLength: length)
     }
 }

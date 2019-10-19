@@ -10,15 +10,11 @@ import Foundation
 
 struct WelcomeViewModel: TipsViewModel {
 
-    var tips: [TipViewModel]
+    private(set) var tips: [TipViewModel]
+    let titleLabel: String = NSLocalizedString("welcome.title", comment: "")
 
 
-    // MARK: Getters
-
-    var titleLabel: String {
-        return NSLocalizedString("welcome.title", comment: "")
-    }
-
+    // MARK: Getter methods
 
     func tips(with limitCount: Int) -> [TipViewModel] {
         return Array(tips[0..<limitCount])

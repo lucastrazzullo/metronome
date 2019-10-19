@@ -10,28 +10,14 @@ import Foundation
 
 struct BarLengthUpdaterViewModel: UpdaterViewModel {
 
-    var timeSignature: TimeSignature
+    let backgroundColor: String = "orange"
+    let titleLabel: String = NSLocalizedString("metronome.time_signature.bar_length.updater.title", comment: "")
+    let prefixLabel: String = ""
+    let heroLabel: String
+    let suffixLabel: String
 
-
-    // MARK: Getters
-
-    var backgroundColor: String {
-        return "orange"
-    }
-
-    var titleLabel: String {
-        return NSLocalizedString("metronome.time_signature.bar_length.updater.title", comment: "")
-    }
-
-    var prefixLabel: String {
-        return ""
-    }
-
-    var heroLabel: String {
-        return String(timeSignature.bits)
-    }
-
-    var suffixLabel: String {
-        String(format: NSLocalizedString("metronome.time_signature.bar_length.updater.suffix.format", comment: ""), timeSignature.noteLength.rawValue)
+    init(timeSignature: TimeSignature) {
+        heroLabel = String(timeSignature.beats)
+        suffixLabel = String(format: NSLocalizedString("metronome.time_signature.bar_length.updater.suffix.format", comment: ""), timeSignature.noteLength.rawValue)
     }
 }

@@ -10,28 +10,14 @@ import Foundation
 
 struct NoteLengthUpdaterViewModel: UpdaterViewModel {
 
-    var timeSignature: TimeSignature
+    let backgroundColor: String = "purple"
+    let titleLabel: String = NSLocalizedString("metronome.time_signature.note_length.updater.title", comment: "")
+    let prefixLabel: String
+    let heroLabel: String
+    let suffixLabel: String = ""
 
-
-    // MARK: Getters
-
-    var backgroundColor: String {
-        return "purple"
-    }
-
-    var titleLabel: String {
-        return NSLocalizedString("metronome.time_signature.note_length.updater.title", comment: "")
-    }
-
-    var prefixLabel: String {
-        return String(format: NSLocalizedString("metronome.time_signature.note_length.updater.prefix.format", comment: ""), timeSignature.bits)
-    }
-
-    var heroLabel: String {
-        return String(timeSignature.noteLength.rawValue)
-    }
-
-    var suffixLabel: String {
-        return ""
+    init(timeSignature: TimeSignature) {
+        prefixLabel = String(format: NSLocalizedString("metronome.time_signature.note_length.updater.prefix.format", comment: ""), timeSignature.beats)
+        heroLabel = String(timeSignature.noteLength.rawValue)
     }
 }

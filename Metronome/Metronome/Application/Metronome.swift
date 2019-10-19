@@ -10,9 +10,9 @@ import Foundation
 
 protocol MetronomeDelegate: AnyObject {
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration)
-    func metronome(_ metronome: Metronome, didTick iteration: Int)
-    func metronome(_ metronome: Metronome, didStartAt iteration: Int)
-    func metronome(_ metronome: Metronome, didResetAt iteration: Int)
+    func metronome(_ metronome: Metronome, didPulse beat: MetronomeBeat)
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: MetronomeBeat?)
+    func metronome(_ metronome: Metronome, willResetDuring beat: MetronomeBeat?)
 }
 
 
@@ -37,8 +37,9 @@ class Metronome {
     }
 
 
-    var currentIteration: Int {
-        return ticker.iteration
+    var currentBeat: MetronomeBeat? {
+        guard let iteration = ticker.currentIteration else { return nil }
+        return MetronomeBeat.with(tickIteration: iteration)
     }
 
 
@@ -54,7 +55,7 @@ class Metronome {
     // MARK: Public methods
 
     func start() {
-        ticker.start(with: configuration.getTimeInterval(), loopLength: configuration.timeSignature.bits)
+        ticker.start(with: configuration.getTimeInterval(), loopLength: configuration.timeSignature.beats)
     }
 
 
@@ -71,17 +72,25 @@ class Metronome {
 
 extension Metronome: MetronomeTickerDelegate {
 
-    func metronomeTickerDidStart(_ ticker: MetronomeTicker) {
-        delegate?.metronome(self, didStartAt: ticker.iteration)
+    func metronomeTicker(_ ticker: MetronomeTicker, willStartWithSuspended iteration: Int?) {
+        if let iteration = iteration {
+            delegate?.metronome(self, willStartWithSuspended: MetronomeBeat.with(tickIteration: iteration))
+        } else {
+            delegate?.metronome(self, willStartWithSuspended: nil)
+        }
     }
 
 
-    func metronomeTickerDidReset(_ ticker: MetronomeTicker) {
-        delegate?.metronome(self, didResetAt: ticker.iteration)
+    func metronomeTicker(_ ticker: MetronomeTicker, willResetDuring iteration: Int?) {
+        if let iteration = iteration {
+            delegate?.metronome(self, willResetDuring: MetronomeBeat.with(tickIteration: iteration))
+        } else {
+            delegate?.metronome(self, willResetDuring: nil)
+        }
     }
 
 
     func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
-        delegate?.metronome(self, didTick: iteration)
+        delegate?.metronome(self, didPulse: MetronomeBeat.with(tickIteration: iteration))
     }
 }

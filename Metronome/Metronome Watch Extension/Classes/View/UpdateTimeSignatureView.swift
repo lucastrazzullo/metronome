@@ -22,7 +22,7 @@ struct UpdateTimeSignatureView: View {
     // MARK: Object life cycle
 
     static func build(with publisher: SnapshotMetronomePublisher<MetronomeViewModel>) -> UpdateTimeSignatureView {
-        let selectedBarLengthIndex = publisher.snapshot.configuration.timeSignature.bits - TimeSignature.minimumBarLength
+        let selectedBarLengthIndex = publisher.snapshot.configuration.timeSignature.beats - TimeSignature.minimumBarLength
         let selectedNoteLengthIndex = TimeSignature.NoteLength.allCases.firstIndex(of: publisher.snapshot.configuration.timeSignature.noteLength) ?? 0
         return UpdateTimeSignatureView(publisher: publisher, selectedBarLengthIndex: selectedBarLengthIndex, selectedNoteLengthIndex: selectedNoteLengthIndex)
     }

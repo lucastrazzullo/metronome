@@ -11,9 +11,9 @@ import Foundation
 protocol SnapshotMetronomePublisherModel {
     var configuration: MetronomeConfiguration { get set }
     var isRunning: Bool { get set }
-    var currentIteration: Int { get set }
+    var currentBeat: MetronomeBeat? { get set }
 
-    init(configuration: MetronomeConfiguration, isRunning: Bool, currentIteration: Int)
+    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: MetronomeBeat?)
     init(from metronome: Metronome)
 }
 
@@ -23,7 +23,7 @@ extension SnapshotMetronomePublisherModel {
     init(from metronome: Metronome) {
         let configuration = metronome.configuration
         let isRunning = metronome.isRunning
-        let currentIteration = metronome.currentIteration
-        self.init(configuration: configuration, isRunning: isRunning, currentIteration: currentIteration)
+        let currentBeat = metronome.currentBeat
+        self.init(configuration: configuration, isRunning: isRunning, currentBeat: currentBeat)
     }
 }

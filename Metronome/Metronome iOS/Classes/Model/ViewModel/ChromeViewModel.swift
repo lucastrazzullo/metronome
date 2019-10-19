@@ -10,19 +10,42 @@ import Foundation
 
 struct ChromeViewModel: SnapshotMetronomePublisherModel {
 
-    var configuration: MetronomeConfiguration
+    var configuration: MetronomeConfiguration {
+        didSet {
+            timeSignatureLabel = ChromeViewModel.timeSignatureLabel(with: configuration.timeSignature)
+            tempoLabel = ChromeViewModel.tempoLabel(with: configuration.tempo)
+        }
+    }
     var isRunning: Bool
-    var currentIteration: Int
+    var currentBeat: MetronomeBeat?
 
 
     // MARK: Getters
 
-    var timeSignatureLabel: String {
-        return String(format: NSLocalizedString("metronome.time_signature.format", comment: ""), configuration.timeSignature.bits, configuration.timeSignature.noteLength.rawValue)
+    private(set) var timeSignatureLabel: String
+    private(set) var tempoLabel: String
+
+
+    // MARK: Object life cycle
+
+    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: MetronomeBeat?) {
+        self.configuration = configuration
+        self.currentBeat = currentBeat
+        self.isRunning = isRunning
+
+        self.timeSignatureLabel = ChromeViewModel.timeSignatureLabel(with: configuration.timeSignature)
+        self.tempoLabel = ChromeViewModel.tempoLabel(with: configuration.tempo)
     }
 
 
-    var tempoLabel: String {
-        return String(format: "%d%@", configuration.tempo.bpm, NSLocalizedString("metronome.tempo.suffix", comment: "").uppercased())
+    // MARK: Private builder helper methods
+
+    private static func timeSignatureLabel(with timeSignature: TimeSignature) -> String {
+        return String(format: NSLocalizedString("metronome.time_signature.format", comment: ""), timeSignature.beats, timeSignature.noteLength.rawValue)
+    }
+
+
+    private static func tempoLabel(with tempo: Tempo) -> String {
+        return String(format: "%d%@", tempo.bpm, NSLocalizedString("metronome.tempo.suffix", comment: "").uppercased())
     }
 }

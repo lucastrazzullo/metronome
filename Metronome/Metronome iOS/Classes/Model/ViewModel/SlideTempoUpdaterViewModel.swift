@@ -10,28 +10,13 @@ import Foundation
 
 struct SlideTempoUpdaterViewModel: UpdaterViewModel {
 
-    var bpm: Int
+    let backgroundColor: String = "yellow"
+    let titleLabel: String = NSLocalizedString("metronome.tempo.updater.title", comment: "")
+    let prefixLabel: String = ""
+    let heroLabel: String
+    let suffixLabel: String = NSLocalizedString("metronome.tempo.suffix", comment: "")
 
-
-    // Getters
-
-    var backgroundColor: String {
-        return "yellow"
-    }
-
-    var titleLabel: String {
-        return NSLocalizedString("metronome.tempo.updater.title", comment: "")
-    }
-
-    var prefixLabel: String {
-        return ""
-    }
-
-    var heroLabel: String {
-        return String(bpm)
-    }
-
-    var suffixLabel: String {
-        return NSLocalizedString("metronome.tempo.suffix", comment: "")
+    init(bpm: Int) {
+        heroLabel = String(bpm)
     }
 }

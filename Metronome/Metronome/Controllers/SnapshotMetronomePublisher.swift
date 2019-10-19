@@ -31,19 +31,19 @@ extension SnapshotMetronomePublisher {
     }
 
 
-    func metronome(_ metronome: Metronome, didTick iteration: Int) {
-        snapshot.currentIteration = iteration
+    func metronome(_ metronome: Metronome, didPulse beat: MetronomeBeat) {
+        snapshot.currentBeat = beat
     }
 
 
-    func metronome(_ metronome: Metronome, didStartAt iteration: Int) {
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: MetronomeBeat?) {
         snapshot.isRunning = true
-        snapshot.currentIteration = iteration
+        snapshot.currentBeat = beat
     }
 
 
-    func metronome(_ metronome: Metronome, didResetAt iteration: Int) {
+    func metronome(_ metronome: Metronome, willResetDuring beat: MetronomeBeat?) {
         snapshot.isRunning = false
-        snapshot.currentIteration = iteration
+        snapshot.currentBeat = beat
     }
 }

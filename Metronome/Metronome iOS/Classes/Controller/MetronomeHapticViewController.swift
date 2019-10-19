@@ -10,7 +10,9 @@ import UIKit
 
 class MetronomeHapticViewController: UIViewController {
 
-    private let impactGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .heavy)
+    private let selectionGenerator = UISelectionFeedbackGenerator()
+    private let notificationGenerator = UINotificationFeedbackGenerator()
+    private let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
 
 
     init(with metronomeDispatcher: MetronomeDispatcher) {
@@ -31,21 +33,22 @@ extension MetronomeHapticViewController: MetronomeObserver {
     }
 
 
-    func metronome(_ metronome: Metronome, didTick iteration: Int) {
-        if iteration == 1 {
-            impactGenerator.impactOccurred()
-        } else {
+    func metronome(_ metronome: Metronome, didPulse beat: MetronomeBeat) {
+        switch beat.intensity {
+        case .normal:
             impactGenerator.impactOccurred(intensity: 0.5)
+        case .strong:
+            impactGenerator.impactOccurred()
         }
     }
 
 
-    func metronome(_ metronome: Metronome, didStartAt iteration: Int) {
-        impactGenerator.impactOccurred(intensity: 0.2)
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: MetronomeBeat?) {
+        selectionGenerator.selectionChanged()
     }
 
 
-    func metronome(_ metronome: Metronome, didResetAt iteration: Int) {
-        impactGenerator.impactOccurred(intensity: 0.2)
+    func metronome(_ metronome: Metronome, willResetDuring beat: MetronomeBeat?) {
+        selectionGenerator.selectionChanged()
     }
 }

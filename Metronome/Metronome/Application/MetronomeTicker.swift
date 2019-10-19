@@ -9,8 +9,8 @@
 import Foundation
 
 protocol MetronomeTickerDelegate: AnyObject {
-    func metronomeTickerDidStart(_ ticker: MetronomeTicker)
-    func metronomeTickerDidReset(_ ticker: MetronomeTicker)
+    func metronomeTicker(_ ticker: MetronomeTicker, willStartWithSuspended iteration: Int?)
+    func metronomeTicker(_ ticker: MetronomeTicker, willResetDuring iteration: Int?)
     func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int)
 }
 
@@ -26,7 +26,7 @@ class MetronomeTicker {
 
     weak var delegate: MetronomeTickerDelegate?
 
-    private(set) var iteration: Int = 0
+    private(set) var currentIteration: Int?
     private var timer: Timer?
 
 
@@ -40,25 +40,27 @@ class MetronomeTicker {
     // MARK: Public methods
 
     func start(with timeInterval: TimeInterval, loopLength: Int) {
-        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(didTick), userInfo: [Keys.loopLength: loopLength], repeats: true)
+        delegate?.metronomeTicker(self, willStartWithSuspended: currentIteration)
 
-        delegate?.metronomeTickerDidStart(self)
+        timer = Timer.scheduledTimer(timeInterval: timeInterval, target: self, selector: #selector(didTick), userInfo: [Keys.loopLength: loopLength], repeats: true)
     }
 
 
     func reset() {
+        delegate?.metronomeTicker(self, willResetDuring: currentIteration)
+
         timer?.invalidate()
         timer = nil
-        iteration = 0
 
-        delegate?.metronomeTickerDidReset(self)
+        currentIteration = nil
     }
 
 
     // MARK: Actions
 
     @objc private func didTick() {
-        iteration = nextIteration(with: (timer?.userInfo as! [String: Any])[Keys.loopLength] as! Int)
+        let iteration = nextIteration(with: (timer?.userInfo as! [String: Any])[Keys.loopLength] as! Int)
+        self.currentIteration = iteration
 
         delegate?.metronomeTicker(self, didTick: iteration)
     }
@@ -67,12 +69,12 @@ class MetronomeTicker {
     // MARK: Private helper methods
 
     private func nextIteration(with loopLength: Int) -> Int {
-        guard iteration > 0 else { return 1 }
+        guard let iteration = currentIteration else { return 0 }
 
-        if iteration < loopLength {
+        if iteration + 1 < loopLength {
             return iteration + 1
         } else {
-            return 1
+            return 0
         }
     }
 }

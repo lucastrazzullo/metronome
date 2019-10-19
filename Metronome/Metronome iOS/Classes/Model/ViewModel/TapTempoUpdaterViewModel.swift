@@ -10,32 +10,17 @@ import Foundation
 
 struct TapTempoUpdaterViewModel: UpdaterViewModel {
 
-    var bpm: Int?
+    let backgroundColor: String = "green"
+    let titleLabel: String = NSLocalizedString("metronome.tempo.updater.tap.title", comment: "")
+    let prefixLabel: String = ""
+    let heroLabel: String
+    let suffixLabel: String = NSLocalizedString("metronome.tempo.suffix", comment: "")
 
-
-    // Getters
-
-    var backgroundColor: String {
-        return "green"
-    }
-
-    var titleLabel: String {
-        return NSLocalizedString("metronome.tempo.updater.tap.title", comment: "")
-    }
-
-    var prefixLabel: String {
-        return ""
-    }
-
-    var heroLabel: String {
+    init(bpm: Int?) {
         if let bpm = bpm {
-            return String(bpm)
+            heroLabel = String(bpm)
         } else {
-            return NSLocalizedString("metronome.tempo.updater.tap.hero.placeholder", comment: "")
+            heroLabel = NSLocalizedString("metronome.tempo.updater.tap.hero.placeholder", comment: "")
         }
-    }
-
-    var suffixLabel: String {
-        return NSLocalizedString("metronome.tempo.suffix", comment: "")
     }
 }
