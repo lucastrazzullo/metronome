@@ -15,10 +15,15 @@ struct BeatView: View {
     var body: some View {
         ZStack {
             self.background().edgesIgnoringSafeArea(.all)
-            Text(model.label).brandFont(.headline).foregroundColor(self.foreground())
+            VStack {
+                Text(model.label).brandFont(.headline).foregroundColor(self.foreground())
+                Circle().frame(width: 8, height: 8, alignment: .center).foregroundColor(self.henhanceColor())
+            }
         }
     }
 
+
+    // MARK: Private helper methods
 
     private func background() -> some View {
         if model.isHighlighted {
@@ -33,7 +38,19 @@ struct BeatView: View {
         if model.isHighlighted {
             return Color.white
         } else {
-            return Color.white.opacity(0.1)
+            return Color("gray")
+        }
+    }
+
+
+    private func henhanceColor() -> Color {
+        switch true {
+        case model.isHenhanced && model.isHighlighted:
+            return Color.white
+        case model.isHenhanced:
+            return Color("gray")
+        default:
+            return .clear
         }
     }
 }

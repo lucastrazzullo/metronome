@@ -46,7 +46,7 @@ struct MetronomeViewModel: SnapshotMetronomePublisherModel {
         var result: [BeatViewModel] = []
         for index in 0..<configuration.timeSignature.beats {
             let beat = Beat.with(tickIteration: index)
-            let viewModel = BeatViewModel(with: beat, isHighlighted: isRunning && currentBeat == beat)
+            let viewModel = BeatViewModel(with: beat, isHighlighted: isRunning && currentBeat == beat, isHenhanced: beat.intensity == .strong)
             result.append(viewModel)
         }
         return result
