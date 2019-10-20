@@ -11,7 +11,7 @@ import Combine
 
 struct MetronomeView: View {
 
-    @ObservedObject var observed: ObservableMetronome<MetronomeViewModel>
+    @ObservedObject var publisher: SnapshotMetronomePublisher<MetronomeViewModel>
 
 
     // MARK: Body
@@ -20,35 +20,10 @@ struct MetronomeView: View {
         ZStack {
             Color.black.edgesIgnoringSafeArea(.all)
             HStack(alignment: .center, spacing: 1) {
-                ForEach(observed.snapshot.bits, id: \.index) { bitViewModel in
-                    ZStack {
-                        self.backgroundColor(for: bitViewModel.index).edgesIgnoringSafeArea(.all)
-                        Text(String(bitViewModel.label))
-                            .foregroundColor(self.foregroundColor(forBitAt: bitViewModel.index))
-                            .brandFont(.headline)
-                    }
+                ForEach(publisher.snapshot.beatViewModels, id: \.self) { beatViewModel in
+                    BeatView(model: beatViewModel)
                 }
             }
-        }
-    }
-
-
-    // MARK: Private helper methods
-
-    private func backgroundColor(for index: Int) -> Color {
-        if observed.snapshot.isRunning, observed.snapshot.currentBitIndex == index {
-            return Color("yellow")
-        } else {
-            return Color.white.opacity(0.05)
-        }
-    }
-
-
-    private func foregroundColor(forBitAt index: Int) -> Color {
-        if observed.snapshot.isRunning, observed.snapshot.currentBitIndex == index {
-            return Color.white
-        } else {
-            return Color.white.opacity(0.1)
         }
     }
 }

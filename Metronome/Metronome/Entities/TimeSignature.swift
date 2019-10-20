@@ -24,14 +24,14 @@ struct TimeSignature {
 
     // MARK: Instance properties
 
-    let bits: Int
+    let beats: Int
     let noteLength: NoteLength
 
 
     // MARK: Object life cycle
 
-    init(bits: Int, noteLength: NoteLength) {
-        self.bits = min(max(TimeSignature.minimumBarLength, bits), TimeSignature.maximumBarLength)
+    init(beats: Int, noteLength: NoteLength) {
+        self.beats = min(max(TimeSignature.minimumBarLength, beats), TimeSignature.maximumBarLength)
         self.noteLength = noteLength
     }
 }
@@ -40,6 +40,6 @@ struct TimeSignature {
 extension TimeSignature {
 
     static var `default`: TimeSignature {
-        return TimeSignature(bits: 4, noteLength: .quarter)
+        return TimeSignature(beats: 4, noteLength: .quarter)
     }
 }

@@ -1,5 +1,5 @@
 //
-//  TempoUpdaterGestureController.swift
+//  SlideTempoUpdaterGestureController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 12/10/19.
@@ -8,20 +8,15 @@
 
 import UIKit
 
-class TempoUpdaterGestureController: DefaultGestureMetronomeController<TempoUpdaterViewController> {
+class SlideTempoUpdaterGestureController: GestureMetronomeController<SlideTempoUpdaterViewController> {
 
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
         let recogniser = UIPanGestureRecognizer()
         recogniser.minimumNumberOfTouches = 2
-        super.init(with: metronome, gestureRecogniser: recogniser)
+        super.init(with: recogniser, metronome: metronome)
         recogniser.delegate = self
-    }
-
-
-    required init(with metronome: Metronome, gestureRecogniser: UIGestureRecognizer) {
-        super.init(with: metronome, gestureRecogniser: gestureRecogniser)
     }
 
 
@@ -30,7 +25,7 @@ class TempoUpdaterGestureController: DefaultGestureMetronomeController<TempoUpda
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
 
-        let viewController = TempoUpdaterViewController(tempo: metronome.configuration.tempo)
+        let viewController = SlideTempoUpdaterViewController(bpm: metronome.configuration.tempo.bpm)
         addChildViewController(viewController)
     }
 
@@ -47,15 +42,15 @@ class TempoUpdaterGestureController: DefaultGestureMetronomeController<TempoUpda
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
 
-        if let tempo = presentedViewController?.tempo {
-            metronome.updateTempo(tempo)
+        if let bpm = presentedViewController?.bpm {
+            metronome.configuration.setBpm(bpm)
         }
         removeChildViewController()
     }
 }
 
 
-extension TempoUpdaterGestureController: UIGestureRecognizerDelegate {
+extension SlideTempoUpdaterGestureController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer, let view = gestureRecognizer.view {

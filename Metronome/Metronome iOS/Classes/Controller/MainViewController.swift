@@ -10,8 +10,17 @@ import UIKit
 
 class MainViewController: UIViewController, ContainerViewController {
 
-    private var metronomeViewController: MetronomeViewController?
-    private var metronomeGestureViewController: MetronomeGestureViewController?
+    private let metronome: Metronome
+    private let metronomeDispatcher: MetronomeDispatcher
+
+
+    //  MARK: Object life cycle
+
+    required init?(coder: NSCoder) {
+        metronome = Metronome(with: MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default))
+        metronomeDispatcher = MetronomeDispatcher(with: metronome)
+        super.init(coder: coder)
+    }
 
 
     // MARK: View life cycle
@@ -19,15 +28,25 @@ class MainViewController: UIViewController, ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let configuration = MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default)
-        let observableMetronome = ObservableMetronome<MetronomeViewModel>(with: configuration)
+        let metronomeHapticViewController = MetronomeHapticViewController(with: metronomeDispatcher)
+        addChildViewController(metronomeHapticViewController, in: view)
 
-        let metronomeViewController = MetronomeViewController(with: observableMetronome)
-        self.metronomeViewController = metronomeViewController
+        let metronomeViewController = MetronomeViewController(with: metronomeDispatcher, metronome: metronome)
         addChildViewController(metronomeViewController, in: view)
 
-        let metronomeGestureViewController = MetronomeGestureViewController(with: observableMetronome)
-        self.metronomeGestureViewController = metronomeGestureViewController
+        let metronomeGestureViewController = MetronomeGestureViewController(with: metronomeDispatcher, metronome: metronome)
         addChildViewController(metronomeGestureViewController, in: view)
+
+        let oneTimeWelcomeViewController = WelcomeViewController()
+        oneTimeWelcomeViewController.delegate = self
+        addChildViewController(oneTimeWelcomeViewController, in: view)
+    }
+}
+
+
+extension MainViewController: WelcomeViewControllerDelegate {
+
+    func welcomeViewControllerHasCompleted(_ viewController: WelcomeViewController) {
+        removeChildViewController(viewController)
     }
 }

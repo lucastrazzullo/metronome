@@ -1,5 +1,5 @@
 //
-//  HelpViewController.swift
+//  TipsViewController.swift
 //  Metronome
 //
 //  Created by luca strazzullo on 6/10/19.
@@ -8,5 +8,5 @@
 
 import SwiftUI
 
-class HelpViewController: UIHostingController<HelpView> {
+class TipsViewController: UIHostingController<TipsView> {
 }

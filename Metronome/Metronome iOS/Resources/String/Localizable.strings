@@ -23,20 +23,31 @@
 "metronome.tempo.suffix" = "bpm";
 "metronome.tempo.updater.title" = "Tempo";
 "metronome.tempo.updater.tap.title" = "Tap Tempo";
+"metronome.tempo.updater.tap.hero.placeholder" = "...";
 
 
 // MARK: Help
 
 "help.title" = "Tips";
-"help.swipeUp.title" = "Show tips";
-"help.swipeUp.description" = "Swipe up to present tips";
-"help.tap.title" = "On/Off";
-"help.tap.description" = "Single Tap to toggle on/off";
-"help.vertical_slide.title" = "Tempo";
-"help.vertical_slide.description" = "Slide with two fingers up/down to update tempo";
-"help.horizontal_slide.title" = "Bar Length (4)/4";
-"help.horizontal_slide.description" = "Slide with two fingers left/right to update bar length";
-"help.pinch.title" = "Note Length 4/(4)";
-"help.pinch.description" = "Pinch in/out to update note length";
-"help.long_press.title" = "Tap Tempo";
-"help.long_press.description" = "Long press to present tempo tap recogniser";
+"welcome.title" = "Welcome! Here are a few tips for you.";
+
+
+// MARK: Gestures
+
+"gesture.swipeUp.title" = "Show tips";
+"gesture.swipeUp.description" = "Swipe up to present tips";
+
+"gesture.tap.title" = "On/Off";
+"gesture.tap.description" = "Single Tap to toggle on/off";
+
+"gesture.vertical_slide.title" = "Tempo";
+"gesture.vertical_slide.description" = "Slide with two fingers up/down to update tempo";
+
+"gesture.horizontal_slide.title" = "Bar Length (4)/4";
+"gesture.horizontal_slide.description" = "Slide with two fingers left/right to update bar length";
+
+"gesture.pinch.title" = "Note Length 4/(4)";
+"gesture.pinch.description" = "Pinch in/out to update note length";
+
+"gesture.long_press.title" = "Tap Tempo";
+"gesture.long_press.description" = "Long press to present tempo tap recogniser";

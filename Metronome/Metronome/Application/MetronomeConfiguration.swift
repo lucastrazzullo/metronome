@@ -21,9 +21,23 @@ extension MetronomeConfiguration {
     }
 
 
-    mutating func updateTempoWithFrequency(_ frequency: TimeInterval) {
+    func getBmp(with frequency: TimeInterval) -> Int {
         let standardNoteBpm = 60 / frequency
-        let bpm = Int(standardNoteBpm) * 4 / timeSignature.noteLength.rawValue
+        return Int(standardNoteBpm) * 4 / timeSignature.noteLength.rawValue
+    }
+
+
+    mutating func setBpm(_ bpm: Int) {
         tempo = Tempo(bpm: bpm)
+    }
+
+
+    mutating func setBarLength(_ length: Int) {
+        timeSignature = TimeSignature(beats: length, noteLength: timeSignature.noteLength)
+    }
+
+
+    mutating func setNotLength(_ length: TimeSignature.NoteLength) {
+        timeSignature = TimeSignature(beats: timeSignature.beats, noteLength: length)
     }
 }

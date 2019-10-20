@@ -9,6 +9,6 @@
 import UIKit
 
 protocol GestureController: AnyObject {
-    var delegate: UIContainerViewController? { get set }
+    var presentingViewController: UIContainerViewController? { get set }
     var gestureRecogniser: UIGestureRecognizer { get }
 }

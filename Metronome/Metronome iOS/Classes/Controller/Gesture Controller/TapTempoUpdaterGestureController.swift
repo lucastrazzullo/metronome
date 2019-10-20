@@ -8,22 +8,17 @@
 
 import UIKit
 
-class TapTempoUpdaterGestureController: DefaultGestureMetronomeController<TapTempoUpdaterViewController> {
+class TapTempoUpdaterGestureController: GestureMetronomeController<TapTempoUpdaterViewController> {
 
-    private var timer: Timer?
+    private var idleTimer: Timer?
 
 
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
-        let gestureRecogniser = UILongPressGestureRecognizer()
-        gestureRecogniser.minimumPressDuration = 1
-        super.init(with: metronome, gestureRecogniser: gestureRecogniser)
-    }
-
-
-    required init(with metronome: Metronome, gestureRecogniser: UIGestureRecognizer) {
-        super.init(with: metronome, gestureRecogniser: gestureRecogniser)
+        let recogniser = UILongPressGestureRecognizer()
+        recogniser.minimumPressDuration = 1
+        super.init(with: recogniser, metronome: metronome)
     }
 
 
@@ -32,7 +27,7 @@ class TapTempoUpdaterGestureController: DefaultGestureMetronomeController<TapTem
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
 
-        let viewController = TapTempoUpdaterViewController(configuration: metronome.configuration)
+        let viewController = TapTempoUpdaterViewController()
         viewController.delegate = self
         presentViewController(viewController)
     }
@@ -40,26 +35,23 @@ class TapTempoUpdaterGestureController: DefaultGestureMetronomeController<TapTem
 
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
-
-        startIdleTimer()
+        starCompletionTimer(with: metronome.configuration.tempo.bpm)
     }
 
 
     // MARK: Private helper methods
 
-    private func startIdleTimer() {
-        timer?.invalidate()
-        timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: {
+    private func starCompletionTimer(with bpm: Int) {
+        idleTimer?.invalidate()
+        idleTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: {
             [weak self] timer in
-            self?.complete()
+            self?.complete(with: bpm)
         })
     }
 
 
-    private func complete() {
-        if let tempo = presentedViewController?.tempo {
-            metronome.updateTempo(tempo)
-        }
+    private func complete(with bpm: Int) {
+        metronome.configuration.setBpm(bpm)
         dismissPresentedViewController()
     }
 }
@@ -67,7 +59,27 @@ class TapTempoUpdaterGestureController: DefaultGestureMetronomeController<TapTem
 
 extension TapTempoUpdaterGestureController: TapTempoUpdaterViewControllerDelegate {
 
-    func tapTempoUpdaterViewController(_ viewController: TapTempoUpdaterViewController, hasSetNew tempo: Tempo) {
-        startIdleTimer()
+    func tapTempoUpdaterViewController(_ viewController: TapTempoUpdaterViewController, bpmFor timestamps: [TimeInterval]) -> Int? {
+        guard let frequency = getFrequency(for: timestamps) else { return nil }
+        let bpm = metronome.configuration.getBmp(with: frequency)
+        starCompletionTimer(with: bpm)
+        return bpm
+    }
+
+
+    // MARK: Private helper methods
+
+    private func getFrequency(for tapTimestamps: [TimeInterval]) -> TimeInterval? {
+        guard tapTimestamps.count >= 2 else { return nil }
+
+        let frequencies: [Double] = tapTimestamps.enumerated().compactMap { index, timestamp in
+            if index + 1 == tapTimestamps.count {
+                return nil
+            } else {
+                return tapTimestamps[index + 1] - timestamp
+            }
+        }
+
+        return frequencies.reduce(0, +) / Double(frequencies.count)
     }
 }

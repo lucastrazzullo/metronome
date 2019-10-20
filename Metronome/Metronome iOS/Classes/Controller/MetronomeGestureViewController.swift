@@ -8,18 +8,23 @@
 
 import SwiftUI
 
-class MetronomeGestureViewController: UIHostingController<MetronomeChromeView>, ContainerViewController {
+class MetronomeGestureViewController: UIHostingController<ChromeView>, ContainerViewController {
 
-    private let metronome: ObservableMetronome<MetronomeViewModel>
+    private let metronome: Metronome
+    private let metronomePublisher: SnapshotMetronomePublisher<ChromeViewModel>
     private var gestureControllers: [GestureController]
 
 
     // MARK: Object life cycle
 
-    init(with metronome: ObservableMetronome<MetronomeViewModel>) {
+    init(with metronomeDispatcher: MetronomeDispatcher, metronome: Metronome) {
         self.metronome = metronome
+        self.metronomePublisher = SnapshotMetronomePublisher<ChromeViewModel>(metronome: metronome)
         self.gestureControllers = []
-        super.init(rootView: MetronomeChromeView(observed: metronome))
+
+        metronomeDispatcher.addObserver(metronomePublisher)
+
+        super.init(rootView: ChromeView(publisher: metronomePublisher))
     }
 
 
@@ -40,7 +45,7 @@ class MetronomeGestureViewController: UIHostingController<MetronomeChromeView>, 
         let togglerController = TogglerGestureController(with: metronome)
         addGestureController(togglerController)
 
-        let tempoUpdaterController = TempoUpdaterGestureController(with: metronome)
+        let tempoUpdaterController = SlideTempoUpdaterGestureController(with: metronome)
         addGestureController(tempoUpdaterController)
 
         let barLengthController = BarLengthUpdaterGestureController(with: metronome)
@@ -66,13 +71,13 @@ class MetronomeGestureViewController: UIHostingController<MetronomeChromeView>, 
     // MARK: Private helper methods
 
     private func addGestureController(_ gestureController: GestureController) {
-        gestureController.delegate = self
+        gestureController.presentingViewController = self
         gestureControllers.append(gestureController)
     }
 
 
     private func removeGestureControllers() {
-        gestureControllers.forEach({ $0.delegate = nil })
+        gestureControllers.forEach({ $0.presentingViewController = nil })
         gestureControllers.removeAll()
     }
 }

@@ -10,14 +10,14 @@ import XCTest
 
 class TimeSignatureTests: XCTestCase {
 
-    func testZeroBitsInstantiation() {
-        let timeSignature = TimeSignature(bits: 0, noteLength: .quarter)
-        XCTAssertEqual(1, timeSignature.bits)
+    func testZeroBeatsInstantiation() {
+        let timeSignature = TimeSignature(beats: 0, noteLength: .quarter)
+        XCTAssertEqual(1, timeSignature.beats)
     }
 
 
-    func testNegativeBitsInstantiation() {
-        let timeSignature = TimeSignature(bits: -1, noteLength: .quarter)
-        XCTAssertEqual(1, timeSignature.bits)
+    func testNegativeBeatsInstantiation() {
+        let timeSignature = TimeSignature(beats: -1, noteLength: .quarter)
+        XCTAssertEqual(1, timeSignature.beats)
     }
 }

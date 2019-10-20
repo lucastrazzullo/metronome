@@ -11,45 +11,42 @@ import Combine
 
 class MetronomeViewController: UIHostingController<MetronomeView> {
 
-    private let observableMetronome: ObservableMetronome<MetronomeViewModel>
-    private var observer: Cancellable?
-
-    private let impactGenerator: UIImpactFeedbackGenerator = UIImpactFeedbackGenerator(style: .soft)
+    private var metronomePublisher: SnapshotMetronomePublisher<MetronomeViewModel>
 
 
     // MARK: Object life cycle
 
-    init(with observableMetronome: ObservableMetronome<MetronomeViewModel>) {
-        self.observableMetronome = observableMetronome
-        super.init(rootView: MetronomeView(observed: observableMetronome))
+    init(with metronomeDispatcher: MetronomeDispatcher, metronome: Metronome) {
+        self.metronomePublisher = SnapshotMetronomePublisher<MetronomeViewModel>(metronome: metronome)
+        super.init(rootView: MetronomeView(publisher: metronomePublisher))
+
+        metronomeDispatcher.addObserver(metronomePublisher)
+        metronomeDispatcher.addObserver(self)
     }
 
 
     @objc required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+}
 
 
-    // MARK: View life cycle
+extension MetronomeViewController: MetronomeObserver {
 
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        observer = observableMetronome.$snapshot.sink(receiveValue: { [weak self] value in
-            if let isRunning = value?.isRunning, isRunning {
-                UIApplication.shared.isIdleTimerDisabled = true
-            } else {
-                UIApplication.shared.isIdleTimerDisabled = false
-            }
-            if value?.currentIteration != self?.rootView.observed.snapshot.currentIteration {
-                self?.impactGenerator.impactOccurred()
-            }
-        })
+    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
     }
 
 
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        observableMetronome.reset()
-        observer?.cancel()
+    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
+    }
+
+
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
+        UIApplication.shared.isIdleTimerDisabled = true
+    }
+
+
+    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
+        UIApplication.shared.isIdleTimerDisabled = false
     }
 }

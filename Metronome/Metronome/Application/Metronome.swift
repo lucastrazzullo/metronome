@@ -10,19 +10,23 @@ import Foundation
 
 protocol MetronomeDelegate: AnyObject {
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration)
+    func metronome(_ metronome: Metronome, didPulse beat: Beat)
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?)
+    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?)
 }
 
 
 class Metronome {
 
     weak var delegate: MetronomeDelegate?
-    weak var tickerDelegate: MetronomeTickerDelegate? {
+
+    var configuration: MetronomeConfiguration {
         didSet {
-            ticker.delegate = tickerDelegate
+            reset()
+            delegate?.metronome(self, didUpdate: configuration)
         }
     }
 
-    private(set) var configuration: MetronomeConfiguration
     private var ticker: MetronomeTicker
 
 
@@ -33,8 +37,9 @@ class Metronome {
     }
 
 
-    var currentIteration: Int {
-        return ticker.iteration
+    var currentBeat: Beat? {
+        guard let iteration = ticker.currentIteration else { return nil }
+        return Beat.with(tickIteration: iteration)
     }
 
 
@@ -43,13 +48,14 @@ class Metronome {
     init(with configuration: MetronomeConfiguration) {
         self.configuration = configuration
         self.ticker = MetronomeTicker()
+        self.ticker.delegate = self
     }
 
 
     // MARK: Public methods
 
     func start() {
-        ticker.start(with: configuration.getTimeInterval(), loopLength: configuration.timeSignature.bits)
+        ticker.start(with: configuration.getTimeInterval(), loopLength: configuration.timeSignature.beats)
     }
 
 
@@ -61,27 +67,30 @@ class Metronome {
     func toggle() {
         if isRunning { reset() } else { start() }
     }
+}
 
 
-    func updateTempo(_ tempo: Tempo) {
-        var configuration = self.configuration
-        configuration.tempo = tempo
-        update(with: configuration)
+extension Metronome: MetronomeTickerDelegate {
+
+    func metronomeTicker(_ ticker: MetronomeTicker, willStartWithSuspended iteration: Int?) {
+        if let iteration = iteration {
+            delegate?.metronome(self, willStartWithSuspended: Beat.with(tickIteration: iteration))
+        } else {
+            delegate?.metronome(self, willStartWithSuspended: nil)
+        }
     }
 
 
-    func updateTimeSignature(_ timeSignature: TimeSignature) {
-        var configuration = self.configuration
-        configuration.timeSignature = timeSignature
-        update(with: configuration)
+    func metronomeTicker(_ ticker: MetronomeTicker, willResetDuring iteration: Int?) {
+        if let iteration = iteration {
+            delegate?.metronome(self, willResetDuring: Beat.with(tickIteration: iteration))
+        } else {
+            delegate?.metronome(self, willResetDuring: nil)
+        }
     }
 
 
-    // MARK: Private helper methods
-
-    func update(with newConfiguration: MetronomeConfiguration) {
-        configuration = newConfiguration
-        delegate?.metronome(self, didUpdate: configuration)
-        reset()
+    func metronomeTicker(_ ticker: MetronomeTicker, didTick iteration: Int) {
+        delegate?.metronome(self, didPulse: Beat.with(tickIteration: iteration))
     }
 }

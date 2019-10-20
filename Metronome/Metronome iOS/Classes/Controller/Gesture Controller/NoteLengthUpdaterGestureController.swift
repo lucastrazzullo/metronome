@@ -8,18 +8,13 @@
 
 import UIKit
 
-class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController<TimeSignatureUpdaterViewController> {
+class NoteLengthUpdaterGestureController: GestureMetronomeController<TimeSignatureUpdaterViewController> {
 
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
         let recogniser = UIPinchGestureRecognizer()
-        super.init(with: metronome, gestureRecogniser: recogniser)
-    }
-
-
-    required init(with metronome: Metronome, gestureRecogniser: UIGestureRecognizer) {
-        super.init(with: metronome, gestureRecogniser: gestureRecogniser)
+        super.init(with: recogniser, metronome: metronome)
     }
 
 
@@ -46,7 +41,7 @@ class NoteLengthUpdaterGestureController: DefaultGestureMetronomeController<Time
         super.handleGestureEnded(for: gestureRecogniser)
 
         if let timeSignature = presentedViewController?.timeSignature {
-            metronome.updateTimeSignature(timeSignature)
+            metronome.configuration.timeSignature = timeSignature
         }
         removeChildViewController()
     }

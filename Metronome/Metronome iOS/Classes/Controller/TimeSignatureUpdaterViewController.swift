@@ -31,7 +31,7 @@ class TimeSignatureUpdaterViewController: UIHostingController<UpdaterView> {
     // MARK: Public methods
 
     func updateBarLength(with offset: Int) {
-        timeSignature = TimeSignature(bits: initialTimeSignature.bits + (offset / 32), noteLength: initialTimeSignature.noteLength)
+        timeSignature = TimeSignature(beats: initialTimeSignature.beats + (offset / 32), noteLength: initialTimeSignature.noteLength)
         rootView.model = BarLengthUpdaterViewModel(timeSignature: timeSignature)
     }
 
@@ -39,7 +39,7 @@ class TimeSignatureUpdaterViewController: UIHostingController<UpdaterView> {
     func updateNoteLength(with offset: Int) {
         let noteLengths = TimeSignature.NoteLength.allCases
         if let currentIndex = noteLengths.firstIndex(of: initialTimeSignature.noteLength), currentIndex + offset >= 0, currentIndex + offset < noteLengths.count {
-            timeSignature = TimeSignature(bits: initialTimeSignature.bits, noteLength: noteLengths[currentIndex + offset])
+            timeSignature = TimeSignature(beats: initialTimeSignature.beats, noteLength: noteLengths[currentIndex + offset])
             rootView.model = NoteLengthUpdaterViewModel(timeSignature: timeSignature)
         }
     }
