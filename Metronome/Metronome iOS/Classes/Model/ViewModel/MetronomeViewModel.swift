@@ -15,7 +15,7 @@ struct MetronomeViewModel: SnapshotMetronomePublisherModel {
             beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
         }
     }
-    var currentBeat: MetronomeBeat? {
+    var currentBeat: Beat? {
         didSet {
             beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
         }
@@ -31,7 +31,7 @@ struct MetronomeViewModel: SnapshotMetronomePublisherModel {
 
     // MARK: Object life cycle
 
-    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: MetronomeBeat?) {
+    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: Beat?) {
         self.configuration = configuration
         self.currentBeat = currentBeat
         self.isRunning = isRunning
@@ -42,10 +42,10 @@ struct MetronomeViewModel: SnapshotMetronomePublisherModel {
 
     // MARK: Private builder helper methods
 
-    private static func beatViewModels(with configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: MetronomeBeat?) -> [BeatViewModel] {
+    private static func beatViewModels(with configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: Beat?) -> [BeatViewModel] {
         var result: [BeatViewModel] = []
         for index in 0..<configuration.timeSignature.beats {
-            let beat = MetronomeBeat.with(tickIteration: index)
+            let beat = Beat.with(tickIteration: index)
             let viewModel = BeatViewModel(with: beat, isHighlighted: isRunning && currentBeat == beat)
             result.append(viewModel)
         }

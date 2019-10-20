@@ -33,7 +33,7 @@ extension MetronomeHapticViewController: MetronomeObserver {
     }
 
 
-    func metronome(_ metronome: Metronome, didPulse beat: MetronomeBeat) {
+    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
         switch beat.intensity {
         case .normal:
             impactGenerator.impactOccurred(intensity: 0.5)
@@ -43,12 +43,12 @@ extension MetronomeHapticViewController: MetronomeObserver {
     }
 
 
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: MetronomeBeat?) {
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
         selectionGenerator.selectionChanged()
     }
 
 
-    func metronome(_ metronome: Metronome, willResetDuring beat: MetronomeBeat?) {
+    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
         selectionGenerator.selectionChanged()
     }
 }

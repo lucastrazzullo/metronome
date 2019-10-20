@@ -1,5 +1,5 @@
 //
-//  MetronomeBeat.swift
+//  Beat.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 19/10/19.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MetronomeBeat {
+struct Beat {
 
     enum Intensity {
         case strong
@@ -24,16 +24,16 @@ struct MetronomeBeat {
 
     // MARK: Object builder
 
-    static func with(tickIteration: Int) -> MetronomeBeat {
+    static func with(tickIteration: Int) -> Beat {
         let position = tickIteration + 1
 
         if position == 1 {
-            return MetronomeBeat(intensity: .strong, position: position)
+            return Beat(intensity: .strong, position: position)
         } else {
-            return MetronomeBeat(intensity: .normal, position: position)
+            return Beat(intensity: .normal, position: position)
         }
     }
 }
 
 
-extension MetronomeBeat: Equatable {}
+extension Beat: Equatable {}

@@ -11,9 +11,9 @@ import Foundation
 protocol SnapshotMetronomePublisherModel {
     var configuration: MetronomeConfiguration { get set }
     var isRunning: Bool { get set }
-    var currentBeat: MetronomeBeat? { get set }
+    var currentBeat: Beat? { get set }
 
-    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: MetronomeBeat?)
+    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: Beat?)
     init(from metronome: Metronome)
 }
 

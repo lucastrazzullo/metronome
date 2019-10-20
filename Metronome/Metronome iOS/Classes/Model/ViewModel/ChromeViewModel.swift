@@ -17,7 +17,7 @@ struct ChromeViewModel: SnapshotMetronomePublisherModel {
         }
     }
     var isRunning: Bool
-    var currentBeat: MetronomeBeat?
+    var currentBeat: Beat?
 
 
     // MARK: Getters
@@ -28,7 +28,7 @@ struct ChromeViewModel: SnapshotMetronomePublisherModel {
 
     // MARK: Object life cycle
 
-    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: MetronomeBeat?) {
+    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: Beat?) {
         self.configuration = configuration
         self.currentBeat = currentBeat
         self.isRunning = isRunning

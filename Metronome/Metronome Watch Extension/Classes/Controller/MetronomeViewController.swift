@@ -56,7 +56,7 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
 extension MetronomeViewController: MetronomeObserver {
 
-    func metronome(_ metronome: Metronome, didPulse beat: MetronomeBeat) {
+    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
         switch beat.intensity {
         case .normal:
             WKInterfaceDevice.current().play(WKHapticType.click)
@@ -67,13 +67,13 @@ extension MetronomeViewController: MetronomeObserver {
     }
 
 
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: MetronomeBeat?) {
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
         WKInterfaceDevice.current().play(WKHapticType.click)
         WKExtension.shared().isAutorotating = true
     }
 
 
-    func metronome(_ metronome: Metronome, willResetDuring beat: MetronomeBeat?) {
+    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
         WKInterfaceDevice.current().play(WKHapticType.stop)
         WKExtension.shared().isAutorotating = false
     }

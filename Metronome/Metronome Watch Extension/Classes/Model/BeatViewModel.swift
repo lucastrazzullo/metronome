@@ -13,7 +13,7 @@ struct BeatViewModel: Hashable {
     let label: String
     let isHighlighted: Bool
 
-    init(with beat: MetronomeBeat, isHighlighted: Bool) {
+    init(with beat: Beat, isHighlighted: Bool) {
         self.label = String(beat.position)
         self.isHighlighted = isHighlighted
     }

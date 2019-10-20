@@ -36,17 +36,17 @@ extension MetronomeDispatcher: MetronomeDelegate {
     }
 
 
-    func metronome(_ metronome: Metronome, didPulse beat: MetronomeBeat) {
+    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
         observers.allObjects.forEach({ ($0 as? MetronomeObserver)?.metronome(metronome, didPulse: beat) })
     }
 
 
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: MetronomeBeat?) {
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
         observers.allObjects.forEach({ ($0 as? MetronomeObserver)?.metronome(metronome, willStartWithSuspended: beat) })
     }
 
 
-    func metronome(_ metronome: Metronome, willResetDuring beat: MetronomeBeat?) {
+    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
         observers.allObjects.forEach({ ($0 as? MetronomeObserver)?.metronome(metronome, willResetDuring: beat) })
     }
 }

@@ -70,9 +70,9 @@
 		81B999A82359C5E600E87778 /* MetronomeHapticViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999A72359C5E600E87778 /* MetronomeHapticViewController.swift */; };
 		81B999AA2359E90000E87778 /* NSPointerArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999A92359E90000E87778 /* NSPointerArrayExtensions.swift */; };
 		81B999AB2359EA2400E87778 /* NSPointerArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999A92359E90000E87778 /* NSPointerArrayExtensions.swift */; };
-		81B999AD235B1D9700E87778 /* MetronomeBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999AC235B1D9700E87778 /* MetronomeBeat.swift */; };
-		81B999AE235B22B500E87778 /* MetronomeBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999AC235B1D9700E87778 /* MetronomeBeat.swift */; };
-		81B999AF235B22B900E87778 /* MetronomeBeat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999AC235B1D9700E87778 /* MetronomeBeat.swift */; };
+		81B999AD235B1D9700E87778 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999AC235B1D9700E87778 /* Beat.swift */; };
+		81B999AE235B22B500E87778 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999AC235B1D9700E87778 /* Beat.swift */; };
+		81B999AF235B22B900E87778 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999AC235B1D9700E87778 /* Beat.swift */; };
 		81B999B1235B569600E87778 /* BeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999B0235B569600E87778 /* BeatView.swift */; };
 		81BE0C0E2348C8B5000053C6 /* TempoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0D2348C8B5000053C6 /* TempoTests.swift */; };
 		81BE0C102348C926000053C6 /* TimeSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */; };
@@ -192,7 +192,7 @@
 		81AB3584234CB896004C1BCD /* UpdateTimeSignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTimeSignatureView.swift; sourceTree = "<group>"; };
 		81B999A72359C5E600E87778 /* MetronomeHapticViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeHapticViewController.swift; sourceTree = "<group>"; };
 		81B999A92359E90000E87778 /* NSPointerArrayExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSPointerArrayExtensions.swift; sourceTree = "<group>"; };
-		81B999AC235B1D9700E87778 /* MetronomeBeat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeBeat.swift; sourceTree = "<group>"; };
+		81B999AC235B1D9700E87778 /* Beat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beat.swift; sourceTree = "<group>"; };
 		81B999B0235B569600E87778 /* BeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatView.swift; sourceTree = "<group>"; };
 		81BE0C0D2348C8B5000053C6 /* TempoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoTests.swift; sourceTree = "<group>"; };
 		81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignatureTests.swift; sourceTree = "<group>"; };
@@ -477,7 +477,6 @@
 				819E341A2343678700D56E92 /* MetronomeTicker.swift */,
 				81FAF06823436475004A8C51 /* MetronomeConfiguration.swift */,
 				81FAF05523427F52004A8C51 /* Metronome.swift */,
-				81B999AC235B1D9700E87778 /* MetronomeBeat.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -487,6 +486,7 @@
 			children = (
 				81FAF05823427F6F004A8C51 /* TimeSignature.swift */,
 				81FAF05A234285E3004A8C51 /* Tempo.swift */,
+				81B999AC235B1D9700E87778 /* Beat.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -696,7 +696,7 @@
 			files = (
 				817F9958234CADBC00DA1043 /* Metronome.swift in Sources */,
 				817F9956234CADBC00DA1043 /* MetronomeTicker.swift in Sources */,
-				81B999AE235B22B500E87778 /* MetronomeBeat.swift in Sources */,
+				81B999AE235B22B500E87778 /* Beat.swift in Sources */,
 				817F994F234CAD6600DA1043 /* ExtensionDelegate.swift in Sources */,
 				81B999A62359C38A00E87778 /* SnapshotMetronomePublisher.swift in Sources */,
 				817F995A234CADBF00DA1043 /* MetronomeObserver.swift in Sources */,
@@ -753,7 +753,7 @@
 				81B999A82359C5E600E87778 /* MetronomeHapticViewController.swift in Sources */,
 				81A8878D235343420071BF48 /* BarLengthUpdaterViewModel.swift in Sources */,
 				81A8878523524EE80071BF48 /* GestureController.swift in Sources */,
-				81B999AD235B1D9700E87778 /* MetronomeBeat.swift in Sources */,
+				81B999AD235B1D9700E87778 /* Beat.swift in Sources */,
 				81A71C772352455100E86256 /* TogglerGestureController.swift in Sources */,
 				815423A32358D72B00A39552 /* ChromeViewModel.swift in Sources */,
 				817EFA432355C09F004E774D /* SlideTempoUpdaterViewModel.swift in Sources */,
@@ -778,7 +778,7 @@
 			files = (
 				8124976C234B642C0047F3E3 /* Metronome.swift in Sources */,
 				8124976B234B642C0047F3E3 /* MetronomeConfiguration.swift in Sources */,
-				81B999AF235B22B900E87778 /* MetronomeBeat.swift in Sources */,
+				81B999AF235B22B900E87778 /* Beat.swift in Sources */,
 				8124976A234B642C0047F3E3 /* MetronomeTicker.swift in Sources */,
 				81BE0C102348C926000053C6 /* TimeSignatureTests.swift in Sources */,
 				81FAF04623427ED3004A8C51 /* MetronomeTests.swift in Sources */,
