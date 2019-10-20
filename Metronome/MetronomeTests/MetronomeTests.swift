@@ -33,7 +33,7 @@ class MetronomeTests: XCTestCase {
         metronome?.delegate = self
         metronome?.start()
 
-        wait(for: [tickExpectation!], timeout: 2.2)
+        wait(for: [tickExpectation!], timeout: 2)
     }
 
 
@@ -85,15 +85,15 @@ extension MetronomeTests: MetronomeDelegate {
     }
 
 
-    func metronome(_ metronome: Metronome, didPulse beat: MetronomeBeat) {
+    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
         tickExpectation?.fulfill()
     }
 
 
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: MetronomeBeat?) {
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
     }
 
 
-    func metronome(_ metronome: Metronome, willResetDuring beat: MetronomeBeat?) {
+    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
     }
 }
