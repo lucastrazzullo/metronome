@@ -46,7 +46,7 @@ struct BeatView: View {
     private func henhanceColor() -> Color {
         switch true {
         case model.isHenhanced && model.isHighlighted:
-            return Color.white
+            return Color("purple")
         case model.isHenhanced:
             return Color("gray")
         default:
