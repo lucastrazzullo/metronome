@@ -419,7 +419,7 @@
 			children = (
 				81A887862352501C0071BF48 /* README.md */,
 				81249754234B620D0047F3E3 /* Metronome */,
-				81FAF04423427ED3004A8C51 /* MetronomeTests */,
+				81FAF04423427ED3004A8C51 /* Metronome Tests */,
 				81FAF02D23427ED1004A8C51 /* Metronome iOS */,
 				817F992D234CAD0300DA1043 /* Metronome Watch */,
 				817F993C234CAD0400DA1043 /* Metronome Watch Extension */,
@@ -449,7 +449,7 @@
 			path = "Metronome iOS";
 			sourceTree = "<group>";
 		};
-		81FAF04423427ED3004A8C51 /* MetronomeTests */ = {
+		81FAF04423427ED3004A8C51 /* Metronome Tests */ = {
 			isa = PBXGroup;
 			children = (
 				81FAF04523427ED3004A8C51 /* MetronomeTests.swift */,
@@ -458,7 +458,7 @@
 				81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */,
 				81FAF04723427ED3004A8C51 /* Info.plist */,
 			);
-			path = MetronomeTests;
+			path = "Metronome Tests";
 			sourceTree = "<group>";
 		};
 		81FAF05023427EEA004A8C51 /* Classes */ = {
@@ -1118,7 +1118,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
-				INFOPLIST_FILE = MetronomeTests/Info.plist;
+				INFOPLIST_FILE = "Metronome Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1138,7 +1138,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
-				INFOPLIST_FILE = MetronomeTests/Info.plist;
+				INFOPLIST_FILE = "Metronome Tests/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
