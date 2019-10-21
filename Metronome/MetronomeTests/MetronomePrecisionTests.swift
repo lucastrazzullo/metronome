@@ -42,6 +42,18 @@ class MetronomePrecisionTests: XCTestCase {
 
         wait(for: [tickExpectation!], timeout: 60)
     }
+
+
+    func testTenMinute() {
+        tickExpectation = expectation(description: "one-minute")
+        tickExpectation?.expectedFulfillmentCount = 1200
+
+        metronome?.configuration.setBpm(1200)
+        metronome?.configuration.setNotLength(.quarter)
+        metronome?.start()
+
+        wait(for: [tickExpectation!], timeout: 600)
+    }
 }
 
 
