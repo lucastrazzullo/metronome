@@ -10,9 +10,10 @@ import SwiftUI
 
 struct ChromeView: View {
 
-    @ObservedObject var publisher: SnapshotMetronomePublisher<ChromeViewModel>
+    var model: ChromeViewModel
 
     @State var helperIsPresented = false
+    @State var helperDidAppear: () -> ()
 
 
     // MARK: Body
@@ -22,17 +23,15 @@ struct ChromeView: View {
             Spacer()
             ZStack {
                 HStack(alignment: .center, spacing: 24) {
-                    Text(publisher.snapshot.timeSignatureLabel).brandFont(.footnote)
-                    Text(publisher.snapshot.tempoLabel).brandFont(.footnote)
+                    Text(model.timeSignatureLabel).brandFont(.footnote)
+                    Text(model.tempoLabel).brandFont(.footnote)
                     Spacer()
                     Button(action: { self.helperIsPresented = true }) {
                         Image(systemName: "questionmark.circle.fill").brandFont(.body)
                     }.sheet(isPresented: self.$helperIsPresented) {
                         TipsView(model: HelpViewModel(tips: TipsViewModelRepository.all), dismiss: {
                             self.helperIsPresented = false
-                        }).onAppear(perform: {
-                            self.publisher.metronome.reset()
-                        })
+                        }).onAppear(perform: self.helperDidAppear)
                     }
                 }.foregroundColor(Color.white).opacity(0.7)
             }.frame(width: nil, height: 40, alignment: .center)

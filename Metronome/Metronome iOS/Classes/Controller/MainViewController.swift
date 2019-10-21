@@ -10,6 +10,9 @@ import UIKit
 
 class MainViewController: UIViewController, ContainerViewController {
 
+    private let metronomeHapticController: MetronomeHapticController
+    private let metronomeCacheController: MetronomeCacheController
+
     private let metronome: Metronome
     private let metronomeDispatcher: MetronomeDispatcher
 
@@ -17,8 +20,14 @@ class MainViewController: UIViewController, ContainerViewController {
     //  MARK: Object life cycle
 
     required init?(coder: NSCoder) {
-        metronome = Metronome(with: MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default))
+        metronomeHapticController = MetronomeHapticController()
+        metronomeCacheController = MetronomeCacheController(entry: UserDefaultBackedEntryCache())
+        metronome = Metronome(with: metronomeCacheController.buildConfigurationWithCachedValues())
+
         metronomeDispatcher = MetronomeDispatcher(with: metronome)
+        metronomeDispatcher.addObserver(metronomeHapticController)
+        metronomeDispatcher.addObserver(metronomeCacheController)
+
         super.init(coder: coder)
     }
 
@@ -28,14 +37,8 @@ class MainViewController: UIViewController, ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let metronomeHapticViewController = MetronomeHapticViewController(with: metronomeDispatcher)
-        addChildViewController(metronomeHapticViewController, in: view)
-
         let metronomeViewController = MetronomeViewController(with: metronomeDispatcher, metronome: metronome)
         addChildViewController(metronomeViewController, in: view)
-
-        let metronomeGestureViewController = MetronomeGestureViewController(with: metronomeDispatcher, metronome: metronome)
-        addChildViewController(metronomeGestureViewController, in: view)
 
         let oneTimeWelcomeViewController = WelcomeViewController()
         oneTimeWelcomeViewController.delegate = self

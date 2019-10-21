@@ -18,12 +18,11 @@ struct MetronomeView: View {
 
     var body: some View {
         ZStack {
-            Color.black.edgesIgnoringSafeArea(.all)
-            HStack(alignment: .center, spacing: 1) {
-                ForEach(publisher.snapshot.beatViewModels, id: \.self) { beatViewModel in
-                    BeatView(model: beatViewModel)
-                }
-            }
+            ColorView(color: .black)
+            BeatsView(model: publisher.snapshot.beatViewModels)
+            ChromeView(model: publisher.snapshot.chromeViewModel, helperDidAppear: {
+                self.publisher.metronome.reset()
+            })
         }
     }
 }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HelpGestureController: GestureMetronomeController<TipsViewController> {
+class HelpGestureController: DefaultMetronomeGestureController<TipsViewController> {
 
     // MARK: Object life cycle
 

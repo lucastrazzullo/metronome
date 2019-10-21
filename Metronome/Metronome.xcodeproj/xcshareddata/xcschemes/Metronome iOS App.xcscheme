@@ -37,6 +37,11 @@
                BlueprintName = "MetronomeTests"
                ReferencedContainer = "container:Metronome.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "MetronomePrecisionTests">
+               </Test>
+            </SkippedTests>
          </TestableReference>
       </Testables>
    </TestAction>

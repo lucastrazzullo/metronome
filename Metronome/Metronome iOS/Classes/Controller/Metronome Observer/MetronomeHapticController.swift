@@ -1,5 +1,5 @@
 //
-//  MetronomeHapticViewController.swift
+//  MetronomeHapticController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 18/10/19.
@@ -8,26 +8,13 @@
 
 import UIKit
 
-class MetronomeHapticViewController: UIViewController {
-
+class MetronomeHapticController {
     private let selectionGenerator = UISelectionFeedbackGenerator()
-    private let notificationGenerator = UINotificationFeedbackGenerator()
     private let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
-
-
-    init(with metronomeDispatcher: MetronomeDispatcher) {
-        super.init(nibName: nil, bundle: nil)
-        metronomeDispatcher.addObserver(self)
-    }
-
-
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
 }
 
 
-extension MetronomeHapticViewController: MetronomeObserver {
+extension MetronomeHapticController: MetronomeObserver {
 
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
     }
