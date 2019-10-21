@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SlideTempoUpdaterGestureController: GestureMetronomeController<SlideTempoUpdaterViewController> {
+class SlideTempoUpdaterGestureController: DefaultMetronomeGestureController<SlideTempoUpdaterViewController> {
 
     // MARK: Object life cycle
 

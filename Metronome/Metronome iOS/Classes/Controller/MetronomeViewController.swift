@@ -9,19 +9,23 @@
 import SwiftUI
 import Combine
 
-class MetronomeViewController: UIHostingController<MetronomeView> {
+class MetronomeViewController: UIHostingController<MetronomeView>, ContainerViewController {
 
     private var metronomePublisher: SnapshotMetronomePublisher<MetronomeViewModel>
+    private var gesturesController: MetronomeGesturesController
 
 
     // MARK: Object life cycle
 
     init(with metronomeDispatcher: MetronomeDispatcher, metronome: Metronome) {
         self.metronomePublisher = SnapshotMetronomePublisher<MetronomeViewModel>(metronome: metronome)
+        self.gesturesController = MetronomeGesturesController(with: metronome)
         super.init(rootView: MetronomeView(publisher: metronomePublisher))
 
         metronomeDispatcher.addObserver(metronomePublisher)
         metronomeDispatcher.addObserver(self)
+
+        gesturesController.presentingViewController = self
     }
 
 

@@ -8,17 +8,7 @@
 
 import Foundation
 
-struct ChromeViewModel: SnapshotMetronomePublisherModel {
-
-    var configuration: MetronomeConfiguration {
-        didSet {
-            timeSignatureLabel = ChromeViewModel.timeSignatureLabel(with: configuration.timeSignature)
-            tempoLabel = ChromeViewModel.tempoLabel(with: configuration.tempo)
-        }
-    }
-    var isRunning: Bool
-    var currentBeat: Beat?
-
+struct ChromeViewModel {
 
     // MARK: Getters
 
@@ -28,11 +18,7 @@ struct ChromeViewModel: SnapshotMetronomePublisherModel {
 
     // MARK: Object life cycle
 
-    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: Beat?) {
-        self.configuration = configuration
-        self.currentBeat = currentBeat
-        self.isRunning = isRunning
-
+    init(configuration: MetronomeConfiguration) {
         self.timeSignatureLabel = ChromeViewModel.timeSignatureLabel(with: configuration.timeSignature)
         self.tempoLabel = ChromeViewModel.tempoLabel(with: configuration.tempo)
     }

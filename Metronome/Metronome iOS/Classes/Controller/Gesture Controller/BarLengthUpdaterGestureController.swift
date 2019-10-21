@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BarLengthUpdaterGestureController: GestureMetronomeController<TimeSignatureUpdaterViewController> {
+class BarLengthUpdaterGestureController: DefaultMetronomeGestureController<TimeSignatureUpdaterViewController> {
 
     // MARK: Object life cycle
 

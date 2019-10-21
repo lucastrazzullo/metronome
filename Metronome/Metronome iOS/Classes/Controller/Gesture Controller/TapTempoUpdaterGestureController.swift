@@ -8,7 +8,7 @@
 
 import UIKit
 
-class TapTempoUpdaterGestureController: GestureMetronomeController<TapTempoUpdaterViewController> {
+class TapTempoUpdaterGestureController: DefaultMetronomeGestureController<TapTempoUpdaterViewController> {
 
     private var idleTimer: Timer?
 

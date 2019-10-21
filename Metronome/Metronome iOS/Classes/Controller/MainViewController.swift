@@ -40,9 +40,6 @@ class MainViewController: UIViewController, ContainerViewController {
         let metronomeViewController = MetronomeViewController(with: metronomeDispatcher, metronome: metronome)
         addChildViewController(metronomeViewController, in: view)
 
-        let metronomeChromeViewController = MetronomeChromeViewController(with: metronomeDispatcher, metronome: metronome)
-        addChildViewController(metronomeChromeViewController, in: view)
-
         let oneTimeWelcomeViewController = WelcomeViewController()
         oneTimeWelcomeViewController.delegate = self
         addChildViewController(oneTimeWelcomeViewController, in: view)
