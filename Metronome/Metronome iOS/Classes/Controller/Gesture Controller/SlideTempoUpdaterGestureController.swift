@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SlideTempoUpdaterGestureController: DefaultMetronomeGestureController<SlideTempoUpdaterViewController> {
+class SlideTempoUpdaterGestureController: DefaultMetronomeGestureController<OffsetTempoUpdaterViewController> {
 
     // MARK: Object life cycle
 
@@ -25,7 +25,7 @@ class SlideTempoUpdaterGestureController: DefaultMetronomeGestureController<Slid
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
 
-        let viewController = SlideTempoUpdaterViewController(bpm: metronome.configuration.tempo.bpm)
+        let viewController = OffsetTempoUpdaterViewController(bpm: metronome.configuration.tempo.bpm)
         addChildViewController(viewController)
     }
 

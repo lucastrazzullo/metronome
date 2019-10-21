@@ -36,7 +36,7 @@
 		8154239F2358CCF200A39552 /* SnapshotMetronomePublisherModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8154239C2358CCD100A39552 /* SnapshotMetronomePublisherModel.swift */; };
 		815423A32358D72B00A39552 /* ChromeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815423A22358D72B00A39552 /* ChromeViewModel.swift */; };
 		8155D9C62359BE9D009521F2 /* SnapshotMetronomePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8155D9C52359BE9D009521F2 /* SnapshotMetronomePublisher.swift */; };
-		8166679423439D2B002DC01A /* SlideTempoUpdaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8166679323439D2B002DC01A /* SlideTempoUpdaterViewController.swift */; };
+		8166679423439D2B002DC01A /* OffsetTempoUpdaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8166679323439D2B002DC01A /* OffsetTempoUpdaterViewController.swift */; };
 		8166679823451E7F002DC01A /* TimeSignatureUpdaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */; };
 		8169EE5B235E1D4300DAD7BB /* BeatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8169EE5A235E1D4300DAD7BB /* BeatsView.swift */; };
 		8179A9832353A22100B33770 /* ChromeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179A9822353A22100B33770 /* ChromeView.swift */; };
@@ -158,7 +158,7 @@
 		8154239C2358CCD100A39552 /* SnapshotMetronomePublisherModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotMetronomePublisherModel.swift; sourceTree = "<group>"; };
 		815423A22358D72B00A39552 /* ChromeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromeViewModel.swift; sourceTree = "<group>"; };
 		8155D9C52359BE9D009521F2 /* SnapshotMetronomePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnapshotMetronomePublisher.swift; sourceTree = "<group>"; };
-		8166679323439D2B002DC01A /* SlideTempoUpdaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideTempoUpdaterViewController.swift; sourceTree = "<group>"; };
+		8166679323439D2B002DC01A /* OffsetTempoUpdaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OffsetTempoUpdaterViewController.swift; sourceTree = "<group>"; };
 		8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignatureUpdaterViewController.swift; sourceTree = "<group>"; };
 		8169EE5A235E1D4300DAD7BB /* BeatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsView.swift; sourceTree = "<group>"; };
 		8179A9822353A22100B33770 /* ChromeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChromeView.swift; sourceTree = "<group>"; };
@@ -523,7 +523,7 @@
 				81E7FDC623573C7A00C20444 /* TipsViewController.swift */,
 				81E7FDC02357293600C20444 /* WelcomeViewController.swift */,
 				81FAF06023429A24004A8C51 /* MetronomeViewController.swift */,
-				8166679323439D2B002DC01A /* SlideTempoUpdaterViewController.swift */,
+				8166679323439D2B002DC01A /* OffsetTempoUpdaterViewController.swift */,
 				81A8878A235257770071BF48 /* TapTempoUpdaterViewController.swift */,
 				8166679723451E7F002DC01A /* TimeSignatureUpdaterViewController.swift */,
 			);
@@ -776,7 +776,7 @@
 				81A8878323524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift in Sources */,
 				81A8878B235257770071BF48 /* TapTempoUpdaterViewController.swift in Sources */,
 				81B999B1235B569600E87778 /* BeatView.swift in Sources */,
-				8166679423439D2B002DC01A /* SlideTempoUpdaterViewController.swift in Sources */,
+				8166679423439D2B002DC01A /* OffsetTempoUpdaterViewController.swift in Sources */,
 				81A8878D235343420071BF48 /* BarLengthUpdaterViewModel.swift in Sources */,
 				81A729B0235E21C300DD5EE6 /* ColorView.swift in Sources */,
 				81B999AD235B1D9700E87778 /* Beat.swift in Sources */,

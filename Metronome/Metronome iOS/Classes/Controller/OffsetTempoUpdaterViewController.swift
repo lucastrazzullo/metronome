@@ -1,5 +1,5 @@
 //
-//  SlideTempoUpdaterViewController.swift
+//  OffsetTempoUpdaterViewController.swift
 //  Metronome
 //
 //  Created by luca strazzullo on 1/10/19.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class SlideTempoUpdaterViewController: UIHostingController<UpdaterView> {
+class OffsetTempoUpdaterViewController: UIHostingController<UpdaterView> {
 
     private var initialBpm: Int
     private(set) var bpm: Int
