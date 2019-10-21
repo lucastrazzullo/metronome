@@ -1,5 +1,5 @@
 //
-//  MetronomeGestureViewController.swift
+//  MetronomeChromeViewController.swift
 //  Metronome
 //
 //  Created by luca strazzullo on 5/10/19.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class MetronomeGestureViewController: UIHostingController<ChromeView>, ContainerViewController {
+class MetronomeChromeViewController: UIHostingController<ChromeView>, ContainerViewController {
 
     private let metronome: Metronome
     private let metronomePublisher: SnapshotMetronomePublisher<ChromeViewModel>

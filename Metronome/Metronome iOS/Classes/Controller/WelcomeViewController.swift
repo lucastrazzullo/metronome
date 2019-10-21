@@ -18,11 +18,13 @@ class WelcomeViewController: UIContainerViewController {
     weak var delegate: WelcomeViewControllerDelegate?
 
     private var helpViewController: UIViewController?
+    private let cache: WelcomeCache
 
 
     // MARK: Object life cycle
 
     init() {
+        cache = WelcomeCache(entry: UserDefaultBackedEntryCache())
         super.init(nibName: nil, bundle: nil)
     }
 
@@ -43,11 +45,11 @@ class WelcomeViewController: UIContainerViewController {
     // MARK: Private helper methods
 
     private func presentIfNeeded() {
-        if UserDefaults.standard.bool(forKey: "hasWelcomeBeenPresented2") {
+        if let hasBeenPresented = cache.hasBeenPresented, hasBeenPresented {
             dismiss()
         } else {
+            cache.hasBeenPresented = true
             present()
-            UserDefaults.standard.set(true, forKey: "hasWelcomeBeenPresented2")
         }
     }
 
