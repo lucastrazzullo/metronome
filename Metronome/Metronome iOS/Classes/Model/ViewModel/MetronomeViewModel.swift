@@ -7,25 +7,9 @@
 //
 
 import Foundation
+import Combine
 
-struct MetronomeViewModel: SnapshotMetronomePublisherModel {
-
-    var configuration: MetronomeConfiguration {
-        didSet {
-            beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
-            chromeViewModel = ChromeViewModel(configuration: configuration)
-        }
-    }
-    var currentBeat: Beat? {
-        didSet {
-            beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
-        }
-    }
-    var isRunning: Bool {
-        didSet {
-            beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
-        }
-    }
+struct MetronomeViewModel {
 
     private(set) var beatViewModels: [BeatViewModel]
     private(set) var chromeViewModel: ChromeViewModel
@@ -33,13 +17,9 @@ struct MetronomeViewModel: SnapshotMetronomePublisherModel {
 
     // MARK: Object life cycle
 
-    init(configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: Beat?) {
-        self.configuration = configuration
-        self.currentBeat = currentBeat
-        self.isRunning = isRunning
-
-        self.beatViewModels = MetronomeViewModel.beatViewModels(with: configuration, isRunning: isRunning, currentBeat: currentBeat)
-        self.chromeViewModel = ChromeViewModel(configuration: configuration)
+    init(snapshot: MetronomeStatePublisher.Snapshot) {
+        beatViewModels = MetronomeViewModel.beatViewModels(with: snapshot.configuration, isRunning: snapshot.isRunning, currentBeat: snapshot.currentBeat)
+        chromeViewModel = ChromeViewModel(configuration: snapshot.configuration)
     }
 
 

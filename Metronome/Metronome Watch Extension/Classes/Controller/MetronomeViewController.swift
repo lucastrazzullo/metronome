@@ -13,10 +13,12 @@ import Combine
 class MetronomeViewController: WKHostingController<MetronomeView> {
 
     private let metronome: Metronome
-    private let metronomeDispatcher: MetronomeDispatcher
-    private let metronomePublisher: SnapshotMetronomePublisher<MetronomeViewModel>
+    private let metronomePublisher: MetronomeStatePublisher
 
-    private let rootView: MetronomeView
+    private var rootView: MetronomeView
+    private var rootViewModel: MetronomeViewModel
+
+    private var cancellables: [AnyCancellable] = []
 
 
     // MARK: Object life cycle
@@ -24,9 +26,9 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
     override init() {
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default)
         metronome = Metronome(with: configuration)
-        metronomePublisher = SnapshotMetronomePublisher<MetronomeViewModel>(metronome: metronome)
-        metronomeDispatcher = MetronomeDispatcher(with: metronome)
-        rootView = MetronomeView(publisher: metronomePublisher)
+        metronomePublisher = MetronomeStatePublisher(metronome: metronome)
+        rootViewModel = MetronomeViewModel(snapshot: metronomePublisher.snapshot())
+        rootView = MetronomeView(model: rootViewModel, metronome: metronome)
         super.init()
     }
 
@@ -35,8 +37,37 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
-        metronomeDispatcher.addObserver(metronomePublisher)
-        metronomeDispatcher.addObserver(self)
+
+        cancellables.append(
+            metronomePublisher.$isRunning.sink { isRunning in
+                if isRunning {
+                    WKInterfaceDevice.current().play(WKHapticType.click)
+                    WKExtension.shared().isAutorotating = true
+                } else {
+                    WKInterfaceDevice.current().play(WKHapticType.stop)
+                    WKExtension.shared().isAutorotating = false
+                }
+            }
+        )
+
+        cancellables.append(
+            metronomePublisher.$currentBeat.sink { beat in
+                guard let beat = beat else { return }
+                switch beat.intensity {
+                case .normal:
+                    WKInterfaceDevice.current().play(WKHapticType.click)
+                case .strong:
+                    WKInterfaceDevice.current().play(WKHapticType.start)
+                }
+            }
+        )
+
+        cancellables.append(
+            metronomePublisher.snapshotPublisher()
+                .sink { [weak self] snapshot in
+                    self?.rootViewModel.setSnapshot(snapshot)
+                }
+        )
     }
 
 
@@ -50,35 +81,5 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
     override var body: MetronomeView {
         return rootView
-    }
-}
-
-
-extension MetronomeViewController: MetronomeObserver {
-
-    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
-        switch beat.intensity {
-        case .normal:
-            WKInterfaceDevice.current().play(WKHapticType.click)
-        case .strong:
-            WKInterfaceDevice.current().play(WKHapticType.start)
-        }
-
-    }
-
-
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
-        WKInterfaceDevice.current().play(WKHapticType.click)
-        WKExtension.shared().isAutorotating = true
-    }
-
-
-    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
-        WKInterfaceDevice.current().play(WKHapticType.stop)
-        WKExtension.shared().isAutorotating = false
-    }
-
-
-    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
     }
 }

@@ -11,17 +11,15 @@ import Combine
 
 struct MetronomeView: View {
 
-    @ObservedObject var publisher: SnapshotMetronomePublisher<MetronomeViewModel>
-
-
-    // MARK: Body
+    let metronome: Metronome
+    var model: MetronomeViewModel
 
     var body: some View {
         ZStack {
             ColorView(color: .black)
-            BeatsView(model: publisher.snapshot.beatViewModels)
-            ChromeView(model: publisher.snapshot.chromeViewModel, helperDidAppear: {
-                self.publisher.metronome.reset()
+            BeatsView(model: model.beatViewModels)
+            ChromeView(model: model.chromeViewModel, helperDidAppear: {
+                self.metronome.reset()
             })
         }
     }

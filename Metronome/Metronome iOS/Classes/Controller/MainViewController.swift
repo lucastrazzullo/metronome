@@ -14,7 +14,7 @@ class MainViewController: UIViewController, ContainerViewController {
     private let metronomeCacheController: MetronomeCacheController
 
     private let metronome: Metronome
-    private let metronomeDispatcher: MetronomeDispatcher
+    private let metronomePublisher: MetronomeStatePublisher
 
 
     //  MARK: Object life cycle
@@ -22,11 +22,9 @@ class MainViewController: UIViewController, ContainerViewController {
     required init?(coder: NSCoder) {
         metronomeHapticController = MetronomeHapticController()
         metronomeCacheController = MetronomeCacheController(entry: UserDefaultBackedEntryCache())
-        metronome = Metronome(with: metronomeCacheController.buildConfigurationWithCachedValues())
 
-        metronomeDispatcher = MetronomeDispatcher(with: metronome)
-        metronomeDispatcher.addObserver(metronomeHapticController)
-        metronomeDispatcher.addObserver(metronomeCacheController)
+        metronome = Metronome(with: metronomeCacheController.buildConfigurationWithCachedValues())
+        metronomePublisher = MetronomeStatePublisher(metronome: metronome)
 
         super.init(coder: coder)
     }
@@ -37,7 +35,11 @@ class MainViewController: UIViewController, ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let metronomeViewController = MetronomeViewController(with: metronomeDispatcher, metronome: metronome)
+        metronomeHapticController.set(statePublisher: metronomePublisher)
+        metronomeCacheController.set(statePublisher: metronomePublisher)
+
+
+        let metronomeViewController = MetronomeViewController(with: metronomePublisher)
         addChildViewController(metronomeViewController, in: view)
 
         let oneTimeWelcomeViewController = WelcomeViewController()

@@ -11,9 +11,10 @@ import Combine
 
 struct MetronomeView: View {
 
-    @ObservedObject var publisher: SnapshotMetronomePublisher<MetronomeViewModel>
-
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+
+    let model: MetronomeViewModel
+    let metronome: Metronome
 
 
     // MARK: Body
@@ -24,20 +25,20 @@ struct MetronomeView: View {
             VStack(alignment: .center, spacing: 12) {
                 Spacer()
                 HStack(alignment: .center, spacing: 1) {
-                    ForEach(publisher.snapshot.beatViewModels, id: \.self) { beatViewModel in
+                    ForEach(model.beatViewModels, id: \.self) { beatViewModel in
                         BeatView(model: beatViewModel)
                     }
                 }
                 HStack(alignment: .center, spacing: 24) {
-                    NavigationLink(destination: UpdateTimeSignatureView.build(with: publisher)) {
-                        Text(publisher.snapshot.timeSignatureLabel).font(Font.system(.footnote))
+                    NavigationLink(destination: UpdateTimeSignatureView.with(metronome: metronome)) {
+                        Text(model.timeSignatureLabel).font(Font.system(.footnote))
                     }
-                    NavigationLink(destination: UpdateTempoView.build(with: publisher)) {
-                        Text(publisher.snapshot.tempoLabel).font(Font.system(.footnote))
+                    NavigationLink(destination: UpdateTempoView.with(metronome: metronome)) {
+                        Text(model.tempoLabel).font(Font.system(.footnote))
                     }
                 }.foregroundColor(Color.white.opacity(0.7))
-                Button(action: { self.publisher.metronome.toggle() }, label: {
-                    return Text(self.publisher.snapshot.toggleLabel)
+                Button(action: { self.metronome.toggle() }, label: {
+                    return Text(model.toggleLabel)
                 })
             }
         }

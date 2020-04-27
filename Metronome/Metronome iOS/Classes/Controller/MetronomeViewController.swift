@@ -11,46 +11,40 @@ import Combine
 
 class MetronomeViewController: UIHostingController<MetronomeView>, ContainerViewController {
 
-    private var metronomePublisher: SnapshotMetronomePublisher<MetronomeViewModel>
+    private var metronomePublisher: MetronomeStatePublisher
     private var gesturesController: MetronomeGesturesController
+
+    private var cancellables: [AnyCancellable] = []
 
 
     // MARK: Object life cycle
 
-    init(with metronomeDispatcher: MetronomeDispatcher, metronome: Metronome) {
-        self.metronomePublisher = SnapshotMetronomePublisher<MetronomeViewModel>(metronome: metronome)
-        self.gesturesController = MetronomeGesturesController(with: metronome)
-        super.init(rootView: MetronomeView(publisher: metronomePublisher))
+    init(with metronomePublisher: MetronomeStatePublisher) {
+        self.metronomePublisher = metronomePublisher
+        self.gesturesController = MetronomeGesturesController(with: metronomePublisher.metronome)
 
-        metronomeDispatcher.addObserver(metronomePublisher)
-        metronomeDispatcher.addObserver(self)
+        let metronome = metronomePublisher.metronome
+        let viewModel = MetronomeViewModel(snapshot: metronomePublisher.snapshot())
+        super.init(rootView: MetronomeView(metronome: metronome, model: viewModel))
 
         gesturesController.presentingViewController = self
+
+        cancellables.append(
+            metronomePublisher.$isRunning
+                .sink { isRunning in UIApplication.shared.isIdleTimerDisabled = isRunning }
+        )
+
+        cancellables.append(
+            metronomePublisher.snapshotPublisher()
+                .map(MetronomeViewModel.init)
+                .sink(receiveValue: { [weak self] model in
+                    self?.rootView.model = model
+                })
+        )
     }
 
 
     @objc required dynamic init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-}
-
-
-extension MetronomeViewController: MetronomeObserver {
-
-    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
-    }
-
-
-    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
-    }
-
-
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
-        UIApplication.shared.isIdleTimerDisabled = true
-    }
-
-
-    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
-        UIApplication.shared.isIdleTimerDisabled = false
     }
 }

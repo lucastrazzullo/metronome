@@ -11,18 +11,18 @@ import Combine
 
 struct UpdateTempoView: View {
 
-    @ObservedObject var publisher: SnapshotMetronomePublisher<MetronomeViewModel>
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @State var selectedTempo: Int
 
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    let metronome: Metronome
 
 
     // MARK: Object life cycle
 
-    static func build(with publisher: SnapshotMetronomePublisher<MetronomeViewModel>) -> UpdateTempoView {
-        let tempo = publisher.snapshot.configuration.tempo.bpm - Tempo.minimumBpm
-        return UpdateTempoView(publisher: publisher, selectedTempo: tempo)
+    static func with(metronome: Metronome) -> UpdateTempoView {
+        let tempo = metronome.configuration.tempo.bpm - Tempo.minimumBpm
+        return UpdateTempoView(selectedTempo: tempo, metronome: metronome)
     }
 
 
@@ -39,7 +39,7 @@ struct UpdateTempoView: View {
             }
             Button(action: {
                 let bpm = self.selectedTempo + Tempo.minimumBpm
-                self.publisher.metronome.configuration.setBpm(bpm)
+                self.metronome.configuration.setBpm(bpm)
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Confirm")
