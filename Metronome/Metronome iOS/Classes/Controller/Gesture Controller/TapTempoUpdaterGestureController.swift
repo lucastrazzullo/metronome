@@ -15,7 +15,7 @@ class TapTempoUpdaterGestureController: DefaultMetronomeGestureController<TapTem
 
     // MARK: Object life cycle
 
-    init(with metronome: Metronome) {
+    init(with metronome: MetronomeController) {
         let recogniser = UILongPressGestureRecognizer()
         recogniser.minimumPressDuration = 1
         super.init(with: recogniser, metronome: metronome)

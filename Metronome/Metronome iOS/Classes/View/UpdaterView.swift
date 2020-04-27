@@ -17,6 +17,23 @@ protocol UpdaterViewModel {
 }
 
 
+struct AnyUpdaterViewModel: Hashable, UpdaterViewModel {
+    let backgroundColor: String
+    let titleLabel: String
+    let prefixLabel: String
+    let heroLabel: String
+    let suffixLabel: String
+}
+
+
+extension UpdaterViewModel {
+
+    func eraseToAnyUpdaterViewModel() -> AnyUpdaterViewModel {
+        return AnyUpdaterViewModel(backgroundColor: backgroundColor, titleLabel: titleLabel, prefixLabel: prefixLabel, heroLabel: heroLabel, suffixLabel: suffixLabel)
+    }
+}
+
+
 struct UpdaterView: View {
 
     var model: UpdaterViewModel
@@ -34,6 +51,24 @@ struct UpdaterView: View {
                     Text(model.heroLabel).brandFont(.largeTitle)
                     Text(model.suffixLabel).brandFont(.body)
                 }
+            }
+        }
+    }
+}
+
+
+struct UpdaterView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let models: [AnyUpdaterViewModel] = [
+            SlideTempoUpdaterViewModel(bpm: 90).eraseToAnyUpdaterViewModel(),
+            TapTempoUpdaterViewModel(bpm: 40).eraseToAnyUpdaterViewModel(),
+            BarLengthUpdaterViewModel(timeSignature: .default).eraseToAnyUpdaterViewModel(),
+            NoteLengthUpdaterViewModel(timeSignature: .default).eraseToAnyUpdaterViewModel()
+        ]
+        return VStack {
+            ForEach(models, id: \.self) { viewModel in
+                UpdaterView(model: viewModel)
             }
         }
     }

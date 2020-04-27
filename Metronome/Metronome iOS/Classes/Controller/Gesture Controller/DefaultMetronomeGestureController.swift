@@ -22,12 +22,12 @@ class DefaultMetronomeGestureController<PresentedControllerType: UIViewControlle
     }
 
     let gestureRecogniser: UIGestureRecognizer
-    let metronome: Metronome
+    let metronome: MetronomeController
 
 
     // MARK: Object life cycle
 
-    init(with gestureRecogniser: UIGestureRecognizer, metronome: Metronome) {
+    init(with gestureRecogniser: UIGestureRecognizer, metronome: MetronomeController) {
         self.gestureRecogniser = gestureRecogniser
         self.metronome = metronome
         super.init()

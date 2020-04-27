@@ -29,3 +29,16 @@ struct TipView: View {
         }
     }
 }
+
+
+class TipView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let models = TipsViewModelRepository.all
+        return VStack {
+            ForEach(models, id: \.self) { viewModel in
+                TipView(viewModel: viewModel)
+            }
+        }
+    }
+}

@@ -11,7 +11,7 @@ import Combine
 
 struct MetronomeView: View {
 
-    let metronome: Metronome
+    let metronome: MetronomeController
     var model: MetronomeViewModel
 
     var body: some View {
@@ -22,5 +22,17 @@ struct MetronomeView: View {
                 self.metronome.reset()
             })
         }
+    }
+}
+
+
+struct MetronomeView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
+        let metronome = MetronomeController(with: configuration)
+        let snapshot = MetronomeStatePublisher.Snapshot(configuration: configuration, isRunning: false, currentBeat: nil)
+        let viewModel = MetronomeViewModel(snapshot: snapshot)
+        return MetronomeView(metronome: metronome, model: viewModel)
     }
 }

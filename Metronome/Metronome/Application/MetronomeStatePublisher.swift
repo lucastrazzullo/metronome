@@ -23,12 +23,12 @@ class MetronomeStatePublisher {
     @Published var isRunning: Bool
     @Published var currentBeat: Beat?
 
-    private(set) var metronome: Metronome
+    private(set) var metronome: MetronomeController
 
 
     // MARK: Object life cycle
 
-    init(metronome: Metronome) {
+    init(metronome: MetronomeController) {
         self.configuration = metronome.configuration
         self.isRunning = metronome.isRunning
         self.currentBeat = metronome.currentBeat
@@ -54,23 +54,23 @@ class MetronomeStatePublisher {
 
 extension MetronomeStatePublisher: MetronomeDelegate {
 
-    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
+    func metronome(_ metronome: MetronomeController, didUpdate configuration: MetronomeConfiguration) {
         self.configuration = configuration
     }
 
 
-    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
+    func metronome(_ metronome: MetronomeController, didPulse beat: Beat) {
         self.currentBeat = beat
     }
 
 
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
+    func metronome(_ metronome: MetronomeController, willStartWithSuspended beat: Beat?) {
         self.isRunning = true
         self.currentBeat = beat
     }
 
 
-    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
+    func metronome(_ metronome: MetronomeController, willResetDuring beat: Beat?) {
         self.isRunning = false
         self.currentBeat = beat
     }

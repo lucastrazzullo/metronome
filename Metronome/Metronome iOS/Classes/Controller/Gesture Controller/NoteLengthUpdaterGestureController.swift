@@ -12,7 +12,7 @@ class NoteLengthUpdaterGestureController: DefaultMetronomeGestureController<Time
 
     // MARK: Object life cycle
 
-    init(with metronome: Metronome) {
+    init(with metronome: MetronomeController) {
         let recogniser = UIPinchGestureRecognizer()
         super.init(with: recogniser, metronome: metronome)
     }

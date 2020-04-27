@@ -38,3 +38,15 @@ struct ChromeView: View {
         }.padding([.leading, .trailing], 24).padding([.top, .bottom], 10)
     }
 }
+
+
+struct ChromeView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
+        let viewModel = ChromeViewModel(configuration: configuration)
+
+        return ChromeView(model: viewModel, helperDidAppear: {})
+            .background(Color.black)
+    }
+}

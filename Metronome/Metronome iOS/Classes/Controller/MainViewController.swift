@@ -13,7 +13,7 @@ class MainViewController: UIViewController, ContainerViewController {
     private let metronomeHapticController: MetronomeHapticController
     private let metronomeCacheController: MetronomeCacheController
 
-    private let metronome: Metronome
+    private let metronome: MetronomeController
     private let metronomePublisher: MetronomeStatePublisher
 
 
@@ -23,7 +23,7 @@ class MainViewController: UIViewController, ContainerViewController {
         metronomeHapticController = MetronomeHapticController()
         metronomeCacheController = MetronomeCacheController(entry: UserDefaultBackedEntryCache())
 
-        metronome = Metronome(with: metronomeCacheController.buildConfigurationWithCachedValues())
+        metronome = MetronomeController(with: metronomeCacheController.buildConfigurationWithCachedValues())
         metronomePublisher = MetronomeStatePublisher(metronome: metronome)
 
         super.init(coder: coder)

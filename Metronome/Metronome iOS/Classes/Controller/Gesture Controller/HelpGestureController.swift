@@ -12,7 +12,7 @@ class HelpGestureController: DefaultMetronomeGestureController<TipsViewControlle
 
     // MARK: Object life cycle
 
-    init(with metronome: Metronome) {
+    init(with metronome: MetronomeController) {
         let recogniser = UISwipeGestureRecognizer()
         recogniser.direction = .up
         super.init(with: recogniser, metronome: metronome)

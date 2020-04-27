@@ -1,5 +1,5 @@
 //
-//  Metronome.swift
+//  MetronomeController.swift
 //  Metronome
 //
 //  Created by luca strazzullo on 30/9/19.
@@ -9,14 +9,14 @@
 import Foundation
 
 protocol MetronomeDelegate: AnyObject {
-    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration)
-    func metronome(_ metronome: Metronome, didPulse beat: Beat)
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?)
-    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?)
+    func metronome(_ metronome: MetronomeController, didUpdate configuration: MetronomeConfiguration)
+    func metronome(_ metronome: MetronomeController, didPulse beat: Beat)
+    func metronome(_ metronome: MetronomeController, willStartWithSuspended beat: Beat?)
+    func metronome(_ metronome: MetronomeController, willResetDuring beat: Beat?)
 }
 
 
-class Metronome {
+class MetronomeController {
 
     weak var delegate: MetronomeDelegate?
 
@@ -70,7 +70,7 @@ class Metronome {
 }
 
 
-extension Metronome: MetronomeTickerDelegate {
+extension MetronomeController: MetronomeTickerDelegate {
 
     func metronomeTicker(_ ticker: MetronomeTicker, willStartWithSuspended iteration: Int?) {
         if let iteration = iteration {

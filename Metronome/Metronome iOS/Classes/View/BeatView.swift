@@ -54,3 +54,20 @@ struct BeatView: View {
         }
     }
 }
+
+
+struct BeatView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let models = [
+            BeatViewModel(with: Beat(intensity: .normal, position: 0), isHighlighted: true, isHenhanced: true),
+            BeatViewModel(with: Beat(intensity: .strong, position: 1), isHighlighted: false, isHenhanced: false),
+            BeatViewModel(with: Beat(intensity: .normal, position: 2), isHighlighted: false, isHenhanced: true)
+        ]
+        return HStack {
+            ForEach(models, id: \.self) { viewModel in
+                BeatView(model: viewModel)
+            }
+        }
+    }
+}

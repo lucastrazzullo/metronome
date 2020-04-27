@@ -11,7 +11,7 @@ import XCTest
 class MetronomePrecisionTests: XCTestCase {
 
     private var tickExpectation: XCTestExpectation?
-    private var metronome: Metronome?
+    private var metronome: MetronomeController?
 
 
     // MARK: Test life cycle
@@ -19,7 +19,7 @@ class MetronomePrecisionTests: XCTestCase {
     override func setUp() {
         super.setUp()
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default)
-        metronome = Metronome(with: configuration)
+        metronome = MetronomeController(with: configuration)
         metronome?.delegate = self
     }
 
@@ -59,19 +59,19 @@ class MetronomePrecisionTests: XCTestCase {
 
 extension MetronomePrecisionTests: MetronomeDelegate {
 
-    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
+    func metronome(_ metronome: MetronomeController, didUpdate configuration: MetronomeConfiguration) {
     }
 
 
-    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
+    func metronome(_ metronome: MetronomeController, didPulse beat: Beat) {
         tickExpectation?.fulfill()
     }
 
 
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
+    func metronome(_ metronome: MetronomeController, willStartWithSuspended beat: Beat?) {
     }
 
 
-    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
+    func metronome(_ metronome: MetronomeController, willResetDuring beat: Beat?) {
     }
 }

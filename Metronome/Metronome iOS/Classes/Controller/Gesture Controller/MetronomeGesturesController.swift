@@ -12,14 +12,14 @@ class MetronomeGesturesController: GesturesController {
 
     // MARK: Object life cycle
 
-    init(with metronome: Metronome) {
+    init(with metronome: MetronomeController) {
         super.init(with: MetronomeGesturesController.buildControllers(with: metronome))
     }
 
 
     // MARK: Builder
 
-    private static func buildControllers(with metronome: Metronome) -> [GestureController] {
+    private static func buildControllers(with metronome: MetronomeController) -> [GestureController] {
         let helpController = HelpGestureController(with: metronome)
         let togglerController = TogglerGestureController(with: metronome)
         let tempoUpdaterController = SlideTempoUpdaterGestureController(with: metronome)

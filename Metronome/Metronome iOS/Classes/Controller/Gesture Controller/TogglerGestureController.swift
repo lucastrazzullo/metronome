@@ -12,7 +12,7 @@ class TogglerGestureController: DefaultMetronomeGestureController<UIViewControll
 
     // MARK: Object life cycle
 
-    init(with metronome: Metronome) {
+    init(with metronome: MetronomeController) {
         let recogniser = UITapGestureRecognizer()
         super.init(with: recogniser, metronome: metronome)
     }
