@@ -1,9 +1,9 @@
 //
 //  MetronomeView.swift
-//  Metronome
+//  Metronome Macos
 //
-//  Created by luca strazzullo on 30/9/19.
-//  Copyright © 2019 luca strazzullo. All rights reserved.
+//  Created by luca strazzullo on 28/4/20.
+//  Copyright © 2020 luca strazzullo. All rights reserved.
 //
 
 import SwiftUI
@@ -17,9 +17,6 @@ struct MetronomeView: View {
         ZStack {
             ColorView(color: .black)
             BeatsView(model: model.beatViewModels)
-            ChromeView(model: model.chromeViewModel, helperDidAppear: {
-                self.metronome.reset()
-            })
         }
     }
 }
