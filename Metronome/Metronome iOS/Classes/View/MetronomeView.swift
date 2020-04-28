@@ -10,15 +10,16 @@ import SwiftUI
 
 struct MetronomeView: View {
 
-    let metronome: MetronomeController
     var model: MetronomeViewModel
+
+    @State var reset: () -> ()
 
     var body: some View {
         ZStack {
             ColorView(color: .black)
             BeatsView(model: model.beatViewModels)
             ChromeView(model: model.chromeViewModel, helperDidAppear: {
-                self.metronome.reset()
+                self.reset()
             })
         }
     }
@@ -29,9 +30,8 @@ struct MetronomeView_Previews: PreviewProvider {
 
     static var previews: some View {
         let configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
-        let metronome = MetronomeController(with: configuration)
         let snapshot = MetronomeStatePublisher.Snapshot(configuration: configuration, isRunning: false, currentBeat: nil)
         let viewModel = MetronomeViewModel(snapshot: snapshot)
-        return MetronomeView(metronome: metronome, model: viewModel)
+        return MetronomeView(model: viewModel, reset: {})
     }
 }

@@ -23,9 +23,9 @@ class MetronomeViewController: UIHostingController<MetronomeView>, ContainerView
         self.metronomePublisher = metronomePublisher
         self.gesturesController = MetronomeGesturesController(with: metronomePublisher.metronome)
 
-        let metronome = metronomePublisher.metronome
         let viewModel = MetronomeViewModel(snapshot: metronomePublisher.snapshot())
-        super.init(rootView: MetronomeView(metronome: metronome, model: viewModel))
+        let view = MetronomeView(model: viewModel, reset: metronomePublisher.metronome.reset)
+        super.init(rootView: view)
 
         gesturesController.presentingViewController = self
 
