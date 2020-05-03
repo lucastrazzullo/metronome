@@ -24,10 +24,7 @@ struct Tempo {
     init(bpm: Int) {
         self.bpm = min(max(Tempo.minimumBpm, bpm), Tempo.maximumBpm)
     }
-}
 
-
-extension Tempo {
 
     static var `default`: Tempo {
         return Tempo(bpm: 120)

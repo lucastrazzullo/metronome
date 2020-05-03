@@ -9,12 +9,19 @@
 import Foundation
 
 struct MetronomeConfiguration {
+
     var timeSignature: TimeSignature
     var tempo: Tempo
-}
 
 
-extension MetronomeConfiguration {
+    // MARK: Object life cycle
+
+    static var `default`: MetronomeConfiguration {
+        return MetronomeConfiguration(timeSignature: .default, tempo: .default)
+    }
+
+
+    // MARK: Public methods
 
     func getTimeInterval() -> TimeInterval {
         return Double(60) / Double(tempo.bpm) / (Double(timeSignature.noteLength.rawValue) / Double(4))

@@ -34,10 +34,7 @@ struct TimeSignature {
         self.beats = min(max(TimeSignature.minimumBarLength, beats), TimeSignature.maximumBarLength)
         self.noteLength = noteLength
     }
-}
 
-
-extension TimeSignature {
 
     static var `default`: TimeSignature {
         return TimeSignature(beats: 4, noteLength: .quarter)

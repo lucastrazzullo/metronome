@@ -90,6 +90,8 @@
 		81BDF50524586C9900B4F7F8 /* BeatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDF50424586C9900B4F7F8 /* BeatsView.swift */; };
 		81BDF50724586CD100B4F7F8 /* BeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDF50624586CD100B4F7F8 /* BeatView.swift */; };
 		81BDF50B24586D1000B4F7F8 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDF50A24586D1000B4F7F8 /* ColorView.swift */; };
+		81BDF50D2458761000B4F7F8 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDF50C2458761000B4F7F8 /* ControlsView.swift */; };
+		81BDF50F245877AD00B4F7F8 /* BeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDF50E245877AC00B4F7F8 /* BeatViewModel.swift */; };
 		81BE0C0E2348C8B5000053C6 /* TempoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0D2348C8B5000053C6 /* TempoTests.swift */; };
 		81BE0C102348C926000053C6 /* TimeSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */; };
 		81C0725523523D23009A9523 /* HelpGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0725423523D23009A9523 /* HelpGestureController.swift */; };
@@ -209,6 +211,8 @@
 		81BDF50424586C9900B4F7F8 /* BeatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsView.swift; sourceTree = "<group>"; };
 		81BDF50624586CD100B4F7F8 /* BeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatView.swift; sourceTree = "<group>"; };
 		81BDF50A24586D1000B4F7F8 /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
+		81BDF50C2458761000B4F7F8 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
+		81BDF50E245877AC00B4F7F8 /* BeatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatViewModel.swift; sourceTree = "<group>"; };
 		81BE0C0D2348C8B5000053C6 /* TempoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoTests.swift; sourceTree = "<group>"; };
 		81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignatureTests.swift; sourceTree = "<group>"; };
 		81C0725423523D23009A9523 /* HelpGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpGestureController.swift; sourceTree = "<group>"; };
@@ -467,6 +471,7 @@
 			isa = PBXGroup;
 			children = (
 				81BDF4E824586A4C00B4F7F8 /* MetronomeView.swift */,
+				81BDF50C2458761000B4F7F8 /* ControlsView.swift */,
 				81BDF50424586C9900B4F7F8 /* BeatsView.swift */,
 				81BDF50624586CD100B4F7F8 /* BeatView.swift */,
 				81BDF50A24586D1000B4F7F8 /* ColorView.swift */,
@@ -478,6 +483,7 @@
 			isa = PBXGroup;
 			children = (
 				81BDF50124586C3500B4F7F8 /* MetronomeViewModel.swift */,
+				81BDF50E245877AC00B4F7F8 /* BeatViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -724,7 +730,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1100;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "luca strazzullo";
 				TargetAttributes = {
 					817F992B234CAD0300DA1043 = {
@@ -844,6 +850,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81BDF50D2458761000B4F7F8 /* ControlsView.swift in Sources */,
 				81BDF4FD24586BED00B4F7F8 /* MetronomeConfiguration.swift in Sources */,
 				81BDF50524586C9900B4F7F8 /* BeatsView.swift in Sources */,
 				81BDF50B24586D1000B4F7F8 /* ColorView.swift in Sources */,
@@ -851,6 +858,7 @@
 				81BDF4E924586A4C00B4F7F8 /* MetronomeView.swift in Sources */,
 				81BDF4E724586A4C00B4F7F8 /* AppDelegate.swift in Sources */,
 				81BDF4F924586BED00B4F7F8 /* TimeSignature.swift in Sources */,
+				81BDF50F245877AD00B4F7F8 /* BeatViewModel.swift in Sources */,
 				81BDF50224586C3500B4F7F8 /* MetronomeViewModel.swift in Sources */,
 				81BDF4FB24586BED00B4F7F8 /* Beat.swift in Sources */,
 				81BDF50724586CD100B4F7F8 /* BeatView.swift in Sources */,
@@ -1087,6 +1095,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Metronome Macos/Metronome_Macos.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Metronome Macos/Preview Content\"";
@@ -1111,6 +1120,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "Metronome Macos/Metronome_Macos.entitlements";
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Metronome Macos/Preview Content\"";

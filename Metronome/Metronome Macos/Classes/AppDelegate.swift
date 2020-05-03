@@ -8,6 +8,7 @@
 
 import Cocoa
 import SwiftUI
+import Combine
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
@@ -16,23 +17,26 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     private var metronome: MetronomeController!
     private var metronomePublisher: MetronomeStatePublisher!
+    private var metronomeViewModel: MetronomeViewModel!
 
+    private var cancellables: [AnyCancellable] = []
+
+
+    // MARK: Public methods
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        let configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
-        metronome = MetronomeController(with: configuration)
+        metronome = MetronomeController(with: .default)
         metronomePublisher = MetronomeStatePublisher(metronome: metronome)
+        metronomeViewModel = MetronomeViewModel(metronomePublisher: metronomePublisher)
 
-        let model = MetronomeViewModel(snapshot: metronomePublisher.snapshot())
-        let contentView = MetronomeView(metronome: metronome, model: model)
-
+        let view = MetronomeView().environmentObject(metronomeViewModel)
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
         window.center()
         window.setFrameAutosaveName("Main Window")
-        window.contentView = NSHostingView(rootView: contentView)
+        window.contentView = NSHostingView(rootView: view)
         window.makeKeyAndOrderFront(nil)
     }
 
