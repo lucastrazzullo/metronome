@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class TimeSignatureUpdaterViewController: UIHostingController<UpdaterView> {
+class TimeSignatureUpdaterViewController: UIHostingController<GesturePickerView> {
 
     private var initialTimeSignature: TimeSignature
     private(set) var timeSignature: TimeSignature
@@ -19,7 +19,7 @@ class TimeSignatureUpdaterViewController: UIHostingController<UpdaterView> {
     init(timeSignature: TimeSignature) {
         self.initialTimeSignature = timeSignature
         self.timeSignature = timeSignature
-        super.init(rootView: UpdaterView(model: BarLengthUpdaterViewModel(timeSignature: timeSignature)))
+        super.init(rootView: GesturePickerView(model: BarLengthPickerViewModel(timeSignature: timeSignature)))
     }
 
 
@@ -32,7 +32,7 @@ class TimeSignatureUpdaterViewController: UIHostingController<UpdaterView> {
 
     func updateBarLength(with offset: Int) {
         timeSignature = TimeSignature(beats: initialTimeSignature.beats + (offset / 32), noteLength: initialTimeSignature.noteLength)
-        rootView.model = BarLengthUpdaterViewModel(timeSignature: timeSignature)
+        rootView.model = BarLengthPickerViewModel(timeSignature: timeSignature)
     }
 
 
@@ -40,7 +40,7 @@ class TimeSignatureUpdaterViewController: UIHostingController<UpdaterView> {
         let noteLengths = TimeSignature.NoteLength.allCases
         if let currentIndex = noteLengths.firstIndex(of: initialTimeSignature.noteLength), currentIndex + offset >= 0, currentIndex + offset < noteLengths.count {
             timeSignature = TimeSignature(beats: initialTimeSignature.beats, noteLength: noteLengths[currentIndex + offset])
-            rootView.model = NoteLengthUpdaterViewModel(timeSignature: timeSignature)
+            rootView.model = NoteLengthPickerViewModel(timeSignature: timeSignature)
         }
     }
 }

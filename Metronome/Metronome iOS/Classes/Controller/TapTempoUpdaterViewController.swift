@@ -13,13 +13,13 @@ protocol TapTempoUpdaterViewControllerDelegate: AnyObject {
 }
 
 
-class TapTempoUpdaterViewController: UIHostingController<UpdaterView> {
+class TapTempoUpdaterViewController: UIHostingController<GesturePickerView> {
 
     weak var delegate: TapTempoUpdaterViewControllerDelegate?
 
     private var tapTimestamps: [TimeInterval] = [] {
         didSet {
-            rootView.model = TapTempoUpdaterViewModel(bpm: delegate?.tapTempoUpdaterViewController(self, bpmFor: tapTimestamps))
+            rootView.model = TapTempoPickerViewModel(bpm: delegate?.tapTempoUpdaterViewController(self, bpmFor: tapTimestamps))
         }
     }
 
@@ -27,7 +27,7 @@ class TapTempoUpdaterViewController: UIHostingController<UpdaterView> {
     // MARK: Object life cycle
 
     init() {
-        super.init(rootView: UpdaterView(model: TapTempoUpdaterViewModel(bpm: nil)))
+        super.init(rootView: GesturePickerView(model: TapTempoPickerViewModel(bpm: nil)))
     }
 
 
