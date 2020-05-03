@@ -47,4 +47,9 @@ struct MetronomeConfiguration {
     mutating func setNotLength(_ length: TimeSignature.NoteLength) {
         timeSignature = TimeSignature(beats: timeSignature.beats, noteLength: length)
     }
+
+
+    mutating func setTimeSignature(_ signature: TimeSignature) {
+        timeSignature = TimeSignature(beats: signature.beats, noteLength: signature.noteLength)
+    }
 }

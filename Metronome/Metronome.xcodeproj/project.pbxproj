@@ -11,6 +11,12 @@
 		810701A2245F2E78003D0B54 /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810701A0245F2E78003D0B54 /* Metronome.swift */; };
 		810701A3245F2E78003D0B54 /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810701A0245F2E78003D0B54 /* Metronome.swift */; };
 		810701A4245F2E78003D0B54 /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810701A0245F2E78003D0B54 /* Metronome.swift */; };
+		810701A6245F3035003D0B54 /* MetronomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDF50124586C3500B4F7F8 /* MetronomeViewModel.swift */; };
+		810701A7245F3035003D0B54 /* BeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDF50E245877AC00B4F7F8 /* BeatViewModel.swift */; };
+		810701AB245F30DF003D0B54 /* ControlsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810701A8245F30DF003D0B54 /* ControlsViewModel.swift */; };
+		810701AC245F30DF003D0B54 /* ControlsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810701A8245F30DF003D0B54 /* ControlsViewModel.swift */; };
+		810701B2245F4AA7003D0B54 /* TimeSignaturePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810701AF245F4AA7003D0B54 /* TimeSignaturePickerView.swift */; };
+		810701B5245F4ADD003D0B54 /* TempoPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810701B4245F4ADD003D0B54 /* TempoPickerView.swift */; };
 		8115EFAF235B660C00527665 /* BeatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115EFAE235B660C00527665 /* BeatView.swift */; };
 		8115EFB1235CF3AC00527665 /* MetronomePrecisionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115EFB0235CF3AC00527665 /* MetronomePrecisionTests.swift */; };
 		8115EFB3235DB24100527665 /* ConfigurationCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115EFB2235DB24100527665 /* ConfigurationCache.swift */; };
@@ -45,8 +51,6 @@
 		817F9939234CAD0400DA1043 /* Metronome Watch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 817F9938234CAD0400DA1043 /* Metronome Watch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		817F9942234CAD0500DA1043 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 817F9941234CAD0500DA1043 /* Assets.xcassets */; };
 		817F994F234CAD6600DA1043 /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81249741234B61C00047F3E3 /* ExtensionDelegate.swift */; };
-		817F9950234CAD6A00DA1043 /* MetronomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81249781234B6B630047F3E3 /* MetronomeViewModel.swift */; };
-		817F9951234CAD6A00DA1043 /* BeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81249783234B6BCB0047F3E3 /* BeatViewModel.swift */; };
 		817F9952234CAD6D00DA1043 /* MetronomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8124977E234B68FF0047F3E3 /* MetronomeView.swift */; };
 		817F9953234CAD7000DA1043 /* MetronomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8124973F234B61C00047F3E3 /* MetronomeViewController.swift */; };
 		817F9954234CADB800DA1043 /* TimeSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF05823427F6F004A8C51 /* TimeSignature.swift */; };
@@ -68,8 +72,6 @@
 		81A88789235250FE0071BF48 /* TapTempoUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A88788235250FE0071BF48 /* TapTempoUpdaterGestureController.swift */; };
 		81A8878B235257770071BF48 /* TapTempoUpdaterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878A235257770071BF48 /* TapTempoUpdaterViewController.swift */; };
 		81A8878D235343420071BF48 /* BarLengthUpdaterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878C235343420071BF48 /* BarLengthUpdaterViewModel.swift */; };
-		81AB3583234CB818004C1BCD /* UpdateTempoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB3582234CB818004C1BCD /* UpdateTempoView.swift */; };
-		81AB3585234CB896004C1BCD /* UpdateTimeSignatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81AB3584234CB896004C1BCD /* UpdateTimeSignatureView.swift */; };
 		81B999A62359C38A00E87778 /* MetronomePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8155D9C52359BE9D009521F2 /* MetronomePublisher.swift */; };
 		81B999AD235B1D9700E87778 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999AC235B1D9700E87778 /* Beat.swift */; };
 		81B999AE235B22B500E87778 /* Beat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B999AC235B1D9700E87778 /* Beat.swift */; };
@@ -147,6 +149,9 @@
 
 /* Begin PBXFileReference section */
 		810701A0245F2E78003D0B54 /* Metronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metronome.swift; sourceTree = "<group>"; };
+		810701A8245F30DF003D0B54 /* ControlsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsViewModel.swift; sourceTree = "<group>"; };
+		810701AF245F4AA7003D0B54 /* TimeSignaturePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSignaturePickerView.swift; sourceTree = "<group>"; };
+		810701B4245F4ADD003D0B54 /* TempoPickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoPickerView.swift; sourceTree = "<group>"; };
 		8115EFAE235B660C00527665 /* BeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatView.swift; sourceTree = "<group>"; };
 		8115EFB0235CF3AC00527665 /* MetronomePrecisionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomePrecisionTests.swift; sourceTree = "<group>"; };
 		8115EFB2235DB24100527665 /* ConfigurationCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationCache.swift; sourceTree = "<group>"; };
@@ -159,8 +164,6 @@
 		8124973F234B61C00047F3E3 /* MetronomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeViewController.swift; sourceTree = "<group>"; };
 		81249741234B61C00047F3E3 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		8124977E234B68FF0047F3E3 /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
-		81249781234B6B630047F3E3 /* MetronomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeViewModel.swift; sourceTree = "<group>"; };
-		81249783234B6BCB0047F3E3 /* BeatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatViewModel.swift; sourceTree = "<group>"; };
 		812E5B412355155900F04E41 /* TapTempoUpdaterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempoUpdaterViewModel.swift; sourceTree = "<group>"; };
 		812E5B432355198900F04E41 /* NoteLengthUpdaterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLengthUpdaterViewModel.swift; sourceTree = "<group>"; };
 		813C8D5B234529E500DE9E82 /* BeatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatViewModel.swift; sourceTree = "<group>"; };
@@ -196,8 +199,6 @@
 		81A88788235250FE0071BF48 /* TapTempoUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempoUpdaterGestureController.swift; sourceTree = "<group>"; };
 		81A8878A235257770071BF48 /* TapTempoUpdaterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempoUpdaterViewController.swift; sourceTree = "<group>"; };
 		81A8878C235343420071BF48 /* BarLengthUpdaterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarLengthUpdaterViewModel.swift; sourceTree = "<group>"; };
-		81AB3582234CB818004C1BCD /* UpdateTempoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTempoView.swift; sourceTree = "<group>"; };
-		81AB3584234CB896004C1BCD /* UpdateTimeSignatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateTimeSignatureView.swift; sourceTree = "<group>"; };
 		81B999AC235B1D9700E87778 /* Beat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Beat.swift; sourceTree = "<group>"; };
 		81B999B0235B569600E87778 /* BeatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatView.swift; sourceTree = "<group>"; };
 		81BDF4E424586A4C00B4F7F8 /* Metronome Macos.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Metronome Macos.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -275,6 +276,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		810701A5245F3009003D0B54 /* View Models */ = {
+			isa = PBXGroup;
+			children = (
+				81BDF50124586C3500B4F7F8 /* MetronomeViewModel.swift */,
+				81BDF50E245877AC00B4F7F8 /* BeatViewModel.swift */,
+				810701A8245F30DF003D0B54 /* ControlsViewModel.swift */,
+			);
+			path = "View Models";
+			sourceTree = "<group>";
+		};
 		8115EFB6235DB34200527665 /* Cache */ = {
 			isa = PBXGroup;
 			children = (
@@ -301,6 +312,7 @@
 			children = (
 				81FAF05723427F65004A8C51 /* Entities */,
 				81FAF05423427F48004A8C51 /* Application */,
+				810701A5245F3009003D0B54 /* View Models */,
 			);
 			path = Metronome;
 			sourceTree = "<group>";
@@ -309,7 +321,6 @@
 			isa = PBXGroup;
 			children = (
 				81249741234B61C00047F3E3 /* ExtensionDelegate.swift */,
-				81249780234B6B340047F3E3 /* Model */,
 				8124977D234B68F60047F3E3 /* View */,
 				8124977C234B65F30047F3E3 /* Controller */,
 			);
@@ -329,19 +340,10 @@
 			children = (
 				8124977E234B68FF0047F3E3 /* MetronomeView.swift */,
 				8115EFAE235B660C00527665 /* BeatView.swift */,
-				81AB3582234CB818004C1BCD /* UpdateTempoView.swift */,
-				81AB3584234CB896004C1BCD /* UpdateTimeSignatureView.swift */,
+				810701B4245F4ADD003D0B54 /* TempoPickerView.swift */,
+				810701AF245F4AA7003D0B54 /* TimeSignaturePickerView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		81249780234B6B340047F3E3 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				81249781234B6B630047F3E3 /* MetronomeViewModel.swift */,
-				81249783234B6BCB0047F3E3 /* BeatViewModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		8155D9C82359BEB1009521F2 /* ViewModel */ = {
@@ -452,7 +454,6 @@
 			isa = PBXGroup;
 			children = (
 				81BDF4E624586A4C00B4F7F8 /* AppDelegate.swift */,
-				81BDF50324586C3800B4F7F8 /* Model */,
 				81BDF50024586BF900B4F7F8 /* View */,
 			);
 			path = Classes;
@@ -477,15 +478,6 @@
 				81BDF50A24586D1000B4F7F8 /* ColorView.swift */,
 			);
 			path = View;
-			sourceTree = "<group>";
-		};
-		81BDF50324586C3800B4F7F8 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				81BDF50124586C3500B4F7F8 /* MetronomeViewModel.swift */,
-				81BDF50E245877AC00B4F7F8 /* BeatViewModel.swift */,
-			);
-			path = Model;
 			sourceTree = "<group>";
 		};
 		81FAF02223427ED1004A8C51 = {
@@ -833,14 +825,15 @@
 				81B999AE235B22B500E87778 /* Beat.swift in Sources */,
 				817F994F234CAD6600DA1043 /* ExtensionDelegate.swift in Sources */,
 				81B999A62359C38A00E87778 /* MetronomePublisher.swift in Sources */,
-				817F9950234CAD6A00DA1043 /* MetronomeViewModel.swift in Sources */,
-				81AB3583234CB818004C1BCD /* UpdateTempoView.swift in Sources */,
+				810701A6245F3035003D0B54 /* MetronomeViewModel.swift in Sources */,
+				810701AB245F30DF003D0B54 /* ControlsViewModel.swift in Sources */,
 				817F9953234CAD7000DA1043 /* MetronomeViewController.swift in Sources */,
-				817F9951234CAD6A00DA1043 /* BeatViewModel.swift in Sources */,
 				8115EFAF235B660C00527665 /* BeatView.swift in Sources */,
-				81AB3585234CB896004C1BCD /* UpdateTimeSignatureView.swift in Sources */,
 				817F9952234CAD6D00DA1043 /* MetronomeView.swift in Sources */,
+				810701B5245F4ADD003D0B54 /* TempoPickerView.swift in Sources */,
 				817F9957234CADBC00DA1043 /* MetronomeConfiguration.swift in Sources */,
+				810701B2245F4AA7003D0B54 /* TimeSignaturePickerView.swift in Sources */,
+				810701A7245F3035003D0B54 /* BeatViewModel.swift in Sources */,
 				817F9954234CADB800DA1043 /* TimeSignature.swift in Sources */,
 				817F9955234CADB800DA1043 /* Tempo.swift in Sources */,
 			);
@@ -852,6 +845,7 @@
 			files = (
 				810701A4245F2E78003D0B54 /* Metronome.swift in Sources */,
 				81BDF50D2458761000B4F7F8 /* ControlsView.swift in Sources */,
+				810701AC245F30DF003D0B54 /* ControlsViewModel.swift in Sources */,
 				81BDF4FD24586BED00B4F7F8 /* MetronomeConfiguration.swift in Sources */,
 				81BDF50524586C9900B4F7F8 /* BeatsView.swift in Sources */,
 				81BDF50B24586D1000B4F7F8 /* ColorView.swift in Sources */,

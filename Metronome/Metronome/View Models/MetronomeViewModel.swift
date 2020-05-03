@@ -12,7 +12,15 @@ import Combine
 class MetronomeViewModel: ObservableObject {
 
     @Published private(set) var beatViewModels: [BeatViewModel] = []
-    @Published private(set) var isMetronomeRunning: Bool = false
+    @Published private(set) var controlsViewModel: ControlsViewModel = ControlsViewModel(with: .default, isRunning: false)
+
+    var timeSignature: TimeSignature {
+        return metronome.configuration.timeSignature
+    }
+
+    var tempo: Tempo {
+        return metronome.configuration.tempo
+    }
 
     private var metronome: Metronome
     private var cancellable: AnyCancellable?
@@ -28,11 +36,17 @@ class MetronomeViewModel: ObservableObject {
 
 
     func toggleIsRunning() {
-        if isMetronomeRunning {
-            metronome.reset()
-        } else {
-            metronome.start()
-        }
+        metronome.toggle()
+    }
+
+
+    func set(timeSignature: TimeSignature) {
+        metronome.configuration.setTimeSignature(timeSignature)
+    }
+
+
+    func set(tempo: Tempo) {
+        metronome.configuration.setBpm(tempo.bpm)
     }
 
 
@@ -40,7 +54,7 @@ class MetronomeViewModel: ObservableObject {
 
     private func update(with snapshot: MetronomePublisher.Snapshot) {
         beatViewModels = beatViewModels(with: snapshot.configuration, isRunning: snapshot.isRunning, currentBeat: snapshot.currentBeat)
-        isMetronomeRunning = snapshot.isRunning
+        controlsViewModel = ControlsViewModel(with: snapshot.configuration, isRunning: snapshot.isRunning)
     }
 
 

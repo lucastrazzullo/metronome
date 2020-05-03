@@ -10,13 +10,13 @@ import SwiftUI
 
 struct ControlsView: View {
 
-    let isMetronomeRunning: Bool
+    let model: ControlsViewModel
     let toggle: () -> ()
 
     var body: some View {
         HStack {
             Button(action: { self.toggle() }) {
-                Text(isMetronomeRunning ? "Reset" : "Start")
+                Text(model.toggleLabel)
             }
         }
     }

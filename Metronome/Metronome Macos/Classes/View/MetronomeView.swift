@@ -17,7 +17,7 @@ struct MetronomeView: View {
             ColorView(color: .black)
             VStack {
                 BeatsView(model: viewModel.beatViewModels)
-                ControlsView(isMetronomeRunning: viewModel.isMetronomeRunning, toggle: {
+                ControlsView(model: viewModel.controlsViewModel, toggle: {
                     self.viewModel.toggleIsRunning()
                 })
             }

@@ -12,9 +12,7 @@ import Combine
 struct MetronomeView: View {
 
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
-    let model: MetronomeViewModel
-    let metronome: Metronome
+    @EnvironmentObject var viewModel: MetronomeViewModel
 
 
     // MARK: Body
@@ -25,22 +23,40 @@ struct MetronomeView: View {
             VStack(alignment: .center, spacing: 12) {
                 Spacer()
                 HStack(alignment: .center, spacing: 1) {
-                    ForEach(model.beatViewModels, id: \.self) { beatViewModel in
+                    ForEach(viewModel.beatViewModels, id: \.self) { beatViewModel in
                         BeatView(model: beatViewModel)
                     }
                 }
                 HStack(alignment: .center, spacing: 24) {
-                    NavigationLink(destination: UpdateTimeSignatureView.with(metronome: metronome)) {
-                        Text(model.timeSignatureLabel).font(Font.system(.footnote))
+                    NavigationLink(destination: self.buildTimeSignaturePickerView()) {
+                        Text(viewModel.controlsViewModel.timeSignatureLabel).font(Font.system(.footnote))
                     }
-                    NavigationLink(destination: UpdateTempoView.with(metronome: metronome)) {
-                        Text(model.tempoLabel).font(Font.system(.footnote))
+                    NavigationLink(destination: self.buildTempoPickerView()) {
+                        Text(viewModel.controlsViewModel.tempoLabel).font(Font.system(.footnote))
                     }
                 }.foregroundColor(Color.white.opacity(0.7))
-                Button(action: { self.metronome.toggle() }, label: {
-                    return Text(model.toggleLabel)
+                Button(action: { self.viewModel.toggleIsRunning() }, label: {
+                    return Text(viewModel.controlsViewModel.toggleLabel)
                 })
             }
         }
+    }
+
+
+    // MARK: Private helper methods
+
+    private func buildTimeSignaturePickerView() -> TimeSignaturePickerView {
+        let pickerViewModel = TimeSignaturePickerViewModel(timeSignature: viewModel.timeSignature)
+        return TimeSignaturePickerView(viewModel: pickerViewModel, completion: { timeSignature in
+            self.viewModel.set(timeSignature: timeSignature)
+        })
+    }
+
+
+    private func buildTempoPickerView() -> TempoPickerView {
+        let pickerViewModel = TempoPickerViewModel(tempo: viewModel.tempo)
+        return TempoPickerView(viewModel: pickerViewModel, completion: { tempo in
+            self.viewModel.set(tempo: tempo)
+        })
     }
 }

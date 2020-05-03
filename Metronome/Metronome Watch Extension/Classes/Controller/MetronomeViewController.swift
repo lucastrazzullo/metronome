@@ -10,12 +10,10 @@ import WatchKit
 import SwiftUI
 import Combine
 
-class MetronomeViewController: WKHostingController<MetronomeView> {
+class MetronomeViewController: WKHostingController<AnyView> {
 
     private let metronome: Metronome
     private let metronomePublisher: MetronomePublisher
-
-    private var rootView: MetronomeView
     private var rootViewModel: MetronomeViewModel
 
     private var cancellables: [AnyCancellable] = []
@@ -26,8 +24,7 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
     override init() {
         metronome = Metronome(with: .default)
         metronomePublisher = MetronomePublisher(metronome: metronome)
-        rootViewModel = MetronomeViewModel(snapshot: metronomePublisher.snapshot())
-        rootView = MetronomeView(model: rootViewModel, metronome: metronome)
+        rootViewModel = MetronomeViewModel(metronomePublisher: metronomePublisher)
         super.init()
     }
 
@@ -60,13 +57,6 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
                 }
             }
         )
-
-        cancellables.append(
-            metronomePublisher.snapshotPublisher()
-                .sink { [weak self] snapshot in
-                    self?.rootViewModel.setSnapshot(snapshot)
-                }
-        )
     }
 
 
@@ -78,7 +68,7 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
     // MARK: View
 
-    override var body: MetronomeView {
-        return rootView
+    override var body: AnyView {
+        return AnyView(MetronomeView().environmentObject(rootViewModel))
     }
 }
