@@ -10,6 +10,8 @@ import UIKit
 
 class TapTempoUpdaterGestureController: DefaultMetronomeGestureController<TapTempoUpdaterViewController> {
 
+    private let idleTimeBeforeSet: TimeInterval = 2
+
     private var idleTimer: Timer?
 
 
@@ -43,7 +45,7 @@ class TapTempoUpdaterGestureController: DefaultMetronomeGestureController<TapTem
 
     private func starCompletionTimer(with bpm: Int) {
         idleTimer?.invalidate()
-        idleTimer = Timer.scheduledTimer(withTimeInterval: 1, repeats: false, block: {
+        idleTimer = Timer.scheduledTimer(withTimeInterval: idleTimeBeforeSet, repeats: false, block: {
             [weak self] timer in
             self?.complete(with: bpm)
         })
