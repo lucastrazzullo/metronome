@@ -10,8 +10,9 @@ import Foundation
 
 struct HelpViewModel: TipsViewModel {
 
-    private(set) var tips: [TipViewModel]
     let titleLabel: String = NSLocalizedString("help.title", comment: "")
+
+    private(set) var tips: [TipViewModel]
 
 
     // MARK: Getter methods

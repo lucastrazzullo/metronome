@@ -10,7 +10,7 @@ import SwiftUI
 
 struct BeatView: View {
 
-    var model: BeatViewModel
+    let model: BeatViewModel
 
     var body: some View {
         ZStack {

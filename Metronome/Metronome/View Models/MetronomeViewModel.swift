@@ -40,6 +40,11 @@ class MetronomeViewModel: ObservableObject {
     }
 
 
+    func reset() {
+        metronome.reset()
+    }
+
+
     func set(timeSignature: TimeSignature) {
         metronome.configuration.setTimeSignature(timeSignature)
     }

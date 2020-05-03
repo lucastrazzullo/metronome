@@ -9,7 +9,7 @@
 import SwiftUI
 import Combine
 
-class MetronomeViewController: UIHostingController<MetronomeView>, ContainerViewController {
+class MetronomeViewController: UIHostingController<AnyView>, ContainerViewController {
 
     private var metronomePublisher: MetronomePublisher
     private var gesturesController: MetronomeGesturesController
@@ -23,8 +23,8 @@ class MetronomeViewController: UIHostingController<MetronomeView>, ContainerView
         self.metronomePublisher = metronomePublisher
         self.gesturesController = MetronomeGesturesController(with: metronomePublisher.metronome)
 
-        let viewModel = MetronomeViewModel(snapshot: metronomePublisher.snapshot())
-        let view = MetronomeView(model: viewModel, reset: metronomePublisher.metronome.reset)
+        let viewModel = MetronomeViewModel(metronomePublisher: metronomePublisher)
+        let view = AnyView(MetronomeView().environmentObject(viewModel))
         super.init(rootView: view)
 
         gesturesController.presentingViewController = self
@@ -32,14 +32,6 @@ class MetronomeViewController: UIHostingController<MetronomeView>, ContainerView
         cancellables.append(
             metronomePublisher.$isRunning
                 .sink { isRunning in UIApplication.shared.isIdleTimerDisabled = isRunning }
-        )
-
-        cancellables.append(
-            metronomePublisher.snapshotPublisher()
-                .map(MetronomeViewModel.init)
-                .sink(receiveValue: { [weak self] model in
-                    self?.rootView.model = model
-                })
         )
     }
 

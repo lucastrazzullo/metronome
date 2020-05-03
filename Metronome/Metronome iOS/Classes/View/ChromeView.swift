@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ChromeView: View {
 
-    var model: ChromeViewModel
+    let model: ControlsViewModel
 
     @State var helperIsPresented = false
     @State var helperDidAppear: () -> ()
@@ -44,9 +44,7 @@ struct ChromeView_Previews: PreviewProvider {
 
     static var previews: some View {
         let configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
-        let viewModel = ChromeViewModel(configuration: configuration)
-
-        return ChromeView(model: viewModel, helperDidAppear: {})
-            .background(Color.black)
+        let viewModel = ControlsViewModel(with: configuration, isRunning: false)
+        return ChromeView(model: viewModel, helperDidAppear: {}).background(Color.black)
     }
 }
