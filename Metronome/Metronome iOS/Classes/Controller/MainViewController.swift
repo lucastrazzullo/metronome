@@ -13,8 +13,8 @@ class MainViewController: UIViewController, ContainerViewController {
     private let metronomeHapticController: MetronomeHapticController
     private let metronomeCacheController: MetronomeCacheController
 
-    private let metronome: MetronomeController
-    private let metronomePublisher: MetronomeStatePublisher
+    private let metronome: Metronome
+    private let metronomePublisher: MetronomePublisher
 
 
     //  MARK: Object life cycle
@@ -23,8 +23,8 @@ class MainViewController: UIViewController, ContainerViewController {
         metronomeHapticController = MetronomeHapticController()
         metronomeCacheController = MetronomeCacheController(entry: UserDefaultBackedEntryCache())
 
-        metronome = MetronomeController(with: metronomeCacheController.buildConfigurationWithCachedValues())
-        metronomePublisher = MetronomeStatePublisher(metronome: metronome)
+        metronome = Metronome(with: metronomeCacheController.buildConfigurationWithCachedValues())
+        metronomePublisher = MetronomePublisher(metronome: metronome)
 
         super.init(coder: coder)
     }

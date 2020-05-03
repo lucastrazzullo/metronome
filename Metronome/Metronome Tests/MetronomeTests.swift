@@ -11,7 +11,7 @@ import XCTest
 class MetronomeTests: XCTestCase {
 
     private var tickExpectation: XCTestExpectation?
-    private var metronome: MetronomeController?
+    private var metronome: Metronome?
 
 
     // MARK: Test life cycle
@@ -29,7 +29,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation?.expectedFulfillmentCount = 4
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(beats: 4, noteLength: .quarter), tempo: Tempo(bpm: 120))
-        metronome = MetronomeController(with: configuration)
+        metronome = Metronome(with: configuration)
         metronome?.delegate = self
         metronome?.start()
 
@@ -42,7 +42,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation?.expectedFulfillmentCount = 3
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(beats: 4, noteLength: .quarter), tempo: Tempo(bpm: 90))
-        metronome = MetronomeController(with: configuration)
+        metronome = Metronome(with: configuration)
         metronome?.delegate = self
         metronome?.start()
 
@@ -55,7 +55,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation?.expectedFulfillmentCount = 2
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(beats: 4, noteLength: .quarter), tempo: Tempo(bpm: 60))
-        metronome = MetronomeController(with: configuration)
+        metronome = Metronome(with: configuration)
         metronome?.delegate = self
         metronome?.start()
 
@@ -70,7 +70,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation?.expectedFulfillmentCount = 8
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(beats: 4, noteLength: .eigth), tempo: Tempo(bpm: 120))
-        metronome = MetronomeController(with: configuration)
+        metronome = Metronome(with: configuration)
         metronome?.delegate = self
         metronome?.start()
 
@@ -81,19 +81,19 @@ class MetronomeTests: XCTestCase {
 
 extension MetronomeTests: MetronomeDelegate {
 
-    func metronome(_ metronome: MetronomeController, didUpdate configuration: MetronomeConfiguration) {
+    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
     }
 
 
-    func metronome(_ metronome: MetronomeController, didPulse beat: Beat) {
+    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
         tickExpectation?.fulfill()
     }
 
 
-    func metronome(_ metronome: MetronomeController, willStartWithSuspended beat: Beat?) {
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
     }
 
 
-    func metronome(_ metronome: MetronomeController, willResetDuring beat: Beat?) {
+    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
     }
 }

@@ -12,7 +12,7 @@ class SlideTempoUpdaterGestureController: DefaultMetronomeGestureController<Offs
 
     // MARK: Object life cycle
 
-    init(with metronome: MetronomeController) {
+    init(with metronome: Metronome) {
         let recogniser = UIPanGestureRecognizer()
         recogniser.minimumNumberOfTouches = 2
         super.init(with: recogniser, metronome: metronome)

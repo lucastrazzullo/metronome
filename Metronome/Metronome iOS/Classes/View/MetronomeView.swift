@@ -30,7 +30,7 @@ struct MetronomeView_Previews: PreviewProvider {
 
     static var previews: some View {
         let configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
-        let snapshot = MetronomeStatePublisher.Snapshot(configuration: configuration, isRunning: false, currentBeat: nil)
+        let snapshot = MetronomePublisher.Snapshot(configuration: configuration, isRunning: false, currentBeat: nil)
         let viewModel = MetronomeViewModel(snapshot: snapshot)
         return MetronomeView(model: viewModel, reset: {})
     }

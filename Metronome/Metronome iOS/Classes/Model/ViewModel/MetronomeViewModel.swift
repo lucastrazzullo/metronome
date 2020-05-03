@@ -16,7 +16,7 @@ struct MetronomeViewModel {
 
     // MARK: Object life cycle
 
-    init(snapshot: MetronomeStatePublisher.Snapshot) {
+    init(snapshot: MetronomePublisher.Snapshot) {
         beatViewModels = MetronomeViewModel.beatViewModels(with: snapshot.configuration, isRunning: snapshot.isRunning, currentBeat: snapshot.currentBeat)
         chromeViewModel = ChromeViewModel(configuration: snapshot.configuration)
     }

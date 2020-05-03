@@ -13,7 +13,7 @@ import Combine
 class MetronomeViewController: WKHostingController<MetronomeView> {
 
     private let metronome: Metronome
-    private let metronomePublisher: MetronomeStatePublisher
+    private let metronomePublisher: MetronomePublisher
 
     private var rootView: MetronomeView
     private var rootViewModel: MetronomeViewModel
@@ -24,9 +24,8 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
     // MARK: Object life cycle
 
     override init() {
-        let configuration = MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default)
-        metronome = Metronome(with: configuration)
-        metronomePublisher = MetronomeStatePublisher(metronome: metronome)
+        metronome = Metronome(with: .default)
+        metronomePublisher = MetronomePublisher(metronome: metronome)
         rootViewModel = MetronomeViewModel(snapshot: metronomePublisher.snapshot())
         rootView = MetronomeView(model: rootViewModel, metronome: metronome)
         super.init()

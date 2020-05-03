@@ -14,13 +14,13 @@ class MetronomeViewModel: ObservableObject {
     @Published private(set) var beatViewModels: [BeatViewModel] = []
     @Published private(set) var isMetronomeRunning: Bool = false
 
-    private var metronome: MetronomeController
+    private var metronome: Metronome
     private var cancellable: AnyCancellable?
 
 
     // MARK: Object life cycle
 
-    init(metronomePublisher: MetronomeStatePublisher) {
+    init(metronomePublisher: MetronomePublisher) {
         metronome = metronomePublisher.metronome
         update(with: metronomePublisher.snapshot())
         cancellable = metronomePublisher.snapshotPublisher().sink(receiveValue: update(with:))
@@ -38,7 +38,7 @@ class MetronomeViewModel: ObservableObject {
 
     // MARK: Private helper methods
 
-    private func update(with snapshot: MetronomeStatePublisher.Snapshot) {
+    private func update(with snapshot: MetronomePublisher.Snapshot) {
         beatViewModels = beatViewModels(with: snapshot.configuration, isRunning: snapshot.isRunning, currentBeat: snapshot.currentBeat)
         isMetronomeRunning = snapshot.isRunning
     }

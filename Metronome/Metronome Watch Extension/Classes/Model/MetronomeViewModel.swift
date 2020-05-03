@@ -20,7 +20,7 @@ class MetronomeViewModel {
 
     // MARK: Object life cycle
 
-    init(snapshot: MetronomeStatePublisher.Snapshot) {
+    init(snapshot: MetronomePublisher.Snapshot) {
         beatViewModels = MetronomeViewModel.beatViewModels(with: snapshot.configuration, isRunning: snapshot.isRunning, currentBeat: snapshot.currentBeat)
         timeSignatureLabel = MetronomeViewModel.timeSignatureLabel(with: snapshot.configuration.timeSignature)
         tempoLabel = MetronomeViewModel.tempoLabel(with: snapshot.configuration.tempo)
@@ -28,7 +28,7 @@ class MetronomeViewModel {
     }
 
 
-    func setSnapshot(_ snapshot: MetronomeStatePublisher.Snapshot) {
+    func setSnapshot(_ snapshot: MetronomePublisher.Snapshot) {
         beatViewModels = MetronomeViewModel.beatViewModels(with: snapshot.configuration, isRunning: snapshot.isRunning, currentBeat: snapshot.currentBeat)
         timeSignatureLabel = MetronomeViewModel.timeSignatureLabel(with: snapshot.configuration.timeSignature)
         tempoLabel = MetronomeViewModel.tempoLabel(with: snapshot.configuration.tempo)

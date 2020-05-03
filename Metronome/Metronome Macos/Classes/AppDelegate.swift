@@ -15,8 +15,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
     var window: NSWindow!
 
-    private var metronome: MetronomeController!
-    private var metronomePublisher: MetronomeStatePublisher!
+    private var metronome: Metronome!
+    private var metronomePublisher: MetronomePublisher!
     private var metronomeViewModel: MetronomeViewModel!
 
     private var cancellables: [AnyCancellable] = []
@@ -25,8 +25,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: Public methods
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        metronome = MetronomeController(with: .default)
-        metronomePublisher = MetronomeStatePublisher(metronome: metronome)
+        metronome = Metronome(with: .default)
+        metronomePublisher = MetronomePublisher(metronome: metronome)
         metronomeViewModel = MetronomeViewModel(metronomePublisher: metronomePublisher)
 
         let view = MetronomeView().environmentObject(metronomeViewModel)

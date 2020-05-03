@@ -11,7 +11,7 @@ import Combine
 
 class MetronomeViewController: UIHostingController<MetronomeView>, ContainerViewController {
 
-    private var metronomePublisher: MetronomeStatePublisher
+    private var metronomePublisher: MetronomePublisher
     private var gesturesController: MetronomeGesturesController
 
     private var cancellables: [AnyCancellable] = []
@@ -19,7 +19,7 @@ class MetronomeViewController: UIHostingController<MetronomeView>, ContainerView
 
     // MARK: Object life cycle
 
-    init(with metronomePublisher: MetronomeStatePublisher) {
+    init(with metronomePublisher: MetronomePublisher) {
         self.metronomePublisher = metronomePublisher
         self.gesturesController = MetronomeGesturesController(with: metronomePublisher.metronome)
 

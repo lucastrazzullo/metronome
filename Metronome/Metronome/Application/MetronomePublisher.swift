@@ -1,5 +1,5 @@
 //
-//  MetronomeStatePublisher.swift
+//  MetronomePublisher.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 18/10/19.
@@ -8,7 +8,7 @@
 
 import Combine
 
-class MetronomeStatePublisher {
+class MetronomePublisher {
 
     struct Snapshot {
         var configuration: MetronomeConfiguration
@@ -23,12 +23,12 @@ class MetronomeStatePublisher {
     @Published var isRunning: Bool
     @Published var currentBeat: Beat?
 
-    private(set) var metronome: MetronomeController
+    private(set) var metronome: Metronome
 
 
     // MARK: Object life cycle
 
-    init(metronome: MetronomeController) {
+    init(metronome: Metronome) {
         self.configuration = metronome.configuration
         self.isRunning = metronome.isRunning
         self.currentBeat = metronome.currentBeat
@@ -52,25 +52,25 @@ class MetronomeStatePublisher {
 }
 
 
-extension MetronomeStatePublisher: MetronomeDelegate {
+extension MetronomePublisher: MetronomeDelegate {
 
-    func metronome(_ metronome: MetronomeController, didUpdate configuration: MetronomeConfiguration) {
+    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
         self.configuration = configuration
     }
 
 
-    func metronome(_ metronome: MetronomeController, didPulse beat: Beat) {
+    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
         self.currentBeat = beat
     }
 
 
-    func metronome(_ metronome: MetronomeController, willStartWithSuspended beat: Beat?) {
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
         self.isRunning = true
         self.currentBeat = beat
     }
 
 
-    func metronome(_ metronome: MetronomeController, willResetDuring beat: Beat?) {
+    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
         self.isRunning = false
         self.currentBeat = beat
     }
