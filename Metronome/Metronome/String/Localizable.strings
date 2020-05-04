@@ -51,3 +51,8 @@
 
 "gesture.long_press.title" = "Tap Tempo";
 "gesture.long_press.description" = "Long press to present tempo tap recogniser";
+
+
+// MARK: Actions
+
+"action.confirm" = "Confirm";

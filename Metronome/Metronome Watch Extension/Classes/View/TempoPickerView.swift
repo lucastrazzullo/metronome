@@ -9,26 +9,6 @@
 import SwiftUI
 import Combine
 
-class TempoPickerViewModel: ObservableObject {
-
-    @Published var selectedTempoIndex: Int
-
-    var tempoItems: Range<Int> {
-        return Tempo.minimumBpm ..< Tempo.maximumBpm
-    }
-
-    var tempo: Tempo {
-        let bpm = selectedTempoIndex + Tempo.minimumBpm
-        return Tempo(bpm: bpm)
-    }
-
-
-    init(tempo: Tempo) {
-        selectedTempoIndex = tempo.bpm - Tempo.minimumBpm
-    }
-}
-
-
 struct TempoPickerView: View {
 
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -41,16 +21,16 @@ struct TempoPickerView: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
-            Picker(selection: self.$viewModel.selectedTempoIndex, label: Text("BPM").padding(2)) {
-                ForEach(self.viewModel.tempoItems) {
-                    Text("\($0)").font(.largeTitle)
+            Picker(selection: self.$viewModel.selectedTempoItem, label: Text(Copy.localised(with: Copy.Tempo.suffix)).padding(2)) {
+                ForEach(self.viewModel.tempoItems, id: \.self) { item in
+                    Text(item.label).font(.largeTitle)
                 }
             }
             Button(action: {
-                self.completion(self.viewModel.tempo)
+                self.completion(self.viewModel.selectedTempoItem.tempo)
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
-                Text("Confirm")
+                Text(Copy.localised(with: Copy.Action.confirm))
             })
         }
     }
