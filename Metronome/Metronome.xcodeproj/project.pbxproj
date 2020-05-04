@@ -59,6 +59,7 @@
 		817F995D234CAF2000DA1043 /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 817F992E234CAD0300DA1043 /* Interface.storyboard */; };
 		81807A6A245FF16C00737786 /* TempoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A69245FF16C00737786 /* TempoPickerViewModel.swift */; };
 		81807A6C245FF1FD00737786 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A6B245FF1FD00737786 /* Copy.swift */; };
+		81807A6E246001EC00737786 /* TimeSignaturePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A6D246001EC00737786 /* TimeSignaturePickerViewModel.swift */; };
 		81811B5B2348B29D00C06204 /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81811B5A2348B29D00C06204 /* ContainerViewController.swift */; };
 		81919FB3234B4F220061571A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 81919FB2234B4F220061571A /* Localizable.strings */; };
 		81919FB5234B515C0061571A /* HelpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB4234B515C0061571A /* HelpViewModel.swift */; };
@@ -188,6 +189,7 @@
 		817F9943234CAD0500DA1043 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		81807A69245FF16C00737786 /* TempoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempoPickerViewModel.swift; sourceTree = "<group>"; };
 		81807A6B245FF1FD00737786 /* Copy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Copy.swift; sourceTree = "<group>"; };
+		81807A6D246001EC00737786 /* TimeSignaturePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignaturePickerViewModel.swift; sourceTree = "<group>"; };
 		81811B5A2348B29D00C06204 /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
 		81919FB2234B4F220061571A /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		81919FB4234B515C0061571A /* HelpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewModel.swift; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 			isa = PBXGroup;
 			children = (
 				81807A69245FF16C00737786 /* TempoPickerViewModel.swift */,
+				81807A6D246001EC00737786 /* TimeSignaturePickerViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -832,6 +835,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				81807A6E246001EC00737786 /* TimeSignaturePickerViewModel.swift in Sources */,
 				81807A6C245FF1FD00737786 /* Copy.swift in Sources */,
 				810701A3245F2E78003D0B54 /* Metronome.swift in Sources */,
 				817F9956234CADBC00DA1043 /* MetronomeTicker.swift in Sources */,

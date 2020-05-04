@@ -11,14 +11,10 @@ import Combine
 
 class TempoPickerViewModel: ObservableObject {
 
-    struct TempoItem: Hashable {
+    struct Item: Hashable {
 
         let bpm: Int
         let label: String
-
-        var tempo: Tempo {
-            return Tempo(bpm: bpm)
-        }
 
         init(bpm: Int) {
             self.bpm = bpm
@@ -29,15 +25,15 @@ class TempoPickerViewModel: ObservableObject {
 
     // MARK: Instance properties
 
-    @Published var selectedTempoItem: TempoItem
+    @Published var selectedTempoItem: Item
 
-    private(set) var tempoItems: [TempoItem]
+    private(set) var tempoItems: [Item]
 
 
     // MARK: Object life cycle
 
     init(tempo: Tempo) {
-        tempoItems = (Tempo.minimumBpm ... Tempo.maximumBpm).map(TempoItem.init(bpm:))
-        selectedTempoItem = TempoItem.init(bpm: tempo.bpm)
+        tempoItems = (Tempo.minimumBpm ... Tempo.maximumBpm).map(Item.init(bpm:))
+        selectedTempoItem = Item(bpm: tempo.bpm)
     }
 }

@@ -9,33 +9,6 @@
 import SwiftUI
 import Combine
 
-class TimeSignaturePickerViewModel: ObservableObject {
-
-    @Published var selectedBarLengthIndex: Int
-    @Published var selectedNoteLengthIndex: Int
-
-    var timeSignature: TimeSignature {
-        let barLength = TimeSignature.minimumBarLength + selectedBarLengthIndex
-        let noteLength = TimeSignature.NoteLength.allCases[selectedNoteLengthIndex]
-        return TimeSignature(beats: barLength, noteLength: noteLength)
-    }
-
-    var barLengthItems: Range<Int> {
-        return TimeSignature.minimumBarLength ..< TimeSignature.maximumBarLength + 1
-    }
-
-    var noteLengthItems: Range<Int> {
-        return 0 ..< TimeSignature.NoteLength.allCases.count
-    }
-
-
-    init(timeSignature: TimeSignature) {
-        selectedBarLengthIndex = timeSignature.beats - TimeSignature.minimumBarLength
-        selectedNoteLengthIndex = TimeSignature.NoteLength.allCases.firstIndex(of: timeSignature.noteLength) ?? 0
-    }
-}
-
-
 struct TimeSignaturePickerView: View {
 
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
@@ -49,19 +22,26 @@ struct TimeSignaturePickerView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
             HStack {
-                Picker(selection: self.$viewModel.selectedBarLengthIndex, label: Text("Bar length").padding(2)) {
-                    ForEach(viewModel.barLengthItems) {
-                        Text("\($0)").font(.title)
+                Picker(selection: self.$viewModel.selectedBarLength,
+                       label: Text(Copy.localised(with: Copy.TimeSignature.barLength)).padding(2)) {
+                    ForEach(viewModel.barLengthItems, id: \.self) { item in
+                        Text(item.label).font(.title)
                     }
                 }
-                Picker(selection: self.$viewModel.selectedNoteLengthIndex, label: Text("Note length").padding(2)) {
-                    ForEach(viewModel.noteLengthItems) {
-                        Text("\(TimeSignature.NoteLength.allCases[$0].rawValue)").font(.title)
+                Picker(selection: self.$viewModel.selectedNoteLength,
+                       label: Text(Copy.localised(with: Copy.TimeSignature.noteLength)).padding(2)) {
+                    ForEach(viewModel.noteLengthItems, id: \.self) { item in
+                        Text(item.label).font(.title)
                     }
                 }
             }
             Button(action: {
-                self.completion(self.viewModel.timeSignature)
+                let timeSignature: TimeSignature = {
+                    let barLength = self.viewModel.selectedBarLength.length
+                    let noteLength = TimeSignature.NoteLength(rawValue: self.viewModel.selectedNoteLength.length)
+                    return TimeSignature(beats: barLength, noteLength: noteLength ?? .default)
+                }()
+                self.completion(timeSignature)
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Confirm")

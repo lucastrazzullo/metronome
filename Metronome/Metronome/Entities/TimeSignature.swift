@@ -16,6 +16,10 @@ struct TimeSignature {
         case quarter = 4
         case eigth = 8
         case sixteenth = 16
+
+        static var `default`: NoteLength {
+            return .quarter
+        }
     }
 
     static let minimumBarLength: Int = 1
