@@ -7,35 +7,33 @@
 //
 
 import UIKit
+import Combine
 
 class MetronomeHapticController {
+
     private let selectionGenerator = UISelectionFeedbackGenerator()
     private let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)
-}
+
+    private var cancellables = [AnyCancellable]()
 
 
-extension MetronomeHapticController: MetronomeObserver {
+    // MARK: Public methods
 
-    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
-    }
+    func set(statePublisher: MetronomePublisher) {
+        cancellables.append(statePublisher.$currentBeat
+            .sink(receiveValue: { [weak self] beat in
+                guard let beat = beat else { return }
+                switch beat.intensity {
+                case .normal:
+                    self?.impactGenerator.impactOccurred(intensity: 0.5)
+                case .strong:
+                    self?.impactGenerator.impactOccurred()
+                }
+            }))
 
-
-    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
-        switch beat.intensity {
-        case .normal:
-            impactGenerator.impactOccurred(intensity: 0.5)
-        case .strong:
-            impactGenerator.impactOccurred()
-        }
-    }
-
-
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
-        selectionGenerator.selectionChanged()
-    }
-
-
-    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
-        selectionGenerator.selectionChanged()
+        cancellables.append(statePublisher.$isRunning
+            .sink(receiveValue: { [weak self] _ in
+                self?.selectionGenerator.selectionChanged()
+            }))
     }
 }

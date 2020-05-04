@@ -11,19 +11,19 @@
 
 "metronome.time_signature.format" = "%d/%d";
 
-"metronome.time_signature.bar_length.updater.title" = "Bar length";
-"metronome.time_signature.bar_length.updater.suffix.format" = "/%d";
+"metronome.time_signature.bar_length.picker.title" = "Bar length";
+"metronome.time_signature.bar_length.picker.suffix.format" = "/%d";
 
-"metronome.time_signature.note_length.updater.title" = "Note length";
-"metronome.time_signature.note_length.updater.prefix.format" = "%d/";
+"metronome.time_signature.note_length.picker.title" = "Note length";
+"metronome.time_signature.note_length.picker.prefix.format" = "%d/";
 
 
 // MARK: Tempo
 
 "metronome.tempo.suffix" = "bpm";
-"metronome.tempo.updater.title" = "Tempo";
-"metronome.tempo.updater.tap.title" = "Tap Tempo";
-"metronome.tempo.updater.tap.hero.placeholder" = "...";
+"metronome.tempo.picker.title" = "Tempo";
+"metronome.tempo.picker.tap.title" = "Tap Tempo";
+"metronome.tempo.picker.tap.hero.placeholder" = "...";
 
 
 // MARK: Help
@@ -51,3 +51,8 @@
 
 "gesture.long_press.title" = "Tap Tempo";
 "gesture.long_press.description" = "Long press to present tempo tap recogniser";
+
+
+// MARK: Actions
+
+"action.confirm" = "Confirm";

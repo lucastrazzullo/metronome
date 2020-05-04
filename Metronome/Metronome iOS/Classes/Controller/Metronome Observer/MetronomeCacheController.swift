@@ -7,10 +7,13 @@
 //
 
 import Foundation
+import Combine
 
 class MetronomeCacheController {
 
     private let configurationCache: ConfigurationCache
+
+    private var cancellable: AnyCancellable?
 
 
     // MARK: Object life cycle
@@ -34,29 +37,18 @@ class MetronomeCacheController {
     }
 
 
-    func cacheConfigurationValues(configuration: MetronomeConfiguration) {
+    func set(statePublisher: MetronomePublisher) {
+        cancellable = statePublisher.$configuration.sink { [weak self] configuration in
+            self?.cacheConfigurationValues(configuration: configuration)
+        }
+    }
+
+
+    // MARK: Private helper methods
+
+    private func cacheConfigurationValues(configuration: MetronomeConfiguration) {
         configurationCache.barLength = configuration.timeSignature.beats
         configurationCache.noteLength = configuration.timeSignature.noteLength
         configurationCache.bpm = configuration.tempo.bpm
-    }
-}
-
-
-extension MetronomeCacheController: MetronomeObserver {
-
-    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
-        cacheConfigurationValues(configuration: configuration)
-    }
-
-
-    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
-    }
-
-
-    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
-    }
-
-
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
     }
 }

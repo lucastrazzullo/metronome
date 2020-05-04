@@ -7,22 +7,29 @@
 //
 
 import SwiftUI
-import Combine
 
 struct MetronomeView: View {
 
-    @ObservedObject var publisher: SnapshotMetronomePublisher<MetronomeViewModel>
-
-
-    // MARK: Body
+    @EnvironmentObject var viewModel: MetronomeViewModel
 
     var body: some View {
         ZStack {
             ColorView(color: .black)
-            BeatsView(model: publisher.snapshot.beatViewModels)
-            ChromeView(model: publisher.snapshot.chromeViewModel, helperDidAppear: {
-                self.publisher.metronome.reset()
+            BeatsView(model: viewModel.beatViewModels)
+            ChromeView(model: viewModel.controlsViewModel, helperDidAppear: {
+                self.viewModel.reset()
             })
         }
+    }
+}
+
+
+struct MetronomeView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let metronome = Metronome(with: .default)
+        let publisher = MetronomePublisher(metronome: metronome)
+        let viewModel = MetronomeViewModel(metronomePublisher: publisher)
+        return MetronomeView().environmentObject(viewModel)
     }
 }

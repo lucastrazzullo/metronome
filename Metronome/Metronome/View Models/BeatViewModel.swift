@@ -1,9 +1,9 @@
 //
 //  BeatViewModel.swift
-//  Metronome
+//  Metronome Macos
 //
-//  Created by luca strazzullo on 2/10/19.
-//  Copyright © 2019 luca strazzullo. All rights reserved.
+//  Created by luca strazzullo on 28/4/20.
+//  Copyright © 2020 luca strazzullo. All rights reserved.
 //
 
 import Foundation

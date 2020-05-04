@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class OffsetTempoUpdaterViewController: UIHostingController<UpdaterView> {
+class OffsetTempoUpdaterViewController: UIHostingController<GesturePickerView> {
 
     private var initialBpm: Int
     private(set) var bpm: Int
@@ -19,7 +19,7 @@ class OffsetTempoUpdaterViewController: UIHostingController<UpdaterView> {
     init(bpm: Int) {
         self.initialBpm = bpm
         self.bpm = bpm
-        super.init(rootView: UpdaterView(model: SlideTempoUpdaterViewModel(bpm: bpm)))
+        super.init(rootView: GesturePickerView(model: SlideTempoPickerViewModel(bpm: bpm)))
     }
 
 
@@ -32,6 +32,6 @@ class OffsetTempoUpdaterViewController: UIHostingController<UpdaterView> {
 
     func updateBpm(with offset: Int) {
         bpm = initialBpm + offset
-        rootView.model = SlideTempoUpdaterViewModel(bpm: bpm)
+        rootView.model = SlideTempoPickerViewModel(bpm: bpm)
     }
 }
