@@ -10,10 +10,10 @@ import SwiftUI
 
 struct ChromeView: View {
 
-    let model: ControlsViewModel
-
     @State var helperIsPresented = false
-    @State var helperDidAppear: () -> ()
+
+    let model: ControlsViewModel
+    let helperDidAppear: () -> ()
 
 
     // MARK: Body

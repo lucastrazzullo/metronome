@@ -22,7 +22,8 @@ protocol TipsViewModel {
 struct TipsView: View {
 
     @State var model: TipsViewModel
-    @State var dismiss: () -> ()
+
+    let dismiss: () -> ()
 
 
     // MARK: Body
@@ -84,8 +85,7 @@ private struct TipsListView: View {
 private struct ButtonView: View {
 
     let icon: String
-
-    @State var action: () -> ()
+    let action: () -> ()
 
     var body: some View {
         Button(action: { self.action() }) {
@@ -101,8 +101,7 @@ private struct TitleView: View {
 
     let title: String
     let dismissIcon: String
-
-    @State var dismiss: () -> ()
+    let dismiss: () -> ()
 
     var body: some View {
         HStack(alignment: .center, spacing: 40) {
