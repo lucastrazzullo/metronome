@@ -31,7 +31,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         let view = MetronomeView().environmentObject(metronomeViewModel)
         window = NSWindow(
-            contentRect: NSRect(x: 0, y: 0, width: 480, height: 300),
+            contentRect: NSRect(x: 0, y: 0, width: 800, height: 600),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
         window.center()

@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MetronomeConfiguration {
+struct MetronomeConfiguration: Equatable {
 
     var timeSignature: TimeSignature
     var tempo: Tempo

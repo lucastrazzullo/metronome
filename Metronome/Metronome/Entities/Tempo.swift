@@ -8,10 +8,11 @@
 
 import Foundation
 
-struct Tempo {
+struct Tempo: Equatable {
 
     static let minimumBpm = 1
     static let maximumBpm = 300
+    static let range = minimumBpm ... maximumBpm
 
 
     // MARK: Instance properties

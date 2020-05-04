@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TimeSignature {
+struct TimeSignature: Equatable {
 
     enum NoteLength: Int, CaseIterable, Hashable {
         case full = 1
@@ -22,8 +22,9 @@ struct TimeSignature {
         }
     }
 
-    static let minimumBarLength: Int = 1
-    static let maximumBarLength: Int = 16
+    static let minimumBarLength = 1
+    static let maximumBarLength = 16
+    static let barLengthRange = minimumBarLength ... maximumBarLength
 
 
     // MARK: Instance properties

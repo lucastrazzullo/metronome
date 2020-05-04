@@ -33,7 +33,7 @@ class TempoPickerViewModel: ObservableObject {
     // MARK: Object life cycle
 
     init(tempo: Tempo) {
-        tempoItems = (Tempo.minimumBpm ... Tempo.maximumBpm).map(Item.init(bpm:))
+        tempoItems = Tempo.range.map(Item.init(bpm:))
         selectedTempoItem = Item(bpm: tempo.bpm)
     }
 }

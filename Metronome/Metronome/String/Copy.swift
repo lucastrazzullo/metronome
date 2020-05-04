@@ -14,30 +14,37 @@ protocol CopyIdentifier {
 
 
 extension CopyIdentifier where Self: RawRepresentable, Self.RawValue == String {
+
     var key: String {
         return self.rawValue
+    }
+
+    var localised: String {
+        return NSLocalizedString(key, comment: "")
     }
 }
 
 
 struct Copy {
 
+    enum Tempo: String, CopyIdentifier {
+        case suffix = "metronome.tempo.suffix"
+
+        enum Picker: String, CopyIdentifier {
+            case title = "metronome.tempo.picker.title"
+        }
+    }
+
     enum TimeSignature: String, CopyIdentifier {
         case barLength = "metronome.time_signature.bar_length.picker.title"
         case noteLength = "metronome.time_signature.note_length.picker.title"
-    }
 
-    enum Tempo: String, CopyIdentifier {
-        case suffix = "metronome.tempo.suffix"
+        enum Picker: String, CopyIdentifier {
+            case title = "metronome.time_signature.picker.title"
+        }
     }
 
     enum Action: String, CopyIdentifier {
         case confirm = "action.confirm"
-    }
-
-    // MARK: Localisation
-
-    static func localised(with identifier: CopyIdentifier) -> String {
-        return NSLocalizedString(identifier.key, comment: "")
     }
 }

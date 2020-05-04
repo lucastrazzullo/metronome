@@ -14,7 +14,8 @@ struct TimeSignaturePickerView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @State var viewModel: TimeSignaturePickerViewModel
-    @State var completion: (TimeSignature) -> ()
+
+    var completion: (TimeSignature) -> ()
 
 
     // MARK: Body
@@ -23,13 +24,13 @@ struct TimeSignaturePickerView: View {
         VStack(alignment: .center, spacing: 8) {
             HStack {
                 Picker(selection: self.$viewModel.selectedBarLength,
-                       label: Text(Copy.localised(with: Copy.TimeSignature.barLength)).padding(2)) {
+                       label: Text(Copy.TimeSignature.barLength.localised).padding(2)) {
                     ForEach(viewModel.barLengthItems, id: \.self) { item in
                         Text(item.label).font(.title)
                     }
                 }
                 Picker(selection: self.$viewModel.selectedNoteLength,
-                       label: Text(Copy.localised(with: Copy.TimeSignature.noteLength)).padding(2)) {
+                       label: Text(Copy.TimeSignature.noteLength.localised).padding(2)) {
                     ForEach(viewModel.noteLengthItems, id: \.self) { item in
                         Text(item.label).font(.title)
                     }

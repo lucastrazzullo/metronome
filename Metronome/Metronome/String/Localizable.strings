@@ -10,6 +10,7 @@
 // MARK: Time Signature
 
 "metronome.time_signature.format" = "%d/%d";
+"metronome.time_signature.picker.title" = "Time signature";
 
 "metronome.time_signature.bar_length.picker.title" = "Bar length";
 "metronome.time_signature.bar_length.picker.suffix.format" = "/%d";
@@ -22,7 +23,7 @@
 
 "metronome.tempo.suffix" = "bpm";
 "metronome.tempo.picker.title" = "Tempo";
-"metronome.tempo.picker.tap.title" = "Tap Tempo";
+"metronome.tempo.picker.tap.title" = "Tap tempo";
 "metronome.tempo.picker.tap.hero.placeholder" = "...";
 
 

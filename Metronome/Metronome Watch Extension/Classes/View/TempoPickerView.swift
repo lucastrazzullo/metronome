@@ -14,7 +14,8 @@ struct TempoPickerView: View {
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
     @State var viewModel: TempoPickerViewModel
-    @State var completion: ((Tempo) -> ())
+
+    var completion: ((Tempo) -> ())
 
 
     // MARK: Body
@@ -22,7 +23,7 @@ struct TempoPickerView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
             Picker(selection: self.$viewModel.selectedTempoItem,
-                   label: Text(Copy.localised(with: Copy.Tempo.suffix)).padding(2)) {
+                   label: Text(Copy.Tempo.suffix.localised).padding(2)) {
                 ForEach(self.viewModel.tempoItems, id: \.self) { item in
                     Text(item.label).font(.largeTitle)
                 }
@@ -31,7 +32,7 @@ struct TempoPickerView: View {
                 self.completion(Tempo(bpm: self.viewModel.selectedTempoItem.bpm))
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
-                Text(Copy.localised(with: Copy.Action.confirm))
+                Text(Copy.Action.confirm.localised)
             })
         }
     }
