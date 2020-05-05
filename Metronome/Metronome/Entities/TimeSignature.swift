@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TimeSignature {
+struct TimeSignature: Equatable {
 
     enum NoteLength: Int, CaseIterable, Hashable {
         case full = 1
@@ -20,10 +20,22 @@ struct TimeSignature {
         static var `default`: NoteLength {
             return .quarter
         }
+
+        func with(offset: Int) -> NoteLength {
+            let allCases = NoteLength.allCases
+            if let index = allCases.firstIndex(of: self), index + offset >= 0, index + offset < allCases.count {
+                return allCases[index + offset]
+            } else if offset > 0 {
+                return allCases[allCases.count - 1]
+            } else {
+                return allCases[0]
+            }
+        }
     }
 
-    static let minimumBarLength: Int = 1
-    static let maximumBarLength: Int = 16
+    static let minimumBarLength = 1
+    static let maximumBarLength = 16
+    static let barLengthRange = minimumBarLength ... maximumBarLength
 
 
     // MARK: Instance properties

@@ -11,28 +11,10 @@ import Combine
 
 class MetronomeViewController: UIHostingController<AnyView>, ContainerViewController {
 
-    private var metronomePublisher: MetronomePublisher
-    private var gesturesController: MetronomeGesturesController
-
-    private var cancellables: [AnyCancellable] = []
-
-
-    // MARK: Object life cycle
-
     init(with metronomePublisher: MetronomePublisher) {
-        self.metronomePublisher = metronomePublisher
-        self.gesturesController = MetronomeGesturesController(with: metronomePublisher.metronome)
-
         let viewModel = MetronomeViewModel(metronomePublisher: metronomePublisher)
-        let view = AnyView(MetronomeView().environmentObject(viewModel))
+        let view = AnyView(MetronomeView(viewModel: viewModel))
         super.init(rootView: view)
-
-        gesturesController.presentingViewController = self
-
-        cancellables.append(
-            metronomePublisher.$isRunning
-                .sink { isRunning in UIApplication.shared.isIdleTimerDisabled = isRunning }
-        )
     }
 
 

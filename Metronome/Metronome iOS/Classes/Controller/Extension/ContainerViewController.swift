@@ -9,14 +9,16 @@
 import UIKit
 
 protocol ContainerViewController: AnyObject {
-    func addChildViewController(_ viewController: UIViewController, in view: UIView)
+    func addChildViewController(_ viewController: UIViewController, in view: UIView?)
     func removeChildViewController(_ viewController: UIViewController?)
 }
 
 
 extension ContainerViewController where Self: UIViewController {
 
-    func addChildViewController(_ viewController: UIViewController, in view: UIView) {
+    func addChildViewController(_ viewController: UIViewController, in view: UIView?) {
+        guard let view = view else { return }
+
         viewController.willMove(toParent: self)
         addChild(viewController)
         view.addSubview(viewController.view)

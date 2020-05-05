@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MetronomeConfiguration {
+struct MetronomeConfiguration: Equatable {
 
     var timeSignature: TimeSignature
     var tempo: Tempo
@@ -28,9 +28,10 @@ struct MetronomeConfiguration {
     }
 
 
-    func getBmp(with frequency: TimeInterval) -> Int {
+    func getBpm(with frequency: TimeInterval) -> Int {
         let standardNoteBpm = 60 / frequency
-        return Int(standardNoteBpm) * 4 / timeSignature.noteLength.rawValue
+        let bpm = Int(standardNoteBpm) * 4 / timeSignature.noteLength.rawValue
+        return min(Tempo.maximumBpm, max(Tempo.minimumBpm, bpm))
     }
 
 
@@ -39,17 +40,7 @@ struct MetronomeConfiguration {
     }
 
 
-    mutating func setBarLength(_ length: Int) {
-        timeSignature = TimeSignature(beats: length, noteLength: timeSignature.noteLength)
-    }
-
-
-    mutating func setNotLength(_ length: TimeSignature.NoteLength) {
-        timeSignature = TimeSignature(beats: timeSignature.beats, noteLength: length)
-    }
-
-
     mutating func setTimeSignature(_ signature: TimeSignature) {
-        timeSignature = TimeSignature(beats: signature.beats, noteLength: signature.noteLength)
+        timeSignature = signature
     }
 }

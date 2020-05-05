@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MetronomeView: View {
 
-    @EnvironmentObject var viewModel: MetronomeViewModel
+    @ObservedObject var viewModel: MetronomeViewModel
 
     var body: some View {
         ZStack {
@@ -20,16 +20,5 @@ struct MetronomeView: View {
                 self.viewModel.reset()
             })
         }
-    }
-}
-
-
-struct MetronomeView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        let metronome = Metronome(with: .default)
-        let publisher = MetronomePublisher(metronome: metronome)
-        let viewModel = MetronomeViewModel(metronomePublisher: publisher)
-        return MetronomeView().environmentObject(viewModel)
     }
 }

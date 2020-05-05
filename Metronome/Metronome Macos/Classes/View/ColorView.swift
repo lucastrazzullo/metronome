@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ColorView: View {
 
-    var color: Color
+    let color: Color
 
     var body: some View {
         color.edgesIgnoringSafeArea(.all)

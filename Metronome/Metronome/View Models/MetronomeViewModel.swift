@@ -14,12 +14,14 @@ class MetronomeViewModel: ObservableObject {
     @Published private(set) var beatViewModels: [BeatViewModel] = []
     @Published private(set) var controlsViewModel: ControlsViewModel = ControlsViewModel(with: .default, isRunning: false)
 
-    var timeSignature: TimeSignature {
-        return metronome.configuration.timeSignature
+    var configuration: MetronomeConfiguration {
+        return metronome.configuration
     }
-
+    var timeSignature: TimeSignature {
+        return configuration.timeSignature
+    }
     var tempo: Tempo {
-        return metronome.configuration.tempo
+        return configuration.tempo
     }
 
     private var metronome: Metronome
@@ -52,6 +54,11 @@ class MetronomeViewModel: ObservableObject {
 
     func set(tempo: Tempo) {
         metronome.configuration.setBpm(tempo.bpm)
+    }
+
+
+    func set(configuration: MetronomeConfiguration) {
+        metronome.configuration = configuration
     }
 
 

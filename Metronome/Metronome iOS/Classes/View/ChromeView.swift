@@ -10,10 +10,10 @@ import SwiftUI
 
 struct ChromeView: View {
 
-    let model: ControlsViewModel
-
     @State var helperIsPresented = false
-    @State var helperDidAppear: () -> ()
+
+    let model: ControlsViewModel
+    let helperDidAppear: () -> ()
 
 
     // MARK: Body
@@ -36,15 +36,5 @@ struct ChromeView: View {
                 }.foregroundColor(Color.white).opacity(0.7)
             }.frame(width: nil, height: 40, alignment: .center)
         }.padding([.leading, .trailing], 24).padding([.top, .bottom], 10)
-    }
-}
-
-
-struct ChromeView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        let configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
-        let viewModel = ControlsViewModel(with: configuration, isRunning: false)
-        return ChromeView(model: viewModel, helperDidAppear: {}).background(Color.black)
     }
 }
