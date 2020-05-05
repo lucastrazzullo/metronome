@@ -25,6 +25,7 @@
 		8115EFBC235DB72200527665 /* UserDefaultBackedEntryCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115EFBB235DB72200527665 /* UserDefaultBackedEntryCache.swift */; };
 		8115EFBF235DBCF000527665 /* MetronomeCacheController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115EFBE235DBCF000527665 /* MetronomeCacheController.swift */; };
 		8115EFC1235DBF6E00527665 /* MetronomeHapticController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8115EFC0235DBF6E00527665 /* MetronomeHapticController.swift */; };
+		811BEEE22461CF4E00C5ADF7 /* MultiObservingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 811BEEE12461CF4E00C5ADF7 /* MultiObservingController.swift */; };
 		81249768234B64280047F3E3 /* TimeSignature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF05823427F6F004A8C51 /* TimeSignature.swift */; };
 		81249769234B64280047F3E3 /* Tempo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF05A234285E3004A8C51 /* Tempo.swift */; };
 		8124976A234B642C0047F3E3 /* MetronomeTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 819E341A2343678700D56E92 /* MetronomeTicker.swift */; };
@@ -68,7 +69,7 @@
 		81A71C772352455100E86256 /* TogglerGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C762352455100E86256 /* TogglerGestureController.swift */; };
 		81A71C792352477C00E86256 /* SlideTempoUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C782352477C00E86256 /* SlideTempoUpdaterGestureController.swift */; };
 		81A71C7B23524B2200E86256 /* BarLengthUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */; };
-		81A729AE235E1FDC00DD5EE6 /* GesturesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A729AD235E1FDC00DD5EE6 /* GesturesController.swift */; };
+		81A729AE235E1FDC00DD5EE6 /* MultiGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A729AD235E1FDC00DD5EE6 /* MultiGestureController.swift */; };
 		81A729B0235E21C300DD5EE6 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A729AF235E21C300DD5EE6 /* ColorView.swift */; };
 		81A8878323524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */; };
 		81A88789235250FE0071BF48 /* TapTempoUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A88788235250FE0071BF48 /* TapTempoUpdaterGestureController.swift */; };
@@ -105,7 +106,6 @@
 		81BE0C102348C926000053C6 /* TimeSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */; };
 		81BEDDE52461728800FE1D6E /* TempoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BEDDE42461728800FE1D6E /* TempoPickerViewController.swift */; };
 		81C0725523523D23009A9523 /* HelpGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0725423523D23009A9523 /* HelpGestureController.swift */; };
-		81C0725723523D7F009A9523 /* DefaultGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0725623523D7F009A9523 /* DefaultGestureController.swift */; };
 		81C0B37F23492DB700D01072 /* GesturePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C0B37E23492DB700D01072 /* GesturePickerView.swift */; };
 		81D525D02460466400F8F541 /* TempoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A69245FF16C00737786 /* TempoPickerViewModel.swift */; };
 		81D525D12460467200F8F541 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A6B245FF1FD00737786 /* Copy.swift */; };
@@ -176,6 +176,7 @@
 		8115EFBB235DB72200527665 /* UserDefaultBackedEntryCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefaultBackedEntryCache.swift; sourceTree = "<group>"; };
 		8115EFBE235DBCF000527665 /* MetronomeCacheController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeCacheController.swift; sourceTree = "<group>"; };
 		8115EFC0235DBF6E00527665 /* MetronomeHapticController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MetronomeHapticController.swift; sourceTree = "<group>"; };
+		811BEEE12461CF4E00C5ADF7 /* MultiObservingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiObservingController.swift; sourceTree = "<group>"; };
 		8124973F234B61C00047F3E3 /* MetronomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeViewController.swift; sourceTree = "<group>"; };
 		81249741234B61C00047F3E3 /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
 		8124977E234B68FF0047F3E3 /* MetronomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeView.swift; sourceTree = "<group>"; };
@@ -208,7 +209,7 @@
 		81A71C762352455100E86256 /* TogglerGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglerGestureController.swift; sourceTree = "<group>"; };
 		81A71C782352477C00E86256 /* SlideTempoUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideTempoUpdaterGestureController.swift; sourceTree = "<group>"; };
 		81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarLengthUpdaterGestureController.swift; sourceTree = "<group>"; };
-		81A729AD235E1FDC00DD5EE6 /* GesturesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturesController.swift; sourceTree = "<group>"; };
+		81A729AD235E1FDC00DD5EE6 /* MultiGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGestureController.swift; sourceTree = "<group>"; };
 		81A729AF235E21C300DD5EE6 /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
 		81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLengthUpdaterGestureController.swift; sourceTree = "<group>"; };
 		81A887862352501C0071BF48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
@@ -235,7 +236,6 @@
 		81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimeSignatureTests.swift; sourceTree = "<group>"; };
 		81BEDDE42461728800FE1D6E /* TempoPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TempoPickerViewController.swift; sourceTree = "<group>"; };
 		81C0725423523D23009A9523 /* HelpGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpGestureController.swift; sourceTree = "<group>"; };
-		81C0725623523D7F009A9523 /* DefaultGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultGestureController.swift; sourceTree = "<group>"; };
 		81C0B37E23492DB700D01072 /* GesturePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GesturePickerView.swift; sourceTree = "<group>"; };
 		81D525D524605AF600F8F541 /* ConfigurationPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPickerViewModel.swift; sourceTree = "<group>"; };
 		81E7DEAF2461964D001F4F07 /* GesturePickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GesturePickerViewModel.swift; sourceTree = "<group>"; };
@@ -319,14 +319,15 @@
 			path = Cache;
 			sourceTree = "<group>";
 		};
-		8115EFBD235DBCE100527665 /* Metronome Observers */ = {
+		8115EFBD235DBCE100527665 /* Observing Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				811BEEE12461CF4E00C5ADF7 /* MultiObservingController.swift */,
 				81E7DEB32461B58D001F4F07 /* MetronomeApplicationSettingsController.swift */,
 				8115EFC0235DBF6E00527665 /* MetronomeHapticController.swift */,
 				8115EFBE235DBCF000527665 /* MetronomeCacheController.swift */,
 			);
-			path = "Metronome Observers";
+			path = "Observing Controllers";
 			sourceTree = "<group>";
 		};
 		81249754234B620D0047F3E3 /* Metronome */ = {
@@ -435,19 +436,18 @@
 			path = Extension;
 			sourceTree = "<group>";
 		};
-		81A71C7D23524B7A00E86256 /* Gesture Controller */ = {
+		81A71C7D23524B7A00E86256 /* Gesture Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				81A729AD235E1FDC00DD5EE6 /* GesturesController.swift */,
-				81C0725623523D7F009A9523 /* DefaultGestureController.swift */,
-				81C0725423523D23009A9523 /* HelpGestureController.swift */,
+				81A729AD235E1FDC00DD5EE6 /* MultiGestureController.swift */,
 				81A71C762352455100E86256 /* TogglerGestureController.swift */,
+				81C0725423523D23009A9523 /* HelpGestureController.swift */,
 				81A71C782352477C00E86256 /* SlideTempoUpdaterGestureController.swift */,
 				81A88788235250FE0071BF48 /* TapTempoUpdaterGestureController.swift */,
 				81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */,
 				81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */,
 			);
-			path = "Gesture Controller";
+			path = "Gesture Controllers";
 			sourceTree = "<group>";
 		};
 		81AB357D234CB118004C1BCD /* Frameworks */ = {
@@ -633,15 +633,15 @@
 			isa = PBXGroup;
 			children = (
 				81A71C7C23524B5900E86256 /* Extension */,
-				81A71C7D23524B7A00E86256 /* Gesture Controller */,
-				8115EFBD235DBCE100527665 /* Metronome Observers */,
+				8115EFBD235DBCE100527665 /* Observing Controllers */,
+				81A71C7D23524B7A00E86256 /* Gesture Controllers */,
 				81FAF03223427ED1004A8C51 /* MainViewController.swift */,
-				81E7FDC623573C7A00C20444 /* TipsViewController.swift */,
-				81E7FDC02357293600C20444 /* WelcomeViewController.swift */,
 				81FAF06023429A24004A8C51 /* MetronomeViewController.swift */,
 				81BEDDE42461728800FE1D6E /* TempoPickerViewController.swift */,
 				81A8878A235257770071BF48 /* TapTempoPickerViewController.swift */,
 				8166679723451E7F002DC01A /* TimeSignaturePickerViewController.swift */,
+				81E7FDC623573C7A00C20444 /* TipsViewController.swift */,
+				81E7FDC02357293600C20444 /* WelcomeViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -945,13 +945,12 @@
 				817EFA4E2355C948004E774D /* TipView.swift in Sources */,
 				81A71C792352477C00E86256 /* SlideTempoUpdaterGestureController.swift in Sources */,
 				810701A2245F2E78003D0B54 /* Metronome.swift in Sources */,
-				81C0725723523D7F009A9523 /* DefaultGestureController.swift in Sources */,
 				8169EE5B235E1D4300DAD7BB /* BeatsView.swift in Sources */,
 				8115EFBC235DB72200527665 /* UserDefaultBackedEntryCache.swift in Sources */,
 				8115EFB3235DB24100527665 /* ConfigurationCache.swift in Sources */,
 				81B3F07D245F54F000626E93 /* BeatViewModel.swift in Sources */,
 				81C0725523523D23009A9523 /* HelpGestureController.swift in Sources */,
-				81A729AE235E1FDC00DD5EE6 /* GesturesController.swift in Sources */,
+				81A729AE235E1FDC00DD5EE6 /* MultiGestureController.swift in Sources */,
 				81E7FDC12357293600C20444 /* WelcomeViewController.swift in Sources */,
 				817EFA4C2355C60E004E774D /* BrandFont.swift in Sources */,
 				81FAF06123429A24004A8C51 /* MetronomeViewController.swift in Sources */,
@@ -981,6 +980,7 @@
 				81FAF03123427ED1004A8C51 /* SceneDelegate.swift in Sources */,
 				81249772234B64420047F3E3 /* TimeSignature.swift in Sources */,
 				81A71C7B23524B2200E86256 /* BarLengthUpdaterGestureController.swift in Sources */,
+				811BEEE22461CF4E00C5ADF7 /* MultiObservingController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,23 +10,25 @@ import UIKit
 
 class MainViewController: UIViewController, ContainerViewController {
 
-    private let metronomeApplicationSettingsController: MetronomeApplicationSettingsController
-    private let metronomeHapticController: MetronomeHapticController
-    private let metronomeCacheController: MetronomeCacheController
+    private let observerControllers: MultiObservingController
+    private let gestureControllers: MultiGestureController
 
     private let metronome: Metronome
     private let metronomePublisher: MetronomePublisher
+
+    private let cache: ConfigurationCache
 
 
     //  MARK: Object life cycle
 
     required init?(coder: NSCoder) {
-        metronomeApplicationSettingsController = MetronomeApplicationSettingsController()
-        metronomeHapticController = MetronomeHapticController()
-        metronomeCacheController = MetronomeCacheController(entry: UserDefaultBackedEntryCache())
+        cache = ConfigurationCache(entry: UserDefaultBackedEntryCache())
 
-        metronome = Metronome(with: metronomeCacheController.cachedConfiguration())
+        metronome = Metronome(with: cache.configuration)
         metronomePublisher = MetronomePublisher(metronome: metronome)
+
+        observerControllers = MultiObservingController(cache: cache)
+        gestureControllers = MultiGestureController(metronome: metronome)
 
         super.init(coder: coder)
     }
@@ -37,9 +39,8 @@ class MainViewController: UIViewController, ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        metronomeHapticController.set(publisher: metronomePublisher)
-        metronomeCacheController.set(publisher: metronomePublisher)
-        metronomeApplicationSettingsController.set(publisher: metronomePublisher)
+        observerControllers.set(publisher: metronomePublisher)
+        gestureControllers.set(rootViewController: self)
 
         let metronomeViewController = MetronomeViewController(with: metronomePublisher)
         addChildViewController(metronomeViewController, in: view)

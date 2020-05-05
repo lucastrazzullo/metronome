@@ -31,7 +31,7 @@ class BarLengthPickerViewModel: GesturePickerViewModel {
     // MARK: Public methods
 
     func apply(barLength offset: Int) {
-        let beats = initialTimeSignature.beats + (offset / 32)
+        let beats = max(TimeSignature.minimumBarLength, min(TimeSignature.maximumBarLength, initialTimeSignature.beats + (offset / 32)))
         selectedTimeSignature = TimeSignature(beats: beats, noteLength: initialTimeSignature.noteLength)
         heroLabel = String(beats)
     }

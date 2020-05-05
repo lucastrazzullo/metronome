@@ -14,6 +14,8 @@ class SlideTempoPickerViewModel: GesturePickerViewModel {
     private let initialBpm: Int
 
 
+    // MARK: Object life cycle
+
     init(bpm: Int) {
         selectedTempoBpm = bpm
         initialBpm = bpm
@@ -29,7 +31,7 @@ class SlideTempoPickerViewModel: GesturePickerViewModel {
     // MARK: Public methods
 
     func apply(offset: Int) {
-        let bpm = initialBpm + offset
+        let bpm = min(Tempo.maximumBpm, max(Tempo.minimumBpm, initialBpm + offset))
         selectedTempoBpm = bpm
         heroLabel = String(bpm)
     }

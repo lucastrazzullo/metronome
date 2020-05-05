@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class MetronomeApplicationSettingsController {
+class MetronomeApplicationSettingsController: ObservingController {
 
     private var cancellables = [AnyCancellable]()
 

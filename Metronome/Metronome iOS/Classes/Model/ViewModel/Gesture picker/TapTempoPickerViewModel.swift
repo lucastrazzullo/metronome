@@ -12,11 +12,14 @@ class TapTempoPickerViewModel: GesturePickerViewModel {
 
     @Published private(set) var selectedTempoBpm: Int?
     private var tapTimestamps: [TimeInterval] = []
+    private let initialConfiguration: MetronomeConfiguration
 
 
     // MARK: Object life cycle
 
-    init() {
+    init(configuration: MetronomeConfiguration) {
+        initialConfiguration = configuration
+
         let value = Copy.Picker.TapTempo.valuePlaceholder.localised
         let background = Palette.green
         let title = Copy.Picker.TapTempo.title.localised
@@ -28,9 +31,10 @@ class TapTempoPickerViewModel: GesturePickerViewModel {
     // MARK: Public methods
 
     func apply(newTapWith timestamp: TimeInterval) {
-        if let frequency = getFrequency() {
-            selectedTempoBpm = Int(frequency)
-            heroLabel = String(frequency)
+        if let frequency = getFrequency(withNew: timestamp) {
+            let bpm = initialConfiguration.getBpm(with: frequency)
+            selectedTempoBpm = bpm
+            heroLabel = String(bpm)
         } else {
             selectedTempoBpm = nil
             heroLabel = Copy.Picker.TapTempo.valuePlaceholder.localised

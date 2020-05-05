@@ -55,10 +55,7 @@ class WelcomeViewController: UIContainerViewController {
 
 
     private func present() {
-        let tips = TipsViewModelRepository.all
-        let viewModel = WelcomeViewModel(tips: tips)
-        let view = TipsView(model: viewModel, dismiss: dismiss)
-        let viewController = TipsViewController(rootView: view)
+        let viewController = TipsViewController(completion: dismiss)
         self.helpViewController = viewController
         present(viewController, animated: true, completion: nil)
     }

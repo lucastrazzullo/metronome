@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class MetronomeCacheController {
+class MetronomeCacheController: ObservingController {
 
     private let configurationCache: ConfigurationCache
 
@@ -18,24 +18,12 @@ class MetronomeCacheController {
 
     // MARK: Object life cycle
 
-    init(entry: EntryCache) {
-        configurationCache = ConfigurationCache(entry: entry)
+    init(cache: ConfigurationCache) {
+        self.configurationCache = cache
     }
 
 
     // MARK: Public methods
-
-    func cachedConfiguration() -> MetronomeConfiguration {
-        var configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
-        if let barLength = configurationCache.barLength, let noteLength = configurationCache.noteLength {
-            configuration.timeSignature = TimeSignature(beats: barLength, noteLength: noteLength)
-        }
-        if let bpm = configurationCache.bpm {
-            configuration.tempo = Tempo(bpm: bpm)
-        }
-        return configuration
-    }
-
 
     func set(publisher: MetronomePublisher) {
         cancellable = publisher.$configuration.sink { [weak self] configuration in
