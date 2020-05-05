@@ -7,8 +7,12 @@
 //
 
 import UIKit
+import Combine
 
-class BarLengthUpdaterGestureController: DefaultGestureController<TimeSignatureUpdaterViewController> {
+class BarLengthUpdaterGestureController: DefaultGestureController<TimeSignaturePickerViewController> {
+
+    private var viewModel: BarLengthPickerViewModel!
+
 
     // MARK: Object life cycle
 
@@ -24,27 +28,39 @@ class BarLengthUpdaterGestureController: DefaultGestureController<TimeSignatureU
 
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
-
-        let viewController = TimeSignatureUpdaterViewController(timeSignature: metronome.configuration.timeSignature)
-        addChildViewController(viewController)
+        presentTimeSignaturePicker()
     }
 
 
     override func handleGestureChanged(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureChanged(for: gestureRecogniser)
-
         if let gestureRecogniser = gestureRecogniser as? UIPanGestureRecognizer {
-            presentedViewController?.updateBarLength(with: Int(gestureRecogniser.translation(in: gestureRecogniser.view).x))
+            updateBarLength(with: gestureRecogniser.translation(in: gestureRecogniser.view).x)
         }
     }
 
 
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
+        complete()
+    }
 
-        if let timeSignature = presentedViewController?.timeSignature {
-            metronome.configuration.timeSignature = timeSignature
-        }
+
+    // MARK: Private helper methods
+
+    private func presentTimeSignaturePicker() {
+        viewModel = BarLengthPickerViewModel(timeSignature: metronome.configuration.timeSignature)
+        addChildViewController(TimeSignaturePickerViewController(viewModel: viewModel))
+    }
+
+
+    private func updateBarLength(with offset: CGFloat) {
+        viewModel.apply(barLength: Int(offset))
+    }
+
+
+    private func complete() {
+        metronome.configuration.setTimeSignature(viewModel.selectedTimeSignature)
         removeChildViewController()
     }
 }

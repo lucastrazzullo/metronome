@@ -1,16 +1,16 @@
 //
-//  TempoPickerViewController.swift
-//  Metronome
+//  TapTempoPickerViewController.swift
+//  Metronome iOS
 //
-//  Created by luca strazzullo on 1/10/19.
+//  Created by luca strazzullo on 12/10/19.
 //  Copyright © 2019 luca strazzullo. All rights reserved.
 //
 
 import SwiftUI
 
-class TempoPickerViewController: UIHostingController<GesturePickerView> {
+class TapTempoPickerViewController: UIHostingController<GesturePickerView> {
 
-    init(viewModel: SlideTempoPickerViewModel) {
+    init(viewModel: TapTempoPickerViewModel) {
         super.init(rootView: GesturePickerView(viewModel: viewModel))
     }
 

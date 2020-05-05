@@ -9,18 +9,9 @@
 import SwiftUI
 import Combine
 
-protocol GesturePickerViewModel {
-    var backgroundColor: Palette { get }
-    var titleLabel: String { get }
-    var prefixLabel: String { get }
-    var suffixLabel: String { get }
-    var heroLabel: String { get }
-}
-
-
 struct GesturePickerView: View {
 
-    var viewModel: GesturePickerViewModel
+    @ObservedObject private(set) var viewModel: GesturePickerViewModel
 
     var body: some View {
         ZStack {
@@ -31,9 +22,9 @@ struct GesturePickerView: View {
                     Spacer()
                 }
                 HStack(alignment: .center, spacing: 4) {
-                    Text(viewModel.prefixLabel).brandFont(.body)
+                    Text(viewModel.prefixLabel ?? "").brandFont(.body)
                     Text(viewModel.heroLabel).brandFont(.largeTitle)
-                    Text(viewModel.suffixLabel).brandFont(.body)
+                    Text(viewModel.suffixLabel ?? "").brandFont(.body)
                 }
             }
         }

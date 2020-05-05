@@ -20,6 +20,17 @@ struct TimeSignature: Equatable {
         static var `default`: NoteLength {
             return .quarter
         }
+
+        func with(offset: Int) -> NoteLength {
+            let allCases = NoteLength.allCases
+            if let index = allCases.firstIndex(of: self), index + offset >= 0, index + offset < allCases.count {
+                return allCases[index + offset]
+            } else if offset > 0 {
+                return allCases[allCases.count - 1]
+            } else {
+                return allCases[0]
+            }
+        }
     }
 
     static let minimumBarLength = 1

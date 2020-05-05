@@ -10,6 +10,9 @@ import UIKit
 
 class SlideTempoUpdaterGestureController: DefaultGestureController<TempoPickerViewController> {
 
+    private var viewModel: SlideTempoPickerViewModel!
+
+
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
@@ -24,27 +27,39 @@ class SlideTempoUpdaterGestureController: DefaultGestureController<TempoPickerVi
 
     override func handleGestureBegan(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureBegan(for: gestureRecogniser)
-
-        let viewController = TempoPickerViewController(bpm: metronome.configuration.tempo.bpm)
-        addChildViewController(viewController)
+        presentTempoePicker()
     }
 
 
     override func handleGestureChanged(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureChanged(for: gestureRecogniser)
-
         if let gestureRecogniser = gestureRecogniser as? UIPanGestureRecognizer {
-            presentedViewController?.updateBpm(with: Int(-gestureRecogniser.translation(in: gestureRecogniser.view).y / 8))
+            updateTempo(with: -gestureRecogniser.translation(in: gestureRecogniser.view).y / 8)
         }
     }
 
 
     override func handleGestureEnded(for gestureRecogniser: UIGestureRecognizer) {
         super.handleGestureEnded(for: gestureRecogniser)
+        complete()
+    }
 
-        if let bpm = presentedViewController?.bpm {
-            metronome.configuration.setBpm(bpm)
-        }
+
+    // MARK: Private helper methods
+
+    private func presentTempoePicker() {
+        viewModel = SlideTempoPickerViewModel(bpm: metronome.configuration.tempo.bpm)
+        addChildViewController(TempoPickerViewController(viewModel: viewModel))
+    }
+
+
+    private func updateTempo(with offset: CGFloat) {
+        viewModel.apply(offset: Int(offset))
+    }
+
+
+    private func complete() {
+        metronome.configuration.setBpm(viewModel.selectedTempoBpm)
         removeChildViewController()
     }
 }
