@@ -10,6 +10,7 @@ import UIKit
 
 class MainViewController: UIViewController, ContainerViewController {
 
+    private let metronomeApplicationSettingsController: MetronomeApplicationSettingsController
     private let metronomeHapticController: MetronomeHapticController
     private let metronomeCacheController: MetronomeCacheController
 
@@ -20,6 +21,7 @@ class MainViewController: UIViewController, ContainerViewController {
     //  MARK: Object life cycle
 
     required init?(coder: NSCoder) {
+        metronomeApplicationSettingsController = MetronomeApplicationSettingsController()
         metronomeHapticController = MetronomeHapticController()
         metronomeCacheController = MetronomeCacheController(entry: UserDefaultBackedEntryCache())
 
@@ -37,7 +39,7 @@ class MainViewController: UIViewController, ContainerViewController {
 
         metronomeHapticController.set(publisher: metronomePublisher)
         metronomeCacheController.set(publisher: metronomePublisher)
-
+        metronomeApplicationSettingsController.set(publisher: metronomePublisher)
 
         let metronomeViewController = MetronomeViewController(with: metronomePublisher)
         addChildViewController(metronomeViewController, in: view)

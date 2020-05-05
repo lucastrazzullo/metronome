@@ -27,14 +27,12 @@ class GesturesController {
     private var gestureControllers: [GestureController] = []
 
 
-    // MARK: Object life cycle
+    // MARK: Public methods
 
-    init(with controllers: [GestureController]) {
+    func addGestureControllers(_ controllers: [GestureController]) {
         controllers.forEach(addGestureController(_:))
     }
 
-
-    // MARK: Public methods
 
     func addGestureController(_ gestureController: GestureController) {
         gestureController.presentingViewController = presentingViewController
