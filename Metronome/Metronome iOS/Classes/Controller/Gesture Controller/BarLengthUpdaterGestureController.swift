@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class BarLengthUpdaterGestureController: DefaultGestureController<TimeSignaturePickerViewController> {
+class BarLengthUpdaterGestureController: DefaultGestureController {
 
     private var viewModel: BarLengthPickerViewModel!
 

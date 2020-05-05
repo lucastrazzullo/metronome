@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NoteLengthUpdaterGestureController: DefaultGestureController<TimeSignaturePickerViewController> {
+class NoteLengthUpdaterGestureController: DefaultGestureController {
 
     private var viewModel: NoteLengthPickerViewModel!
 

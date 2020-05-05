@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SlideTempoUpdaterGestureController: DefaultGestureController<TempoPickerViewController> {
+class SlideTempoUpdaterGestureController: DefaultGestureController {
 
     private var viewModel: SlideTempoPickerViewModel!
 

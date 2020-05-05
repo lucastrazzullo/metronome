@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class TapTempoUpdaterGestureController: DefaultGestureController<TapTempoPickerViewController> {
+class TapTempoUpdaterGestureController: DefaultGestureController {
 
     private var viewModel: TapTempoPickerViewModel!
 

@@ -8,9 +8,9 @@
 
 import UIKit
 
-class DefaultGestureController<PresentedControllerType: UIViewController>: NSObject, GestureController {
+class DefaultGestureController: NSObject, GestureController {
 
-    weak var presentedViewController: PresentedControllerType? {
+    weak var presentedViewController: UIViewController? {
         didSet {
             metronome.reset()
         }
@@ -87,7 +87,7 @@ class DefaultGestureController<PresentedControllerType: UIViewController>: NSObj
 
     // MARK: Presentation
 
-    func addChildViewController(_ viewController: PresentedControllerType) {
+    func addChildViewController(_ viewController: UIViewController) {
         if let presentingViewController = presentingViewController {
             presentingViewController.addChildViewController(viewController, in: presentingViewController.view)
             presentedViewController = viewController
@@ -95,7 +95,7 @@ class DefaultGestureController<PresentedControllerType: UIViewController>: NSObj
     }
 
 
-    func presentViewController(_ viewController: PresentedControllerType) {
+    func presentViewController(_ viewController: UIViewController) {
         if let presentingViewController = presentingViewController {
             presentingViewController.present(viewController, animated: true, completion: nil)
             presentedViewController = viewController

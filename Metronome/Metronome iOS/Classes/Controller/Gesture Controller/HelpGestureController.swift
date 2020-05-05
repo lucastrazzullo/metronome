@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HelpGestureController: DefaultGestureController<TipsViewController> {
+class HelpGestureController: DefaultGestureController {
 
     // MARK: Object life cycle
 
