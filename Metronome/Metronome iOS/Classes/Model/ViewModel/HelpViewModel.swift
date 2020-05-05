@@ -10,7 +10,7 @@ import Foundation
 
 struct HelpViewModel: TipsViewModel {
 
-    let titleLabel: String = NSLocalizedString("help.title", comment: "")
+    let titleLabel: String = Copy.Tips.title.localised
 
     private(set) var tips: [TipViewModel]
 

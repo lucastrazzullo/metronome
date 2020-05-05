@@ -28,23 +28,57 @@ extension CopyIdentifier where Self: RawRepresentable, Self.RawValue == String {
 struct Copy {
 
     enum Tempo: String, CopyIdentifier {
-        case suffix = "metronome.tempo.suffix"
-
-        enum Picker: String, CopyIdentifier {
-            case title = "metronome.tempo.picker.title"
-        }
+        case title = "metronome.tempo.title"
+        case unit = "metronome.tempo.unit"
     }
 
     enum TimeSignature: String, CopyIdentifier {
-        case barLength = "metronome.time_signature.bar_length.picker.title"
-        case noteLength = "metronome.time_signature.note_length.picker.title"
+        case title = "metronome.time_signature.title"
+        case format = "metronome.time_signature.representation.format"
 
-        enum Picker: String, CopyIdentifier {
-            case title = "metronome.time_signature.picker.title"
+        case barLength = "metronome.time_signature.bar_length.title"
+        case barLengthSuffixFormat = "metronome.time_signature.bar_length.suffix.format"
+
+        case noteLength = "metronome.time_signature.note_length.title"
+        case noteLengthPrefixFormat = "metronome.time_signature.note_length.prefix.format"
+    }
+
+    enum Controls: String, CopyIdentifier {
+        case confirm = "controls.confirm"
+        case start = "controls.start"
+        case reset = "controls.reset"
+    }
+
+    enum Picker {
+        enum TapTempo: String, CopyIdentifier {
+            case title = "metronome.picker.tap_tempo.title"
+            case valuePlaceholder = "metronome.picker.tap_tempo.value.placeholder"
         }
     }
 
-    enum Action: String, CopyIdentifier {
-        case confirm = "action.confirm"
+    enum Welcome: String, CopyIdentifier {
+        case title = "welcome.title"
+    }
+
+    enum Tips: String, CopyIdentifier {
+        case title = "tips.title"
+
+        case swipeUpTitle = "tips.swipeUp.title"
+        case swipeUpDescription = "tips.swipeUp.description"
+
+        case toggleTitle = "tips.toggle.title"
+        case toggleDescription = "tips.toggle.description"
+
+        case verticalSlideTitle = "tips.vertical_slide.title"
+        case verticalSlideDescription = "tips.vertical_slide.description"
+
+        case horizontalSlideTitle = "tips.horizontal_slide.title"
+        case horizontalSlideDescription = "tips.horizontal_slide.description"
+
+        case pinchTitle = "tips.pinch.title"
+        case pinchDescription = "tips.pinch.description"
+
+        case longPressTitle = "tips.long_press.title"
+        case longPressDescription = "tips.long_press.description"
     }
 }

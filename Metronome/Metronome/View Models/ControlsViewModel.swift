@@ -18,8 +18,8 @@ struct ControlsViewModel {
     // MARK: Object life cycle
 
     init(with configuration: MetronomeConfiguration, isRunning: Bool) {
-        self.timeSignatureLabel = String(format: NSLocalizedString("metronome.time_signature.format", comment: ""), configuration.timeSignature.beats, configuration.timeSignature.noteLength.rawValue)
-        self.tempoLabel = String(format: "%d%@", configuration.tempo.bpm, NSLocalizedString("metronome.tempo.suffix", comment: "").uppercased())
-        self.toggleLabel = isRunning ? "Reset" : "Start"
+        self.timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, configuration.timeSignature.beats, configuration.timeSignature.noteLength.rawValue)
+        self.tempoLabel = "\(configuration.tempo.bpm)\(Copy.Tempo.unit.localised.uppercased())"
+        self.toggleLabel = isRunning ? Copy.Controls.reset.localised : Copy.Controls.start.localised
     }
 }

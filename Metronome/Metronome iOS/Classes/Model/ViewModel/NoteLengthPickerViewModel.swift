@@ -18,8 +18,8 @@ struct NoteLengthPickerViewModel: GesturePickerViewModel {
 
     init(timeSignature: TimeSignature) {
         backgroundColor = .purple
-        titleLabel = NSLocalizedString("metronome.time_signature.note_length.picker.title", comment: "")
-        prefixLabel = String(format: NSLocalizedString("metronome.time_signature.note_length.picker.prefix.format", comment: ""), timeSignature.beats)
+        titleLabel = Copy.TimeSignature.noteLength.localised
+        prefixLabel = String(format: Copy.TimeSignature.noteLengthPrefixFormat.localised, timeSignature.beats)
         suffixLabel = ""
         heroLabel = String(timeSignature.noteLength.rawValue)
     }

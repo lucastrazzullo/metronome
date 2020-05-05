@@ -11,7 +11,7 @@ import Foundation
 struct WelcomeViewModel: TipsViewModel {
 
     private(set) var tips: [TipViewModel]
-    let titleLabel: String = NSLocalizedString("welcome.title", comment: "")
+    let titleLabel: String = Copy.Welcome.title.localised
 
 
     // MARK: Getter methods

@@ -18,9 +18,9 @@ struct BarLengthPickerViewModel: GesturePickerViewModel {
 
     init(timeSignature: TimeSignature) {
         backgroundColor = .orange
-        titleLabel = NSLocalizedString("metronome.time_signature.bar_length.picker.title", comment: "")
+        titleLabel = Copy.TimeSignature.barLength.localised
         prefixLabel = ""
-        suffixLabel = String(format: NSLocalizedString("metronome.time_signature.bar_length.picker.suffix.format", comment: ""), timeSignature.noteLength.rawValue)
+        suffixLabel = String(format: Copy.TimeSignature.barLengthSuffixFormat.localised, timeSignature.noteLength.rawValue)
         heroLabel = String(timeSignature.beats)
     }
 }

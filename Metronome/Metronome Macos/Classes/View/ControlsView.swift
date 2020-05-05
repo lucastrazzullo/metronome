@@ -37,16 +37,16 @@ struct ConfigurationPickerView: View {
     var body: some View {
         HStack(alignment: .bottom, spacing: 48) {
             VStack(alignment: .leading, spacing: nil) {
-                Text(Copy.Tempo.Picker.title.localised)
+                Text(Copy.Tempo.title.localised)
                 Picker(selection: self.$viewModel.tempoPickerViewModel.selectedTempoItem,
-                   label: Text(Copy.Tempo.suffix.localised)) {
+                   label: Text(Copy.Tempo.unit.localised)) {
                     ForEach(self.viewModel.tempoPickerViewModel.tempoItems, id: \.self) { item in
                         Text(item.label)
                     }
                 }
             }
             VStack(alignment: .leading, spacing: nil) {
-                Text(Copy.TimeSignature.Picker.title.localised)
+                Text(Copy.TimeSignature.title.localised)
                 HStack {
                     Picker(selection: self.$viewModel.timeSignaturePickerViewModel.selectedBarLength,
                            label: Text(Copy.TimeSignature.barLength.localised)) {
@@ -63,7 +63,7 @@ struct ConfigurationPickerView: View {
                 }
             }
             Button(action: { self.completion(self.viewModel.selectedConfiguration)},
-                   label: { Text(Copy.Action.confirm.localised) })
+                   label: { Text(Copy.Controls.confirm.localised) })
                 .disabled(!viewModel.confirmationEnabled)
         }
     }

@@ -18,13 +18,13 @@ struct TapTempoPickerViewModel: GesturePickerViewModel {
 
     init(bpm: Int?) {
         backgroundColor = .green
-        titleLabel = NSLocalizedString("metronome.tempo.picker.tap.title", comment: "")
+        titleLabel = Copy.Picker.TapTempo.title.localised
         prefixLabel = ""
-        suffixLabel = NSLocalizedString("metronome.tempo.suffix", comment: "")
+        suffixLabel = Copy.Tempo.unit.localised
         if let bpm = bpm {
             heroLabel = String(bpm)
         } else {
-            heroLabel = NSLocalizedString("metronome.tempo.picker.tap.hero.placeholder", comment: "")
+            heroLabel = Copy.Picker.TapTempo.valuePlaceholder.localised
         }
     }
 }

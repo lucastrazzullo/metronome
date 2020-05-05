@@ -18,9 +18,9 @@ struct SlideTempoPickerViewModel: GesturePickerViewModel {
 
     init(bpm: Int) {
         backgroundColor = .yellow
-        titleLabel = NSLocalizedString("metronome.tempo.picker.title", comment: "")
+        titleLabel = Copy.Tempo.title.localised
         prefixLabel = ""
-        suffixLabel = NSLocalizedString("metronome.tempo.suffix", comment: "")
+        suffixLabel = Copy.Tempo.unit.localised
         heroLabel = String(bpm)
     }
 }
