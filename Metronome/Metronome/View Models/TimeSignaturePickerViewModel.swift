@@ -35,7 +35,7 @@ class TimeSignaturePickerViewModel: ObservableObject {
     // MARK: Object life cycle
 
     init(timeSignature: TimeSignature) {
-        barLengthItems = (TimeSignature.barLengthRange).map(Item.init)
+        barLengthItems = TimeSignature.barLengthRange.map(Item.init)
         noteLengthItems = TimeSignature.NoteLength.allCases.map({ $0.rawValue }).map(Item.init)
 
         selectedBarLength = Item(length: timeSignature.beats)
