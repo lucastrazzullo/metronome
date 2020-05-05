@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MetronomeView: View {
 
-    @EnvironmentObject var viewModel: MetronomeViewModel
+    @ObservedObject var viewModel: MetronomeViewModel
 
     var body: some View {
         ZStack {

@@ -319,13 +319,13 @@
 			path = Cache;
 			sourceTree = "<group>";
 		};
-		8115EFBD235DBCE100527665 /* Metronome Observer */ = {
+		8115EFBD235DBCE100527665 /* Metronome Observers */ = {
 			isa = PBXGroup;
 			children = (
 				8115EFC0235DBF6E00527665 /* MetronomeHapticController.swift */,
 				8115EFBE235DBCF000527665 /* MetronomeCacheController.swift */,
 			);
-			path = "Metronome Observer";
+			path = "Metronome Observers";
 			sourceTree = "<group>";
 		};
 		81249754234B620D0047F3E3 /* Metronome */ = {
@@ -634,7 +634,7 @@
 			children = (
 				81A71C7C23524B5900E86256 /* Extension */,
 				81A71C7D23524B7A00E86256 /* Gesture Controller */,
-				8115EFBD235DBCE100527665 /* Metronome Observer */,
+				8115EFBD235DBCE100527665 /* Metronome Observers */,
 				81FAF03223427ED1004A8C51 /* MainViewController.swift */,
 				81E7FDC623573C7A00C20444 /* TipsViewController.swift */,
 				81E7FDC02357293600C20444 /* WelcomeViewController.swift */,

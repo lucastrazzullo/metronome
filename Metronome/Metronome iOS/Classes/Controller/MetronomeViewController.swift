@@ -24,7 +24,7 @@ class MetronomeViewController: UIHostingController<AnyView>, ContainerViewContro
         self.gesturesController = DefaultGesturesController(with: metronomePublisher.metronome)
 
         let viewModel = MetronomeViewModel(metronomePublisher: metronomePublisher)
-        let view = AnyView(MetronomeView().environmentObject(viewModel))
+        let view = AnyView(MetronomeView(viewModel: viewModel))
         super.init(rootView: view)
 
         gesturesController.presentingViewController = self
