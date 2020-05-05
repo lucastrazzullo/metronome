@@ -1,5 +1,5 @@
 //
-//  MetronomeGesturesController.swift
+//  DefaultGesturesController.swift
 //  Metronome
 //
 //  Created by luca strazzullo on 5/10/19.
@@ -8,12 +8,12 @@
 
 import Foundation
 
-class MetronomeGesturesController: GesturesController {
+class DefaultGesturesController: GesturesController {
 
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
-        super.init(with: MetronomeGesturesController.buildControllers(with: metronome))
+        super.init(with: DefaultGesturesController.buildControllers(with: metronome))
     }
 
 

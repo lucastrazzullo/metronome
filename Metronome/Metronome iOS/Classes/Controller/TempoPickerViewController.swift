@@ -1,5 +1,5 @@
 //
-//  OffsetTempoUpdaterViewController.swift
+//  TempoPickerViewController.swift
 //  Metronome
 //
 //  Created by luca strazzullo on 1/10/19.
@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-class OffsetTempoUpdaterViewController: UIHostingController<GesturePickerView> {
+class TempoPickerViewController: UIHostingController<GesturePickerView> {
 
     private var initialBpm: Int
     private(set) var bpm: Int
@@ -19,7 +19,10 @@ class OffsetTempoUpdaterViewController: UIHostingController<GesturePickerView> {
     init(bpm: Int) {
         self.initialBpm = bpm
         self.bpm = bpm
-        super.init(rootView: GesturePickerView(model: SlideTempoPickerViewModel(bpm: bpm)))
+
+        let viewModel = SlideTempoPickerViewModel(bpm: bpm)
+        let view = GesturePickerView(viewModel: viewModel)
+        super.init(rootView: view)
     }
 
 
@@ -32,6 +35,6 @@ class OffsetTempoUpdaterViewController: UIHostingController<GesturePickerView> {
 
     func updateBpm(with offset: Int) {
         bpm = initialBpm + offset
-        rootView.model = SlideTempoPickerViewModel(bpm: bpm)
+        rootView.viewModel = SlideTempoPickerViewModel(bpm: bpm)
     }
 }

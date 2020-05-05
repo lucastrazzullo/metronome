@@ -19,7 +19,7 @@ class TapTempoUpdaterViewController: UIHostingController<GesturePickerView> {
 
     private var tapTimestamps: [TimeInterval] = [] {
         didSet {
-            rootView.model = TapTempoPickerViewModel(bpm: delegate?.tapTempoUpdaterViewController(self, bpmFor: tapTimestamps))
+            rootView.viewModel = TapTempoPickerViewModel(bpm: delegate?.tapTempoUpdaterViewController(self, bpmFor: tapTimestamps))
         }
     }
 
@@ -27,7 +27,9 @@ class TapTempoUpdaterViewController: UIHostingController<GesturePickerView> {
     // MARK: Object life cycle
 
     init() {
-        super.init(rootView: GesturePickerView(model: TapTempoPickerViewModel(bpm: nil)))
+        let viewModel = TapTempoPickerViewModel(bpm: nil)
+        let view = GesturePickerView(viewModel: viewModel)
+        super.init(rootView: view)
     }
 
 

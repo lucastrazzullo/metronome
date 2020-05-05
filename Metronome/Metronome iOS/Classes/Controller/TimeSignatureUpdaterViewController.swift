@@ -19,7 +19,9 @@ class TimeSignatureUpdaterViewController: UIHostingController<GesturePickerView>
     init(timeSignature: TimeSignature) {
         self.initialTimeSignature = timeSignature
         self.timeSignature = timeSignature
-        super.init(rootView: GesturePickerView(model: BarLengthPickerViewModel(timeSignature: timeSignature)))
+        let viewModel = BarLengthPickerViewModel(timeSignature: timeSignature)
+        let view = GesturePickerView(viewModel: viewModel)
+        super.init(rootView: view)
     }
 
 
@@ -32,7 +34,7 @@ class TimeSignatureUpdaterViewController: UIHostingController<GesturePickerView>
 
     func updateBarLength(with offset: Int) {
         timeSignature = TimeSignature(beats: initialTimeSignature.beats + (offset / 32), noteLength: initialTimeSignature.noteLength)
-        rootView.model = BarLengthPickerViewModel(timeSignature: timeSignature)
+        rootView.viewModel = BarLengthPickerViewModel(timeSignature: timeSignature)
     }
 
 
@@ -40,7 +42,7 @@ class TimeSignatureUpdaterViewController: UIHostingController<GesturePickerView>
         let noteLengths = TimeSignature.NoteLength.allCases
         if let currentIndex = noteLengths.firstIndex(of: initialTimeSignature.noteLength), currentIndex + offset >= 0, currentIndex + offset < noteLengths.count {
             timeSignature = TimeSignature(beats: initialTimeSignature.beats, noteLength: noteLengths[currentIndex + offset])
-            rootView.model = NoteLengthPickerViewModel(timeSignature: timeSignature)
+//            rootView.model = NoteLengthPickerViewModel(timeSignature: timeSignature)
         }
     }
 }

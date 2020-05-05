@@ -19,8 +19,8 @@ class MetronomeHapticController {
 
     // MARK: Public methods
 
-    func set(statePublisher: MetronomePublisher) {
-        cancellables.append(statePublisher.$currentBeat
+    func set(publisher: MetronomePublisher) {
+        cancellables.append(publisher.$currentBeat
             .sink(receiveValue: { [weak self] beat in
                 guard let beat = beat else { return }
                 switch beat.intensity {
@@ -31,7 +31,7 @@ class MetronomeHapticController {
                 }
             }))
 
-        cancellables.append(statePublisher.$isRunning
+        cancellables.append(publisher.$isRunning
             .sink(receiveValue: { [weak self] _ in
                 self?.selectionGenerator.selectionChanged()
             }))

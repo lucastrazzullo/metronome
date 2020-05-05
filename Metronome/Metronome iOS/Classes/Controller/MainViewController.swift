@@ -35,8 +35,8 @@ class MainViewController: UIViewController, ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        metronomeHapticController.set(statePublisher: metronomePublisher)
-        metronomeCacheController.set(statePublisher: metronomePublisher)
+        metronomeHapticController.set(publisher: metronomePublisher)
+        metronomeCacheController.set(publisher: metronomePublisher)
 
 
         let metronomeViewController = MetronomeViewController(with: metronomePublisher)

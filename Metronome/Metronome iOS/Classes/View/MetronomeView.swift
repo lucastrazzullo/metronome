@@ -22,14 +22,3 @@ struct MetronomeView: View {
         }
     }
 }
-
-
-struct MetronomeView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        let metronome = Metronome(with: .default)
-        let publisher = MetronomePublisher(metronome: metronome)
-        let viewModel = MetronomeViewModel(metronomePublisher: publisher)
-        return MetronomeView().environmentObject(viewModel)
-    }
-}

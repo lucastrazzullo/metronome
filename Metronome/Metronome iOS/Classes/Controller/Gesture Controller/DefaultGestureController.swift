@@ -1,5 +1,5 @@
 //
-//  DefaultMetronomeGestureController.swift
+//  DefaultGestureController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 12/10/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DefaultMetronomeGestureController<PresentedControllerType: UIViewController>: NSObject, GestureController {
+class DefaultGestureController<PresentedControllerType: UIViewController>: NSObject, GestureController {
 
     weak var presentedViewController: PresentedControllerType? {
         didSet {

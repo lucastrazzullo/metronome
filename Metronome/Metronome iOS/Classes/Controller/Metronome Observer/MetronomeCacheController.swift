@@ -37,8 +37,8 @@ class MetronomeCacheController {
     }
 
 
-    func set(statePublisher: MetronomePublisher) {
-        cancellable = statePublisher.$configuration.sink { [weak self] configuration in
+    func set(publisher: MetronomePublisher) {
+        cancellable = publisher.$configuration.sink { [weak self] configuration in
             self?.cacheConfigurationValues(configuration: configuration)
         }
     }

@@ -12,7 +12,7 @@ import Combine
 class MetronomeViewController: UIHostingController<AnyView>, ContainerViewController {
 
     private var metronomePublisher: MetronomePublisher
-    private var gesturesController: MetronomeGesturesController
+    private var gesturesController: DefaultGesturesController
 
     private var cancellables: [AnyCancellable] = []
 
@@ -21,7 +21,7 @@ class MetronomeViewController: UIHostingController<AnyView>, ContainerViewContro
 
     init(with metronomePublisher: MetronomePublisher) {
         self.metronomePublisher = metronomePublisher
-        self.gesturesController = MetronomeGesturesController(with: metronomePublisher.metronome)
+        self.gesturesController = DefaultGesturesController(with: metronomePublisher.metronome)
 
         let viewModel = MetronomeViewModel(metronomePublisher: metronomePublisher)
         let view = AnyView(MetronomeView().environmentObject(viewModel))
