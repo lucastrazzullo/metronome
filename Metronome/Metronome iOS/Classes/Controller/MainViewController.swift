@@ -25,7 +25,7 @@ class MainViewController: UIViewController, ContainerViewController {
         metronomeHapticController = MetronomeHapticController()
         metronomeCacheController = MetronomeCacheController(entry: UserDefaultBackedEntryCache())
 
-        metronome = Metronome(with: metronomeCacheController.buildConfigurationWithCachedValues())
+        metronome = Metronome(with: metronomeCacheController.cachedConfiguration())
         metronomePublisher = MetronomePublisher(metronome: metronome)
 
         super.init(coder: coder)

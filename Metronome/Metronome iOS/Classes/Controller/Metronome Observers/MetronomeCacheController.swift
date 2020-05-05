@@ -25,7 +25,7 @@ class MetronomeCacheController {
 
     // MARK: Public methods
 
-    func buildConfigurationWithCachedValues() -> MetronomeConfiguration {
+    func cachedConfiguration() -> MetronomeConfiguration {
         var configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
         if let barLength = configurationCache.barLength, let noteLength = configurationCache.noteLength {
             configuration.timeSignature = TimeSignature(beats: barLength, noteLength: noteLength)
