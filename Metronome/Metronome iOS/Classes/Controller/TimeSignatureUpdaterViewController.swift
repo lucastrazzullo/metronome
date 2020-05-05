@@ -42,7 +42,7 @@ class TimeSignatureUpdaterViewController: UIHostingController<GesturePickerView>
         let noteLengths = TimeSignature.NoteLength.allCases
         if let currentIndex = noteLengths.firstIndex(of: initialTimeSignature.noteLength), currentIndex + offset >= 0, currentIndex + offset < noteLengths.count {
             timeSignature = TimeSignature(beats: initialTimeSignature.beats, noteLength: noteLengths[currentIndex + offset])
-//            rootView.model = NoteLengthPickerViewModel(timeSignature: timeSignature)
+            rootView.viewModel = NoteLengthPickerViewModel(timeSignature: timeSignature)
         }
     }
 }
