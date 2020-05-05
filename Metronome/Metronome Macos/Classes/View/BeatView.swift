@@ -27,7 +27,7 @@ struct BeatView: View {
 
     private func background() -> some View {
         if model.isHighlighted {
-            return LinearGradient(gradient: Gradient(colors: [Color("green"), Color("blue")]), startPoint: .topLeading, endPoint: .bottomTrailing)
+            return LinearGradient(gradient: Gradient(colors: [Palette.green.color, Palette.blue.color]), startPoint: .topLeading, endPoint: .bottomTrailing)
         } else {
             return LinearGradient(gradient: Gradient(colors: [Color.white.opacity(0.05), Color.white.opacity(0.05)]), startPoint: .topLeading, endPoint: .bottomTrailing)
         }
@@ -38,7 +38,7 @@ struct BeatView: View {
         if model.isHighlighted {
             return Color.white
         } else {
-            return Color("gray")
+            return Palette.gray.color
         }
     }
 
@@ -46,9 +46,9 @@ struct BeatView: View {
     private func henhanceColor() -> Color {
         switch true {
         case model.isHenhanced && model.isHighlighted:
-            return Color("purple")
+            return Palette.purple.color
         case model.isHenhanced:
-            return Color("gray")
+            return Palette.gray.color
         default:
             return .clear
         }

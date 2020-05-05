@@ -10,14 +10,14 @@ import Foundation
 
 struct TapTempoPickerViewModel: GesturePickerViewModel {
 
-    let backgroundColor: String
+    let backgroundColor: Palette
     let titleLabel: String
     let prefixLabel: String
     let suffixLabel: String
     let heroLabel: String
 
     init(bpm: Int?) {
-        backgroundColor = "green"
+        backgroundColor = .green
         titleLabel = NSLocalizedString("metronome.tempo.picker.tap.title", comment: "")
         prefixLabel = ""
         suffixLabel = NSLocalizedString("metronome.tempo.suffix", comment: "")

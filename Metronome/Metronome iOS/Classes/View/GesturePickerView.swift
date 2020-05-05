@@ -10,7 +10,7 @@ import SwiftUI
 import Combine
 
 protocol GesturePickerViewModel {
-    var backgroundColor: String { get }
+    var backgroundColor: Palette { get }
     var titleLabel: String { get }
     var prefixLabel: String { get }
     var suffixLabel: String { get }
@@ -24,7 +24,7 @@ struct GesturePickerView: View {
 
     var body: some View {
         ZStack {
-            Color(viewModel.backgroundColor).edgesIgnoringSafeArea(.all)
+            viewModel.backgroundColor.color.edgesIgnoringSafeArea(.all)
             ZStack(alignment: .center) {
                 HStack(alignment: .center) {
                     Text(viewModel.titleLabel).brandFont(.headline)
