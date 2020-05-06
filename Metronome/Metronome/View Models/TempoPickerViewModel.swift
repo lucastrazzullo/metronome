@@ -29,11 +29,22 @@ class TempoPickerViewModel: ObservableObject {
 
     private(set) var tempoItems: [Item]
 
+    private let metronome: Metronome
+
 
     // MARK: Object life cycle
 
-    init(tempo: Tempo) {
+    init(metronome: Metronome) {
+        self.metronome = metronome
+
         tempoItems = Tempo.range.map(Item.init(bpm:))
-        selectedTempoItem = Item(bpm: tempo.bpm)
+        selectedTempoItem = Item(bpm: metronome.configuration.tempo.bpm)
+    }
+
+
+    // MARK: Public methods
+
+    func commit() {
+        metronome.configuration.tempo = Tempo(bpm: selectedTempoItem.bpm)
     }
 }

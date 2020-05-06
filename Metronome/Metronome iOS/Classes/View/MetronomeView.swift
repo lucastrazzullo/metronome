@@ -10,15 +10,13 @@ import SwiftUI
 
 struct MetronomeView: View {
 
-    @ObservedObject var viewModel: MetronomeViewModel
+    private(set) var viewModel: MetronomeViewModel
 
     var body: some View {
         ZStack {
             ColorView(color: .black)
-            BeatsView(model: viewModel.beatViewModels)
-            ChromeView(model: viewModel.controlsViewModel, helperDidAppear: {
-                self.viewModel.reset()
-            })
+            BeatsView(viewModel: viewModel.beatsViewModel)
+            ChromeView(viewModel: viewModel.controlsViewModel)
         }
     }
 }

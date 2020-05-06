@@ -10,13 +10,13 @@ import SwiftUI
 
 struct BeatView: View {
 
-    let model: BeatViewModel
+    @ObservedObject private(set) var viewModel: BeatViewModel
 
     var body: some View {
         ZStack {
             self.background().edgesIgnoringSafeArea(.all)
             VStack {
-                Text(model.label).brandFont(.headline).foregroundColor(self.foreground())
+                Text(viewModel.label ?? "").brandFont(.headline).foregroundColor(self.foreground())
                 Circle().frame(width: 8, height: 8, alignment: .center).foregroundColor(self.henhanceColor())
             }
         }
@@ -26,7 +26,7 @@ struct BeatView: View {
     // MARK: Private helper methods
 
     private func background() -> some View {
-        if model.isHighlighted {
+        if viewModel.isHighlighted {
             return LinearGradient(gradient: Gradient(colors: [Palette.green.color, Palette.blue.color]), startPoint: .topLeading, endPoint: .bottomTrailing)
         } else {
             return LinearGradient(gradient: Gradient(colors: [Color.white.opacity(0.05), Color.white.opacity(0.05)]), startPoint: .topLeading, endPoint: .bottomTrailing)
@@ -35,7 +35,7 @@ struct BeatView: View {
 
 
     private func foreground() -> Color {
-        if model.isHighlighted {
+        if viewModel.isHighlighted {
             return Color.white
         } else {
             return Palette.gray.color
@@ -45,9 +45,9 @@ struct BeatView: View {
 
     private func henhanceColor() -> Color {
         switch true {
-        case model.isHenhanced && model.isHighlighted:
+        case viewModel.isHenhanced && viewModel.isHighlighted:
             return Palette.purple.color
-        case model.isHenhanced:
+        case viewModel.isHenhanced:
             return Palette.gray.color
         default:
             return .clear

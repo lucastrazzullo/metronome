@@ -1,21 +1,21 @@
 //
 //  BeatsView.swift
-//  Metronome iOS
+//  Metronome Watch Extension
 //
-//  Created by luca strazzullo on 21/10/19.
-//  Copyright © 2019 luca strazzullo. All rights reserved.
+//  Created by luca strazzullo on 6/5/20.
+//  Copyright © 2020 luca strazzullo. All rights reserved.
 //
 
 import SwiftUI
 
 struct BeatsView: View {
 
-    @ObservedObject private(set) var viewModel: BeatsViewModel
+    @ObservedObject var viewModel: BeatsViewModel
 
     var body: some View {
         HStack(alignment: .center, spacing: 1) {
             ForEach(viewModel.beats, id: \.id) { beatViewModel in
-                return BeatView(viewModel: beatViewModel)
+                BeatView(viewModel: beatViewModel)
             }
         }
     }

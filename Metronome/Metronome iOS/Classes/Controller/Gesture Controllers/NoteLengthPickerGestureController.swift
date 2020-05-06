@@ -1,5 +1,5 @@
 //
-//  SlideTempoUpdaterGestureController.swift
+//  NoteLengthPickerGestureController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 12/10/19.
@@ -8,11 +8,11 @@
 
 import UIKit
 
-class SlideTempoUpdaterGestureController: NSObject, GestureController {
+class NoteLengthPickerGestureController: GestureController {
 
     let gestureRecogniser: UIGestureRecognizer
 
-    private var viewModel: SlideTempoPickerViewModel
+    private let viewModel: NoteLengthPickerViewModel
 
     private weak var targetViewController: UIContainerViewController?
     private weak var presentedViewController: UIViewController?
@@ -21,13 +21,8 @@ class SlideTempoUpdaterGestureController: NSObject, GestureController {
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
-        viewModel = SlideTempoPickerViewModel(metronome: metronome)
-        gestureRecogniser = {
-            let recogniser = UIPanGestureRecognizer()
-            recogniser.minimumNumberOfTouches = 2
-            return recogniser
-        }()
-        super.init()
+        viewModel = NoteLengthPickerViewModel(metronome: metronome)
+        gestureRecogniser = UIPinchGestureRecognizer()        
     }
 
 
@@ -35,7 +30,6 @@ class SlideTempoUpdaterGestureController: NSObject, GestureController {
 
     func set(targetViewController: UIContainerViewController) {
         gestureRecogniser.addTarget(self, action: #selector(handleGestureRecogniser(with:)))
-        gestureRecogniser.delegate = self
 
         self.targetViewController = targetViewController
         self.targetViewController?.view.addGestureRecognizer(gestureRecogniser)
@@ -44,18 +38,18 @@ class SlideTempoUpdaterGestureController: NSObject, GestureController {
 
     // MARK: UI Callbacks
 
-    @objc private func handleGestureRecogniser(with gestureRecogniser: UIPanGestureRecognizer) {
+    @objc private func handleGestureRecogniser(with gestureRecogniser: UIPinchGestureRecognizer) {
         handleViewModel(with: gestureRecogniser)
         handlePresentation(with: gestureRecogniser)
     }
 
 
-    private func handleViewModel(with gestureRecogniser: UIPanGestureRecognizer) {
+    private func handleViewModel(with gestureRecogniser: UIPinchGestureRecognizer) {
         switch gestureRecogniser.state {
         case .began:
             viewModel.startSelection()
         case .changed:
-            viewModel.selectTemporary(tempo: Int(-gestureRecogniser.translation(in: gestureRecogniser.view).y / 8))
+            viewModel.selectTemporary(noteLength: (Int(round(gestureRecogniser.scale * 10)) - 10) / 2)
         case .ended:
             viewModel.commit()
         default:
@@ -64,28 +58,16 @@ class SlideTempoUpdaterGestureController: NSObject, GestureController {
     }
 
 
-    private func handlePresentation(with gestureRecogniser: UIPanGestureRecognizer) {
+    private func handlePresentation(with gestureRecogniser: UIPinchGestureRecognizer) {
         switch gestureRecogniser.state {
         case .began:
-            let pickerViewController = TempoPickerViewController(viewModel: viewModel)
+            let pickerViewController = TimeSignaturePickerViewController(viewModel: viewModel)
             presentedViewController = pickerViewController
             targetViewController?.addChildViewController(pickerViewController, in: targetViewController?.view)
         case .ended:
             targetViewController?.removeChildViewController(presentedViewController)
         default:
             break
-        }
-    }
-}
-
-
-extension SlideTempoUpdaterGestureController: UIGestureRecognizerDelegate {
-
-    func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
-        if let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer, let view = gestureRecognizer.view {
-            return abs(gestureRecognizer.velocity(in: view).y) > abs(gestureRecognizer.velocity(in: view).x)
-        } else {
-            return false
         }
     }
 }

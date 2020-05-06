@@ -10,15 +10,17 @@ import Foundation
 
 class TapTempoPickerViewModel: GesturePickerViewModel {
 
-    @Published private(set) var selectedTempoBpm: Int?
+    @Published private(set) var selectedTempoBpm: Int
+
+    private let metronome: Metronome
     private var tapTimestamps: [TimeInterval] = []
-    private let initialConfiguration: MetronomeConfiguration
 
 
     // MARK: Object life cycle
 
-    init(configuration: MetronomeConfiguration) {
-        initialConfiguration = configuration
+    init(metronome: Metronome) {
+        self.metronome = metronome
+        self.selectedTempoBpm = metronome.configuration.tempo.bpm
 
         let value = Copy.Picker.TapTempo.valuePlaceholder.localised
         let background = Palette.green
@@ -30,15 +32,25 @@ class TapTempoPickerViewModel: GesturePickerViewModel {
 
     // MARK: Public methods
 
-    func apply(newTapWith timestamp: TimeInterval) {
+    func startSelection() {
+        metronome.reset()
+    }
+
+
+    func selectTemporarely(newTapWith timestamp: TimeInterval) {
         if let frequency = getFrequency(withNew: timestamp) {
-            let bpm = initialConfiguration.getBpm(with: frequency)
+            let bpm = metronome.configuration.getBpm(with: frequency)
             selectedTempoBpm = bpm
             heroLabel = String(bpm)
         } else {
-            selectedTempoBpm = nil
+            selectedTempoBpm = metronome.configuration.tempo.bpm
             heroLabel = Copy.Picker.TapTempo.valuePlaceholder.localised
         }
+    }
+
+
+    func commit() {
+        metronome.configuration.setBpm(selectedTempoBpm)
     }
 
 
@@ -46,18 +58,15 @@ class TapTempoPickerViewModel: GesturePickerViewModel {
 
     private func getFrequency(withNew timestamp: TimeInterval) -> TimeInterval? {
         tapTimestamps.append(timestamp)
-
         if tapTimestamps.count > 5 {
             tapTimestamps.remove(at: 0)
         }
-
         return getFrequency()
     }
 
 
     private func getFrequency() -> TimeInterval? {
         guard tapTimestamps.count >= 2 else { return nil }
-
         let frequencies: [Double] = tapTimestamps.enumerated().compactMap { index, timestamp in
             if index + 1 == tapTimestamps.count {
                 return nil
@@ -65,7 +74,6 @@ class TapTempoPickerViewModel: GesturePickerViewModel {
                 return tapTimestamps[index + 1] - timestamp
             }
         }
-
         return frequencies.reduce(0, +) / Double(frequencies.count)
     }
 }

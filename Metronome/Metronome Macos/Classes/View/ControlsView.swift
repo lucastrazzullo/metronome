@@ -10,26 +10,20 @@ import SwiftUI
 
 struct ControlsView: View {
 
-    @EnvironmentObject var viewModel: MetronomeViewModel
+    @ObservedObject private(set) var viewModel: ControlsViewModel
 
     var body: some View {
-        HStack(alignment: .bottom, spacing: nil) {
-            Button(action: { self.viewModel.toggleIsRunning() }) {
-                Text(viewModel.controlsViewModel.toggleLabel)
-            }.padding()
-            ConfigurationPickerView(viewModel: ConfigurationPickerViewModel(configuration: viewModel.configuration)) { configuration in
-                self.viewModel.set(configuration: configuration)
-            }.padding()
-        }
+        HStack(alignment: .bottom, spacing: 60) {
+            Button(action: { self.viewModel.toggleIsRunning() }) { Text(viewModel.toggleLabel ?? "") }
+            ConfigurationPickerView(viewModel: viewModel.configurationPickerViewModel())
+        }.padding()
     }
 }
 
 
-struct ConfigurationPickerView: View {
+private struct ConfigurationPickerView: View {
 
     @ObservedObject var viewModel: ConfigurationPickerViewModel
-
-    var completion: ((MetronomeConfiguration) -> ())
 
 
     // MARK: Body
@@ -62,7 +56,7 @@ struct ConfigurationPickerView: View {
                         }
                 }
             }
-            Button(action: { self.completion(self.viewModel.selectedConfiguration)},
+            Button(action: { self.viewModel.commit() },
                    label: { Text(Copy.Controls.confirm.localised) })
                 .disabled(!viewModel.confirmationEnabled)
         }

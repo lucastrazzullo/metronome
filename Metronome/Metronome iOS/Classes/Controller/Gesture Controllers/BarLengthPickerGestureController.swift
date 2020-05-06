@@ -13,7 +13,7 @@ class BarLengthPickerGestureController: NSObject, GestureController {
 
     let gestureRecogniser: UIGestureRecognizer
 
-    private let metronome: Metronome
+    private let viewModel: BarLengthPickerViewModel
 
     private weak var targetViewController: UIContainerViewController?
     private weak var presentedViewController: UIViewController?
@@ -22,8 +22,8 @@ class BarLengthPickerGestureController: NSObject, GestureController {
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
-        self.metronome = metronome
-        self.gestureRecogniser = {
+        viewModel = BarLengthPickerViewModel(metronome: metronome)
+        gestureRecogniser = {
             let recogniser = UIPanGestureRecognizer()
             recogniser.minimumNumberOfTouches = 2
             return recogniser
@@ -46,29 +46,36 @@ class BarLengthPickerGestureController: NSObject, GestureController {
     // MARK: UI Callbacks
 
     @objc private func handleGestureRecogniser(with gestureRecogniser: UIPanGestureRecognizer) {
+        handleViewModel(with: gestureRecogniser)
+        handlePresentation(with: gestureRecogniser)
+    }
+
+
+    private func handleViewModel(with gestureRecogniser: UIPanGestureRecognizer) {
         switch gestureRecogniser.state {
         case .began:
-            presentTimeSignaturePicker()
+            viewModel.startSelection()
+        case .changed:
+            viewModel.selectTemporary(barLength: Int(gestureRecogniser.translation(in: gestureRecogniser.view).x))
         case .ended:
-            complete()
+            viewModel.commit()
         default:
             break
         }
     }
 
 
-    // MARK: Private helper methods
-
-    private func presentTimeSignaturePicker() {
-        let viewModel = BarLengthPickerViewModel(timeSignature: metronome.configuration.timeSignature)
-        let pickerViewController = TimeSignaturePickerViewController(with: metronome, viewModel: viewModel, gestureRecogniser: gestureRecogniser)
-        presentedViewController = pickerViewController
-        targetViewController?.addChildViewController(pickerViewController, in: targetViewController?.view)
-    }
-
-
-    private func complete() {
-        targetViewController?.removeChildViewController(presentedViewController)
+    private func handlePresentation(with gestureRecogniser: UIPanGestureRecognizer) {
+        switch gestureRecogniser.state {
+        case .began:
+            let pickerViewController = TimeSignaturePickerViewController(viewModel: viewModel)
+            presentedViewController = pickerViewController
+            targetViewController?.addChildViewController(pickerViewController, in: targetViewController?.view)
+        case .ended:
+            targetViewController?.removeChildViewController(presentedViewController)
+        default:
+            break
+        }
     }
 }
 

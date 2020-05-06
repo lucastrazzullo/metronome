@@ -1,5 +1,5 @@
 //
-//  NoteLengthUpdaterGestureController.swift
+//  NoteLengthPickerGestureController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 12/10/19.
@@ -8,12 +8,11 @@
 
 import UIKit
 
-class NoteLengthUpdaterGestureController: GestureController {
+class NoteLengthPickerGestureController: GestureController {
 
     let gestureRecogniser: UIGestureRecognizer
 
     private let metronome: Metronome
-    private var viewModel: NoteLengthPickerViewModel
 
     private weak var targetViewController: UIContainerViewController?
     private weak var presentedViewController: UIViewController?
@@ -59,9 +58,8 @@ class NoteLengthUpdaterGestureController: GestureController {
     private func presentTimeSignaturePicker() {
         metronome.reset()
 
-        viewModel = NoteLengthPickerViewModel(timeSignature: metronome.configuration.timeSignature)
-
-        let pickerViewController = TimeSignaturePickerViewController(viewModel: viewModel)
+        let viewModel = NoteLengthPickerViewModel(timeSignature: metronome.configuration.timeSignature)
+        let pickerViewController = TimeSignaturePickerViewController(viewModel: viewModel, gestureRecogniser: gestureRecogniser)
         presentedViewController = pickerViewController
         targetViewController?.addChildViewController(pickerViewController, in: targetViewController?.view)
     }

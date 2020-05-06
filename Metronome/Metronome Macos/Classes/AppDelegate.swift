@@ -29,14 +29,13 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         metronomePublisher = MetronomePublisher(metronome: metronome)
         metronomeViewModel = MetronomeViewModel(metronomePublisher: metronomePublisher)
 
-        let view = MetronomeView().environmentObject(metronomeViewModel)
         window = NSWindow(
             contentRect: NSRect(x: 0, y: 0, width: 800, height: 600),
             styleMask: [.titled, .closable, .miniaturizable, .resizable, .fullSizeContentView],
             backing: .buffered, defer: false)
         window.center()
         window.setFrameAutosaveName("Main Window")
-        window.contentView = NSHostingView(rootView: view)
+        window.contentView = NSHostingView(rootView: MetronomeView(viewModel: metronomeViewModel))
         window.makeKeyAndOrderFront(nil)
     }
 

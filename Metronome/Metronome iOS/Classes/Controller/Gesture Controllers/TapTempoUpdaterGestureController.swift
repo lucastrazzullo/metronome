@@ -13,12 +13,10 @@ class TapTempoUpdaterGestureController: GestureController {
 
     let gestureRecogniser: UIGestureRecognizer
 
-    private let metronome: Metronome
     private var viewModel: TapTempoPickerViewModel
 
     private let idleTimeBeforeSet: TimeInterval = 2
     private var idleTimer: Timer?
-
     private var cancellable: AnyCancellable?
 
     private weak var targetViewController: UIContainerViewController?
@@ -28,9 +26,8 @@ class TapTempoUpdaterGestureController: GestureController {
     // MARK: Object life cycle
 
     init(with metronome: Metronome) {
-        self.metronome = metronome
-        self.viewModel = TapTempoPickerViewModel(configuration: metronome.configuration)
-        self.gestureRecogniser = {
+        viewModel = TapTempoPickerViewModel(metronome: metronome)
+        gestureRecogniser = {
             let recogniser = UILongPressGestureRecognizer()
             recogniser.minimumPressDuration = 1
             return recogniser
@@ -50,10 +47,30 @@ class TapTempoUpdaterGestureController: GestureController {
 
     // MARK: UI Callbacks
 
-    @objc private func handleGestureRecogniser(with gestureRecogniser: UIPinchGestureRecognizer) {
+    @objc private func handleGestureRecogniser(with gestureRecogniser: UILongPressGestureRecognizer) {
+        handleViewModel(with: gestureRecogniser)
+        handlePresentation(with: gestureRecogniser)
+        handleMultiTap(with: gestureRecogniser)
+    }
+
+
+    private func handleViewModel(with gestureRecogniser: UILongPressGestureRecognizer) {
         switch gestureRecogniser.state {
         case .began:
-            presentTapTempoPicker()
+            viewModel.startSelection()
+            cancellable = viewModel.$selectedTempoBpm.sink(receiveValue: { [weak self] _ in self?.starCompletionTimer() })
+        default:
+            break
+        }
+    }
+
+
+    private func handlePresentation(with gestureRecogniser: UILongPressGestureRecognizer) {
+        switch gestureRecogniser.state {
+        case .began:
+            let pickerViewController = TapTempoPickerViewController(viewModel: viewModel)
+            presentedViewController = pickerViewController
+            targetViewController?.present(pickerViewController, animated: true)
         case .ended:
             starCompletionTimer()
         default:
@@ -62,35 +79,26 @@ class TapTempoUpdaterGestureController: GestureController {
     }
 
 
-    // MARK: Private helper methods
-
-    private func presentTapTempoPicker() {
-        metronome.reset()
-
-        viewModel = TapTempoPickerViewModel(configuration: metronome.configuration)
-        cancellable = viewModel.$selectedTempoBpm.sink { [weak self] _ in
-            self?.starCompletionTimer()
+    private func handleMultiTap(with gestureRecogniser: UILongPressGestureRecognizer) {
+        if gestureRecogniser.state == .began {
+            let gestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(updateTempo))
+            gestureRecogniser.numberOfTapsRequired = 1
+            presentedViewController?.view.addGestureRecognizer(gestureRecogniser)
         }
-
-        let pickerViewController = TapTempoPickerViewController(viewModel: viewModel)
-        presentedViewController = pickerViewController
-        targetViewController?.present(pickerViewController, animated: true)
-
-        let gestureRecogniser = UITapGestureRecognizer(target: self, action: #selector(updateTempo))
-        gestureRecogniser.numberOfTapsRequired = 1
-        presentedViewController?.view.addGestureRecognizer(gestureRecogniser)
     }
 
 
     @objc private func updateTempo(with gestureRecogniser: UITapGestureRecognizer) {
         switch gestureRecogniser.state {
         case .recognized:
-            viewModel.apply(newTapWith: Date().timeIntervalSinceReferenceDate)
+            viewModel.selectTemporarely(newTapWith: Date().timeIntervalSinceReferenceDate)
         default:
             break
         }
     }
 
+
+    // MARK: Private helper methods
 
     private func starCompletionTimer() {
         idleTimer?.invalidate()
@@ -102,9 +110,8 @@ class TapTempoUpdaterGestureController: GestureController {
 
 
     private func complete() {
-        if let bpm = viewModel.selectedTempoBpm {
-            metronome.configuration.setBpm(bpm)
-        }
+        cancellable = nil
+        viewModel.commit()
         presentedViewController?.dismiss(animated: true, completion: nil)
     }
 }

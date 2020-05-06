@@ -15,8 +15,6 @@ struct TimeSignaturePickerView: View {
 
     @State var viewModel: TimeSignaturePickerViewModel
 
-    var completion: (TimeSignature) -> ()
-
 
     // MARK: Body
 
@@ -37,12 +35,7 @@ struct TimeSignaturePickerView: View {
                 }
             }
             Button(action: {
-                let timeSignature: TimeSignature = {
-                    let barLength = self.viewModel.selectedBarLength.length
-                    let noteLength = TimeSignature.NoteLength(rawValue: self.viewModel.selectedNoteLength.length)
-                    return TimeSignature(beats: barLength, noteLength: noteLength ?? .default)
-                }()
-                self.completion(timeSignature)
+                self.viewModel.commit()
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text("Confirm")
