@@ -32,7 +32,7 @@ private struct LeftControlsView: View {
     @ObservedObject private(set) var viewModel: ControlsViewModel
 
     @State private var showingTempoPicker: Bool = false
-    @State private var showingTimeIntervalPicker: Bool = false
+    @State private var showingTimeSignaturePicker: Bool = false
 
     var body: some View {
         HStack(alignment: .center, spacing: 24) {
@@ -42,8 +42,8 @@ private struct LeftControlsView: View {
                         .onAppear(perform: { self.viewModel.reset() })
                 }
 
-            ControlsButton(label: viewModel.timeSignatureLabel ?? "", background: Palette.orange.color, action: { self.showingTimeIntervalPicker.toggle() })
-                .sheet(isPresented: $showingTimeIntervalPicker) {
+            ControlsButton(label: viewModel.timeSignatureLabel ?? "", background: Palette.orange.color, action: { self.showingTimeSignaturePicker.toggle() })
+                .sheet(isPresented: $showingTimeSignaturePicker) {
                     TimeSignaturePickerView(viewModel: self.viewModel.timeSignaturePickerViewModel())
                         .onAppear(perform: { self.viewModel.reset() })
                 }
