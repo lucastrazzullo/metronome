@@ -27,7 +27,7 @@ struct ChromeView: View {
 }
 
 
-struct LeftControlsView: View {
+private struct LeftControlsView: View {
 
     @ObservedObject var viewModel: ControlsViewModel
 
@@ -40,7 +40,7 @@ struct LeftControlsView: View {
 }
 
 
-struct RightControlsView: View {
+private struct RightControlsView: View {
 
     @State private var helperIsPresented = false
 
