@@ -40,4 +40,19 @@ class ControlsViewModel: ObservableObject {
     func reset() {
         metronome.reset()
     }
+
+
+    func toggleIsRunning() {
+        metronome.toggle()
+    }
+
+
+    func tempoPickerViewModel() -> TempoPickerViewModel {
+        return TempoPickerViewModel(metronome: metronome)
+    }
+
+
+    func timeSignaturePickerViewModel() -> TimeSignaturePickerViewModel {
+        return TimeSignaturePickerViewModel(metronome: metronome)
+    }
 }

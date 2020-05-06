@@ -14,13 +14,10 @@ class MetronomeViewModel {
     private(set) var beatsViewModel: BeatsViewModel
     private(set) var controlsViewModel: ControlsViewModel
 
-    private let metronome: Metronome
-
 
     // MARK: Object life cycle
 
     init(metronomePublisher: MetronomePublisher) {
-        metronome = metronomePublisher.metronome
         beatsViewModel = BeatsViewModel(metronomePublisher: metronomePublisher)
         controlsViewModel = ControlsViewModel(with: metronomePublisher)
     }
@@ -28,22 +25,17 @@ class MetronomeViewModel {
 
     // MARK: Public methods
 
-    func toggleIsRunning() {
-        metronome.toggle()
-    }
-
-
-    func set(timeSignature: TimeSignature) {
-        metronome.configuration.setTimeSignature(timeSignature)
-    }
-
-
-    func set(tempo: Tempo) {
-        metronome.configuration.setBpm(tempo.bpm)
-    }
-
-
-    func set(configuration: MetronomeConfiguration) {
-        metronome.configuration = configuration
-    }
+//    func set(timeSignature: TimeSignature) {
+//        metronome.configuration.setTimeSignature(timeSignature)
+//    }
+//
+//
+//    func set(tempo: Tempo) {
+//        metronome.configuration.setBpm(tempo.bpm)
+//    }
+//
+//
+//    func set(configuration: MetronomeConfiguration) {
+//        metronome.configuration = configuration
+//    }
 }

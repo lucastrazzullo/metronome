@@ -15,8 +15,6 @@ struct TempoPickerView: View {
 
     @State var viewModel: TempoPickerViewModel
 
-    var completion: ((Tempo) -> ())
-
 
     // MARK: Body
 
@@ -29,7 +27,7 @@ struct TempoPickerView: View {
                 }
             }
             Button(action: {
-                self.completion(Tempo(bpm: self.viewModel.selectedTempoItem.bpm))
+                self.viewModel.commit()
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
                 Text(Copy.Controls.confirm.localised)

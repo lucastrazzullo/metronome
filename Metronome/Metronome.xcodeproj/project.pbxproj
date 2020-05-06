@@ -37,6 +37,12 @@
 		812E5B422355155900F04E41 /* TapTempoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E5B412355155900F04E41 /* TapTempoPickerViewModel.swift */; };
 		812E5B442355198900F04E41 /* NoteLengthPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E5B432355198900F04E41 /* NoteLengthPickerViewModel.swift */; };
 		815003AF2462EA0100651E88 /* BeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815003AD2462E9EF00651E88 /* BeatViewModel.swift */; };
+		815003B02462EB0500651E88 /* BeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815003AD2462E9EF00651E88 /* BeatViewModel.swift */; };
+		815003B12462EB0500651E88 /* BeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815003AD2462E9EF00651E88 /* BeatViewModel.swift */; };
+		815003B32462EC6B00651E88 /* BeatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815003B22462EC6B00651E88 /* BeatsView.swift */; };
+		815003B52462ECA900651E88 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815003B42462ECA900651E88 /* ControlsView.swift */; };
+		815003B62462EF7B00651E88 /* TempoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A69245FF16C00737786 /* TempoPickerViewModel.swift */; };
+		815003B72462EF8000651E88 /* TimeSignaturePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A6D246001EC00737786 /* TimeSignaturePickerViewModel.swift */; };
 		8155D9C62359BE9D009521F2 /* MetronomePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8155D9C52359BE9D009521F2 /* MetronomePublisher.swift */; };
 		815DA89B24617DFE00FEE8B1 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815DA89924617D7000FEE8B1 /* Palette.swift */; };
 		815DA89C24617E0800FEE8B1 /* ColorPalette.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 815DA89724617D5600FEE8B1 /* ColorPalette.xcassets */; };
@@ -184,6 +190,8 @@
 		812E5B412355155900F04E41 /* TapTempoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempoPickerViewModel.swift; sourceTree = "<group>"; };
 		812E5B432355198900F04E41 /* NoteLengthPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLengthPickerViewModel.swift; sourceTree = "<group>"; };
 		815003AD2462E9EF00651E88 /* BeatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatViewModel.swift; sourceTree = "<group>"; };
+		815003B22462EC6B00651E88 /* BeatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsView.swift; sourceTree = "<group>"; };
+		815003B42462ECA900651E88 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		8155D9C52359BE9D009521F2 /* MetronomePublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomePublisher.swift; sourceTree = "<group>"; };
 		815DA89724617D5600FEE8B1 /* ColorPalette.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = ColorPalette.xcassets; sourceTree = "<group>"; };
 		815DA89924617D7000FEE8B1 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
@@ -367,7 +375,9 @@
 			isa = PBXGroup;
 			children = (
 				8124977E234B68FF0047F3E3 /* MetronomeView.swift */,
+				815003B22462EC6B00651E88 /* BeatsView.swift */,
 				8115EFAE235B660C00527665 /* BeatView.swift */,
+				815003B42462ECA900651E88 /* ControlsView.swift */,
 				810701B4245F4ADD003D0B54 /* TempoPickerView.swift */,
 				810701AF245F4AA7003D0B54 /* TimeSignaturePickerView.swift */,
 			);
@@ -884,6 +894,7 @@
 				81807A6A245FF16C00737786 /* TempoPickerViewModel.swift in Sources */,
 				810701A6245F3035003D0B54 /* MetronomeViewModel.swift in Sources */,
 				810701AB245F30DF003D0B54 /* ControlsViewModel.swift in Sources */,
+				815003B52462ECA900651E88 /* ControlsView.swift in Sources */,
 				817F9953234CAD7000DA1043 /* MetronomeViewController.swift in Sources */,
 				8115EFAF235B660C00527665 /* BeatView.swift in Sources */,
 				817F9952234CAD6D00DA1043 /* MetronomeView.swift in Sources */,
@@ -892,7 +903,9 @@
 				810701B2245F4AA7003D0B54 /* TimeSignaturePickerView.swift in Sources */,
 				810701A7245F3035003D0B54 /* BeatsViewModel.swift in Sources */,
 				817F9954234CADB800DA1043 /* TimeSignature.swift in Sources */,
+				815003B02462EB0500651E88 /* BeatViewModel.swift in Sources */,
 				817F9955234CADB800DA1043 /* Tempo.swift in Sources */,
+				815003B32462EC6B00651E88 /* BeatsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -912,6 +925,7 @@
 				81BDF4FC24586BED00B4F7F8 /* MetronomeTicker.swift in Sources */,
 				81BDF4E924586A4C00B4F7F8 /* MetronomeView.swift in Sources */,
 				81D525DA2460744600F8F541 /* ControlsViewModel.swift in Sources */,
+				815003B12462EB0500651E88 /* BeatViewModel.swift in Sources */,
 				81BDF4E724586A4C00B4F7F8 /* AppDelegate.swift in Sources */,
 				81BDF4F924586BED00B4F7F8 /* TimeSignature.swift in Sources */,
 				81BDF50F245877AD00B4F7F8 /* BeatsViewModel.swift in Sources */,
@@ -928,6 +942,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				815003B62462EF7B00651E88 /* TempoPickerViewModel.swift in Sources */,
 				8166679823451E7F002DC01A /* TimeSignaturePickerViewController.swift in Sources */,
 				81E7FDC923573CF900C20444 /* WelcomeViewModel.swift in Sources */,
 				812E5B422355155900F04E41 /* TapTempoPickerViewModel.swift in Sources */,
@@ -981,6 +996,7 @@
 				81C0B37F23492DB700D01072 /* GesturePickerView.swift in Sources */,
 				81919FB5234B515C0061571A /* HelpViewModel.swift in Sources */,
 				81919FB7234B51960061571A /* TipViewModel.swift in Sources */,
+				815003B72462EF8000651E88 /* TimeSignaturePickerViewModel.swift in Sources */,
 				81FAF03123427ED1004A8C51 /* SceneDelegate.swift in Sources */,
 				81249772234B64420047F3E3 /* TimeSignature.swift in Sources */,
 				81A71C7B23524B2200E86256 /* BarLengthPickerGestureController.swift in Sources */,
