@@ -1,22 +1,37 @@
 //
 //  BeatViewModel.swift
-//  Metronome Macos
+//  MetronomeTests
 //
-//  Created by luca strazzullo on 28/4/20.
+//  Created by luca strazzullo on 6/5/20.
 //  Copyright © 2020 luca strazzullo. All rights reserved.
 //
 
 import Foundation
+import Combine
 
-struct BeatViewModel: Hashable {
+class BeatViewModel: ObservableObject, Identifiable {
 
-    let label: String
-    let isHighlighted: Bool
-    let isHenhanced: Bool
+    @Published private(set) var label: String?
+    @Published private(set) var isHighlighted: Bool = false
+    @Published private(set) var isHenhanced: Bool = false
 
-    init(with beat: Beat, isHighlighted: Bool, isHenhanced: Bool) {
-        self.label = String(beat.position)
-        self.isHighlighted = isHighlighted
-        self.isHenhanced = isHenhanced
+    private var cancellable: AnyCancellable?
+
+
+    // MARK: Object life cycle
+
+    init(for beat: Beat, metronomePublisher: MetronomePublisher) {
+        cancellable = metronomePublisher.snapshotPublisher().sink { [weak self] snapshot in
+            self?.update(with: beat, snapshot: snapshot)
+        }
+    }
+
+
+    // MARK: Private helper static methods
+
+    private func update(with beat: Beat, snapshot: MetronomePublisher.Snapshot) {
+        label = String(beat.position)
+        isHighlighted = snapshot.isRunning && snapshot.currentBeat == beat
+        isHenhanced = beat.intensity == .strong
     }
 }

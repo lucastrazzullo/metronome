@@ -9,41 +9,27 @@
 import Foundation
 import Combine
 
-class MetronomeViewModel: ObservableObject {
+class MetronomeViewModel {
 
-    @Published private(set) var beatViewModels: [BeatViewModel] = []
-    @Published private(set) var controlsViewModel: ControlsViewModel = ControlsViewModel(with: .default, isRunning: false)
+    private(set) var beatsViewModel: BeatsViewModel
+    private(set) var controlsViewModel: ControlsViewModel
 
-    var configuration: MetronomeConfiguration {
-        return metronome.configuration
-    }
-    var timeSignature: TimeSignature {
-        return configuration.timeSignature
-    }
-    var tempo: Tempo {
-        return configuration.tempo
-    }
-
-    private var metronome: Metronome
-    private var cancellable: AnyCancellable?
+    private let metronome: Metronome
 
 
     // MARK: Object life cycle
 
     init(metronomePublisher: MetronomePublisher) {
         metronome = metronomePublisher.metronome
-        update(with: metronomePublisher.snapshot())
-        cancellable = metronomePublisher.snapshotPublisher().sink(receiveValue: update(with:))
+        beatsViewModel = BeatsViewModel(metronomePublisher: metronomePublisher)
+        controlsViewModel = ControlsViewModel(with: metronomePublisher)
     }
 
+
+    // MARK: Public methods
 
     func toggleIsRunning() {
         metronome.toggle()
-    }
-
-
-    func reset() {
-        metronome.reset()
     }
 
 
@@ -59,24 +45,5 @@ class MetronomeViewModel: ObservableObject {
 
     func set(configuration: MetronomeConfiguration) {
         metronome.configuration = configuration
-    }
-
-
-    // MARK: Private helper methods
-
-    private func update(with snapshot: MetronomePublisher.Snapshot) {
-        beatViewModels = beatViewModels(with: snapshot.configuration, isRunning: snapshot.isRunning, currentBeat: snapshot.currentBeat)
-        controlsViewModel = ControlsViewModel(with: snapshot.configuration, isRunning: snapshot.isRunning)
-    }
-
-
-    private func beatViewModels(with configuration: MetronomeConfiguration, isRunning: Bool, currentBeat: Beat?) -> [BeatViewModel] {
-        var result: [BeatViewModel] = []
-        for index in 0..<configuration.timeSignature.beats {
-            let beat = Beat.with(tickIteration: index)
-            let viewModel = BeatViewModel(with: beat, isHighlighted: isRunning && currentBeat == beat, isHenhanced: beat.intensity == .strong)
-            result.append(viewModel)
-        }
-        return result
     }
 }

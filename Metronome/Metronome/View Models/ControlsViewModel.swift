@@ -7,19 +7,37 @@
 //
 
 import Foundation
+import Combine
 
-struct ControlsViewModel {
+class ControlsViewModel: ObservableObject {
 
-    let timeSignatureLabel: String
-    let tempoLabel: String
-    let toggleLabel: String
+    @Published var timeSignatureLabel: String?
+    @Published var tempoLabel: String?
+    @Published var toggleLabel: String?
+
+    private let metronome: Metronome
+    private var cancellables: [AnyCancellable] = []
 
 
     // MARK: Object life cycle
 
-    init(with configuration: MetronomeConfiguration, isRunning: Bool) {
-        self.timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, configuration.timeSignature.beats, configuration.timeSignature.noteLength.rawValue)
-        self.tempoLabel = "\(configuration.tempo.bpm)\(Copy.Tempo.unit.localised.uppercased())"
-        self.toggleLabel = isRunning ? Copy.Controls.reset.localised : Copy.Controls.start.localised
+    init(with metronomePublisher: MetronomePublisher) {
+        metronome = metronomePublisher.metronome
+
+        cancellables.append(metronomePublisher.$configuration.sink { [weak self] configuration in
+            let timeSignature = configuration.timeSignature
+            self?.timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, timeSignature.beats, timeSignature.noteLength.rawValue)
+            self?.tempoLabel = "\(configuration.tempo.bpm)\(Copy.Tempo.unit.localised.uppercased())"
+        })
+        cancellables.append(metronomePublisher.$isRunning.sink { [weak self] isRunning in
+            self?.toggleLabel = isRunning ? Copy.Controls.reset.localised : Copy.Controls.start.localised
+        })
+    }
+
+
+    // MARK: Public methods
+
+    func reset() {
+        metronome.reset()
     }
 }
