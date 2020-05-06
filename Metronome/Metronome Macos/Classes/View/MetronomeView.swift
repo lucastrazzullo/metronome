@@ -10,14 +10,14 @@ import SwiftUI
 
 struct MetronomeView: View {
 
-    @EnvironmentObject var viewModel: MetronomeViewModel
+    private(set) var viewModel: MetronomeViewModel
 
     var body: some View {
         ZStack {
             ColorView(color: .black)
             VStack {
-                BeatsView(model: viewModel.beatViewModels)
-                ControlsView()
+                BeatsView(viewModel: viewModel.beatsViewModel)
+                ControlsView(viewModel: viewModel.controlsViewModel)
             }
         }
     }

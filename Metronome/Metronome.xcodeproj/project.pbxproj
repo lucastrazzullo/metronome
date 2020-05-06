@@ -43,6 +43,8 @@
 		815003B52462ECA900651E88 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815003B42462ECA900651E88 /* ControlsView.swift */; };
 		815003B62462EF7B00651E88 /* TempoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A69245FF16C00737786 /* TempoPickerViewModel.swift */; };
 		815003B72462EF8000651E88 /* TimeSignaturePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A6D246001EC00737786 /* TimeSignaturePickerViewModel.swift */; };
+		815003B92462F48500651E88 /* ConfigurationPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D525D524605AF600F8F541 /* ConfigurationPickerViewModel.swift */; };
+		815003BA2462F48600651E88 /* ConfigurationPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D525D524605AF600F8F541 /* ConfigurationPickerViewModel.swift */; };
 		8155D9C62359BE9D009521F2 /* MetronomePublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8155D9C52359BE9D009521F2 /* MetronomePublisher.swift */; };
 		815DA89B24617DFE00FEE8B1 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815DA89924617D7000FEE8B1 /* Palette.swift */; };
 		815DA89C24617E0800FEE8B1 /* ColorPalette.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 815DA89724617D5600FEE8B1 /* ColorPalette.xcassets */; };
@@ -312,6 +314,7 @@
 				81BDF50E245877AC00B4F7F8 /* BeatsViewModel.swift */,
 				815003AD2462E9EF00651E88 /* BeatViewModel.swift */,
 				810701A8245F30DF003D0B54 /* ControlsViewModel.swift */,
+				81D525D524605AF600F8F541 /* ConfigurationPickerViewModel.swift */,
 				81807A69245FF16C00737786 /* TempoPickerViewModel.swift */,
 				81807A6D246001EC00737786 /* TimeSignaturePickerViewModel.swift */,
 			);
@@ -524,7 +527,6 @@
 		81D525D424605AE300F8F541 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				81D525D524605AF600F8F541 /* ConfigurationPickerViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -605,8 +607,8 @@
 		81FAF05223427F00004A8C51 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				817EFA4A2355C602004E774D /* Font */,
 				81FAF05323427F07004A8C51 /* Storyboard */,
+				817EFA4A2355C602004E774D /* Font */,
 				81FAF03723427ED2004A8C51 /* Assets.xcassets */,
 			);
 			path = Resources;
@@ -903,6 +905,7 @@
 				810701B2245F4AA7003D0B54 /* TimeSignaturePickerView.swift in Sources */,
 				810701A7245F3035003D0B54 /* BeatsViewModel.swift in Sources */,
 				817F9954234CADB800DA1043 /* TimeSignature.swift in Sources */,
+				815003B92462F48500651E88 /* ConfigurationPickerViewModel.swift in Sources */,
 				815003B02462EB0500651E88 /* BeatViewModel.swift in Sources */,
 				817F9955234CADB800DA1043 /* Tempo.swift in Sources */,
 				815003B32462EC6B00651E88 /* BeatsView.swift in Sources */,
@@ -977,6 +980,7 @@
 				81A8878B235257770071BF48 /* TapTempoPickerViewController.swift in Sources */,
 				81B999B1235B569600E87778 /* BeatView.swift in Sources */,
 				81A8878D235343420071BF48 /* BarLengthPickerViewModel.swift in Sources */,
+				815003BA2462F48600651E88 /* ConfigurationPickerViewModel.swift in Sources */,
 				81A729B0235E21C300DD5EE6 /* ColorView.swift in Sources */,
 				81B999AD235B1D9700E87778 /* Beat.swift in Sources */,
 				81D525D724605DE100F8F541 /* Copy.swift in Sources */,

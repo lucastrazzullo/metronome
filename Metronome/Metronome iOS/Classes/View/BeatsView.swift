@@ -10,7 +10,7 @@ import SwiftUI
 
 struct BeatsView: View {
 
-    @ObservedObject var viewModel: BeatsViewModel
+    @ObservedObject private(set) var viewModel: BeatsViewModel
 
     var body: some View {
         HStack(alignment: .center, spacing: 1) {

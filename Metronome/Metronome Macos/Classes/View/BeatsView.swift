@@ -10,26 +10,13 @@ import SwiftUI
 
 struct BeatsView: View {
 
-    let model: [BeatViewModel]
+    @ObservedObject private(set) var viewModel: BeatsViewModel
 
     var body: some View {
         HStack(alignment: .center, spacing: 1) {
-            ForEach(model, id: \.self) { beatViewModel in
-                BeatView(model: beatViewModel)
+            ForEach(viewModel.beats, id: \.id) { beatViewModel in
+                BeatView(viewModel: beatViewModel)
             }
         }
-    }
-}
-
-
-struct BeatsView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        let models = [
-            BeatViewModel(with: Beat(intensity: .normal, position: 0), isHighlighted: true, isHenhanced: true),
-            BeatViewModel(with: Beat(intensity: .strong, position: 1), isHighlighted: false, isHenhanced: false),
-            BeatViewModel(with: Beat(intensity: .normal, position: 2), isHighlighted: false, isHenhanced: true)
-        ]
-        return BeatsView(model: models)
     }
 }

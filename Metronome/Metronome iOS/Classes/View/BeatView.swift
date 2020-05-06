@@ -10,7 +10,7 @@ import SwiftUI
 
 struct BeatView: View {
 
-    @ObservedObject var viewModel: BeatViewModel
+    @ObservedObject private(set) var viewModel: BeatViewModel
 
     var body: some View {
         ZStack {

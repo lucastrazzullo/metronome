@@ -21,21 +21,4 @@ class MetronomeViewModel {
         beatsViewModel = BeatsViewModel(metronomePublisher: metronomePublisher)
         controlsViewModel = ControlsViewModel(with: metronomePublisher)
     }
-
-
-    // MARK: Public methods
-
-//    func set(timeSignature: TimeSignature) {
-//        metronome.configuration.setTimeSignature(timeSignature)
-//    }
-//
-//
-//    func set(tempo: Tempo) {
-//        metronome.configuration.setBpm(tempo.bpm)
-//    }
-//
-//
-//    func set(configuration: MetronomeConfiguration) {
-//        metronome.configuration = configuration
-//    }
 }
