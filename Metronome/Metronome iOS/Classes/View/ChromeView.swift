@@ -19,7 +19,7 @@ struct ChromeView: View {
                 HStack(alignment: .center, spacing: 24) {
                     LeftControlsView(viewModel: viewModel)
                     Spacer()
-                    RightControlsView(helperDidAppear: { self.viewModel.reset() })
+                    RightControlsView(viewModel: viewModel)
                 }.foregroundColor(Color.white).opacity(0.7)
             }.frame(width: nil, height: 40, alignment: .center)
         }.padding([.leading, .trailing], 24).padding([.top, .bottom], 10)
@@ -29,12 +29,24 @@ struct ChromeView: View {
 
 private struct LeftControlsView: View {
 
-    @ObservedObject var viewModel: ControlsViewModel
+    @ObservedObject private(set) var viewModel: ControlsViewModel
+
+    @State private var showingTempoPicker: Bool = false
+    @State private var showingTimeIntervalPicker: Bool = false
 
     var body: some View {
         HStack(alignment: .center, spacing: 24) {
-            Text(viewModel.timeSignatureLabel ?? "").brandFont(.footnote)
-            Text(viewModel.tempoLabel ?? "").brandFont(.footnote)
+            ControlsButton(label: viewModel.tempoLabel ?? "", background: Palette.yellow.color, action: { self.showingTempoPicker.toggle() })
+                .sheet(isPresented: $showingTempoPicker) {
+                    TempoPickerView(viewModel: self.viewModel.tempoPickerViewModel())
+                        .onAppear(perform: { self.viewModel.reset() })
+                }
+
+            ControlsButton(label: viewModel.timeSignatureLabel ?? "", background: Palette.orange.color, action: { self.showingTimeIntervalPicker.toggle() })
+                .sheet(isPresented: $showingTimeIntervalPicker) {
+                    TimeSignaturePickerView(viewModel: self.viewModel.timeSignaturePickerViewModel())
+                        .onAppear(perform: { self.viewModel.reset() })
+                }
         }
     }
 }
@@ -42,17 +54,30 @@ private struct LeftControlsView: View {
 
 private struct RightControlsView: View {
 
-    @State private var helperIsPresented = false
+    @ObservedObject private(set) var viewModel: ControlsViewModel
 
-    let helperDidAppear: () -> ()
+    @State private var showingHelpView: Bool = false
 
     var body: some View {
-        Button(action: { self.helperIsPresented = true }) {
-            Image(systemName: "questionmark.circle.fill").brandFont(.body)
-        }.sheet(isPresented: self.$helperIsPresented) {
-            TipsView(model: HelpViewModel(tips: TipsViewModelRepository.all), dismiss: {
-                self.helperIsPresented = false
-            }).onAppear(perform: self.helperDidAppear)
-        }
+        ControlsButton(label: Copy.Controls.help.localised, background: Color.white.opacity(0.4), action: { self.showingHelpView.toggle() })
+            .sheet(isPresented: $showingHelpView) {
+                TipsView(viewModel: TipsViewModel(tips: TipsViewModelRepository.all))
+                    .onAppear(perform: { self.viewModel.reset() })
+            }
+    }
+}
+
+
+private struct ControlsButton: View {
+
+    private(set) var label: String
+    private(set) var background: Color
+    private(set) var action: () -> ()
+
+    var body: some View {
+        Button(action: action, label: { Text(label).brandFont(.footnote) })
+            .padding(8)
+            .background(background)
+            .cornerRadius(8)
     }
 }

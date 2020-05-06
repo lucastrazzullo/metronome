@@ -30,6 +30,7 @@
 "controls.confirm" = "Confirm";
 "controls.start" = "Start";
 "controls.reset" = "Reset";
+"controls.help" = "Help";
 
 
 // MARK: Picker

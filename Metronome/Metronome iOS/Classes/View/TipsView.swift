@@ -8,22 +8,11 @@
 
 import SwiftUI
 
-protocol TipsViewModel {
-    var titleLabel: String { get }
-    var tips: [TipViewModel] { get }
-
-    func tips(with limitCount: Int) -> [TipViewModel]
-
-    mutating func nextTip()
-    mutating func prevTip()
-}
-
-
 struct TipsView: View {
 
-    @State var model: TipsViewModel
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    let dismiss: () -> ()
+    @ObservedObject private(set) var viewModel: TipsViewModel
 
 
     // MARK: Body
@@ -32,52 +21,55 @@ struct TipsView: View {
         let gesture = DragGesture().onEnded {
             gesture in
             if gesture.translation.width < -100 {
-                self.model.nextTip()
+                self.viewModel.nextTip()
             } else if gesture.translation.width > 100 {
-                self.model.prevTip()
-            } else if gesture.translation.height > 100 {
-                self.dismiss()
+                self.viewModel.prevTip()
             }
         }
 
         return HStack(alignment: .center, spacing: 10) {
-            ButtonView(icon: "arrow.left.circle.fill", action: { self.model.prevTip() })
+            ButtonView(icon: "arrow.left.circle.fill", action: { self.viewModel.prevTip() })
 
-            GeometryReader { geometry in
-                VStack(alignment: .center, spacing: 20) {
-                    TitleView(title: self.model.titleLabel, dismissIcon: "x.circle.fill", dismiss: self.dismiss)
-                    TipsListView(tips: self.model.tips(with: self.numberOfVisibleTips(for: geometry, spacing: 30)), spacing: 30)
-                }
-                .frame(width: geometry.size.width, height: geometry.size.height, alignment: .top)
-                .gesture(gesture)
+            VStack(alignment: .center, spacing: 20) {
+                TitleView(title: viewModel.titleLabel, dismissIcon: "x.circle.fill", dismiss: {
+                    self.presentationMode.wrappedValue.dismiss()
+                })
+                TipsListView(viewModel: viewModel).animation(.spring())
             }
+            .gesture(gesture)
 
-            ButtonView(icon: "arrow.right.circle.fill", action: { self.model.nextTip() })
+            ButtonView(icon: "arrow.right.circle.fill", action: { self.viewModel.nextTip() })
         }.padding([.leading, .trailing], 12).padding([.top, .bottom], 10)
-    }
-
-
-    // MARK: Private helper methods
-
-    private func numberOfVisibleTips(for geometry: GeometryProxy, spacing: CGFloat) -> Int {
-        let minimumSize: CGFloat = TipView.minimumWidth + spacing
-        return Int(floor((geometry.size.width - spacing) / minimumSize))
     }
 }
 
 
 private struct TipsListView: View {
 
-    let tips: [TipViewModel]
-    let spacing: CGFloat
+    @ObservedObject private(set) var viewModel: TipsViewModel
 
     var body: some View {
-        HStack(alignment: .top, spacing: spacing) {
-            ForEach(tips, id: \.self) { tipViewModel in
-                TipView(viewModel: tipViewModel)
-                    .frame(width: TipView.minimumWidth, height: nil, alignment: .top)
-            }.animation(.spring())
+        GeometryReader { geometry in
+            HStack(alignment: .top, spacing: 30) {
+                ForEach(self.tips(for: geometry, spacing: 30), id: \.self) { tipViewModel in
+                    TipView(viewModel: tipViewModel).frame(width: TipView.minimumWidth, height: nil, alignment: .top)
+                }
+            }
         }
+    }
+
+
+    // MARK: Private helper methods
+
+    private func tips(for geometry: GeometryProxy, spacing: CGFloat) -> [TipViewModel] {
+        let limitCount = numberOfVisibleTips(for: geometry, spacing: spacing)
+        return Array(viewModel.tips[0..<limitCount])
+    }
+
+
+    private func numberOfVisibleTips(for geometry: GeometryProxy, spacing: CGFloat) -> Int {
+        let minimumSize: CGFloat = TipView.minimumWidth + spacing
+        return Int(floor((geometry.size.width - spacing) / minimumSize))
     }
 }
 

@@ -42,19 +42,6 @@ class MainViewController: UIViewController, ContainerViewController {
         observerControllers.set(publisher: metronomePublisher)
         gestureControllers.set(rootViewController: self)
 
-        let metronomeViewController = MetronomeViewController(with: metronomePublisher)
-        addChildViewController(metronomeViewController, in: view)
-
-        let oneTimeWelcomeViewController = WelcomeViewController()
-        oneTimeWelcomeViewController.delegate = self
-        addChildViewController(oneTimeWelcomeViewController, in: view)
-    }
-}
-
-
-extension MainViewController: WelcomeViewControllerDelegate {
-
-    func welcomeViewControllerHasCompleted(_ viewController: WelcomeViewController) {
-        removeChildViewController(viewController)
+        addChildViewController(MetronomeViewController(with: metronomePublisher), in: view)
     }
 }

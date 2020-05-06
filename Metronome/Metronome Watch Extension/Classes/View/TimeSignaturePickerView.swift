@@ -38,7 +38,7 @@ struct TimeSignaturePickerView: View {
                 self.viewModel.commit()
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
-                Text("Confirm")
+                Text(Copy.Controls.confirm.localised)
             })
         }
     }
