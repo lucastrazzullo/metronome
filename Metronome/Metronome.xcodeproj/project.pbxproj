@@ -68,10 +68,10 @@
 		81919FB7234B51960061571A /* TipViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81919FB6234B51960061571A /* TipViewModel.swift */; };
 		81A71C772352455100E86256 /* TogglerGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C762352455100E86256 /* TogglerGestureController.swift */; };
 		81A71C792352477C00E86256 /* SlideTempoUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C782352477C00E86256 /* SlideTempoUpdaterGestureController.swift */; };
-		81A71C7B23524B2200E86256 /* BarLengthUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */; };
+		81A71C7B23524B2200E86256 /* BarLengthPickerGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A71C7A23524B2200E86256 /* BarLengthPickerGestureController.swift */; };
 		81A729AE235E1FDC00DD5EE6 /* MultiGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A729AD235E1FDC00DD5EE6 /* MultiGestureController.swift */; };
 		81A729B0235E21C300DD5EE6 /* ColorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A729AF235E21C300DD5EE6 /* ColorView.swift */; };
-		81A8878323524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */; };
+		81A8878323524CEF0071BF48 /* NoteLengthPickerGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878223524CEF0071BF48 /* NoteLengthPickerGestureController.swift */; };
 		81A88789235250FE0071BF48 /* TapTempoUpdaterGestureController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A88788235250FE0071BF48 /* TapTempoUpdaterGestureController.swift */; };
 		81A8878B235257770071BF48 /* TapTempoPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878A235257770071BF48 /* TapTempoPickerViewController.swift */; };
 		81A8878D235343420071BF48 /* BarLengthPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A8878C235343420071BF48 /* BarLengthPickerViewModel.swift */; };
@@ -208,10 +208,10 @@
 		819E341A2343678700D56E92 /* MetronomeTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeTicker.swift; sourceTree = "<group>"; };
 		81A71C762352455100E86256 /* TogglerGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TogglerGestureController.swift; sourceTree = "<group>"; };
 		81A71C782352477C00E86256 /* SlideTempoUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideTempoUpdaterGestureController.swift; sourceTree = "<group>"; };
-		81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarLengthUpdaterGestureController.swift; sourceTree = "<group>"; };
+		81A71C7A23524B2200E86256 /* BarLengthPickerGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarLengthPickerGestureController.swift; sourceTree = "<group>"; };
 		81A729AD235E1FDC00DD5EE6 /* MultiGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiGestureController.swift; sourceTree = "<group>"; };
 		81A729AF235E21C300DD5EE6 /* ColorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorView.swift; sourceTree = "<group>"; };
-		81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLengthUpdaterGestureController.swift; sourceTree = "<group>"; };
+		81A8878223524CEF0071BF48 /* NoteLengthPickerGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLengthPickerGestureController.swift; sourceTree = "<group>"; };
 		81A887862352501C0071BF48 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		81A88788235250FE0071BF48 /* TapTempoUpdaterGestureController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempoUpdaterGestureController.swift; sourceTree = "<group>"; };
 		81A8878A235257770071BF48 /* TapTempoPickerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempoPickerViewController.swift; sourceTree = "<group>"; };
@@ -444,8 +444,8 @@
 				81C0725423523D23009A9523 /* HelpGestureController.swift */,
 				81A71C782352477C00E86256 /* SlideTempoUpdaterGestureController.swift */,
 				81A88788235250FE0071BF48 /* TapTempoUpdaterGestureController.swift */,
-				81A71C7A23524B2200E86256 /* BarLengthUpdaterGestureController.swift */,
-				81A8878223524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift */,
+				81A71C7A23524B2200E86256 /* BarLengthPickerGestureController.swift */,
+				81A8878223524CEF0071BF48 /* NoteLengthPickerGestureController.swift */,
 			);
 			path = "Gesture Controllers";
 			sourceTree = "<group>";
@@ -954,7 +954,7 @@
 				81E7FDC12357293600C20444 /* WelcomeViewController.swift in Sources */,
 				817EFA4C2355C60E004E774D /* BrandFont.swift in Sources */,
 				81FAF06123429A24004A8C51 /* MetronomeViewController.swift in Sources */,
-				81A8878323524CEF0071BF48 /* NoteLengthUpdaterGestureController.swift in Sources */,
+				81A8878323524CEF0071BF48 /* NoteLengthPickerGestureController.swift in Sources */,
 				81A8878B235257770071BF48 /* TapTempoPickerViewController.swift in Sources */,
 				81B999B1235B569600E87778 /* BeatView.swift in Sources */,
 				81A8878D235343420071BF48 /* BarLengthPickerViewModel.swift in Sources */,
@@ -979,7 +979,7 @@
 				81919FB7234B51960061571A /* TipViewModel.swift in Sources */,
 				81FAF03123427ED1004A8C51 /* SceneDelegate.swift in Sources */,
 				81249772234B64420047F3E3 /* TimeSignature.swift in Sources */,
-				81A71C7B23524B2200E86256 /* BarLengthUpdaterGestureController.swift in Sources */,
+				81A71C7B23524B2200E86256 /* BarLengthPickerGestureController.swift in Sources */,
 				811BEEE22461CF4E00C5ADF7 /* MultiObservingController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -44,8 +44,8 @@ class MultiGestureController {
         let helpController = HelpGestureController(with: metronome)
         let tempoSlidePickerController = SlideTempoUpdaterGestureController(with: metronome)
         let tempoTapPickerController = TapTempoUpdaterGestureController(with: metronome)
-        let barLengthPickerController = BarLengthUpdaterGestureController(with: metronome)
-        let noteLengthPickerController = NoteLengthUpdaterGestureController(with: metronome)
+        let barLengthPickerController = BarLengthPickerGestureController(with: metronome)
+        let noteLengthPickerController = NoteLengthPickerGestureController(with: metronome)
 
         togglerController.gestureRecogniser.canBePrevented(by: helpController.gestureRecogniser)
         togglerController.gestureRecogniser.canBePrevented(by: tempoTapPickerController.gestureRecogniser)
