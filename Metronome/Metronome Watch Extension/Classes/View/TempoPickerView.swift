@@ -13,17 +13,17 @@ struct TempoPickerView: View {
 
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @State var viewModel: TempoPickerViewModel
+    @State private(set) var viewModel: TempoPickerViewModel
 
 
     // MARK: Body
 
     var body: some View {
         VStack(alignment: .center, spacing: 8) {
-            Picker(selection: self.$viewModel.selectedTempoItem,
+            Picker(selection: self.$viewModel.selectedTempo,
                    label: Text(Copy.Tempo.unit.localised).padding(2)) {
-                ForEach(self.viewModel.tempoItems, id: \.self) { item in
-                    Text(item.label).font(.largeTitle)
+                ForEach(self.viewModel.tempoItems, id: \.self) { bpm in
+                    Text(String(bpm)).font(.largeTitle)
                 }
             }
             Button(action: {
