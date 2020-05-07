@@ -8,25 +8,20 @@
 
 import Foundation
 
-class TapTempoPickerViewModel: GesturePickerViewModel {
+class TapTempoPickerViewModel: ObservableObject {
 
-    @Published private(set) var selectedTempoBpm: Int
+    @Published private(set) var selectedTempoBpm: Int?
+
+    private var tapTimestamps: [TimeInterval]
 
     private let metronome: Metronome
-    private var tapTimestamps: [TimeInterval] = []
 
 
     // MARK: Object life cycle
 
     init(metronome: Metronome) {
         self.metronome = metronome
-        self.selectedTempoBpm = metronome.configuration.tempo.bpm
-
-        let value = Copy.Picker.TapTempo.valuePlaceholder.localised
-        let background = Palette.green
-        let title = Copy.Picker.TapTempo.title.localised
-        let suffix = Copy.Tempo.unit.localised
-        super.init(value: value, background: background, title: title, prefix: nil, suffix: suffix)
+        self.tapTimestamps = []
     }
 
 
@@ -39,18 +34,15 @@ class TapTempoPickerViewModel: GesturePickerViewModel {
 
     func selectTemporarely(newTapWith timestamp: TimeInterval) {
         if let frequency = getFrequency(withNew: timestamp) {
-            let bpm = metronome.configuration.getBpm(with: frequency)
-            selectedTempoBpm = bpm
-            heroLabel = String(bpm)
-        } else {
-            selectedTempoBpm = metronome.configuration.tempo.bpm
-            heroLabel = Copy.Picker.TapTempo.valuePlaceholder.localised
+            selectedTempoBpm = metronome.configuration.getBpm(with: frequency)
         }
     }
 
 
     func commit() {
-        metronome.configuration.setBpm(selectedTempoBpm)
+        if let tempo = selectedTempoBpm {
+            metronome.configuration.setBpm(tempo)
+        }
     }
 
 

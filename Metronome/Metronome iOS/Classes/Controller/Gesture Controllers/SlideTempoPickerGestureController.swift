@@ -1,5 +1,5 @@
 //
-//  SlideTempoUpdaterGestureController.swift
+//  SlideTempoPickerGestureController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 12/10/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SlideTempoUpdaterGestureController: NSObject, GestureController {
+class SlideTempoPickerGestureController: NSObject, GestureController {
 
     let gestureRecogniser: UIGestureRecognizer
 
@@ -67,7 +67,7 @@ class SlideTempoUpdaterGestureController: NSObject, GestureController {
     private func handlePresentation(with gestureRecogniser: UIPanGestureRecognizer) {
         switch gestureRecogniser.state {
         case .began:
-            let pickerViewController = TempoPickerViewController(viewModel: viewModel)
+            let pickerViewController = TempoGesturePickerViewController(pickerViewModel: viewModel)
             presentedViewController = pickerViewController
             targetViewController?.addChildViewController(pickerViewController, in: targetViewController?.view)
         case .ended:
@@ -79,7 +79,7 @@ class SlideTempoUpdaterGestureController: NSObject, GestureController {
 }
 
 
-extension SlideTempoUpdaterGestureController: UIGestureRecognizerDelegate {
+extension SlideTempoPickerGestureController: UIGestureRecognizerDelegate {
 
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         if let gestureRecognizer = gestureRecognizer as? UIPanGestureRecognizer, let view = gestureRecognizer.view {

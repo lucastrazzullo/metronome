@@ -13,7 +13,7 @@ struct TimeSignaturePickerView: View {
 
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
 
-    @State var viewModel: TimeSignaturePickerViewModel
+    @State private(set) var viewModel: TimeSignaturePickerViewModel
 
 
     // MARK: Body
@@ -23,14 +23,14 @@ struct TimeSignaturePickerView: View {
             HStack {
                 Picker(selection: self.$viewModel.selectedBarLength,
                        label: Text(Copy.TimeSignature.barLength.localised).padding(2)) {
-                    ForEach(viewModel.barLengthItems, id: \.self) { item in
-                        Text(item.label).font(.title)
+                    ForEach(viewModel.barLengthItems, id: \.self) { length in
+                        Text(String(length)).font(.title)
                     }
                 }
                 Picker(selection: self.$viewModel.selectedNoteLength,
                        label: Text(Copy.TimeSignature.noteLength.localised).padding(2)) {
-                    ForEach(viewModel.noteLengthItems, id: \.self) { item in
-                        Text(item.label).font(.title)
+                    ForEach(viewModel.noteLengthItems, id: \.self) { length in
+                        Text(String(length)).font(.title)
                     }
                 }
             }
@@ -38,7 +38,7 @@ struct TimeSignaturePickerView: View {
                 self.viewModel.commit()
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
-                Text("Confirm")
+                Text(Copy.Controls.confirm.localised)
             })
         }
     }

@@ -61,7 +61,7 @@ class NoteLengthPickerGestureController: GestureController {
     private func handlePresentation(with gestureRecogniser: UIPinchGestureRecognizer) {
         switch gestureRecogniser.state {
         case .began:
-            let pickerViewController = TimeSignaturePickerViewController(viewModel: viewModel)
+            let pickerViewController = TimeSignaturePickerViewController(pickerViewModel: viewModel)
             presentedViewController = pickerViewController
             targetViewController?.addChildViewController(pickerViewController, in: targetViewController?.view)
         case .ended:

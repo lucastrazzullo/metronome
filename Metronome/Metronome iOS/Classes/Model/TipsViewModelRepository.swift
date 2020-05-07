@@ -11,7 +11,6 @@ import Foundation
 struct TipsViewModelRepository {
 
     static var all: [TipViewModel] = [
-        TipViewModel(title: Copy.Tips.swipeUpTitle.localised, description: Copy.Tips.swipeUpDescription.localised, illustration: "SwipeUp"),
         TipViewModel(title: Copy.Tips.toggleTitle.localised, description: Copy.Tips.toggleDescription.localised, illustration: "Tap"),
         TipViewModel(title: Copy.Tips.longPressTitle.localised, description: Copy.Tips.longPressDescription.localised, illustration: "LongPress"),
         TipViewModel(title: Copy.Tips.verticalSlideTitle.localised, description: Copy.Tips.verticalSlideDescription.localised, illustration: "DoubleFingerVerticalSlide"),

@@ -12,10 +12,12 @@ struct ControlsView: View {
 
     @ObservedObject private(set) var viewModel: ControlsViewModel
 
+    private(set) var metronome: Metronome
+
     var body: some View {
         HStack(alignment: .bottom, spacing: 60) {
             Button(action: { self.viewModel.toggleIsRunning() }) { Text(viewModel.toggleLabel ?? "") }
-            ConfigurationPickerView(viewModel: viewModel.configurationPickerViewModel())
+            ConfigurationPickerView(viewModel: ConfigurationPickerViewModel(metronome: metronome))
         }.padding()
     }
 }
@@ -32,10 +34,10 @@ private struct ConfigurationPickerView: View {
         HStack(alignment: .bottom, spacing: 48) {
             VStack(alignment: .leading, spacing: nil) {
                 Text(Copy.Tempo.title.localised)
-                Picker(selection: self.$viewModel.tempoPickerViewModel.selectedTempoItem,
+                Picker(selection: self.$viewModel.tempoPickerViewModel.selectedTempo,
                    label: Text(Copy.Tempo.unit.localised)) {
-                    ForEach(self.viewModel.tempoPickerViewModel.tempoItems, id: \.self) { item in
-                        Text(item.label)
+                    ForEach(self.viewModel.tempoPickerViewModel.tempoItems, id: \.self) { bpm in
+                        Text(String(bpm))
                     }
                 }
             }
@@ -44,14 +46,14 @@ private struct ConfigurationPickerView: View {
                 HStack {
                     Picker(selection: self.$viewModel.timeSignaturePickerViewModel.selectedBarLength,
                            label: Text(Copy.TimeSignature.barLength.localised)) {
-                            ForEach(self.viewModel.timeSignaturePickerViewModel.barLengthItems, id: \.self) { item in
-                                Text(item.label)
+                            ForEach(self.viewModel.timeSignaturePickerViewModel.barLengthItems, id: \.self) { length in
+                                Text(String(length))
                             }
                         }
                     Picker(selection: self.$viewModel.timeSignaturePickerViewModel.selectedNoteLength,
                            label: Text(Copy.TimeSignature.noteLength.localised)) {
-                            ForEach(self.viewModel.timeSignaturePickerViewModel.noteLengthItems, id: \.self) { item in
-                                Text(item.label)
+                            ForEach(self.viewModel.timeSignaturePickerViewModel.noteLengthItems, id: \.self) { length in
+                                Text(String(length))
                             }
                         }
                 }

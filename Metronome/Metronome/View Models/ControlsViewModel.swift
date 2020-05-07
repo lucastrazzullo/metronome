@@ -47,13 +47,13 @@ class ControlsViewModel: ObservableObject {
     }
 
 
-    func configurationPickerViewModel() -> ConfigurationPickerViewModel {
-        return ConfigurationPickerViewModel(metronome: metronome)
+    func tempoPickerViewModel() -> TempoPickerViewModel {
+        return TempoPickerViewModel(metronome: metronome)
     }
 
 
-    func tempoPickerViewModel() -> TempoPickerViewModel {
-        return TempoPickerViewModel(metronome: metronome)
+    func tapTempoPickerViewModel() -> TapTempoPickerViewModel {
+        return TapTempoPickerViewModel(metronome: metronome)
     }
 
 

@@ -11,13 +11,14 @@ import SwiftUI
 struct MetronomeView: View {
 
     private(set) var viewModel: MetronomeViewModel
+    private(set) var metronome: Metronome
 
     var body: some View {
         ZStack {
             ColorView(color: .black)
             VStack {
                 BeatsView(viewModel: viewModel.beatsViewModel)
-                ControlsView(viewModel: viewModel.controlsViewModel)
+                ControlsView(viewModel: viewModel.controlsViewModel, metronome: metronome)
             }
         }
     }

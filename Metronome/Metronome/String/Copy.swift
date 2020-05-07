@@ -47,6 +47,8 @@ struct Copy {
         case confirm = "controls.confirm"
         case start = "controls.start"
         case reset = "controls.reset"
+        case tips = "controls.tips"
+        case tapTempo = "controls.tap_tempo"
     }
 
     enum Picker {

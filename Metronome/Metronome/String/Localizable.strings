@@ -30,6 +30,8 @@
 "controls.confirm" = "Confirm";
 "controls.start" = "Start";
 "controls.reset" = "Reset";
+"controls.tips" = "Tips";
+"controls.tap_tempo" = "Tap";
 
 
 // MARK: Picker

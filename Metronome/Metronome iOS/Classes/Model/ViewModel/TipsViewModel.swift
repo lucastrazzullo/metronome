@@ -1,5 +1,5 @@
 //
-//  HelpViewModel.swift
+//  TipsViewModel.swift
 //  Metronome
 //
 //  Created by luca strazzullo on 7/10/19.
@@ -7,30 +7,32 @@
 //
 
 import Foundation
+import Combine
 
-struct HelpViewModel: TipsViewModel {
+class TipsViewModel: ObservableObject {
 
-    let titleLabel: String = Copy.Tips.title.localised
+    @Published private(set) var tips: [TipViewModel]
 
-    private(set) var tips: [TipViewModel]
+    let titleLabel: String
 
 
-    // MARK: Getter methods
+    // MARK: Object life cycle
 
-    func tips(with limitCount: Int) -> [TipViewModel] {
-        return Array(tips[0..<limitCount])
+    init(tips: [TipViewModel]) {
+        self.tips = tips
+        self.titleLabel = Copy.Tips.title.localised
     }
 
 
     // MARK: Public methods
 
-    mutating func nextTip() {
+    func nextTip() {
         let firstTip = tips.remove(at: 0)
         tips.append(firstTip)
     }
 
 
-    mutating func prevTip() {
+    func prevTip() {
         if let lastTip = tips.popLast() {
             tips.insert(lastTip, at: 0)
         }

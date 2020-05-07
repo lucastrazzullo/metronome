@@ -1,5 +1,5 @@
 //
-//  TapTempoUpdaterGestureController.swift
+//  TapTempoPickerGestureController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 12/10/19.
@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class TapTempoUpdaterGestureController: GestureController {
+class TapTempoPickerGestureController: GestureController {
 
     let gestureRecogniser: UIGestureRecognizer
 
@@ -68,7 +68,7 @@ class TapTempoUpdaterGestureController: GestureController {
     private func handlePresentation(with gestureRecogniser: UILongPressGestureRecognizer) {
         switch gestureRecogniser.state {
         case .began:
-            let pickerViewController = TapTempoPickerViewController(viewModel: viewModel)
+            let pickerViewController = TapTempoPickerViewController(pickerViewModel: viewModel)
             presentedViewController = pickerViewController
             targetViewController?.present(pickerViewController, animated: true)
         case .ended:
