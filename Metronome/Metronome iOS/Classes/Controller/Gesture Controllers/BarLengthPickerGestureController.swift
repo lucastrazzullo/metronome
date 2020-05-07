@@ -68,7 +68,7 @@ class BarLengthPickerGestureController: NSObject, GestureController {
     private func handlePresentation(with gestureRecogniser: UIPanGestureRecognizer) {
         switch gestureRecogniser.state {
         case .began:
-            let pickerViewController = TimeSignaturePickerViewController(viewModel: viewModel)
+            let pickerViewController = TimeSignaturePickerViewController(pickerViewModel: viewModel)
             presentedViewController = pickerViewController
             targetViewController?.addChildViewController(pickerViewController, in: targetViewController?.view)
         case .ended:

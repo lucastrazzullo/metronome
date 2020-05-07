@@ -11,25 +11,11 @@ import Combine
 
 class TimeSignaturePickerViewModel: ObservableObject {
 
-    struct Item: Hashable {
+    @Published var selectedBarLength: Int
+    @Published var selectedNoteLength: Int
 
-        let length: Int
-        let label: String
-
-        init(length: Int) {
-            self.length = length
-            self.label = String(length)
-        }
-    }
-
-
-    // MARK: Instance properties
-
-    @Published var selectedBarLength: Item
-    @Published var selectedNoteLength: Item
-
-    private(set) var barLengthItems: [Item]
-    private(set) var noteLengthItems: [Item]
+    private(set) var barLengthItems: [Int]
+    private(set) var noteLengthItems: [Int]
 
     private let metronome: Metronome
 
@@ -39,19 +25,19 @@ class TimeSignaturePickerViewModel: ObservableObject {
     init(metronome: Metronome) {
         self.metronome = metronome
 
-        barLengthItems = TimeSignature.barLengthRange.map(Item.init)
-        noteLengthItems = TimeSignature.NoteLength.allCases.map({ $0.rawValue }).map(Item.init)
+        self.barLengthItems = Array(TimeSignature.barLengthRange)
+        self.noteLengthItems = TimeSignature.NoteLength.allCases.map({ $0.rawValue })
 
-        selectedBarLength = Item(length: metronome.configuration.timeSignature.beats)
-        selectedNoteLength = Item(length: metronome.configuration.timeSignature.noteLength.rawValue)
+        self.selectedBarLength = metronome.configuration.timeSignature.beats
+        self.selectedNoteLength = metronome.configuration.timeSignature.noteLength.rawValue
     }
 
 
     // MARK: Public methods
 
     func commit() {
-        let barLength = self.selectedBarLength.length
-        let noteLength = TimeSignature.NoteLength(rawValue: selectedNoteLength.length)
+        let barLength = selectedBarLength
+        let noteLength = TimeSignature.NoteLength(rawValue: selectedNoteLength)
         let timeSignature = TimeSignature(beats: barLength, noteLength: noteLength ?? .default)
         metronome.configuration.setTimeSignature(timeSignature)
     }

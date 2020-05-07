@@ -2,21 +2,20 @@
 //  GesturePickerViewModel.swift
 //  Metronome iOS
 //
-//  Created by luca strazzullo on 5/5/20.
+//  Created by luca strazzullo on 7/5/20.
 //  Copyright © 2020 luca strazzullo. All rights reserved.
 //
 
 import Foundation
-import Combine
 
 class GesturePickerViewModel: ObservableObject {
 
     @Published var heroLabel: String
 
-    var backgroundColor: Palette
-    var titleLabel: String
-    var prefixLabel: String?
-    var suffixLabel: String?
+    let backgroundColor: Palette
+    let titleLabel: String
+    let prefixLabel: String?
+    let suffixLabel: String?
 
 
     // MARK: Object life cycle

@@ -25,8 +25,8 @@ struct TapTempoPickerView: View {
                 }
 
                 HStack {
-                    Text(viewModel.heroLabel).brandFont(.largeTitle)
-                    Text(viewModel.suffixLabel ?? "").brandFont(.title1)
+                    Text(getValueString()).brandFont(.largeTitle)
+                    Text(Copy.Tempo.unit.localised).brandFont(.title1)
                 }
 
                 HStack(alignment: .center) {
@@ -44,5 +44,16 @@ struct TapTempoPickerView: View {
         .gesture(TapGesture().onEnded { gesture in
             self.viewModel.selectTemporarely(newTapWith: Date().timeIntervalSinceReferenceDate)
         })
+    }
+
+
+    // MARK: Private helper methods
+
+    private func getValueString() -> String {
+        if let bpm = viewModel.selectedTempoBpm {
+            return String(bpm)
+        } else {
+            return Copy.Picker.TapTempo.valuePlaceholder.localised
+        }
     }
 }

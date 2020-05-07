@@ -8,10 +8,11 @@
 
 import Foundation
 
-class SlideTempoPickerViewModel: GesturePickerViewModel {
+class SlideTempoPickerViewModel: ObservableObject {
+
+    @Published private(set) var selectedTempoBpm: Int
 
     private let metronome: Metronome
-    private var selectedTempoBpm: Int
 
 
     // MARK: Object life cycle
@@ -19,12 +20,6 @@ class SlideTempoPickerViewModel: GesturePickerViewModel {
     init(metronome: Metronome) {
         self.metronome = metronome
         self.selectedTempoBpm = metronome.configuration.tempo.bpm
-
-        let value = String(selectedTempoBpm)
-        let background = Palette.yellow
-        let title = Copy.Tempo.title.localised
-        let suffix = Copy.Tempo.unit.localised
-        super.init(value: value, background: background, title: title, prefix: nil, suffix: suffix)
     }
 
 
@@ -39,7 +34,6 @@ class SlideTempoPickerViewModel: GesturePickerViewModel {
         let currentBpm = metronome.configuration.tempo.bpm
         let bpm = min(Tempo.maximumBpm, max(Tempo.minimumBpm, currentBpm + offset))
         selectedTempoBpm = bpm
-        heroLabel = String(bpm)
     }
 
 

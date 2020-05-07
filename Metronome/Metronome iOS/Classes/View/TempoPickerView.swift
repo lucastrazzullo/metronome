@@ -28,9 +28,9 @@ struct TempoPickerView: View {
                 }
 
                 HStack(alignment: .center, spacing: 24) {
-                    Picker(selection: self.$viewModel.selectedTempoItem, label: Text(Copy.Tempo.unit.localised)) {
-                        ForEach(self.viewModel.tempoItems, id: \.self) { item in
-                            Text(item.label).font(.largeTitle)
+                    Picker(selection: $viewModel.selectedTempo, label: Text(Copy.Tempo.unit.localised)) {
+                        ForEach(self.viewModel.tempoItems, id: \.self) { bpm in
+                            Text(String(bpm)).font(.largeTitle)
                         }
                     }
                     .frame(width: 120, height: nil, alignment: .center)

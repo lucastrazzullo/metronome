@@ -30,8 +30,8 @@ struct TimeSignaturePickerView: View {
                 HStack(alignment: .center, spacing: 0) {
                     VStack {
                         Picker(selection: self.$viewModel.selectedBarLength, label: Text(Copy.TimeSignature.barLength.localised).padding(2)) {
-                            ForEach(viewModel.barLengthItems, id: \.self) { item in
-                                Text(item.label).font(.title)
+                            ForEach(viewModel.barLengthItems, id: \.self) { length in
+                                Text(String(length)).font(.title)
                             }
                         }
                     }
@@ -40,8 +40,8 @@ struct TimeSignaturePickerView: View {
 
                     VStack {
                         Picker(selection: self.$viewModel.selectedNoteLength, label: Text(Copy.TimeSignature.noteLength.localised).padding(2)) {
-                            ForEach(viewModel.noteLengthItems, id: \.self) { item in
-                                Text(item.label).font(.title)
+                            ForEach(viewModel.noteLengthItems, id: \.self) { length in
+                                Text(String(length)).font(.title)
                             }
                         }
                     }

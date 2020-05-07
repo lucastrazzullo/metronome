@@ -20,7 +20,7 @@ struct ChromeView: View {
                     LeftControlsView(viewModel: viewModel)
                     Spacer()
                     RightControlsView(viewModel: viewModel)
-                }.foregroundColor(Color.white).opacity(0.7)
+                }.foregroundColor(Palette.black.color)
             }.frame(width: nil, height: 40, alignment: .center)
         }.padding([.leading, .trailing], 24).padding([.top, .bottom], 10)
     }

@@ -11,23 +11,9 @@ import Combine
 
 class TempoPickerViewModel: ObservableObject {
 
-    struct Item: Hashable {
+    @Published var selectedTempo: Int
 
-        let bpm: Int
-        let label: String
-
-        init(bpm: Int) {
-            self.bpm = bpm
-            self.label = String(bpm)
-        }
-    }
-
-
-    // MARK: Instance properties
-
-    @Published var selectedTempoItem: Item
-
-    private(set) var tempoItems: [Item]
+    private(set) var tempoItems: [Int]
 
     private let metronome: Metronome
 
@@ -36,15 +22,14 @@ class TempoPickerViewModel: ObservableObject {
 
     init(metronome: Metronome) {
         self.metronome = metronome
-
-        tempoItems = Tempo.range.map(Item.init(bpm:))
-        selectedTempoItem = Item(bpm: metronome.configuration.tempo.bpm)
+        self.tempoItems = Array(Tempo.range)
+        self.selectedTempo = metronome.configuration.tempo.bpm
     }
 
 
     // MARK: Public methods
 
     func commit() {
-        metronome.configuration.tempo = Tempo(bpm: selectedTempoItem.bpm)
+        metronome.configuration.tempo = Tempo(bpm: selectedTempo)
     }
 }

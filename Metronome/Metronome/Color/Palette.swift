@@ -33,4 +33,5 @@ enum Palette: String, PaletteIdentifier {
     case purple
     case yellow
     case black
+    case white
 }
