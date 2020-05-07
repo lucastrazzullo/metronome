@@ -18,15 +18,6 @@ struct TipsView: View {
     // MARK: Body
 
     var body: some View {
-        let gesture = DragGesture().onEnded {
-            gesture in
-            if gesture.translation.width < -100 {
-                self.viewModel.nextTip()
-            } else if gesture.translation.width > 100 {
-                self.viewModel.prevTip()
-            }
-        }
-
         return HStack(alignment: .center, spacing: 10) {
             ButtonView(icon: "arrow.left.circle.fill", action: { self.viewModel.prevTip() })
 
@@ -36,7 +27,14 @@ struct TipsView: View {
                 })
                 TipsListView(viewModel: viewModel).animation(.spring())
             }
-            .gesture(gesture)
+            .gesture(DragGesture().onEnded {
+                gesture in
+                if gesture.translation.width < -100 {
+                    self.viewModel.nextTip()
+                } else if gesture.translation.width > 100 {
+                    self.viewModel.prevTip()
+                }
+            })
 
             ButtonView(icon: "arrow.right.circle.fill", action: { self.viewModel.nextTip() })
         }.padding([.leading, .trailing], 12).padding([.top, .bottom], 10)

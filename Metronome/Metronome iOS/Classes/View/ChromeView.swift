@@ -32,19 +32,26 @@ private struct LeftControlsView: View {
     @ObservedObject private(set) var viewModel: ControlsViewModel
 
     @State private var showingTempoPicker: Bool = false
+    @State private var showingTapTempoPicker: Bool = false
     @State private var showingTimeSignaturePicker: Bool = false
 
     var body: some View {
         HStack(alignment: .center, spacing: 24) {
+            ControlsButton(label: viewModel.timeSignatureLabel ?? "", background: Palette.orange.color, action: { self.showingTimeSignaturePicker.toggle() })
+                .sheet(isPresented: $showingTimeSignaturePicker) {
+                    TimeSignaturePickerView(viewModel: self.viewModel.timeSignaturePickerViewModel())
+                        .onAppear(perform: { self.viewModel.reset() })
+                }
+
             ControlsButton(label: viewModel.tempoLabel ?? "", background: Palette.yellow.color, action: { self.showingTempoPicker.toggle() })
                 .sheet(isPresented: $showingTempoPicker) {
                     TempoPickerView(viewModel: self.viewModel.tempoPickerViewModel())
                         .onAppear(perform: { self.viewModel.reset() })
                 }
 
-            ControlsButton(label: viewModel.timeSignatureLabel ?? "", background: Palette.orange.color, action: { self.showingTimeSignaturePicker.toggle() })
-                .sheet(isPresented: $showingTimeSignaturePicker) {
-                    TimeSignaturePickerView(viewModel: self.viewModel.timeSignaturePickerViewModel())
+            ControlsButton(label: Copy.Controls.tapTempo.localised, background: Palette.green.color, action: { self.showingTapTempoPicker.toggle() })
+                .sheet(isPresented: $showingTapTempoPicker) {
+                    TapTempoPickerView(viewModel: self.viewModel.tapTempoPickerViewModel())
                         .onAppear(perform: { self.viewModel.reset() })
                 }
         }
@@ -59,7 +66,7 @@ private struct RightControlsView: View {
     @State private var showingHelpView: Bool = false
 
     var body: some View {
-        ControlsButton(label: Copy.Controls.help.localised, background: Color.white.opacity(0.4), action: { self.showingHelpView.toggle() })
+        ControlsButton(label: Copy.Controls.tips.localised, background: Color.white.opacity(0.4), action: { self.showingHelpView.toggle() })
             .sheet(isPresented: $showingHelpView) {
                 TipsView(viewModel: TipsViewModel(tips: TipsViewModelRepository.all))
                     .onAppear(perform: { self.viewModel.reset() })

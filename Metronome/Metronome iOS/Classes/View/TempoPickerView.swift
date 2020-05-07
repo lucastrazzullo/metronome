@@ -27,15 +27,18 @@ struct TempoPickerView: View {
                     Text(Copy.Tempo.title.localised).brandFont(.headline)
                 }
 
-                VStack {
+                HStack(alignment: .center, spacing: 24) {
                     Picker(selection: self.$viewModel.selectedTempoItem, label: Text(Copy.Tempo.unit.localised)) {
                         ForEach(self.viewModel.tempoItems, id: \.self) { item in
                             Text(item.label).font(.largeTitle)
                         }
                     }
+                    .frame(width: 120, height: nil, alignment: .center)
+                    .clipped()
+
+                    Text(Copy.Tempo.unit.localised).brandFont(.title1)
+                    .fixedSize(horizontal: true, vertical: true)
                 }
-                .frame(width: 120, height: nil, alignment: .center)
-                .clipped()
 
                 HStack(alignment: .center) {
                     Button(action: {

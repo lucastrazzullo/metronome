@@ -27,7 +27,7 @@ struct TimeSignaturePickerView: View {
                     Text(Copy.TimeSignature.title.localised).brandFont(.headline)
                 }
 
-                HStack(alignment: .center, spacing: 12) {
+                HStack(alignment: .center, spacing: 0) {
                     VStack {
                         Picker(selection: self.$viewModel.selectedBarLength, label: Text(Copy.TimeSignature.barLength.localised).padding(2)) {
                             ForEach(viewModel.barLengthItems, id: \.self) { item in
@@ -35,7 +35,7 @@ struct TimeSignaturePickerView: View {
                             }
                         }
                     }
-                    .frame(width: 130, height: nil, alignment: .center)
+                    .frame(width: 100, height: nil, alignment: .center)
                     .clipped()
 
                     VStack {
@@ -45,7 +45,7 @@ struct TimeSignaturePickerView: View {
                             }
                         }
                     }
-                    .frame(width: 130, height: nil, alignment: .center)
+                    .frame(width: 100, height: nil, alignment: .center)
                     .clipped()
                 }
                 .labelsHidden()
@@ -62,6 +62,7 @@ struct TimeSignaturePickerView: View {
 
             }
             .foregroundColor(Palette.black.color)
+            .padding()
         }
     }
 }
