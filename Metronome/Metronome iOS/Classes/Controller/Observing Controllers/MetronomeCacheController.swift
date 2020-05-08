@@ -11,32 +11,40 @@ import Combine
 
 class MetronomeCacheController: ObservingController {
 
-    private let configurationCache: ConfigurationCache
-
-    private var cancellable: AnyCancellable?
+    private let stateCache: MetronomeStateCache
+    private var cancellables: [AnyCancellable]
 
 
     // MARK: Object life cycle
 
-    init(cache: ConfigurationCache) {
-        self.configurationCache = cache
+    init(cache: MetronomeStateCache) {
+        self.stateCache = cache
+        self.cancellables = []
     }
 
 
     // MARK: Public methods
 
     func set(publisher: MetronomePublisher) {
-        cancellable = publisher.$configuration.sink { [weak self] configuration in
+        cancellables.append(publisher.$configuration.sink { [weak self] configuration in
             self?.cacheConfigurationValues(configuration: configuration)
-        }
+        })
+        cancellables.append(publisher.$isSoundOn.sink { [weak self] isSoundOn in
+            self?.cacheIsSoundOn(isSoundOn)
+        })
     }
 
 
     // MARK: Private helper methods
 
     private func cacheConfigurationValues(configuration: MetronomeConfiguration) {
-        configurationCache.barLength = configuration.timeSignature.beats
-        configurationCache.noteLength = configuration.timeSignature.noteLength
-        configurationCache.bpm = configuration.tempo.bpm
+        stateCache.barLength = configuration.timeSignature.beats
+        stateCache.noteLength = configuration.timeSignature.noteLength
+        stateCache.bpm = configuration.tempo.bpm
+    }
+
+
+    private func cacheIsSoundOn(_ isSoundOn: Bool) {
+        stateCache.isSoundOn = isSoundOn
     }
 }

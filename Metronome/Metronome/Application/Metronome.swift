@@ -10,6 +10,7 @@ import Foundation
 
 protocol MetronomeDelegate: AnyObject {
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration)
+    func metronome(_ metronome: Metronome, didUpdate isSoundOn: Bool)
     func metronome(_ metronome: Metronome, didPulse beat: Beat)
     func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?)
     func metronome(_ metronome: Metronome, willResetDuring beat: Beat?)
@@ -20,9 +21,13 @@ class Metronome {
 
     weak var delegate: MetronomeDelegate?
 
+    var isSoundOn: Bool {
+        didSet {
+            delegate?.metronome(self, didUpdate: isSoundOn)
+        }
+    }
     var configuration: MetronomeConfiguration {
         didSet {
-            reset()
             delegate?.metronome(self, didUpdate: configuration)
         }
     }
@@ -36,7 +41,6 @@ class Metronome {
         return ticker.isRunning
     }
 
-
     var currentBeat: Beat? {
         guard let iteration = ticker.currentIteration else { return nil }
         return Beat.with(tickIteration: iteration)
@@ -45,7 +49,8 @@ class Metronome {
 
     // MARK: Object life cycle
 
-    init(with configuration: MetronomeConfiguration) {
+    init(with configuration: MetronomeConfiguration, soundOn: Bool) {
+        self.isSoundOn = soundOn
         self.configuration = configuration
         self.ticker = MetronomeTicker()
         self.ticker.delegate = self

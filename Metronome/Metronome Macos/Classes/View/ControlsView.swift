@@ -16,7 +16,7 @@ struct ControlsView: View {
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 60) {
-            Button(action: { self.viewModel.toggleIsRunning() }) { Text(viewModel.toggleLabel ?? "") }
+            Button(action: { self.viewModel.toggleIsRunning() }) { Text(viewModel.togglerLabel) }
             ConfigurationPickerView(viewModel: ConfigurationPickerViewModel(metronome: metronome))
         }.padding()
     }

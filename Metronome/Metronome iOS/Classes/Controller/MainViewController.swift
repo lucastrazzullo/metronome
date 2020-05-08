@@ -16,15 +16,15 @@ class MainViewController: UIViewController, ContainerViewController {
     private let metronome: Metronome
     private let metronomePublisher: MetronomePublisher
 
-    private let cache: ConfigurationCache
+    private let cache: MetronomeStateCache
 
 
     //  MARK: Object life cycle
 
     required init?(coder: NSCoder) {
-        cache = ConfigurationCache(entry: UserDefaultBackedEntryCache())
+        cache = MetronomeStateCache(entry: UserDefaultBackedEntryCache())
 
-        metronome = Metronome(with: cache.configuration)
+        metronome = Metronome(with: cache.configuration, soundOn: cache.isSoundOn)
         metronomePublisher = MetronomePublisher(metronome: metronome)
 
         observerControllers = MultiObservingController(cache: cache)

@@ -1,5 +1,5 @@
 //
-//  ConfigurationCache.swift
+//  MetronomeStateCache.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 21/10/19.
@@ -8,12 +8,13 @@
 
 import Foundation
 
-class ConfigurationCache: Cache {
+class MetronomeStateCache: Cache {
 
     enum Key: String {
         case barLength = "barLength"
         case noteLength = "noteLength"
         case bpm = "bpm"
+        case soundOn = "soundOn"
     }
 
 
@@ -28,7 +29,6 @@ class ConfigurationCache: Cache {
         }
     }
 
-
     var noteLength: TimeSignature.NoteLength? {
         get {
             guard let noteLengthValue = entry.value(for: Key.noteLength.rawValue) as? Int else { return nil }
@@ -40,7 +40,6 @@ class ConfigurationCache: Cache {
         }
     }
 
-
     var bpm: Int? {
         get {
             return entry.value(for: Key.bpm.rawValue) as? Int
@@ -50,9 +49,17 @@ class ConfigurationCache: Cache {
         }
     }
 
+    var isSoundOn: Bool {
+        get {
+            return entry.value(for: Key.soundOn.rawValue) as? Bool ?? false
+        }
+        set {
+            entry.set(value: newValue, for: Key.soundOn.rawValue)
+        }
+    }
 
     var configuration: MetronomeConfiguration {
-        var configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
+        var configuration = MetronomeConfiguration.default
         if let barLength = barLength, let noteLength = noteLength {
             configuration.timeSignature = TimeSignature(beats: barLength, noteLength: noteLength)
         }

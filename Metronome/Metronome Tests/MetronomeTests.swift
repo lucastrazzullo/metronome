@@ -29,7 +29,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation?.expectedFulfillmentCount = 4
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(beats: 4, noteLength: .quarter), tempo: Tempo(bpm: 120))
-        metronome = Metronome(with: configuration)
+        metronome = Metronome(with: configuration, soundOn: false)
         metronome?.delegate = self
         metronome?.start()
 
@@ -42,7 +42,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation?.expectedFulfillmentCount = 3
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(beats: 4, noteLength: .quarter), tempo: Tempo(bpm: 90))
-        metronome = Metronome(with: configuration)
+        metronome = Metronome(with: configuration, soundOn: false)
         metronome?.delegate = self
         metronome?.start()
 
@@ -55,7 +55,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation?.expectedFulfillmentCount = 2
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(beats: 4, noteLength: .quarter), tempo: Tempo(bpm: 60))
-        metronome = Metronome(with: configuration)
+        metronome = Metronome(with: configuration, soundOn: false)
         metronome?.delegate = self
         metronome?.start()
 
@@ -70,7 +70,7 @@ class MetronomeTests: XCTestCase {
         tickExpectation?.expectedFulfillmentCount = 8
 
         let configuration = MetronomeConfiguration(timeSignature: TimeSignature(beats: 4, noteLength: .eigth), tempo: Tempo(bpm: 120))
-        metronome = Metronome(with: configuration)
+        metronome = Metronome(with: configuration, soundOn: false)
         metronome?.delegate = self
         metronome?.start()
 
@@ -82,6 +82,10 @@ class MetronomeTests: XCTestCase {
 extension MetronomeTests: MetronomeDelegate {
 
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
+    }
+
+
+    func metronome(_ metronome: Metronome, didUpdate isSoundOn: Bool) {
     }
 
 

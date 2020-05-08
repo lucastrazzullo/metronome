@@ -32,6 +32,9 @@
 "controls.reset" = "Reset";
 "controls.tips" = "Tips";
 "controls.tap_tempo" = "Tap";
+"controls.sound_on" = "Sound on";
+"controls.sound_off" = "Sound off";
+"controls.placeholder" = "..";
 
 
 // MARK: Picker

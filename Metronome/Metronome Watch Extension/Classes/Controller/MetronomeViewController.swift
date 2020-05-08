@@ -22,7 +22,7 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
     // MARK: Object life cycle
 
     override init() {
-        metronome = Metronome(with: .default)
+        metronome = Metronome(with: .default, soundOn: false)
         metronomePublisher = MetronomePublisher(metronome: metronome)
         metronomeViewModel = MetronomeViewModel(metronomePublisher: metronomePublisher)
         super.init()
@@ -34,29 +34,25 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
 
-        cancellables.append(
-            metronomePublisher.$isRunning.sink { isRunning in
-                if isRunning {
-                    WKInterfaceDevice.current().play(WKHapticType.click)
-                    WKExtension.shared().isAutorotating = true
-                } else {
-                    WKInterfaceDevice.current().play(WKHapticType.stop)
-                    WKExtension.shared().isAutorotating = false
-                }
+        cancellables.append(metronomePublisher.$isRunning.sink { isRunning in
+            if isRunning {
+                WKInterfaceDevice.current().play(WKHapticType.click)
+                WKExtension.shared().isAutorotating = true
+            } else {
+                WKInterfaceDevice.current().play(WKHapticType.stop)
+                WKExtension.shared().isAutorotating = false
             }
-        )
+        })
 
-        cancellables.append(
-            metronomePublisher.$currentBeat.sink { beat in
-                guard let beat = beat else { return }
-                switch beat.intensity {
-                case .normal:
-                    WKInterfaceDevice.current().play(WKHapticType.click)
-                case .strong:
-                    WKInterfaceDevice.current().play(WKHapticType.start)
-                }
+        cancellables.append(metronomePublisher.$currentBeat.sink { beat in
+            guard let beat = beat else { return }
+            switch beat.intensity {
+            case .normal:
+                WKInterfaceDevice.current().play(WKHapticType.start)
+            case .strong:
+                WKInterfaceDevice.current().play(WKHapticType.directionDown)
             }
-        )
+        })
     }
 
 
