@@ -32,7 +32,7 @@ class SlideTempoPickerViewModel: ObservableObject {
 
     func selectTemporary(tempo offset: Int) {
         let currentBpm = metronome.configuration.tempo.bpm
-        let bpm = min(Tempo.maximumBpm, max(Tempo.minimumBpm, currentBpm + offset))
+        let bpm = min(Tempo.range.upperBound, max(Tempo.range.lowerBound, currentBpm + offset))
         selectedTempoBpm = bpm
     }
 

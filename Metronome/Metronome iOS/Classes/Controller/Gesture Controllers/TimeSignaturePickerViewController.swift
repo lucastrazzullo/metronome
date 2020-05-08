@@ -34,7 +34,7 @@ class TimeSignaturePickerViewController: UIHostingController<GesturePickerView> 
         let value = String(pickerViewModel.selectedTimeSignature.noteLength.rawValue)
         let background = Palette.purple
         let title = Copy.TimeSignature.noteLength.localised
-        let prefix = String(format: Copy.TimeSignature.noteLengthPrefixFormat.localised, pickerViewModel.selectedTimeSignature.beats)
+        let prefix = String(format: Copy.TimeSignature.noteLengthPrefixFormat.localised, pickerViewModel.selectedTimeSignature.beats.count)
         let viewModel = GesturePickerViewModel(value: value, background: background, title: title, prefix: prefix, suffix: nil)
         super.init(rootView: GesturePickerView(viewModel: viewModel))
 

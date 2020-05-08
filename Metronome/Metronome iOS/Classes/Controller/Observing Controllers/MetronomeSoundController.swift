@@ -33,6 +33,7 @@ class MetronomeSoundController: ObservingController {
 
         engine = AVAudioEngine()
         engine.isAutoShutdownEnabled = true
+        engine.mainMixerNode.volume = 1
     }
 
 
@@ -65,7 +66,6 @@ class MetronomeSoundController: ObservingController {
                 let player = AVAudioPlayerNode()
                 engine.attach(player)
                 engine.connect(player, to: engine.mainMixerNode, format: audio.processingFormat)
-                player.scheduleFile(audio, at: AVAudioTime(sampleTime: 0, atRate: audio.processingFormat.sampleRate))
 
                 let audioFormat = audio.processingFormat
                 let audioFrameCount = UInt32(audio.length)

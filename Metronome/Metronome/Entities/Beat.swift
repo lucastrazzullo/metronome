@@ -20,17 +20,6 @@ struct Beat {
 
     let intensity: Intensity
     let position: Int
-
-
-    // MARK: Object builder
-
-    static func with(position: Int) -> Beat {
-        if position == 0 {
-            return Beat(intensity: .strong, position: position)
-        } else {
-            return Beat(intensity: .normal, position: position)
-        }
-    }
 }
 
 
