@@ -1,26 +1,14 @@
 //
-//  MetronomeTicker.swift
-//  Metronome
+//  TimerBackedMetronomeTicker.swift
+//  MetronomeTests
 //
-//  Created by luca strazzullo on 1/10/19.
-//  Copyright © 2019 luca strazzullo. All rights reserved.
+//  Created by luca strazzullo on 8/5/20.
+//  Copyright © 2020 luca strazzullo. All rights reserved.
 //
 
 import Foundation
 
-protocol MetronomeTickerDelegate: AnyObject {
-    func metronomeTickerWillStart(_ ticker: MetronomeTicker)
-    func metronomeTickerWillReset(_ ticker: MetronomeTicker)
-    func metronomeTickerDidTick(_ ticker: MetronomeTicker)
-}
-
-
-class MetronomeTicker {
-
-    struct Keys {
-        static let timeInterval = "timeInterval"
-    }
-
+class TimerBackedMetronomeTicker: MetronomeTicker {
 
     // MARK: Instance properties
 

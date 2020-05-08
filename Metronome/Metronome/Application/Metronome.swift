@@ -24,6 +24,7 @@ class Metronome {
 
     var configuration: MetronomeConfiguration {
         didSet {
+            reset()
             delegate?.metronome(self, didUpdate: configuration)
         }
     }
@@ -48,7 +49,7 @@ class Metronome {
     init(with configuration: MetronomeConfiguration, soundOn: Bool) {
         self.isSoundOn = soundOn
         self.configuration = configuration
-        self.ticker = MetronomeTicker()
+        self.ticker = TimerBackedMetronomeTicker()
         self.ticker.delegate = self
     }
 
@@ -78,11 +79,11 @@ class Metronome {
     // MARK: Private helper methods
 
     private func nextBeat() -> Beat {
-        guard let currentBeat = currentBeat else { return Beat.with(position: 0) }
-        if currentBeat.position + 1 < configuration.timeSignature.beats {
-            return Beat.with(position: currentBeat.position + 1)
+        guard let currentBeat = currentBeat else { return configuration.timeSignature.beats[0] }
+        if currentBeat.position + 1 < configuration.timeSignature.beats.count {
+            return configuration.timeSignature.beats[currentBeat.position + 1]
         } else {
-            return Beat.with(position: 0)
+            return configuration.timeSignature.beats[0]
         }
     }
 }

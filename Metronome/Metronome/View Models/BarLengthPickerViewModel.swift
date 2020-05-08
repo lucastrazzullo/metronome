@@ -32,8 +32,8 @@ class BarLengthPickerViewModel: ObservableObject {
 
     func selectTemporary(barLength offset: Int) {
         let currentTimeSignature = metronome.configuration.timeSignature
-        let beats = max(TimeSignature.minimumBarLength, min(TimeSignature.maximumBarLength, currentTimeSignature.beats + (offset / 32)))
-        selectedTimeSignature = TimeSignature(beats: beats, noteLength: currentTimeSignature.noteLength)
+        let numberOfBeats = currentTimeSignature.beats.count + offset
+        selectedTimeSignature = TimeSignature(numberOfBeats: numberOfBeats, noteLength: currentTimeSignature.noteLength)
     }
 
 

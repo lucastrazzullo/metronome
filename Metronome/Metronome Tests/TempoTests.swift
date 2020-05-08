@@ -12,12 +12,12 @@ class TempoTests: XCTestCase {
 
     func testZeroTempoInstantiation() {
         let tempo = Tempo(bpm: 0)
-        XCTAssertEqual(1, tempo.bpm)
+        XCTAssertEqual(Tempo.range.lowerBound, tempo.bpm)
     }
 
 
     func testNegativeTempoInstantiation() {
         let tempo = Tempo(bpm: -1)
-        XCTAssertEqual(1, tempo.bpm)
+        XCTAssertEqual(Tempo.range.lowerBound, tempo.bpm)
     }
 }

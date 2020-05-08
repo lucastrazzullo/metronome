@@ -33,26 +33,31 @@ struct TimeSignature: Equatable {
         }
     }
 
-    static let minimumBarLength = 1
-    static let maximumBarLength = 16
-    static let barLengthRange = minimumBarLength ... maximumBarLength
+    static let barLengthRange = 2 ... 16
 
 
     // MARK: Instance properties
 
-    let beats: Int
+    let beats: [Beat]
     let noteLength: NoteLength
 
 
     // MARK: Object life cycle
 
-    init(beats: Int, noteLength: NoteLength) {
-        self.beats = min(max(TimeSignature.minimumBarLength, beats), TimeSignature.maximumBarLength)
+    init(numberOfBeats: Int, noteLength: NoteLength) {
+        let numberOfBeats = min(max(TimeSignature.barLengthRange.lowerBound, numberOfBeats), TimeSignature.barLengthRange.upperBound)
+        self.beats = (0..<numberOfBeats).map { position in
+            if position == 0 {
+                return Beat(intensity: .strong, position: position)
+            } else {
+                return Beat(intensity: .normal, position: position)
+            }
+        }
         self.noteLength = noteLength
     }
 
 
     static var `default`: TimeSignature {
-        return TimeSignature(beats: 4, noteLength: .quarter)
+        return TimeSignature(numberOfBeats: 4, noteLength: .quarter)
     }
 }

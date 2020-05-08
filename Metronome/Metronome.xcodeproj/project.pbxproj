@@ -55,6 +55,16 @@
 		813ABCD92465625F005A8F92 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813ABCD6246561E0005A8F92 /* SystemIcon.swift */; };
 		813ABCDA2465625F005A8F92 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813ABCD6246561E0005A8F92 /* SystemIcon.swift */; };
 		813ABCDB246563A7005A8F92 /* ColorPalette.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 815DA89724617D5600FEE8B1 /* ColorPalette.xcassets */; };
+		813ABCDF2465801C005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813ABCDE2465801C005A8F92 /* TimerBackedMetronomeTicker.swift */; };
+		813ABCE324658049005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813ABCDE2465801C005A8F92 /* TimerBackedMetronomeTicker.swift */; };
+		813ABCE424658049005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813ABCDE2465801C005A8F92 /* TimerBackedMetronomeTicker.swift */; };
+		813ABCE52465804A005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813ABCDE2465801C005A8F92 /* TimerBackedMetronomeTicker.swift */; };
+		813ABCEA24658950005A8F92 /* Beat-normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 813ABCE824658950005A8F92 /* Beat-normal.mp3 */; };
+		813ABCEB24658950005A8F92 /* Beat-normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 813ABCE824658950005A8F92 /* Beat-normal.mp3 */; };
+		813ABCEC24658950005A8F92 /* Beat-normal.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 813ABCE824658950005A8F92 /* Beat-normal.mp3 */; };
+		813ABCED24658950005A8F92 /* Beat-highlighted.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 813ABCE924658950005A8F92 /* Beat-highlighted.mp3 */; };
+		813ABCEE24658950005A8F92 /* Beat-highlighted.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 813ABCE924658950005A8F92 /* Beat-highlighted.mp3 */; };
+		813ABCEF24658950005A8F92 /* Beat-highlighted.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 813ABCE924658950005A8F92 /* Beat-highlighted.mp3 */; };
 		815003AF2462EA0100651E88 /* BeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815003AD2462E9EF00651E88 /* BeatViewModel.swift */; };
 		815003B02462EB0500651E88 /* BeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815003AD2462E9EF00651E88 /* BeatViewModel.swift */; };
 		815003B12462EB0500651E88 /* BeatViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815003AD2462E9EF00651E88 /* BeatViewModel.swift */; };
@@ -206,6 +216,9 @@
 		812E5B412355155900F04E41 /* TapTempoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempoPickerViewModel.swift; sourceTree = "<group>"; };
 		812E5B432355198900F04E41 /* NoteLengthPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteLengthPickerViewModel.swift; sourceTree = "<group>"; };
 		813ABCD6246561E0005A8F92 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
+		813ABCDE2465801C005A8F92 /* TimerBackedMetronomeTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerBackedMetronomeTicker.swift; sourceTree = "<group>"; };
+		813ABCE824658950005A8F92 /* Beat-normal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beat-normal.mp3"; sourceTree = "<group>"; };
+		813ABCE924658950005A8F92 /* Beat-highlighted.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beat-highlighted.mp3"; sourceTree = "<group>"; };
 		815003AD2462E9EF00651E88 /* BeatViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatViewModel.swift; sourceTree = "<group>"; };
 		815003B22462EC6B00651E88 /* BeatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsView.swift; sourceTree = "<group>"; };
 		815003B42462ECA900651E88 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
@@ -407,6 +420,24 @@
 			path = Icon;
 			sourceTree = "<group>";
 		};
+		813ABCE624658890005A8F92 /* Ticker */ = {
+			isa = PBXGroup;
+			children = (
+				819E341A2343678700D56E92 /* MetronomeTicker.swift */,
+				813ABCDE2465801C005A8F92 /* TimerBackedMetronomeTicker.swift */,
+			);
+			path = Ticker;
+			sourceTree = "<group>";
+		};
+		813ABCE7246588D9005A8F92 /* Audio */ = {
+			isa = PBXGroup;
+			children = (
+				813ABCE924658950005A8F92 /* Beat-highlighted.mp3 */,
+				813ABCE824658950005A8F92 /* Beat-normal.mp3 */,
+			);
+			path = Audio;
+			sourceTree = "<group>";
+		};
 		8155D9C82359BEB1009521F2 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
@@ -457,6 +488,7 @@
 		8185330C2465437300D3F7DC /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				813ABCE7246588D9005A8F92 /* Audio */,
 				813ABCD5246561CA005A8F92 /* Icon */,
 				81919FB1234B4EEF0061571A /* String */,
 				815DA89624617D3400FEE8B1 /* Color */,
@@ -646,10 +678,10 @@
 		81FAF05423427F48004A8C51 /* Application */ = {
 			isa = PBXGroup;
 			children = (
-				819E341A2343678700D56E92 /* MetronomeTicker.swift */,
+				813ABCE624658890005A8F92 /* Ticker */,
 				81FAF06823436475004A8C51 /* MetronomeConfiguration.swift */,
-				810701A0245F2E78003D0B54 /* Metronome.swift */,
 				8155D9C52359BE9D009521F2 /* MetronomePublisher.swift */,
+				810701A0245F2E78003D0B54 /* Metronome.swift */,
 			);
 			path = Application;
 			sourceTree = "<group>";
@@ -864,6 +896,8 @@
 				81B3F07F245F598B00626E93 /* Localizable.strings in Resources */,
 				817F9942234CAD0500DA1043 /* Assets.xcassets in Resources */,
 				813ABCDB246563A7005A8F92 /* ColorPalette.xcassets in Resources */,
+				813ABCEE24658950005A8F92 /* Beat-highlighted.mp3 in Resources */,
+				813ABCEB24658950005A8F92 /* Beat-normal.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -876,6 +910,8 @@
 				815DA89D24617FE100FEE8B1 /* ColorPalette.xcassets in Resources */,
 				81BDF4EE24586A4F00B4F7F8 /* Preview Assets.xcassets in Resources */,
 				81BDF4EB24586A4F00B4F7F8 /* Assets.xcassets in Resources */,
+				813ABCEC24658950005A8F92 /* Beat-normal.mp3 in Resources */,
+				813ABCEF24658950005A8F92 /* Beat-highlighted.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -888,6 +924,8 @@
 				815DA89C24617E0800FEE8B1 /* ColorPalette.xcassets in Resources */,
 				81FAF03823427ED2004A8C51 /* Assets.xcassets in Resources */,
 				81FAF03623427ED1004A8C51 /* Main.storyboard in Resources */,
+				813ABCEA24658950005A8F92 /* Beat-normal.mp3 in Resources */,
+				813ABCED24658950005A8F92 /* Beat-highlighted.mp3 in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -905,6 +943,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				813ABCE424658049005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */,
 				81807A6C245FF1FD00737786 /* Copy.swift in Sources */,
 				810701A3245F2E78003D0B54 /* Metronome.swift in Sources */,
 				813ABCD92465625F005A8F92 /* SystemIcon.swift in Sources */,
@@ -952,6 +991,7 @@
 				81D525D02460466400F8F541 /* TempoPickerViewModel.swift in Sources */,
 				81BDF50B24586D1000B4F7F8 /* ColorView.swift in Sources */,
 				81BDF4FC24586BED00B4F7F8 /* MetronomeTicker.swift in Sources */,
+				813ABCE52465804A005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */,
 				81BDF4E924586A4C00B4F7F8 /* MetronomeView.swift in Sources */,
 				81D525DA2460744600F8F541 /* ControlsViewModel.swift in Sources */,
 				815003B12462EB0500651E88 /* BeatViewModel.swift in Sources */,
@@ -1014,6 +1054,7 @@
 				81B999AD235B1D9700E87778 /* Beat.swift in Sources */,
 				81D525D724605DE100F8F541 /* Copy.swift in Sources */,
 				8115EFC1235DBF6E00527665 /* MetronomeHapticController.swift in Sources */,
+				813ABCE324658049005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */,
 				81E7DEB42461B58D001F4F07 /* MetronomeApplicationSettingsController.swift in Sources */,
 				81A71C772352455100E86256 /* TogglerGestureController.swift in Sources */,
 				817EFA432355C09F004E774D /* SlideTempoPickerViewModel.swift in Sources */,
@@ -1040,6 +1081,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				813ABCDF2465801C005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */,
 				8124976B234B642C0047F3E3 /* MetronomeConfiguration.swift in Sources */,
 				81B999AF235B22B900E87778 /* Beat.swift in Sources */,
 				810701A1245F2E78003D0B54 /* Metronome.swift in Sources */,

@@ -10,9 +10,7 @@ import Foundation
 
 struct Tempo: Equatable {
 
-    static let minimumBpm = 1
-    static let maximumBpm = 300
-    static let range = minimumBpm ... maximumBpm
+    static let range = 30 ... 300
 
 
     // MARK: Instance properties
@@ -23,7 +21,7 @@ struct Tempo: Equatable {
     // MARK: Object life cycle
 
     init(bpm: Int) {
-        self.bpm = min(max(Tempo.minimumBpm, bpm), Tempo.maximumBpm)
+        self.bpm = min(max(Tempo.range.lowerBound, bpm), Tempo.range.upperBound)
     }
 
 

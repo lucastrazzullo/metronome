@@ -31,7 +31,7 @@ struct MetronomeConfiguration: Equatable {
     func getBpm(with frequency: TimeInterval) -> Int {
         let standardNoteBpm = 60 / frequency
         let bpm = Int(standardNoteBpm) * 4 / timeSignature.noteLength.rawValue
-        return min(Tempo.maximumBpm, max(Tempo.minimumBpm, bpm))
+        return min(Tempo.range.lowerBound, max(Tempo.range.upperBound, bpm))
     }
 
 
