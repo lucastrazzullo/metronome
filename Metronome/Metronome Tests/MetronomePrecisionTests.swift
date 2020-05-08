@@ -18,8 +18,8 @@ class MetronomePrecisionTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
-        let configuration = MetronomeConfiguration(timeSignature: TimeSignature.default, tempo: Tempo.default)
-        metronome = Metronome(with: configuration)
+        let configuration = MetronomeConfiguration.default
+        metronome = Metronome(with: configuration, soundOn: false)
         metronome?.delegate = self
     }
 
@@ -63,8 +63,7 @@ extension MetronomePrecisionTests: MetronomeDelegate {
     }
 
 
-    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
-        tickExpectation?.fulfill()
+    func metronome(_ metronome: Metronome, didUpdate isSoundOn: Bool) {
     }
 
 
@@ -72,6 +71,11 @@ extension MetronomePrecisionTests: MetronomeDelegate {
     }
 
 
-    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
+    func metronome(_ metronome: Metronome, willResetAt beat: Beat?) {
+    }
+
+
+    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
+        tickExpectation?.fulfill()
     }
 }

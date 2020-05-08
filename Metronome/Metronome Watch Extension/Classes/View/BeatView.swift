@@ -26,18 +26,18 @@ struct BeatView: View {
 
     private func background() -> Color {
         if viewModel.isHighlighted {
-            return Color.green
+            return Palette.green.color
         } else {
-            return Color.white.opacity(0.05)
+            return Palette.white.color.opacity(0.05)
         }
     }
 
 
     private func foreground() -> Color {
         if viewModel.isHighlighted {
-            return Color.white
+            return Palette.white.color
         } else {
-            return Color.white.opacity(0.1)
+            return Palette.white.color.opacity(0.1)
         }
     }
 }

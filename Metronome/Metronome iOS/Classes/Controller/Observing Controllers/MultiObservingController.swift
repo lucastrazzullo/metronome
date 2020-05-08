@@ -15,13 +15,13 @@ protocol ObservingController {
 
 class MultiObservingController {
 
-    private let cache: ConfigurationCache
+    private let cache: MetronomeStateCache
     private var controllers: [ObservingController] = []
 
 
     // MARK: Object life cycle
 
-    init(cache: ConfigurationCache) {
+    init(cache: MetronomeStateCache) {
         self.cache = cache
         self.controllers = buildControllers()
     }
@@ -42,11 +42,13 @@ class MultiObservingController {
         let metronomeApplicationSettingsController = MetronomeApplicationSettingsController()
         let metronomeHapticController = MetronomeHapticController()
         let metronomeCacheController = MetronomeCacheController(cache: cache)
+        let metronomeSoundController = MetronomeSoundController()
 
         return [
             metronomeApplicationSettingsController,
             metronomeHapticController,
-            metronomeCacheController
+            metronomeCacheController,
+            metronomeSoundController
         ]
     }
 }

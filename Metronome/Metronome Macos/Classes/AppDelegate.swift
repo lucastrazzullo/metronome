@@ -25,7 +25,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     // MARK: Public methods
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        metronome = Metronome(with: .default)
+        metronome = Metronome(with: .default, soundOn: true)
         metronomePublisher = MetronomePublisher(metronome: metronome)
         metronomeViewModel = MetronomeViewModel(metronomePublisher: metronomePublisher)
 
