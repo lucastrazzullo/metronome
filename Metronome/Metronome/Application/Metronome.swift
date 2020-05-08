@@ -48,7 +48,7 @@ class Metronome {
     init(with configuration: MetronomeConfiguration, soundOn: Bool) {
         self.isSoundOn = soundOn
         self.configuration = configuration
-        self.ticker = MetronomeTicker()
+        self.ticker = TimerBackedMetronomeTicker()
         self.ticker.delegate = self
     }
 
