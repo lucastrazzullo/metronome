@@ -24,10 +24,8 @@ struct Beat {
 
     // MARK: Object builder
 
-    static func with(tickIteration: Int) -> Beat {
-        let position = tickIteration + 1
-
-        if position == 1 {
+    static func with(position: Int) -> Beat {
+        if position == 0 {
             return Beat(intensity: .strong, position: position)
         } else {
             return Beat(intensity: .normal, position: position)

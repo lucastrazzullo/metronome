@@ -67,15 +67,15 @@ extension MetronomePrecisionTests: MetronomeDelegate {
     }
 
 
-    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
-        tickExpectation?.fulfill()
-    }
-
-
     func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
     }
 
 
-    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
+    func metronome(_ metronome: Metronome, willResetAt beat: Beat?) {
+    }
+
+
+    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
+        tickExpectation?.fulfill()
     }
 }

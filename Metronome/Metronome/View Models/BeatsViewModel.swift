@@ -33,7 +33,7 @@ class BeatsViewModel: ObservableObject {
 
     private func updateBeats(with configuration: MetronomeConfiguration) {
         beats = (0..<configuration.timeSignature.beats).map { index in
-            let beat = Beat.with(tickIteration: index)
+            let beat = Beat.with(position: index)
             return BeatViewModel(for: beat, metronomePublisher: publisher)
         }
     }

@@ -30,7 +30,7 @@ class BeatViewModel: ObservableObject, Identifiable {
     // MARK: Private helper static methods
 
     private func update(with beat: Beat, snapshot: MetronomePublisher.Snapshot) {
-        label = String(beat.position)
+        label = String(beat.position + 1)
         isHighlighted = snapshot.isRunning && snapshot.currentBeat == beat
         isHenhanced = beat.intensity == .strong
     }

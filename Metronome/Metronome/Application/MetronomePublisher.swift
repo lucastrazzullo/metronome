@@ -78,7 +78,7 @@ extension MetronomePublisher: MetronomeDelegate {
     }
 
 
-    func metronome(_ metronome: Metronome, willResetDuring beat: Beat?) {
+    func metronome(_ metronome: Metronome, willResetAt beat: Beat?) {
         self.isRunning = false
         self.currentBeat = beat
     }
