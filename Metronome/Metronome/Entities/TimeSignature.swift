@@ -40,19 +40,20 @@ struct TimeSignature: Equatable {
 
     // MARK: Instance properties
 
-    let beats: Int
+    let beats: [Beat]
     let noteLength: NoteLength
 
 
     // MARK: Object life cycle
 
-    init(beats: Int, noteLength: NoteLength) {
-        self.beats = min(max(TimeSignature.minimumBarLength, beats), TimeSignature.maximumBarLength)
+    init(numberOfBeats: Int, noteLength: NoteLength) {
+        let numberOfBeats = min(max(TimeSignature.minimumBarLength, numberOfBeats), TimeSignature.maximumBarLength)
+        self.beats = (0..<numberOfBeats).map { Beat.with(position: $0) }
         self.noteLength = noteLength
     }
 
 
     static var `default`: TimeSignature {
-        return TimeSignature(beats: 4, noteLength: .quarter)
+        return TimeSignature(numberOfBeats: 4, noteLength: .quarter)
     }
 }

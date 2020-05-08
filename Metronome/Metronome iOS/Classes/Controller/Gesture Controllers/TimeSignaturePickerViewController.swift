@@ -17,7 +17,7 @@ class TimeSignaturePickerViewController: UIHostingController<GesturePickerView> 
     // MARK: Object life cycle
 
     init(pickerViewModel: BarLengthPickerViewModel) {
-        let value = String(pickerViewModel.selectedTimeSignature.beats)
+        let value = String(pickerViewModel.selectedTimeSignature.beats.count)
         let background = Palette.orange
         let title = Copy.TimeSignature.barLength.localised
         let suffix = String(format: Copy.TimeSignature.barLengthSuffixFormat.localised, pickerViewModel.selectedTimeSignature.noteLength.rawValue)
@@ -25,7 +25,7 @@ class TimeSignaturePickerViewController: UIHostingController<GesturePickerView> 
         super.init(rootView: GesturePickerView(viewModel: viewModel))
 
         cancellable = pickerViewModel.$selectedTimeSignature.sink { timeSignatre in
-            viewModel.heroLabel = String(timeSignatre.beats)
+            viewModel.heroLabel = String(timeSignatre.beats.count)
         }
     }
 

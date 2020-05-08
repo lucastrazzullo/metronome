@@ -56,7 +56,7 @@ class BarLengthPickerGestureController: NSObject, GestureController {
         case .began:
             viewModel.startSelection()
         case .changed:
-            viewModel.selectTemporary(barLength: Int(gestureRecogniser.translation(in: gestureRecogniser.view).x))
+            viewModel.selectTemporary(barLength: Int(gestureRecogniser.translation(in: gestureRecogniser.view).x / 32))
         case .ended:
             viewModel.commit()
         default:

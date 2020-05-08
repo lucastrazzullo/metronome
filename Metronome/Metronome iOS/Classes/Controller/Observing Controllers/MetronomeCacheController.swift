@@ -38,7 +38,7 @@ class MetronomeCacheController: ObservingController {
     // MARK: Private helper methods
 
     private func cacheConfigurationValues(configuration: MetronomeConfiguration) {
-        stateCache.barLength = configuration.timeSignature.beats
+        stateCache.barLength = configuration.timeSignature.beats.count
         stateCache.noteLength = configuration.timeSignature.noteLength
         stateCache.bpm = configuration.tempo.bpm
     }

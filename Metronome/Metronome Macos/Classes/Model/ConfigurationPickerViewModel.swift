@@ -30,7 +30,7 @@ class ConfigurationPickerViewModel: ObservableObject {
         })
         cancellables.append($timeSignaturePickerViewModel.sink { [weak self, weak metronome] viewModel in
             self?.confirmationEnabled =
-                viewModel.selectedBarLength != metronome?.configuration.timeSignature.beats ||
+                viewModel.selectedBarLength != metronome?.configuration.timeSignature.beats.count ||
                 viewModel.selectedNoteLength != metronome?.configuration.timeSignature.noteLength.rawValue
         })
     }

@@ -28,7 +28,7 @@ class TimeSignaturePickerViewModel: ObservableObject {
         self.barLengthItems = Array(TimeSignature.barLengthRange)
         self.noteLengthItems = TimeSignature.NoteLength.allCases.map({ $0.rawValue })
 
-        self.selectedBarLength = metronome.configuration.timeSignature.beats
+        self.selectedBarLength = metronome.configuration.timeSignature.beats.count
         self.selectedNoteLength = metronome.configuration.timeSignature.noteLength.rawValue
     }
 
@@ -38,7 +38,7 @@ class TimeSignaturePickerViewModel: ObservableObject {
     func commit() {
         let barLength = selectedBarLength
         let noteLength = TimeSignature.NoteLength(rawValue: selectedNoteLength)
-        let timeSignature = TimeSignature(beats: barLength, noteLength: noteLength ?? .default)
+        let timeSignature = TimeSignature(numberOfBeats: barLength, noteLength: noteLength ?? .default)
         metronome.configuration.setTimeSignature(timeSignature)
     }
 }

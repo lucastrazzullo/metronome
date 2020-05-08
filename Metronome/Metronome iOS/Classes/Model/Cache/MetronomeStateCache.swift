@@ -61,7 +61,7 @@ class MetronomeStateCache: Cache {
     var configuration: MetronomeConfiguration {
         var configuration = MetronomeConfiguration.default
         if let barLength = barLength, let noteLength = noteLength {
-            configuration.timeSignature = TimeSignature(beats: barLength, noteLength: noteLength)
+            configuration.timeSignature = TimeSignature(numberOfBeats: barLength, noteLength: noteLength)
         }
         if let bpm = bpm {
             configuration.tempo = Tempo(bpm: bpm)
