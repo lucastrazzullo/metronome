@@ -24,6 +24,7 @@ class Metronome {
 
     var configuration: MetronomeConfiguration {
         didSet {
+            reset()
             delegate?.metronome(self, didUpdate: configuration)
         }
     }
