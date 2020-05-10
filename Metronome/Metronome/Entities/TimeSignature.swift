@@ -33,7 +33,7 @@ struct TimeSignature: Equatable {
         }
     }
 
-    static let barLengthRange = 2 ... 16
+    static let barLengthRange = 2 ... 8
 
 
     // MARK: Instance properties
