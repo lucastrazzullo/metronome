@@ -28,7 +28,7 @@ class MetronomeSoundController: ObservingController {
     // MARK: Object life cycle
 
     init() {
-        try? AVAudioSession.sharedInstance().setCategory(.playAndRecord, mode: .spokenAudio)
+        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
         try? AVAudioSession.sharedInstance().setActive(true)
 
         engine = AVAudioEngine()
