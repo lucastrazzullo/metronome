@@ -8,19 +8,7 @@
 
 import Foundation
 
-struct Beat {
-
-    enum Intensity {
-        case strong
-        case normal
-    }
-
-
-    // MARK: Instance properties
-
-    let intensity: Intensity
+struct Beat: Equatable {
     let position: Int
+    var isAccent: Bool
 }
-
-
-extension Beat: Equatable {}

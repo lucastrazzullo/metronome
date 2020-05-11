@@ -40,6 +40,13 @@ struct MetronomeConfiguration: Equatable {
     }
 
 
+    mutating func setAccent(_ isAccent: Bool, onBeatWith position: Int) {
+        if position < timeSignature.beats.count {
+            timeSignature.beats[position].isAccent = isAccent
+        }
+    }
+
+
     mutating func setTimeSignature(_ signature: TimeSignature) {
         timeSignature = signature
     }

@@ -14,7 +14,7 @@ class MetronomeSoundController: ObservingController {
 
     struct SoundURL {
         static let normal = Bundle.main.url(forResource: "Beat-normal", withExtension: "mp3")!
-        static let highlighted = Bundle.main.url(forResource: "Beat-highlighted", withExtension: "mp3")!
+        static let accent = Bundle.main.url(forResource: "Beat-highlighted", withExtension: "mp3")!
     }
 
     private let engine: AVAudioEngine
@@ -53,14 +53,7 @@ class MetronomeSoundController: ObservingController {
             self?.audios.removeAll()
 
             for beat in configuration.timeSignature.beats {
-                let soundURL: URL = {
-                    switch beat.intensity {
-                    case .normal:
-                        return SoundURL.normal
-                    case .strong:
-                        return SoundURL.highlighted
-                    }
-                }()
+                let soundURL = beat.isAccent ? SoundURL.accent : SoundURL.normal
                 guard let audio = try? AVAudioFile(forReading: soundURL) else { return }
 
                 let player = AVAudioPlayerNode()

@@ -38,20 +38,16 @@ struct TimeSignature: Equatable {
 
     // MARK: Instance properties
 
-    let beats: [Beat]
+    var beats: [Beat]
     let noteLength: NoteLength
 
 
     // MARK: Object life cycle
 
-    init(numberOfBeats: Int, noteLength: NoteLength) {
+    init(numberOfBeats: Int, noteLength: NoteLength, accentPositions: Set<Int> = [0]) {
         let numberOfBeats = min(max(TimeSignature.barLengthRange.lowerBound, numberOfBeats), TimeSignature.barLengthRange.upperBound)
         self.beats = (0..<numberOfBeats).map { position in
-            if position == 0 {
-                return Beat(intensity: .strong, position: position)
-            } else {
-                return Beat(intensity: .normal, position: position)
-            }
+            return Beat(position: position, isAccent: accentPositions.contains(position))
         }
         self.noteLength = noteLength
     }

@@ -23,12 +23,7 @@ class MetronomeHapticController: ObservingController {
         cancellables.append(publisher.$currentBeat
             .sink(receiveValue: { [weak self] beat in
                 guard let beat = beat else { return }
-                switch beat.intensity {
-                case .normal:
-                    self?.impactGenerator.impactOccurred(intensity: 0.5)
-                case .strong:
-                    self?.impactGenerator.impactOccurred()
-                }
+                self?.impactGenerator.impactOccurred(intensity: beat.isAccent ? 1.0 : 0.5)
             }))
 
         cancellables.append(publisher.$isRunning
