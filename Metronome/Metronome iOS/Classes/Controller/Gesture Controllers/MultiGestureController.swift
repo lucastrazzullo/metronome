@@ -19,39 +19,12 @@ class MultiGestureController {
     private var controllers: [GestureController] = []
 
 
-    // MARK: Object life cycle
-
-    init(metronome: Metronome) {
-        controllers = buildControllers(with: metronome)
-    }
-
-
     // MARK: Public methods
 
-    func set(rootViewController: UIContainerViewController) {
+    func set(gestureControllers: [GestureController], with rootViewController: UIContainerViewController) {
+        controllers = gestureControllers
         controllers.forEach() { controller in
             controller.set(targetViewController: rootViewController)
         }
-    }
-
-
-    // MARK: Private helper methods
-
-    private func buildControllers(with metronome: Metronome) -> [GestureController] {
-        let togglerController = TogglerGestureController(with: metronome)
-        let tempoSlidePickerController = SlideTempoPickerGestureController(with: metronome)
-        let tempoTapPickerController = TapTempoPickerGestureController(with: metronome)
-        let barLengthPickerController = BarLengthPickerGestureController(with: metronome)
-        let noteLengthPickerController = NoteLengthPickerGestureController(with: metronome)
-
-        togglerController.gestureRecogniser.canBePrevented(by: tempoTapPickerController.gestureRecogniser)
-
-        return [
-            togglerController,
-            tempoSlidePickerController,
-            tempoTapPickerController,
-            barLengthPickerController,
-            noteLengthPickerController
-        ]
     }
 }

@@ -40,6 +40,7 @@ class MetronomeCacheController: ObservingController {
     private func cacheConfigurationValues(configuration: MetronomeConfiguration) {
         stateCache.barLength = configuration.timeSignature.beats.count
         stateCache.noteLength = configuration.timeSignature.noteLength
+        stateCache.accentPositions = configuration.timeSignature.beats.compactMap { $0.isAccent ? $0.position : nil }
         stateCache.bpm = configuration.tempo.bpm
     }
 

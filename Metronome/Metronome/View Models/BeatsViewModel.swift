@@ -23,7 +23,7 @@ class BeatsViewModel: ObservableObject {
         publisher = metronomePublisher
         cancellable = metronomePublisher.$configuration.sink { [weak self] configuration in
             if configuration.timeSignature.beats.count != self?.beats.count {
-                self?.updateBeats(with: configuration)
+                self?.reloadBeats(with: configuration.timeSignature)
             }
         }
     }
@@ -31,8 +31,8 @@ class BeatsViewModel: ObservableObject {
 
     // MARK: Private helper static methods
 
-    private func updateBeats(with configuration: MetronomeConfiguration) {
-        beats = configuration.timeSignature.beats.map { beat in
+    private func reloadBeats(with timeSignature: TimeSignature) {
+        beats = timeSignature.beats.map { beat in
             return BeatViewModel(for: beat, metronomePublisher: publisher)
         }
     }

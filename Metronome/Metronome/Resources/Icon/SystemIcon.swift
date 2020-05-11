@@ -22,4 +22,5 @@ extension IconIdentifier where Self: RawRepresentable, Self.RawValue == String {
 enum SystemIcon: String, IconIdentifier {
     case soundOn = "volume.3"
     case soundOff = "volume.slash"
+    case arrowDown = "chevron.down"
 }

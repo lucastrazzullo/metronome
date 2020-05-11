@@ -27,6 +27,10 @@ extension CopyIdentifier where Self: RawRepresentable, Self.RawValue == String {
 
 struct Copy {
 
+    enum App: String, CopyIdentifier {
+        case title = "metronome.title"
+    }
+
     enum Tempo: String, CopyIdentifier {
         case title = "metronome.tempo.title"
         case unit = "metronome.tempo.unit"
@@ -51,6 +55,7 @@ struct Copy {
         case tapTempo = "controls.tap_tempo"
         case soundOn = "controls.sound_on"
         case soundOff = "controls.sound_off"
+        case accent = "controls.accent"
         case placeholderValue = "controls.placeholder"
     }
 

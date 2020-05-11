@@ -13,6 +13,7 @@ class MetronomeStateCache: Cache {
     enum Key: String {
         case barLength = "barLength"
         case noteLength = "noteLength"
+        case accents = "accents"
         case bpm = "bpm"
         case soundOn = "soundOn"
     }
@@ -40,6 +41,15 @@ class MetronomeStateCache: Cache {
         }
     }
 
+    var accentPositions: [Int]? {
+        get {
+            return entry.value(for: Key.accents.rawValue) as? [Int]
+        }
+        set {
+            entry.set(value: newValue, for: Key.accents.rawValue)
+        }
+    }
+
     var bpm: Int? {
         get {
             return entry.value(for: Key.bpm.rawValue) as? Int
@@ -60,11 +70,15 @@ class MetronomeStateCache: Cache {
 
     var configuration: MetronomeConfiguration {
         var configuration = MetronomeConfiguration.default
-        if let barLength = barLength, let noteLength = noteLength {
-            configuration.timeSignature = TimeSignature(numberOfBeats: barLength, noteLength: noteLength)
-        }
         if let bpm = bpm {
             configuration.tempo = Tempo(bpm: bpm)
+        }
+        if let barLength = barLength, let noteLength = noteLength {
+            if let accentPositions = accentPositions {
+                configuration.timeSignature = TimeSignature(numberOfBeats: barLength, noteLength: noteLength, accentPositions: Set(accentPositions))
+            } else {
+                configuration.timeSignature = TimeSignature(numberOfBeats: barLength, noteLength: noteLength)
+            }
         }
         return configuration
     }

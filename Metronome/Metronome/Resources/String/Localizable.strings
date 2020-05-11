@@ -6,6 +6,10 @@
   Copyright © 2019 luca strazzullo. All rights reserved.
 */
 
+// MARK: App
+
+"metronome.title" = "Metronome";
+
 
 // MARK: Tempo
 
@@ -34,6 +38,7 @@
 "controls.tap_tempo" = "Tap";
 "controls.sound_on" = "Sound on";
 "controls.sound_off" = "Sound off";
+"controls.accent" = "Accent";
 "controls.placeholder" = "..";
 
 
