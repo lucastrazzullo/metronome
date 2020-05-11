@@ -8,20 +8,14 @@
 
 import Foundation
 
-class UserActivityFactory {
+struct UserActivityFactory {
 
     enum ActivityType: String {
         case startMetronome = "com.lucastrazzullo.metronome.start-metronome"
     }
 
 
-    enum ActivityKey: String {
-        case numberOfBeats
-        case noteLength
-    }
-
-
-    // MARK: Public class methods
+    // MARK: Public static methods
 
     static func buildStartMetronomeActivity(for configuration: MetronomeConfiguration) -> NSUserActivity {
         let activityType = ActivityType.startMetronome.rawValue
@@ -36,27 +30,8 @@ class UserActivityFactory {
 
         activity.title = "\(Copy.Controls.start.localised) \(timeSignature) \(Copy.App.title.localised)"
         activity.keywords = [Copy.App.title.localised, Copy.TimeSignature.title.localised, timeSignature]
-        activity.userInfo = userInfo(for: configuration.timeSignature)
+        activity.userInfo = UserInfoFactory.userInfo(for: configuration.timeSignature)
 
         return activity
-    }
-
-
-    static func userInfo(for timeSignature: TimeSignature) -> [AnyHashable: Any] {
-        return [
-            ActivityKey.numberOfBeats.rawValue: timeSignature.beats.count,
-            ActivityKey.noteLength.rawValue: timeSignature.noteLength.rawValue
-        ]
-    }
-
-
-    static func timeSignature(in userInfo: [AnyHashable: Any]) -> TimeSignature? {
-        guard
-            let numberOfBeats = userInfo[ActivityKey.numberOfBeats.rawValue] as? Int,
-            let noteLengthRawValue = userInfo[ActivityKey.noteLength.rawValue] as? Int,
-            let noteLength = TimeSignature.NoteLength(rawValue: noteLengthRawValue)
-            else { return nil }
-
-        return TimeSignature(numberOfBeats: numberOfBeats, noteLength: noteLength)
     }
 }

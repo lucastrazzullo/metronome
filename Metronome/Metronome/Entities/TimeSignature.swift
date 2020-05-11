@@ -56,4 +56,14 @@ struct TimeSignature: Equatable {
     static var `default`: TimeSignature {
         return TimeSignature(numberOfBeats: 4, noteLength: .quarter)
     }
+
+
+    static var commonDefaults: [TimeSignature] {
+        return [
+            TimeSignature(numberOfBeats: 4, noteLength: .quarter),
+            TimeSignature(numberOfBeats: 3, noteLength: .quarter),
+            TimeSignature(numberOfBeats: 6, noteLength: .quarter),
+            TimeSignature(numberOfBeats: 8, noteLength: .quarter)
+        ]
+    }
 }

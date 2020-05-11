@@ -45,13 +45,11 @@ class MainViewController: UIViewController, ContainerViewController {
     }
 
 
-    override func restoreUserActivityState(_ activity: NSUserActivity) {
-        if activity.activityType == UserActivityFactory.ActivityType.startMetronome.rawValue,
-            let userInfo = activity.userInfo,
-            let timeSignature = UserActivityFactory.timeSignature(in: userInfo) {
-            metronome.configuration.timeSignature = timeSignature
-            metronome.start()
-        }
+    // MARK: Public methods
+
+    func startMetronome(with timeSignature: TimeSignature) {
+        metronome.configuration.timeSignature = timeSignature
+        metronome.start()
     }
 
 
