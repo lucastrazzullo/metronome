@@ -65,6 +65,7 @@ struct BeatView: View {
                     .animation(.default)
                     .offset(y: draggedOffset)
             }
+            .clipped()
         }
         .gesture(DragGesture()
             .onChanged { action in

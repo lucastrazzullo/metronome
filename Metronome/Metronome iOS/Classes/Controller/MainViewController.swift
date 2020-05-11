@@ -61,7 +61,7 @@ class MainViewController: UIViewController, ContainerViewController {
             MetronomeHapticController(),
             MetronomeCacheController(cache: cache),
             MetronomeSoundController(),
-            MetronomeUserActivityController()
+            MetronomeUserActivityController(metronome: metronome)
         ]
 
         observerControllers.set(observingControllers: controllers, with: metronomePublisher)
