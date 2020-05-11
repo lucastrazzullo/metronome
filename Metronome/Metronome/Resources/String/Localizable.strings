@@ -34,6 +34,7 @@
 "controls.tap_tempo" = "Tap";
 "controls.sound_on" = "Sound on";
 "controls.sound_off" = "Sound off";
+"controls.accent" = "Accent";
 "controls.placeholder" = "..";
 
 

@@ -51,6 +51,7 @@ struct Copy {
         case tapTempo = "controls.tap_tempo"
         case soundOn = "controls.sound_on"
         case soundOff = "controls.sound_off"
+        case accent = "controls.accent"
         case placeholderValue = "controls.placeholder"
     }
 

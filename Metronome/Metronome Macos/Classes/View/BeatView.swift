@@ -17,7 +17,7 @@ struct BeatView: View {
             self.background().edgesIgnoringSafeArea(.all)
             VStack {
                 Text(viewModel.label ?? "").foregroundColor(self.foreground())
-                Circle().frame(width: 8, height: 8, alignment: .center).foregroundColor(self.henhanceColor())
+                Circle().frame(width: 8, height: 8, alignment: .center).foregroundColor(self.accentColor())
             }
         }
     }
@@ -43,11 +43,11 @@ struct BeatView: View {
     }
 
 
-    private func henhanceColor() -> Color {
+    private func accentColor() -> Color {
         switch true {
-        case viewModel.isHenhanced && viewModel.isHighlighted:
+        case viewModel.isAccent && viewModel.isHighlighted:
             return Palette.purple.color
-        case viewModel.isHenhanced:
+        case viewModel.isAccent:
             return Palette.gray.color
         default:
             return .clear

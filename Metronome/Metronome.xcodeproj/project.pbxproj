@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		81047D07246864DC00199100 /* ConfigurationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81047D06246864DC00199100 /* ConfigurationTests.swift */; };
+		81047D0A24693D7A00199100 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81047D0924693D7A00199100 /* ViewExtensions.swift */; };
 		810701A1245F2E78003D0B54 /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810701A0245F2E78003D0B54 /* Metronome.swift */; };
 		810701A2245F2E78003D0B54 /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810701A0245F2E78003D0B54 /* Metronome.swift */; };
 		810701A3245F2E78003D0B54 /* Metronome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810701A0245F2E78003D0B54 /* Metronome.swift */; };
@@ -194,6 +195,7 @@
 
 /* Begin PBXFileReference section */
 		81047D06246864DC00199100 /* ConfigurationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationTests.swift; sourceTree = "<group>"; };
+		81047D0924693D7A00199100 /* ViewExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewExtensions.swift; sourceTree = "<group>"; };
 		810701A0245F2E78003D0B54 /* Metronome.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Metronome.swift; sourceTree = "<group>"; };
 		810701A8245F30DF003D0B54 /* ControlsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsViewModel.swift; sourceTree = "<group>"; };
 		810701AF245F4AA7003D0B54 /* TimeSignaturePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeSignaturePickerView.swift; sourceTree = "<group>"; };
@@ -332,6 +334,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		81047D0824693D6D00199100 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				81047D0924693D7A00199100 /* ViewExtensions.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		810701A5245F3009003D0B54 /* View Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -714,6 +724,7 @@
 		81FAF05D234299DE004A8C51 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				81047D0824693D6D00199100 /* Extension */,
 				81FAF05E23429A00004A8C51 /* MetronomeView.swift */,
 				8169EE5A235E1D4300DAD7BB /* BeatsView.swift */,
 				81B999B0235B569600E87778 /* BeatView.swift */,
@@ -1051,6 +1062,7 @@
 				81A8878323524CEF0071BF48 /* NoteLengthPickerGestureController.swift in Sources */,
 				81A8878B235257770071BF48 /* TapTempoPickerViewController.swift in Sources */,
 				81B999B1235B569600E87778 /* BeatView.swift in Sources */,
+				81047D0A24693D7A00199100 /* ViewExtensions.swift in Sources */,
 				81A8878D235343420071BF48 /* BarLengthPickerViewModel.swift in Sources */,
 				811FDEC724643F9C008713EF /* TimeSignaturePickerViewModel.swift in Sources */,
 				81A729B0235E21C300DD5EE6 /* ColorView.swift in Sources */,

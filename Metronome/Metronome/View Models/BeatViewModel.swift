@@ -11,9 +11,15 @@ import Combine
 
 class BeatViewModel: ObservableObject, Identifiable {
 
+    var isTemporaryValueSelected: Bool {
+        return temporaryIsAccent != nil
+    }
+
     @Published private(set) var label: String?
     @Published private(set) var isHighlighted: Bool = false
-    @Published private(set) var isHenhanced: Bool = false
+    @Published private(set) var isAccent: Bool = false
+
+    private var temporaryIsAccent: Bool?
 
     private var cancellable: AnyCancellable?
 
@@ -27,11 +33,32 @@ class BeatViewModel: ObservableObject, Identifiable {
     }
 
 
+    // MARK: Public methods
+
+    func toggleIsAccentTemporarely() {
+        isAccent.toggle()
+        temporaryIsAccent = isAccent
+    }
+
+
+    func discard() {
+        if let temporaryIsAccent = temporaryIsAccent {
+            isAccent = !temporaryIsAccent
+        }
+        temporaryIsAccent = nil
+    }
+
+
+    func commit() {
+        temporaryIsAccent = nil
+    }
+
+
     // MARK: Private helper static methods
 
     private func update(with beat: Beat, snapshot: MetronomePublisher.Snapshot) {
         label = String(beat.position + 1)
         isHighlighted = snapshot.isRunning && snapshot.currentBeat == beat
-        isHenhanced = beat.intensity == .strong
+        isAccent = beat.intensity == .strong
     }
 }
