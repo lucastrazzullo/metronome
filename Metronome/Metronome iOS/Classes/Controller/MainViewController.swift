@@ -28,7 +28,7 @@ class MainViewController: UIViewController, ContainerViewController {
         metronomePublisher = MetronomePublisher(metronome: metronome)
 
         observerControllers = MultiObservingController(cache: cache)
-        gestureControllers = MultiGestureController(metronome: metronome)
+        gestureControllers = MultiGestureController()
 
         super.init(coder: coder)
     }
@@ -39,9 +39,58 @@ class MainViewController: UIViewController, ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        observerControllers.set(publisher: metronomePublisher)
-        gestureControllers.set(rootViewController: self)
+        addObservingControllers()
+        addGestureControllers()
+        addViewControllers()
+    }
 
+
+    override func restoreUserActivityState(_ activity: NSUserActivity) {
+        if activity.activityType == UserActivityFactory.ActivityType.startMetronome.rawValue,
+            let userInfo = activity.userInfo,
+            let timeSignature = UserActivityFactory.timeSignature(in: userInfo) {
+            metronome.configuration.timeSignature = timeSignature
+            metronome.start()
+        }
+    }
+
+
+    // MARK: Private helper methods
+
+    private func addObservingControllers() {
+        let controllers: [ObservingController] = [
+            MetronomeApplicationSettingsController(),
+            MetronomeHapticController(),
+            MetronomeCacheController(cache: cache),
+            MetronomeSoundController(),
+            MetronomeUserActivityController()
+        ]
+
+        observerControllers.set(observingControllers: controllers, with: metronomePublisher)
+    }
+
+
+    private func addGestureControllers() {
+        let tempoSlidePickerController = SlideTempoPickerGestureController(with: metronome)
+        let tempoTapPickerController = TapTempoPickerGestureController(with: metronome)
+        let barLengthPickerController = BarLengthPickerGestureController(with: metronome)
+        let noteLengthPickerController = NoteLengthPickerGestureController(with: metronome)
+        let togglerController = TogglerGestureController(with: metronome)
+        togglerController.gestureRecogniser.canBePrevented(by: tempoTapPickerController.gestureRecogniser)
+
+        let controllers: [GestureController] = [
+            togglerController,
+            tempoSlidePickerController,
+            tempoTapPickerController,
+            barLengthPickerController,
+            noteLengthPickerController
+        ]
+
+        gestureControllers.set(gestureControllers: controllers, with: self)
+    }
+
+
+    private func addViewControllers() {
         addChildViewController(MetronomeViewController(with: metronomePublisher), in: view)
     }
 }

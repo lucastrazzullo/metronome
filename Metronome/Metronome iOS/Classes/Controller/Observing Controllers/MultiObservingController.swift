@@ -23,32 +23,15 @@ class MultiObservingController {
 
     init(cache: MetronomeStateCache) {
         self.cache = cache
-        self.controllers = buildControllers()
     }
 
 
     // MARK: Public methods
 
-    func set(publisher: MetronomePublisher) {
+    func set(observingControllers: [ObservingController], with publisher: MetronomePublisher) {
+        controllers = observingControllers
         controllers.forEach() { controller in
             controller.set(publisher: publisher)
         }
-    }
-
-
-    // MARK: Private helper methods
-
-    private func buildControllers() -> [ObservingController] {
-        let metronomeApplicationSettingsController = MetronomeApplicationSettingsController()
-        let metronomeHapticController = MetronomeHapticController()
-        let metronomeCacheController = MetronomeCacheController(cache: cache)
-        let metronomeSoundController = MetronomeSoundController()
-
-        return [
-            metronomeApplicationSettingsController,
-            metronomeHapticController,
-            metronomeCacheController,
-            metronomeSoundController
-        ]
     }
 }
