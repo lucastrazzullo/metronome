@@ -20,7 +20,7 @@ struct TipView: View {
                 .frame(width: 90, height: 90, alignment: .center)
             VStack(alignment: .leading, spacing: 8) {
                 Text(viewModel.title)
-                    .brandFont(.title2)
+                    .brandFont(.title)
                     .multilineTextAlignment(.leading)
                 Text(viewModel.description)
                     .brandFont(.body)

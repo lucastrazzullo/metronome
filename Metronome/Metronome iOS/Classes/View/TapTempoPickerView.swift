@@ -26,7 +26,7 @@ struct TapTempoPickerView: View {
 
                 HStack {
                     Text(getValueString()).brandFont(.largeTitle)
-                    Text(Copy.Tempo.unit.localised).brandFont(.title1)
+                    Text(Copy.Tempo.unit.localised).brandFont(.title)
                 }
 
                 HStack(alignment: .center) {

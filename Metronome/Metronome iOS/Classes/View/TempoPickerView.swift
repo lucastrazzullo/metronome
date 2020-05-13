@@ -36,7 +36,7 @@ struct TempoPickerView: View {
                     .frame(width: 120, height: nil, alignment: .center)
                     .clipped()
 
-                    Text(Copy.Tempo.unit.localised).brandFont(.title1)
+                    Text(Copy.Tempo.unit.localised).brandFont(.title)
                     .fixedSize(horizontal: true, vertical: true)
                 }
 

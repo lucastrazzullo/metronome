@@ -33,7 +33,7 @@ struct BeatView: View {
         .animation(.default)
         .gesture(DragGesture()
             .onChanged { action in
-                self.draggedOffset = min(BeatView.togglerHeight, action.translation.height)
+                self.draggedOffset = min(BeatView.togglerHeight, max(12, action.translation.height))
                 if self.draggedOffset > BeatView.togglerTreshold, self.viewModel.isTemporaryValueSelected == false {
                     self.viewModel.toggleIsAccentTemporarely()
                     self.hapticFeedbackGenerator.notificationOccurred(.success)
@@ -59,19 +59,22 @@ private struct BeatCardView: View {
         ZStack(alignment: .center) {
             BeatBackgroundView(state: state)
 
-            VStack(alignment: .center, spacing: 84) {
+            Text(label)
+                .brandFont(.largeTitle)
+                .foregroundColor(foregroundColor(for: state))
+
+            VStack(alignment: .center, spacing: 24) {
                 Image(systemName: SystemIcon.arrowDown.name)
-                    .brandFont(.title1)
+                    .brandFont(.title)
                     .foregroundColor(foregroundColor(for: state))
 
                 Circle()
                     .frame(width: 8, height: 8, alignment: .center)
                     .foregroundColor(accentIndicatorColor(for: state))
 
-                Text(label)
-                    .brandFont(.headline)
-                    .foregroundColor(foregroundColor(for: state))
+                Spacer()
             }
+            .padding(.top, 32)
         }
     }
 
@@ -111,6 +114,7 @@ private struct BeatBackgroundView: View {
         let view = AnyView(linearGradient)
             .cornerRadius(12, corners: [.bottomLeft, .bottomRight])
             .edgesIgnoringSafeArea(.all)
+            .shadow(color: Palette.black.color.opacity(0.45), radius: 2, x: 0, y: -2)
 
         return view
     }

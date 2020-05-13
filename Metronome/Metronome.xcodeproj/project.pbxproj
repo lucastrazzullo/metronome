@@ -154,6 +154,7 @@
 		81E7DEB42461B58D001F4F07 /* MetronomeApplicationSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E7DEB32461B58D001F4F07 /* MetronomeApplicationSettingsController.swift */; };
 		81E7FDC523573BD300C20444 /* TipsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E7FDC423573BD300C20444 /* TipsView.swift */; };
 		81E7FDCD23573E8600C20444 /* TipsViewModelRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E7FDCC23573E8600C20444 /* TipsViewModelRepository.swift */; };
+		81ED440E246BF947009F78B5 /* FuturaPTCondExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 81ED440C246BF93B009F78B5 /* FuturaPTCondExtraBold.otf */; };
 		81FAF02F23427ED1004A8C51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF02E23427ED1004A8C51 /* AppDelegate.swift */; };
 		81FAF03123427ED1004A8C51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF03023427ED1004A8C51 /* SceneDelegate.swift */; };
 		81FAF03323427ED1004A8C51 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF03223427ED1004A8C51 /* MainViewController.swift */; };
@@ -289,6 +290,7 @@
 		81E7DEB32461B58D001F4F07 /* MetronomeApplicationSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeApplicationSettingsController.swift; sourceTree = "<group>"; };
 		81E7FDC423573BD300C20444 /* TipsView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TipsView.swift; sourceTree = "<group>"; };
 		81E7FDCC23573E8600C20444 /* TipsViewModelRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TipsViewModelRepository.swift; sourceTree = "<group>"; };
+		81ED440C246BF93B009F78B5 /* FuturaPTCondExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturaPTCondExtraBold.otf; sourceTree = "<group>"; };
 		81FAF02B23427ED1004A8C51 /* Metronome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metronome.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FAF02E23427ED1004A8C51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81FAF03023427ED1004A8C51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -509,8 +511,9 @@
 			children = (
 				813ABCD6246561E0005A8F92 /* SystemIcon.swift */,
 				813ABCE7246588D9005A8F92 /* Audio */,
-				81919FB1234B4EEF0061571A /* String */,
 				815DA89624617D3400FEE8B1 /* Color */,
+				81ED440B246BF93B009F78B5 /* Font */,
+				81919FB1234B4EEF0061571A /* String */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -621,6 +624,14 @@
 				8185330C2465437300D3F7DC /* Resources */,
 			);
 			path = Platform;
+			sourceTree = "<group>";
+		};
+		81ED440B246BF93B009F78B5 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				81ED440C246BF93B009F78B5 /* FuturaPTCondExtraBold.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 		81FAF02223427ED1004A8C51 = {
@@ -952,6 +963,7 @@
 				81919FB3234B4F220061571A /* Localizable.strings in Resources */,
 				815DA89C24617E0800FEE8B1 /* ColorPalette.xcassets in Resources */,
 				81FAF03823427ED2004A8C51 /* Assets.xcassets in Resources */,
+				81ED440E246BF947009F78B5 /* FuturaPTCondExtraBold.otf in Resources */,
 				81FAF03623427ED1004A8C51 /* Main.storyboard in Resources */,
 				813ABCEA24658950005A8F92 /* Beat-normal.mp3 in Resources */,
 				813ABCED24658950005A8F92 /* Beat-highlighted.mp3 in Resources */,

@@ -10,31 +10,50 @@ import SwiftUI
 
 typealias BrandFontDescription = (String, CGFloat)
 
-private var fontDescriptions: [UIFont.TextStyle: BrandFontDescription] = [
-    .largeTitle: ("AmericanTypewriter", 88),
-    .headline: ("AmericanTypewriter", 34),
-    .title1: ("AmericanTypewriter", 26),
-    .title2: ("AmericanTypewriter-Semibold", 16),
-    .body: ("AmericanTypewriter", 16),
-    .footnote: ("AmericanTypewriter", 12),
-    .callout: ("AmericanTypewriter", 12)
+private var customFontDescriptions: [Font.TextStyle: BrandFontDescription] = [
+    .largeTitle: ("FuturaPTCond-ExtraBold", 48)
+]
+
+private var systemFontDescription: [Font.TextStyle: CGFloat] = [
+    .footnote: 12
 ]
 
 
-struct BrandFont: ViewModifier {
+struct CustomFont: ViewModifier {
     @Environment(\.sizeCategory) var sizeCategory
     var description: BrandFontDescription
 
     func body(content: Content) -> some View {
-       let scaledSize = UIFontMetrics.default.scaledValue(for: description.1)
+        let scaledSize = UIFontMetrics.default.scaledValue(for: description.1)
         return content.font(.custom(description.0, size: scaledSize))
     }
 }
 
 
+struct SystemFont: ViewModifier {
+    @Environment(\.sizeCategory) var sizeCategory
+    var style: Font.TextStyle
+    var size: CGFloat?
+
+    func body(content: Content) -> some View {
+        if let size = size {
+            let scaledSize = UIFontMetrics.default.scaledValue(for: size)
+            return content.font(Font.system(size: scaledSize))
+        } else {
+            return content.font(Font.system(style))
+        }
+    }
+}
+
+
 extension View {
-    func brandFont(_ style: UIFont.TextStyle) -> some View {
-        let description = fontDescriptions[style]
-        return self.modifier(BrandFont(description: description!))
+
+    func brandFont(_ style: Font.TextStyle) -> some View {
+        if let description = customFontDescriptions[style] {
+            return AnyView(self.modifier(CustomFont(description: description)))
+        } else {
+            let size = systemFontDescription[style]
+            return AnyView(self.modifier(SystemFont(style: style, size: size)))
+        }
     }
 }
