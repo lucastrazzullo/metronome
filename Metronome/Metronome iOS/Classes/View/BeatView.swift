@@ -57,7 +57,10 @@ private struct BeatCardView: View {
 
     var body: some View {
         ZStack(alignment: .center) {
-            BeatBackgroundView(state: state)
+            LinearGradient(backgroundGradient(for: state))
+                .cornerRadius(12, corners: [.bottomLeft, .bottomRight])
+                .edgesIgnoringSafeArea(.all)
+                .shadow(color: Palette.black.color.opacity(0.45), radius: 2, x: 0, y: -2)
 
             Text(label)
                 .brandFont(.largeTitle)
@@ -93,41 +96,20 @@ private struct BeatCardView: View {
 
     private func accentIndicatorColor(for state: BeatViewModel.State) -> Color {
         switch state {
-        case [.accented, .highlighted]:
+        case [.accented, .highlighted], .accented:
             return Palette.purple.color
-        case .accented:
-            return Palette.white.color.opacity(0.19)
         default:
             return .clear
         }
     }
-}
 
 
-private struct BeatBackgroundView: View {
-
-    private(set) var state: BeatViewModel.State
-
-    var body: some View {
-        let gradient = Gradient(colors: backgroundColors(for: state))
-        let linearGradient = LinearGradient(gradient: gradient, startPoint: .topLeading, endPoint: .bottomTrailing)
-        let view = AnyView(linearGradient)
-            .cornerRadius(12, corners: [.bottomLeft, .bottomRight])
-            .edgesIgnoringSafeArea(.all)
-            .shadow(color: Palette.black.color.opacity(0.45), radius: 2, x: 0, y: -2)
-
-        return view
-    }
-
-
-    // MARK: Private helper methods
-
-    private func backgroundColors(for state: BeatViewModel.State) -> [Color] {
+    private func backgroundGradient(for state: BeatViewModel.State) -> Palette.Gradients {
         switch state {
         case .highlighted, [.highlighted, .accented]:
-            return [Palette.green.color, Palette.blue.color]
+            return .blueGreen
         default:
-            return [Palette.gray.color, Palette.gray.color]
+            return .gray
         }
     }
 }

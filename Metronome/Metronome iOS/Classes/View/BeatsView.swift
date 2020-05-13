@@ -15,7 +15,7 @@ struct BeatsView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 2) {
             ForEach(viewModel.beats, id: \.id) { beatViewModel in
-                BeatView(viewModel: beatViewModel).padding(.bottom, 84)
+                BeatView(viewModel: beatViewModel)
             }
         }
     }

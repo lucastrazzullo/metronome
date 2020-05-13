@@ -15,6 +15,7 @@ private var customFontDescriptions: [Font.TextStyle: BrandFontDescription] = [
 ]
 
 private var systemFontDescription: [Font.TextStyle: CGFloat] = [
+    .callout: 16,
     .footnote: 12
 ]
 

@@ -16,11 +16,43 @@ enum Palette: String {
     case orange
     case purple
     case yellow
+    case pink
     case black
     case white
 
     var color: Color {
         return Color(self.rawValue)
+    }
+
+
+    enum Gradients {
+
+        case blueGreen
+        case greenBlue
+        case yellowGreen
+        case greenYellow
+        case orangePink
+        case pinkOrange
+        case gray
+
+        var colors: [Color] {
+            switch self {
+            case .blueGreen:
+                return [Color("blueGreen-1"), Color("blueGreen-2")]
+            case .greenBlue:
+                return [Color("greenBlue-1"), Color("greenBlue-2")]
+            case .yellowGreen:
+                return [Color("yellowGreen-1"), Color("yellowGreen-2")]
+            case .greenYellow:
+                return [Color("greenYellow-1"), Color("greenYellow-2")]
+            case .orangePink:
+                return [Color("orangePink-1"), Color("orangePink-2")]
+            case .pinkOrange:
+                return [Color("pinkOrange-1"), Color("pinkOrange-2")]
+            case .gray:
+                return [Palette.gray.color, Palette.gray.color]
+            }
+        }
     }
 }
 
@@ -29,5 +61,14 @@ extension Color {
 
     init(_ palette: Palette) {
         self = palette.color
+    }
+}
+
+
+extension LinearGradient {
+
+    init(_ gradient: Palette.Gradients) {
+        let gradient = Gradient(colors: gradient.colors)
+        self = LinearGradient(gradient: gradient, startPoint: .topLeading, endPoint: .bottomTrailing)
     }
 }
