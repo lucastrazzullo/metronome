@@ -24,6 +24,10 @@
 	<array>
 		<string>com.lucastrazzullo.metronome.start-metronome</string>
 	</array>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FuturaPTCondExtraBold.otf</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -66,10 +70,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>UIAppFonts</key>
-	<array>
-		<string>FuturaPTCondExtraBold.otf</string>
 	</array>
 </dict>
 </plist>
