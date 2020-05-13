@@ -67,7 +67,7 @@ private struct BeatCardView: View {
                 .foregroundColor(foregroundColor(for: state))
 
             VStack(alignment: .center, spacing: 24) {
-                Image(systemName: SystemIcon.arrowDown.name)
+                Image(SystemIcon.arrowDown)
                     .brandFont(.title)
                     .foregroundColor(foregroundColor(for: state))
 
@@ -126,7 +126,7 @@ private struct BeatAccentTogglerView: View {
 
             HStack(alignment: .center, spacing: 4) {
                 Text(Copy.TimeSignature.Beat.accent.localised)
-                Image(systemName: iconName(for: state))
+                Image(icon(for: state))
             }
             .brandFont(.footnote)
             .foregroundColor(foregroundColor(for: state))
@@ -136,11 +136,11 @@ private struct BeatAccentTogglerView: View {
 
     // MARK: Private helper methods
 
-    private func iconName(for state: BeatViewModel.State) -> String {
+    private func icon(for state: BeatViewModel.State) -> SystemIcon {
         if state.contains(.accented) {
-            return SystemIcon.on.name
+            return SystemIcon.on
         } else {
-            return SystemIcon.off.name
+            return SystemIcon.off
         }
     }
 

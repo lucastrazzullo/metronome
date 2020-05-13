@@ -35,7 +35,7 @@ private struct LeftControlsView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 24) {
             HStack(alignment: .center, spacing: 4) {
-                ControlsButton(label: viewModel.tempoLabel, gradient: .yellowGreen, action: {
+                ControlsButton(label: viewModel.tempoLabel, background: .button1, action: {
                     self.showingTempoPicker.toggle()
                 })
                 .sheet(isPresented: $showingTempoPicker) {
@@ -43,7 +43,7 @@ private struct LeftControlsView: View {
                         .onAppear(perform: { self.viewModel.reset() })
                 }
 
-                ControlsButton(label: viewModel.tapTempoLabel, gradient: .greenYellow, action: {
+                ControlsButton(label: viewModel.tapTempoLabel, background: .button2, action: {
                     self.showingTapTempoPicker.toggle()
                 })
                 .sheet(isPresented: $showingTapTempoPicker) {
@@ -53,7 +53,7 @@ private struct LeftControlsView: View {
             }
 
             HStack(alignment: .center, spacing: 4) {
-                ControlsButton(label: Copy.TimeSignature.title.localised, gradient: .orangePink) {
+                ControlsButton(label: Copy.TimeSignature.title.localised, background: .button3) {
                     self.showingTimeSignaturePicker.toggle()
                 }
                 .sheet(isPresented: $showingTimeSignaturePicker) {
@@ -61,7 +61,7 @@ private struct LeftControlsView: View {
                         .onAppear(perform: { self.viewModel.reset() })
                 }
 
-                ControlsButton(label: viewModel.timeSignatureLabel, gradient: .pinkOrange) {
+                ControlsButton(label: viewModel.timeSignatureLabel, background: .button4) {
                     self.showingTimeSignaturePicker.toggle()
                 }
                 .sheet(isPresented: $showingTimeSignaturePicker) {
@@ -79,7 +79,7 @@ private struct RightControlsView: View {
     @ObservedObject private(set) var viewModel: ControlsViewModel
 
     var body: some View {
-        ControlsButton(icon: viewModel.soundTogglerIcon, gradient: .blueGreen, action: {
+        ControlsButton(icon: viewModel.soundTogglerIcon, background: .button5, action: {
             self.viewModel.toggleSoundOn()
         })
     }
@@ -96,13 +96,13 @@ private struct ControlsButton: View {
         var body: some View {
             if let label = self.label, let icon = icon {
                 return AnyView(HStack(alignment: .center, spacing: 4) {
-                    Image(systemName: icon.name)
+                    Image(icon)
                     Text(label)
                 })
             } else if let label = self.label {
                 return AnyView(Text(label))
             } else if let icon = self.icon {
-                return AnyView(Image(systemName: icon.name))
+                return AnyView(Image(icon))
             } else {
                 return AnyView(EmptyView())
             }
@@ -114,14 +114,14 @@ private struct ControlsButton: View {
 
     private(set) var label: String?
     private(set) var icon: SystemIcon?
-    private(set) var gradient: Palette.Gradients
+    private(set) var background: ShapeIllustration
     private(set) var action: () -> ()
 
     var body: some View {
         Button(action: action) {
             ZStack {
-                LinearGradient(gradient)
-                    .cornerRadius(8)
+                Image(background)
+                    .resizable()
 
                 ButtonContent(label: label, icon: icon)
                     .brandFont(.callout)
