@@ -88,7 +88,7 @@ private struct RightControlsView: View {
 
 private struct ControlsButton: View {
 
-    struct ButtonContent: View {
+    struct Content: View {
 
         private(set) var label: String?
         private(set) var icon: SystemIcon?
@@ -123,7 +123,7 @@ private struct ControlsButton: View {
                 Image(background)
                     .resizable()
 
-                ButtonContent(label: label, icon: icon)
+                Content(label: label, icon: icon)
                     .brandFont(.callout)
                     .padding(12)
                     .foregroundColor(Palette.white.color)
