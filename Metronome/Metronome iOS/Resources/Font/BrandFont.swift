@@ -16,7 +16,8 @@ private var fontDescriptions: [UIFont.TextStyle: BrandFontDescription] = [
     .title1: ("AmericanTypewriter", 26),
     .title2: ("AmericanTypewriter-Semibold", 16),
     .body: ("AmericanTypewriter", 16),
-    .footnote: ("AmericanTypewriter", 14)
+    .footnote: ("AmericanTypewriter", 12),
+    .callout: ("AmericanTypewriter", 12)
 ]
 
 

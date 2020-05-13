@@ -28,6 +28,8 @@
 "metronome.time_signature.note_length.title" = "Note length";
 "metronome.time_signature.note_length.prefix.format" = "%d/";
 
+"metronome.time_signature.beat.accent" = "Accent";
+
 
 // MARK: Controls
 
@@ -38,7 +40,6 @@
 "controls.tap_tempo" = "Tap";
 "controls.sound_on" = "Sound on";
 "controls.sound_off" = "Sound off";
-"controls.accent" = "Accent";
 "controls.placeholder" = "..";
 
 

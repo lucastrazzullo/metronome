@@ -14,7 +14,7 @@ struct MetronomeView: View {
 
     var body: some View {
         ZStack {
-            ColorView(color: .black)
+            Palette.black.color.edgesIgnoringSafeArea(.all)
             BeatsView(viewModel: viewModel.beatsViewModel)
             ChromeView(viewModel: viewModel.controlsViewModel)
         }

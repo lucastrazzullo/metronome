@@ -45,6 +45,10 @@ struct Copy {
 
         case noteLength = "metronome.time_signature.note_length.title"
         case noteLengthPrefixFormat = "metronome.time_signature.note_length.prefix.format"
+
+        enum Beat: String, CopyIdentifier {
+            case accent = "metronome.time_signature.beat.accent"
+        }
     }
 
     enum Controls: String, CopyIdentifier {
@@ -55,7 +59,6 @@ struct Copy {
         case tapTempo = "controls.tap_tempo"
         case soundOn = "controls.sound_on"
         case soundOff = "controls.sound_off"
-        case accent = "controls.accent"
         case placeholderValue = "controls.placeholder"
     }
 

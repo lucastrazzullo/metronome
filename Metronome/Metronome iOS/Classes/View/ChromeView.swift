@@ -21,8 +21,11 @@ struct ChromeView: View {
                     Spacer()
                     RightControlsView(viewModel: viewModel)
                 }
-            }.frame(width: nil, height: 40, alignment: .center)
-        }.padding([.leading, .trailing], 24).padding([.top, .bottom], 10)
+            }
+            .frame(width: nil, height: 40, alignment: .center)
+        }
+        .padding([.leading, .trailing], 24)
+        .padding([.top, .bottom], 10)
     }
 }
 

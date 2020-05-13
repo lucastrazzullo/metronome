@@ -13,9 +13,9 @@ struct BeatsView: View {
     @ObservedObject private(set) var viewModel: BeatsViewModel
 
     var body: some View {
-        HStack(alignment: .center, spacing: 1) {
+        HStack(alignment: .center, spacing: 2) {
             ForEach(viewModel.beats, id: \.id) { beatViewModel in
-                return BeatView(viewModel: beatViewModel)
+                BeatView(viewModel: beatViewModel).padding(.bottom, 84)
             }
         }
     }
