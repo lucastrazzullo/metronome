@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "817F992B234CAD0300DA1043"
                BuildableName = "Metronome.app"
-               BlueprintName = "Metronome Watch"
-               ReferencedContainer = "container:Metronome.xcodeproj">
+               BlueprintName = "Metronome Cocoa Watch"
+               ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
@@ -30,8 +30,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "81FAF02A23427ED1004A8C51"
                BuildableName = "Metronome.app"
-               BlueprintName = "Metronome iOS"
-               ReferencedContainer = "container:Metronome.xcodeproj">
+               BlueprintName = "Metronome Cocoa iOS"
+               ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -62,8 +62,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "817F992B234CAD0300DA1043"
             BuildableName = "Metronome.app"
-            BlueprintName = "Metronome Watch"
-            ReferencedContainer = "container:Metronome.xcodeproj">
+            BlueprintName = "Metronome Cocoa Watch"
+            ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
    </LaunchAction>
@@ -81,8 +81,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "817F992B234CAD0300DA1043"
             BuildableName = "Metronome.app"
-            BlueprintName = "Metronome Watch"
-            ReferencedContainer = "container:Metronome.xcodeproj">
+            BlueprintName = "Metronome Cocoa Watch"
+            ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
          </BuildableReference>
       </RemoteRunnable>
       <MacroExpansion>
@@ -90,8 +90,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "817F992B234CAD0300DA1043"
             BuildableName = "Metronome.app"
-            BlueprintName = "Metronome Watch"
-            ReferencedContainer = "container:Metronome.xcodeproj">
+            BlueprintName = "Metronome Cocoa Watch"
+            ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

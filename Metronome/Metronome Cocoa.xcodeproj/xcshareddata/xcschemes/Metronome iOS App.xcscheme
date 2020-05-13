@@ -16,8 +16,8 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "81FAF02A23427ED1004A8C51"
                BuildableName = "Metronome.app"
-               BlueprintName = "Metronome iOS"
-               ReferencedContainer = "container:Metronome.xcodeproj">
+               BlueprintName = "Metronome Cocoa iOS"
+               ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "81FAF04023427ED3004A8C51"
-               BuildableName = "MetronomeTests.xctest"
-               BlueprintName = "MetronomeTests"
-               ReferencedContainer = "container:Metronome.xcodeproj">
+               BuildableName = "Metronome CocoaTests.xctest"
+               BlueprintName = "Metronome CocoaTests"
+               ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
             </BuildableReference>
             <SkippedTests>
                <Test
@@ -61,8 +61,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "81FAF02A23427ED1004A8C51"
             BuildableName = "Metronome.app"
-            BlueprintName = "Metronome iOS"
-            ReferencedContainer = "container:Metronome.xcodeproj">
+            BlueprintName = "Metronome Cocoa iOS"
+            ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -78,8 +78,8 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "81FAF02A23427ED1004A8C51"
             BuildableName = "Metronome.app"
-            BlueprintName = "Metronome iOS"
-            ReferencedContainer = "container:Metronome.xcodeproj">
+            BlueprintName = "Metronome Cocoa iOS"
+            ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
