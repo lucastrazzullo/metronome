@@ -20,5 +20,9 @@ struct MetronomeView: View {
                 ControlsView(viewModel: viewModel.controlsViewModel)
             }
         }
+        .gesture(TapGesture()
+            .onEnded { gesture in
+                self.viewModel.metronome.toggle()
+        })
     }
 }

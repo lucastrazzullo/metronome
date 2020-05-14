@@ -25,12 +25,7 @@ class NoteLengthPickerViewModel: ObservableObject {
 
     // MARK: Public methods
 
-    func startSelection() {
-        metronome.reset()
-    }
-
-
-    func selectTemporary(noteLength offset: Int) {
+    func update(with offset: Int) {
         let currentTimeSignature = metronome.configuration.timeSignature
         let noteLength = currentTimeSignature.noteLength.with(offset: offset)
         selectedTimeSignature = TimeSignature(barLength: currentTimeSignature.barLength, noteLength: noteLength)

@@ -14,10 +14,13 @@ class MetronomeViewModel {
     private(set) var beatsViewModel: BeatsViewModel
     private(set) var controlsViewModel: ControlsViewModel
 
+    let metronome: Metronome
+
 
     // MARK: Object life cycle
 
     init(metronomePublisher: MetronomePublisher) {
+        metronome = metronomePublisher.metronome
         beatsViewModel = BeatsViewModel(metronomePublisher: metronomePublisher)
         controlsViewModel = ControlsViewModel(with: metronomePublisher)
     }
