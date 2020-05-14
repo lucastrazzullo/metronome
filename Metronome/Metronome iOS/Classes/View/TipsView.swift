@@ -80,7 +80,7 @@ private struct ButtonView: View {
     var body: some View {
         Button(action: { self.action() }) {
             Image(systemName: icon)
-                .brandFont(.title1)
+                .brandFont(.title)
                 .foregroundColor(.secondary)
         }
     }
@@ -96,10 +96,10 @@ private struct TitleView: View {
     var body: some View {
         HStack(alignment: .center, spacing: 40) {
             Text(title)
-                .brandFont(.title1)
+                .brandFont(.title)
             Button(action: { self.dismiss() }) {
                 Image(systemName: dismissIcon)
-                    .brandFont(.title1)
+                    .brandFont(.title)
                     .foregroundColor(.primary)
             }
         }.frame(width: nil, height: 60, alignment: .center)

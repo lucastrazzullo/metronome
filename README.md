@@ -1,9 +1,10 @@
 # Haptic Metronome
 
-Haptic Metronome is a silent digital metronome.
+Haptic Metronome is a visual/haptic first digital metronome.
 It pulses beats with both a visual reference and a haptic feedback pattern.
+You can optionally switch on/off the audio.
 
-You can change the settings with one-gesture actions, while you keep focussing on your song or practice exercise.
+You can change the settings with one-gesture actions, while you keep focussing on your song or practice exercise. Or use the panel control on the bottom of the screen.
 
 Slide up/down with two fingers on the screen to adjust the bpm. Pinch in/out with two fingers anywhere on the screen to adjust the note length. You can toggle on/off by just tapping on the screen with one finger and few other gestures that wait for you to try them.
 

@@ -1,0 +1,76 @@
+/* 
+  Localizable.strings
+  Metronome
+
+  Created by luca strazzullo on 7/10/19.
+  Copyright © 2019 luca strazzullo. All rights reserved.
+*/
+
+// MARK: App
+
+"metronome.title" = "Metronome";
+
+
+// MARK: Tempo
+
+"metronome.tempo.title" = "Tempo";
+"metronome.tempo.unit" = "bpm";
+
+
+// MARK: Time Signature
+
+"metronome.time_signature.title" = "Time signature";
+"metronome.time_signature.representation.format" = "%d/%d";
+
+"metronome.time_signature.bar_length.title" = "Bar length";
+"metronome.time_signature.bar_length.suffix.format" = "/%d";
+
+"metronome.time_signature.note_length.title" = "Note length";
+"metronome.time_signature.note_length.prefix.format" = "%d/";
+
+"metronome.time_signature.beat.accent" = "Accent";
+
+
+// MARK: Controls
+
+"controls.confirm" = "Confirm";
+"controls.start" = "Start";
+"controls.stop" = "Stop";
+"controls.tips" = "Tips";
+"controls.tap_tempo" = "Tap";
+"controls.sound_on" = "Sound on";
+"controls.sound_off" = "Sound off";
+"controls.placeholder" = "..";
+
+
+// MARK: Picker
+
+"metronome.picker.tap_tempo.title" = "Tap tempo";
+"metronome.picker.tap_tempo.value.placeholder" = "...";
+
+
+// MARK: Welcome
+
+"welcome.title" = "Welcome! Here are a few tips for you.";
+
+
+// MARK: Tips
+
+"tips.title" = "Tips";
+"tips.swipeUp.title" = "Show tips";
+"tips.swipeUp.description" = "Swipe up to present tips";
+
+"tips.toggle.title" = "On/Off";
+"tips.toggle.description" = "Single Tap to toggle on/off";
+
+"tips.vertical_slide.title" = "Tempo";
+"tips.vertical_slide.description" = "Slide with two fingers up/down to update tempo";
+
+"tips.horizontal_slide.title" = "Bar Length (4)/4";
+"tips.horizontal_slide.description" = "Slide with two fingers left/right to update bar length";
+
+"tips.pinch.title" = "Note Length 4/(4)";
+"tips.pinch.description" = "Pinch in/out to update note length";
+
+"tips.long_press.title" = "Tap Tempo";
+"tips.long_press.description" = "Long press to present tempo tap recogniser";
