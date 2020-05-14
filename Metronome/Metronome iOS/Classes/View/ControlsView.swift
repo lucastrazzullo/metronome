@@ -21,8 +21,8 @@ struct ControlsView: View {
             SoundTogglerButton(viewModel: viewModel)
             RunningTogglerButton(viewModel: viewModel)
         }
-        .padding([.leading, .trailing], 24)
-        .padding([.top, .bottom], 10)
+        .padding([.leading, .trailing, .bottom], 24)
+        .padding([.top], 12)
     }
 }
 
