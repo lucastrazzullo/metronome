@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "button-shape-5.pdf",
+      "filename" : "Button Background 5.pdf",
       "idiom" : "universal"
     }
   ],
@@ -10,7 +10,6 @@
     "version" : 1
   },
   "properties" : {
-    "preserves-vector-representation" : true,
-    "template-rendering-intent" : "original"
+    "preserves-vector-representation" : true
   }
 }

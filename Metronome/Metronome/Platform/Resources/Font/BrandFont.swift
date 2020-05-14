@@ -11,7 +11,8 @@ import SwiftUI
 typealias BrandFontDescription = (String, CGFloat)
 
 private var customFontDescriptions: [Font.TextStyle: BrandFontDescription] = [
-    .largeTitle: ("FuturaPTCond-ExtraBold", 48)
+    .largeTitle: ("FuturaPTCond-ExtraBold", 48),
+    .headline: ("FuturaPTCond-ExtraBold", 20)
 ]
 
 private var systemFontDescription: [Font.TextStyle: CGFloat] = [

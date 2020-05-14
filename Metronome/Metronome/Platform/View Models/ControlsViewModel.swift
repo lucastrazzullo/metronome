@@ -13,9 +13,13 @@ class ControlsViewModel: ObservableObject {
 
     @Published var tempoLabel: String
     @Published var tapTempoLabel: String
+    @Published var tapTempoIndicatorIsHighlighted: Bool
     @Published var timeSignatureLabel: String
     @Published var metronomeTogglerLabel: String
     @Published var soundTogglerIcon: SystemIcon
+
+    @Published var metronomeIsRunning: Bool
+    @Published var metronomeSoundIsOn: Bool
 
     let metronome: Metronome
 
@@ -27,23 +31,43 @@ class ControlsViewModel: ObservableObject {
     init(with metronomePublisher: MetronomePublisher) {
         metronome = metronomePublisher.metronome
 
-        timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, Copy.Controls.placeholderValue.localised, Copy.Controls.placeholderValue.localised)
+        let timeSignature = metronome.configuration.timeSignature
+        timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, timeSignature.beats.count, timeSignature.noteLength.rawValue)
         tempoLabel = Copy.Tempo.unit.localised.uppercased()
+
         tapTempoLabel = Copy.Controls.tapTempo.localised
+        tapTempoIndicatorIsHighlighted = false
 
         metronomeTogglerLabel = Copy.Controls.start.localised
         soundTogglerIcon = SystemIcon.soundOff
 
-        cancellables.append(Publishers.CombineLatest(metronomePublisher.$configuration, metronomePublisher.$isSoundOn).sink {
-            [weak self] configuration, isSoundOn in
+        metronomeIsRunning = metronome.isRunning
+        metronomeSoundIsOn = metronome.isSoundOn
+
+        cancellables.append(metronomePublisher.$configuration.sink { [weak self] configuration in
             let timeSignature = configuration.timeSignature
             self?.timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, timeSignature.beats.count, timeSignature.noteLength.rawValue)
             self?.tempoLabel = "\(configuration.tempo.bpm)\(Copy.Tempo.unit.localised.uppercased())"
+        })
+
+        cancellables.append(metronomePublisher.$isSoundOn.sink { [weak self] isSoundOn in
             self?.soundTogglerIcon = isSoundOn ? SystemIcon.soundOn : SystemIcon.soundOff
+            self?.metronomeSoundIsOn = isSoundOn
         })
 
         cancellables.append(metronomePublisher.$isRunning.sink { [weak self] isRunning in
-            self?.metronomeTogglerLabel = isRunning ? Copy.Controls.reset.localised : Copy.Controls.start.localised
+            self?.metronomeIsRunning = isRunning
+            self?.metronomeTogglerLabel = isRunning ? Copy.Controls.stop.localised : Copy.Controls.start.localised
+            self?.tapTempoIndicatorIsHighlighted = isRunning
+        })
+
+        cancellables.append(Publishers.CombineLatest(metronomePublisher.$currentBeat, metronomePublisher.$isRunning).sink {
+            [weak self] _, isRunning in
+            if isRunning {
+                self?.tapTempoIndicatorIsHighlighted.toggle()
+            } else {
+                self?.tapTempoIndicatorIsHighlighted = false
+            }
         })
     }
 

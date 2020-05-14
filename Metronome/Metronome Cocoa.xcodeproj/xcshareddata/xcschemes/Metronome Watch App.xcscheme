@@ -29,7 +29,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "81FAF02A23427ED1004A8C51"
-               BuildableName = "Metronome.app"
+               BuildableName = "Metronome Cocoa.app"
                BlueprintName = "Metronome Cocoa iOS"
                ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
             </BuildableReference>
