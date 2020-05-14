@@ -41,13 +41,12 @@
 "controls.tap_tempo" = "Tap";
 "controls.sound_on" = "Sound on";
 "controls.sound_off" = "Sound off";
-"controls.placeholder" = "..";
 
 
 // MARK: Picker
 
 "metronome.picker.tap_tempo.title" = "Tap tempo";
-"metronome.picker.tap_tempo.value.placeholder" = "...";
+"metronome.picker.tap_tempo.value.placeholder" = "Tap here ...";
 
 
 // MARK: Welcome

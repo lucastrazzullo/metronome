@@ -27,12 +27,7 @@ class TapTempoPickerViewModel: ObservableObject {
 
     // MARK: Public methods
 
-    func startSelection() {
-        metronome.reset()
-    }
-
-
-    func selectTemporarely(newTapWith timestamp: TimeInterval) {
+    func update(with timestamp: TimeInterval) {
         if let frequency = getFrequency(withNew: timestamp) {
             selectedTempoBpm = metronome.configuration.getBpm(with: frequency)
         }
