@@ -53,6 +53,7 @@ struct Copy {
 
     enum Controls: String, CopyIdentifier {
         case confirm = "controls.confirm"
+        case done = "controls.done"
         case start = "controls.start"
         case stop = "controls.stop"
         case tips = "controls.tips"
