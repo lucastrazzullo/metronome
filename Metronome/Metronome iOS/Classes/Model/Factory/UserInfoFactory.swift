@@ -20,7 +20,7 @@ struct UserInfoFactory {
 
     static func userInfo(for timeSignature: TimeSignature) -> [AnyHashable: Any] {
         return [
-            ActivityKey.numberOfBeats.rawValue: timeSignature.beats.count,
+            ActivityKey.numberOfBeats.rawValue: timeSignature.barLength.numberOfBeats,
             ActivityKey.noteLength.rawValue: timeSignature.noteLength.rawValue
         ]
     }
@@ -29,10 +29,11 @@ struct UserInfoFactory {
     static func timeSignature(in userInfo: [AnyHashable: Any]) -> TimeSignature? {
         guard
             let numberOfBeats = userInfo[ActivityKey.numberOfBeats.rawValue] as? Int,
-            let noteLengthRawValue = userInfo[ActivityKey.noteLength.rawValue] as? Int,
-            let noteLength = TimeSignature.NoteLength(rawValue: noteLengthRawValue)
+            let noteLengthRawValue = userInfo[ActivityKey.noteLength.rawValue] as? Int
             else { return nil }
 
-        return TimeSignature(numberOfBeats: numberOfBeats, noteLength: noteLength)
+        let barLength = TimeSignature.BarLength(numberOfBeats: numberOfBeats)
+        let noteLength = TimeSignature.NoteLength(rawValue: noteLengthRawValue) ?? .default
+        return TimeSignature(barLength: barLength, noteLength: noteLength)
     }
 }

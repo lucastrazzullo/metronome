@@ -79,11 +79,11 @@ class Metronome {
     // MARK: Private helper methods
 
     private func nextBeat() -> Beat {
-        guard let currentBeat = currentBeat else { return configuration.timeSignature.beats[0] }
-        if currentBeat.position + 1 < configuration.timeSignature.beats.count {
-            return configuration.timeSignature.beats[currentBeat.position + 1]
+        guard let currentBeat = currentBeat else { return configuration.timeSignature.barLength.beats[0] }
+        if currentBeat.position + 1 < configuration.timeSignature.barLength.numberOfBeats {
+            return configuration.timeSignature.barLength.beats[currentBeat.position + 1]
         } else {
-            return configuration.timeSignature.beats[0]
+            return configuration.timeSignature.barLength.beats[0]
         }
     }
 }

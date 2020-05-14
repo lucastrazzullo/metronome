@@ -45,7 +45,7 @@ class BeatViewModel: ObservableObject, Identifiable {
 
 
         mutating func set(timeSignature: TimeSignature, position: Int) {
-            if position < timeSignature.beats.count, timeSignature.beats[position].isAccent {
+            if position < timeSignature.barLength.numberOfBeats, timeSignature.barLength.beats[position].isAccent {
                 insert(.accented)
             } else {
                 remove(.accented)

@@ -52,7 +52,7 @@ class MetronomeSoundController: ObservingController {
             self?.buffers.removeAll()
             self?.audios.removeAll()
 
-            for beat in configuration.timeSignature.beats {
+            for beat in configuration.timeSignature.barLength.beats {
                 let soundURL = beat.isAccent ? SoundURL.accent : SoundURL.normal
                 guard let audio = try? AVAudioFile(forReading: soundURL) else { return }
 

@@ -33,37 +33,62 @@ struct TimeSignature: Equatable {
         }
     }
 
-    static let barLengthRange = 2 ... 8
+    struct BarLength: Equatable {
+
+        static let range = 2 ... 8
+
+        var beats: [Beat]
+
+        var numberOfBeats: Int {
+            return beats.count
+        }
+
+        var accentPositions: Set<Int> {
+            return Set(beats.enumerated().compactMap { index, beat in beat.isAccent ? index : nil })
+        }
+
+        init(numberOfBeats: Int, accentPositions: Set<Int> = [0]) {
+            let numberOfBeats = min(max(BarLength.range.lowerBound, numberOfBeats), BarLength.range.upperBound)
+            self.beats = (0..<numberOfBeats).map { position in
+                return Beat(position: position, isAccent: accentPositions.contains(position))
+            }
+        }
+
+        static var `default`: BarLength {
+            return BarLength(numberOfBeats: 4)
+        }
+
+        static var maximum: BarLength {
+            return BarLength(numberOfBeats: range.upperBound)
+        }
+    }
 
 
     // MARK: Instance properties
 
-    var beats: [Beat]
+    var barLength: BarLength
     let noteLength: NoteLength
 
 
     // MARK: Object life cycle
 
-    init(numberOfBeats: Int, noteLength: NoteLength, accentPositions: Set<Int> = [0]) {
-        let numberOfBeats = min(max(TimeSignature.barLengthRange.lowerBound, numberOfBeats), TimeSignature.barLengthRange.upperBound)
-        self.beats = (0..<numberOfBeats).map { position in
-            return Beat(position: position, isAccent: accentPositions.contains(position))
-        }
+    init(barLength: BarLength, noteLength: NoteLength) {
+        self.barLength = barLength
         self.noteLength = noteLength
     }
 
 
     static var `default`: TimeSignature {
-        return TimeSignature(numberOfBeats: 4, noteLength: .quarter)
+        return TimeSignature(barLength: .default, noteLength: .quarter)
     }
 
 
     static var commonDefaults: [TimeSignature] {
         return [
-            TimeSignature(numberOfBeats: 4, noteLength: .quarter),
-            TimeSignature(numberOfBeats: 3, noteLength: .quarter),
-            TimeSignature(numberOfBeats: 6, noteLength: .quarter),
-            TimeSignature(numberOfBeats: 8, noteLength: .quarter)
+            TimeSignature(barLength: BarLength(numberOfBeats: 4), noteLength: .quarter),
+            TimeSignature(barLength: BarLength(numberOfBeats: 3), noteLength: .quarter),
+            TimeSignature(barLength: BarLength(numberOfBeats: 6), noteLength: .quarter),
+            TimeSignature(barLength: BarLength(numberOfBeats: 8), noteLength: .quarter)
         ]
     }
 }

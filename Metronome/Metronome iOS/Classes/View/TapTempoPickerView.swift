@@ -14,36 +14,56 @@ struct TapTempoPickerView: View {
 
     @ObservedObject var viewModel: TapTempoPickerViewModel
 
+    @State var tapIndicatorHighlighted: Bool = false
+
 
     var body: some View {
         ZStack {
-            Palette.green.color.edgesIgnoringSafeArea(.all)
+            VStack(alignment: .center, spacing: 12) {
+                HStack(alignment: .center, spacing: 12) {
+                    Text(Copy.Picker.TapTempo.title.localised)
+                        .brandFont(.title)
 
-            HStack(alignment: .center, spacing: 80) {
-                HStack(alignment: .center) {
-                    Text(Copy.Picker.TapTempo.title.localised).brandFont(.headline)
+                    Circle()
+                        .foregroundColor(tapIndicatorHighlighted ? Palette.purple.color : Palette.white.color)
+                        .frame(width: 8, height: 8, alignment: .center)
                 }
 
-                HStack {
-                    Text(getValueString()).brandFont(.largeTitle)
-                    Text(Copy.Tempo.unit.localised).brandFont(.title)
+                Spacer()
+
+                VStack {
+                    Text(getValueString().uppercased())
+                        .brandFont(.largeTitle)
+
+                    Text(Copy.Tempo.unit.localised)
+                        .brandFont(.callout)
+                        .opacity(0.36)
                 }
 
-                HStack(alignment: .center) {
-                    Button(action: {
-                        self.viewModel.commit()
-                        self.presentationMode.wrappedValue.dismiss()
-                    }, label: { Text(Copy.Controls.confirm.localised.uppercased()).font(Font.callout) })
+                Spacer()
+
+                Button(action: complete) {
+                    HStack {
+                        Spacer()
+                        Text(Copy.Controls.done.localised)
+                            .font(Font.callout)
+                        Spacer()
+                    }
                 }
-                .padding(8)
-                .background(Palette.black.color.opacity(0.2))
+                .padding(16)
+                .background(Palette.white.color.opacity(0.2))
                 .cornerRadius(8)
             }
         }
+        .padding(.top, 24)
+        .padding([.bottom, .leading, .trailing], 4)
+        .background(LinearGradient(.greenBlue).edgesIgnoringSafeArea(.all))
         .foregroundColor(Palette.black.color)
-        .gesture(TapGesture().onEnded { gesture in
-            self.viewModel.selectTemporarely(newTapWith: Date().timeIntervalSinceReferenceDate)
-        })
+        .gesture(TapGesture()
+            .onEnded { gesture in
+                self.viewModel.update(with: Date().timeIntervalSinceReferenceDate)
+                self.tapIndicatorHighlighted.toggle()
+            })
     }
 
 
@@ -55,5 +75,24 @@ struct TapTempoPickerView: View {
         } else {
             return Copy.Picker.TapTempo.valuePlaceholder.localised
         }
+    }
+
+
+    private func complete() {
+        viewModel.commit()
+        presentationMode.wrappedValue.dismiss()
+    }
+}
+
+
+// MARK: Previews
+
+struct TapTempoPickerView_Preview: PreviewProvider {
+
+    static var previews: some View {
+        let metronome = Metronome(with: .default, soundOn: false)
+        let viewModel = TapTempoPickerViewModel(metronome: metronome)
+        return TapTempoPickerView(viewModel: viewModel)
+            .previewLayout(.fixed(width: 568, height: 320))
     }
 }

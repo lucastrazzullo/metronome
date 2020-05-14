@@ -73,6 +73,8 @@ struct TempoPickerView: View {
 }
 
 
+// MARK: Previews
+
 struct TempoPickerView_Preview: PreviewProvider {
 
     static var previews: some View {
@@ -80,36 +82,5 @@ struct TempoPickerView_Preview: PreviewProvider {
         let viewModel = TempoPickerViewModel(metronome: metronome)
         return TempoPickerView(viewModel: viewModel)
             .previewLayout(.fixed(width: 568, height: 320))
-    }
-}
-
-
-private struct PickerButton: View {
-
-    private(set) var icon: SystemIcon
-    private(set) var action: () -> ()
-
-    var body: some View {
-        Button(action: action) {
-            ZStack {
-                Color(Palette.white)
-                    .opacity(0.2)
-                    .cornerRadius(4)
-
-                Image(icon)
-            }
-        }
-        .frame(width: 46, height: 46)
-    }
-}
-
-
-struct PickerButton_Preview: PreviewProvider {
-
-    static var previews: some View {
-        return PickerButton(icon: .plus, action: {})
-            .padding()
-            .background(Palette.yellow.color)
-            .previewLayout(.fixed(width: 200, height: 100))
     }
 }

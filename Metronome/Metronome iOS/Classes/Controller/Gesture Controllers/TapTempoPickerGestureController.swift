@@ -57,7 +57,6 @@ class TapTempoPickerGestureController: GestureController {
     private func handleViewModel(with gestureRecogniser: UILongPressGestureRecognizer) {
         switch gestureRecogniser.state {
         case .began:
-            viewModel.startSelection()
             cancellable = viewModel.$selectedTempoBpm.sink(receiveValue: { [weak self] _ in self?.starCompletionTimer() })
         default:
             break
@@ -91,7 +90,7 @@ class TapTempoPickerGestureController: GestureController {
     @objc private func updateTempo(with gestureRecogniser: UITapGestureRecognizer) {
         switch gestureRecogniser.state {
         case .recognized:
-            viewModel.selectTemporarely(newTapWith: Date().timeIntervalSinceReferenceDate)
+            viewModel.update(with: Date().timeIntervalSinceReferenceDate)
         default:
             break
         }

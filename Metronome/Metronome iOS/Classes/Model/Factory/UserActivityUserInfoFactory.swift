@@ -26,7 +26,7 @@ struct UserActivityFactory {
         activity.isEligibleForPublicIndexing = true
 
         let timeSignatureFormat = Copy.TimeSignature.format.localised
-        let timeSignature = String(format: timeSignatureFormat, configuration.timeSignature.beats.count, configuration.timeSignature.noteLength.rawValue)
+        let timeSignature = String(format: timeSignatureFormat, configuration.timeSignature.barLength.numberOfBeats, configuration.timeSignature.noteLength.rawValue)
 
         activity.title = "\(Copy.Controls.start.localised) \(timeSignature) \(Copy.App.title.localised)"
         activity.keywords = [Copy.App.title.localised, Copy.TimeSignature.title.localised, timeSignature]

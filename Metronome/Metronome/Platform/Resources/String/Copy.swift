@@ -60,7 +60,6 @@ struct Copy {
         case tapTempo = "controls.tap_tempo"
         case soundOn = "controls.sound_on"
         case soundOff = "controls.sound_off"
-        case placeholderValue = "controls.placeholder"
     }
 
     enum Picker {

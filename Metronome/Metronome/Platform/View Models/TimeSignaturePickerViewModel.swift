@@ -11,11 +11,12 @@ import Combine
 
 class TimeSignaturePickerViewModel: ObservableObject {
 
-    @Published var selectedBarLength: Int
-    @Published var selectedNoteLength: Int
+    @Published private(set) var selectedBarLength: Int
+    @Published private(set) var selectedAccentPositions: Set<Int>
+    @Published private(set) var selectedNoteLength: Int
 
-    private(set) var barLengthItems: [Int]
-    private(set) var noteLengthItems: [Int]
+    private(set) var barLengthItems: [Beat]
+    private(set) var noteLengthItems: [TimeSignature.NoteLength]
 
     private let metronome: Metronome
 
@@ -25,20 +26,51 @@ class TimeSignaturePickerViewModel: ObservableObject {
     init(metronome: Metronome) {
         self.metronome = metronome
 
-        self.barLengthItems = Array(TimeSignature.barLengthRange)
-        self.noteLengthItems = TimeSignature.NoteLength.allCases.map({ $0.rawValue })
+        self.barLengthItems = TimeSignature.BarLength.maximum.beats
+        self.noteLengthItems = TimeSignature.NoteLength.allCases
 
-        self.selectedBarLength = metronome.configuration.timeSignature.beats.count
-        self.selectedNoteLength = metronome.configuration.timeSignature.noteLength.rawValue
+        let timeSignature = metronome.configuration.timeSignature
+        self.selectedBarLength = timeSignature.barLength.numberOfBeats
+        self.selectedAccentPositions = timeSignature.barLength.accentPositions
+        self.selectedNoteLength = timeSignature.noteLength.rawValue
     }
 
 
     // MARK: Public methods
 
     func commit() {
-        let barLength = selectedBarLength
+        let barLength = TimeSignature.BarLength(numberOfBeats: selectedBarLength, accentPositions: selectedAccentPositions)
         let noteLength = TimeSignature.NoteLength(rawValue: selectedNoteLength)
-        let timeSignature = TimeSignature(numberOfBeats: barLength, noteLength: noteLength ?? .default)
+        let timeSignature = TimeSignature(barLength: barLength, noteLength: noteLength ?? .default)
         metronome.configuration.setTimeSignature(timeSignature)
+    }
+
+
+    func decreaseBarLength() {
+        selectedBarLength = max(TimeSignature.BarLength.range.lowerBound, min(TimeSignature.BarLength.range.upperBound, selectedBarLength - 1))
+        selectedAccentPositions.subtract(selectedBarLength...TimeSignature.BarLength.range.upperBound)
+    }
+
+
+    func increaseBarLength() {
+        selectedBarLength = max(TimeSignature.BarLength.range.lowerBound, min(TimeSignature.BarLength.range.upperBound, selectedBarLength + 1))
+    }
+
+
+    func toggleIsAccent(at position: Int) {
+        if position >= selectedBarLength {
+            selectedBarLength = position + 1
+        } else {
+            if selectedAccentPositions.contains(position) {
+                selectedAccentPositions.remove(position)
+            } else {
+                selectedAccentPositions.insert(position)
+            }
+        }
+    }
+
+
+    func selectNoteLength(_ length: Int) {
+        selectedNoteLength = length
     }
 }

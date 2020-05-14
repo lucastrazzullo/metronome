@@ -13,6 +13,7 @@ typealias BrandFontDescription = (String, CGFloat)
 private var customFontDescriptions: [Font.TextStyle: BrandFontDescription] = [
     .largeTitle: ("FuturaPTCond-ExtraBold", 52),
     .headline: ("FuturaPTCond-ExtraBold", 20),
+    .subheadline: ("FuturaPTCond-ExtraBold", 18)
 ]
 
 private var systemFontDescription: [Font.TextStyle: CGFloat] = [

@@ -32,7 +32,7 @@ class ControlsViewModel: ObservableObject {
         metronome = metronomePublisher.metronome
 
         let timeSignature = metronome.configuration.timeSignature
-        timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, timeSignature.beats.count, timeSignature.noteLength.rawValue)
+        timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, timeSignature.barLength.numberOfBeats, timeSignature.noteLength.rawValue)
         tempoLabel = Copy.Tempo.unit.localised.uppercased()
 
         tapTempoLabel = Copy.Controls.tapTempo.localised
@@ -46,7 +46,7 @@ class ControlsViewModel: ObservableObject {
 
         cancellables.append(metronomePublisher.$configuration.sink { [weak self] configuration in
             let timeSignature = configuration.timeSignature
-            self?.timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, timeSignature.beats.count, timeSignature.noteLength.rawValue)
+            self?.timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, timeSignature.barLength.numberOfBeats, timeSignature.noteLength.rawValue)
             self?.tempoLabel = "\(configuration.tempo.bpm)\(Copy.Tempo.unit.localised.uppercased())"
         })
 
