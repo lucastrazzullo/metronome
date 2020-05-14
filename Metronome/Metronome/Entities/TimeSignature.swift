@@ -47,8 +47,9 @@ struct TimeSignature: Equatable {
             return Set(beats.enumerated().compactMap { index, beat in beat.isAccent ? index : nil })
         }
 
-        init(numberOfBeats: Int, accentPositions: Set<Int> = [0]) {
+        init(numberOfBeats: Int, accentPositions: Set<Int>? = nil) {
             let numberOfBeats = min(max(BarLength.range.lowerBound, numberOfBeats), BarLength.range.upperBound)
+            let accentPositions = accentPositions ?? [0]
             self.beats = (0..<numberOfBeats).map { position in
                 return Beat(position: position, isAccent: accentPositions.contains(position))
             }
