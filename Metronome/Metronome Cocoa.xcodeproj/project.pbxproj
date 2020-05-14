@@ -75,7 +75,7 @@
 		815DA89E24617FF500FEE8B1 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815DA89924617D7000FEE8B1 /* Palette.swift */; };
 		8169EE5B235E1D4300DAD7BB /* BeatsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8169EE5A235E1D4300DAD7BB /* BeatsView.swift */; };
 		816DBB22246960F100735C2E /* MetronomeUserActivityController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816DBB21246960F100735C2E /* MetronomeUserActivityController.swift */; };
-		816DBB242469718600735C2E /* UserActivityUserInfoFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816DBB232469718600735C2E /* UserActivityUserInfoFactory.swift */; };
+		816DBB242469718600735C2E /* UserActivityFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 816DBB232469718600735C2E /* UserActivityFactory.swift */; };
 		8179A9832353A22100B33770 /* ControlsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8179A9822353A22100B33770 /* ControlsView.swift */; };
 		817EFA4C2355C60E004E774D /* BrandFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817EFA4B2355C60E004E774D /* BrandFont.swift */; };
 		817F9932234CAD0400DA1043 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 817F9931234CAD0400DA1043 /* Assets.xcassets */; };
@@ -216,7 +216,7 @@
 		815DA89924617D7000FEE8B1 /* Palette.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Palette.swift; sourceTree = "<group>"; };
 		8169EE5A235E1D4300DAD7BB /* BeatsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeatsView.swift; sourceTree = "<group>"; };
 		816DBB21246960F100735C2E /* MetronomeUserActivityController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeUserActivityController.swift; sourceTree = "<group>"; };
-		816DBB232469718600735C2E /* UserActivityUserInfoFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityUserInfoFactory.swift; sourceTree = "<group>"; };
+		816DBB232469718600735C2E /* UserActivityFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserActivityFactory.swift; sourceTree = "<group>"; };
 		8179A9822353A22100B33770 /* ControlsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlsView.swift; sourceTree = "<group>"; };
 		817EFA4B2355C60E004E774D /* BrandFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BrandFont.swift; sourceTree = "<group>"; };
 		817F992C234CAD0300DA1043 /* Metronome.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Metronome.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -308,13 +308,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		8104B1BA246984A800C4047C /* Factory */ = {
+		8104B1BA246984A800C4047C /* UserActivity */ = {
 			isa = PBXGroup;
 			children = (
-				816DBB232469718600735C2E /* UserActivityUserInfoFactory.swift */,
+				816DBB232469718600735C2E /* UserActivityFactory.swift */,
 				8104B1BB246984B800C4047C /* UserInfoFactory.swift */,
 			);
-			path = Factory;
+			path = UserActivity;
 			sourceTree = "<group>";
 		};
 		810701A5245F3009003D0B54 /* View Models */ = {
@@ -708,7 +708,7 @@
 			isa = PBXGroup;
 			children = (
 				8115EFB6235DB34200527665 /* Cache */,
-				8104B1BA246984A800C4047C /* Factory */,
+				8104B1BA246984A800C4047C /* UserActivity */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1001,7 +1001,7 @@
 				8158FC6C246D85B900752374 /* PickerButton.swift in Sources */,
 				815DA89B24617DFE00FEE8B1 /* Palette.swift in Sources */,
 				81FAF05F23429A00004A8C51 /* MetronomeView.swift in Sources */,
-				816DBB242469718600735C2E /* UserActivityUserInfoFactory.swift in Sources */,
+				816DBB242469718600735C2E /* UserActivityFactory.swift in Sources */,
 				8115FA6524630BDC009778B3 /* TempoPickerView.swift in Sources */,
 				810701A2245F2E78003D0B54 /* Metronome.swift in Sources */,
 				816DBB22246960F100735C2E /* MetronomeUserActivityController.swift in Sources */,

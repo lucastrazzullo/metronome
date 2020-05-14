@@ -12,6 +12,7 @@ struct UserInfoFactory {
 
     enum ActivityKey: String {
         case numberOfBeats
+        case accentPositions
         case noteLength
     }
 
@@ -21,6 +22,7 @@ struct UserInfoFactory {
     static func userInfo(for timeSignature: TimeSignature) -> [AnyHashable: Any] {
         return [
             ActivityKey.numberOfBeats.rawValue: timeSignature.barLength.numberOfBeats,
+            ActivityKey.accentPositions.rawValue: timeSignature.barLength.accentPositions,
             ActivityKey.noteLength.rawValue: timeSignature.noteLength.rawValue
         ]
     }
@@ -32,7 +34,9 @@ struct UserInfoFactory {
             let noteLengthRawValue = userInfo[ActivityKey.noteLength.rawValue] as? Int
             else { return nil }
 
-        let barLength = TimeSignature.BarLength(numberOfBeats: numberOfBeats)
+        let accentPositions = userInfo[ActivityKey.accentPositions.rawValue] as? Set<Int>
+
+        let barLength = TimeSignature.BarLength(numberOfBeats: numberOfBeats, accentPositions: accentPositions)
         let noteLength = TimeSignature.NoteLength(rawValue: noteLengthRawValue) ?? .default
         return TimeSignature(barLength: barLength, noteLength: noteLength)
     }
