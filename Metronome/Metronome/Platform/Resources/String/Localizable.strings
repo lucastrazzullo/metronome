@@ -34,6 +34,7 @@
 // MARK: Controls
 
 "controls.confirm" = "Confirm";
+"controls.done" = "Done";
 "controls.start" = "Start";
 "controls.stop" = "Stop";
 "controls.tips" = "Tips";

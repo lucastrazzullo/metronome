@@ -11,7 +11,7 @@ import Combine
 
 class TempoPickerViewModel: ObservableObject {
 
-    @Published var selectedTempo: Int
+    @Published private(set) var temporarySelectedTempo: Int
 
     private(set) var tempoItems: [Int]
 
@@ -23,13 +23,23 @@ class TempoPickerViewModel: ObservableObject {
     init(metronome: Metronome) {
         self.metronome = metronome
         self.tempoItems = Array(Tempo.range)
-        self.selectedTempo = metronome.configuration.tempo.bpm
+        self.temporarySelectedTempo = metronome.configuration.tempo.bpm
     }
 
 
     // MARK: Public methods
 
     func commit() {
-        metronome.configuration.tempo = Tempo(bpm: selectedTempo)
+        metronome.configuration.tempo = Tempo(bpm: temporarySelectedTempo)
+    }
+
+
+    func decreaseTempo() {
+        temporarySelectedTempo = max(Tempo.range.lowerBound, min(Tempo.range.upperBound, temporarySelectedTempo - 1))
+    }
+
+
+    func increaseTempo() {
+        temporarySelectedTempo = max(Tempo.range.lowerBound, min(Tempo.range.upperBound, temporarySelectedTempo + 1))
     }
 }

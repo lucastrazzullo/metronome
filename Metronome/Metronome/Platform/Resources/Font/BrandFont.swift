@@ -11,13 +11,15 @@ import SwiftUI
 typealias BrandFontDescription = (String, CGFloat)
 
 private var customFontDescriptions: [Font.TextStyle: BrandFontDescription] = [
-    .largeTitle: ("FuturaPTCond-ExtraBold", 48),
-    .headline: ("FuturaPTCond-ExtraBold", 20)
+    .largeTitle: ("FuturaPTCond-ExtraBold", 52),
+    .headline: ("FuturaPTCond-ExtraBold", 20),
 ]
 
 private var systemFontDescription: [Font.TextStyle: CGFloat] = [
     .callout: 16,
-    .footnote: 12
+    .footnote: 12,
+    .title: 32,
+    .body: 18
 ]
 
 
