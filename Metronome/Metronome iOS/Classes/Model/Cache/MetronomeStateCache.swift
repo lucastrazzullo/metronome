@@ -21,12 +21,25 @@ class MetronomeStateCache: Cache {
 
     // MARK: Instance properties
 
-    var barLength: Int? {
+    var barLength: TimeSignature.BarLength? {
         get {
-            return entry.value(for: Key.barLength.rawValue) as? Int
+            guard
+                let numberOfBeats = entry.value(for: Key.barLength.rawValue) as? Int,
+                let accentPositions = entry.value(for: Key.accents.rawValue) as? [Int]
+                else { return nil }
+
+            return TimeSignature.BarLength(numberOfBeats: numberOfBeats, accentPositions: Set(accentPositions))
         }
         set {
-            entry.set(value: newValue, for: Key.barLength.rawValue)
+            if let newValue = newValue {
+                let accentPositions = Array(newValue.accentPositions)
+                let numberOfBeats = newValue.numberOfBeats
+                entry.set(value: numberOfBeats, for: Key.barLength.rawValue)
+                entry.set(value: accentPositions, for: Key.accents.rawValue)
+            } else {
+                entry.set(value: nil, for: Key.barLength.rawValue)
+                entry.set(value: nil, for: Key.accents.rawValue)
+            }
         }
     }
 
@@ -38,15 +51,6 @@ class MetronomeStateCache: Cache {
         set {
             let noteLengthValue = newValue?.rawValue
             entry.set(value: noteLengthValue, for: Key.noteLength.rawValue)
-        }
-    }
-
-    var accentPositions: [Int]? {
-        get {
-            return entry.value(for: Key.accents.rawValue) as? [Int]
-        }
-        set {
-            entry.set(value: newValue, for: Key.accents.rawValue)
         }
     }
 
@@ -74,11 +78,7 @@ class MetronomeStateCache: Cache {
             configuration.tempo = Tempo(bpm: bpm)
         }
         if let barLength = barLength, let noteLength = noteLength {
-            if let accentPositions = accentPositions {
-                configuration.timeSignature = TimeSignature(numberOfBeats: barLength, noteLength: noteLength, accentPositions: Set(accentPositions))
-            } else {
-                configuration.timeSignature = TimeSignature(numberOfBeats: barLength, noteLength: noteLength)
-            }
+            configuration.timeSignature = TimeSignature(barLength: barLength, noteLength: noteLength)
         }
         return configuration
     }

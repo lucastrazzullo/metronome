@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneWillResignActive(_ scene: UIScene) {
         UIApplication.shared.shortcutItems = TimeSignature.commonDefaults.map { timeSignature in
             let format = Copy.TimeSignature.format.localised
-            let title = String(format: format, timeSignature.beats.count, timeSignature.noteLength.rawValue)
+            let title = String(format: format, timeSignature.barLength.numberOfBeats, timeSignature.noteLength.rawValue)
             let subtitle = Copy.Controls.start.localised
             return UIApplicationShortcutItem(type: "FavoriteAction",
                                              localizedTitle: title,
