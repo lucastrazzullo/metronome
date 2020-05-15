@@ -24,6 +24,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if let shortcutItem = (UIApplication.shared.delegate as? AppDelegate)?.shortcutItemToProcess,
             let userInfo = shortcutItem.userInfo,
             let configuration = UserInfoFactory.configuration(in: userInfo) {
+            (UIApplication.shared.delegate as? AppDelegate)?.shortcutItemToProcess = nil
             (window?.rootViewController as? MainViewController)?.startMetronome(with: configuration)
         }
     }
