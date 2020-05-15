@@ -631,12 +631,12 @@
 		81FAF05023427EEA004A8C51 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				81FAF02E23427ED1004A8C51 /* AppDelegate.swift */,
-				81FAF03023427ED1004A8C51 /* SceneDelegate.swift */,
 				81A71C7C23524B5900E86256 /* Extension */,
 				81FAF06523435816004A8C51 /* Model */,
 				81FAF05D234299DE004A8C51 /* View */,
 				81FAF05C234299D4004A8C51 /* Controller */,
+				81FAF02E23427ED1004A8C51 /* AppDelegate.swift */,
+				81FAF03023427ED1004A8C51 /* SceneDelegate.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

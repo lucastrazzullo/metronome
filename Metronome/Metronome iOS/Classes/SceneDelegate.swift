@@ -29,6 +29,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
 
+    func sceneDidEnterBackground(_ scene: UIScene) {
+        (window?.rootViewController as? MainViewController)?.resetMetronome()
+    }
+
+
     // MARK: Home Screen Quick Actions
 
     func sceneWillResignActive(_ scene: UIScene) {
