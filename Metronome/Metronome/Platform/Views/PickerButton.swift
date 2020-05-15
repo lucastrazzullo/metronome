@@ -29,6 +29,9 @@ struct PickerButton: View {
         .frame(width: 46, height: 46)
         .gesture(TapGesture()
             .onEnded({
+                self.cancellable?.cancel()
+                self.timerInterval = PickerButton.defaultTimeInterval()
+                self.timer = PickerButton.buildTimerPublisher(with: self.timerInterval)
                 self.action()
             })
         )
@@ -37,13 +40,14 @@ struct PickerButton: View {
                 self.action()
                 self.cancellable = self.timer.connect()
             })
+            .simultaneously(with: DragGesture())
             .sequenced(before: TapGesture()
                 .onEnded({ _ in
                     self.cancellable?.cancel()
                     self.timerInterval = PickerButton.defaultTimeInterval()
                     self.timer = PickerButton.buildTimerPublisher(with: self.timerInterval)
-                }))
-        )
+                })
+        ))
         .onReceive(timer, perform: { _ in
             self.timerInterval -= PickerButton.incrementTimeInterval()
             self.timer = PickerButton.buildTimerPublisher(with: self.timerInterval)
