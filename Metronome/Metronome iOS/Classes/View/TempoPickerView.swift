@@ -26,20 +26,22 @@ struct TempoPickerView: View {
 
                 Spacer()
 
-                HStack(alignment: .center, spacing: 28) {
-                    PickerButton(icon: .minus, action: viewModel.decreaseTempo)
-                        .brandFont(.title)
+                VStack {
+                    Text(Copy.Tempo.unit.localised)
+                        .brandFont(.callout)
+                        .opacity(0.36)
 
-                    VStack {
+                    HStack(alignment: .center, spacing: 28) {
+                        PickerButton(icon: .minus, action: viewModel.decreaseTempo)
+                            .brandFont(.title)
+
                         Text(String(viewModel.temporarySelectedTempo))
                             .brandFont(.largeTitle)
-                        Text(Copy.Tempo.unit.localised)
-                            .brandFont(.callout)
-                            .opacity(0.36)
-                    }
+                            .frame(minWidth: 100)
 
-                    PickerButton(icon: .plus, action: viewModel.increaseTempo)
-                        .brandFont(.title)
+                        PickerButton(icon: .plus, action: viewModel.increaseTempo)
+                            .brandFont(.title)
+                    }
                 }
 
                 Spacer()

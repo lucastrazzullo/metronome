@@ -50,6 +50,11 @@ class MainViewController: UIViewController, ContainerViewController {
     }
 
 
+    func resetMetronome() {
+        metronome.reset()
+    }
+
+
     // MARK: Private helper methods
 
     private func addObservingControllers() {
