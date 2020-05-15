@@ -44,8 +44,8 @@ class MainViewController: UIViewController, ContainerViewController {
 
     // MARK: Public methods
 
-    func startMetronome(with timeSignature: TimeSignature) {
-        metronome.configuration.timeSignature = timeSignature
+    func startMetronome(with configuration: MetronomeConfiguration) {
+        metronome.configuration = configuration
         metronome.start()
     }
 

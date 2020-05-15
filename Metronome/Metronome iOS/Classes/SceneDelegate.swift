@@ -23,8 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         if let shortcutItem = (UIApplication.shared.delegate as? AppDelegate)?.shortcutItemToProcess,
             let userInfo = shortcutItem.userInfo,
-            let timeSignature = UserInfoFactory.timeSignature(in: userInfo) {
-            (window?.rootViewController as? MainViewController)?.startMetronome(with: timeSignature)
+            let configuration = UserInfoFactory.configuration(in: userInfo) {
+            (window?.rootViewController as? MainViewController)?.startMetronome(with: configuration)
         }
     }
 
@@ -38,6 +38,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func sceneWillResignActive(_ scene: UIScene) {
         UIApplication.shared.shortcutItems = TimeSignature.commonDefaults.map { timeSignature in
+            let configuration = MetronomeConfiguration(timeSignature: timeSignature, tempo: .default)
             let format = Copy.TimeSignature.format.localised
             let title = String(format: format, timeSignature.barLength.numberOfBeats, timeSignature.noteLength.rawValue)
             let subtitle = Copy.Controls.start.localised
@@ -45,7 +46,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                              localizedTitle: title,
                                              localizedSubtitle: subtitle,
                                              icon: UIApplicationShortcutIcon(type: .play),
-                                             userInfo: UserInfoFactory.userInfo(for: timeSignature) as? [String : NSSecureCoding])
+                                             userInfo: UserInfoFactory.userInfo(for: configuration) as? [String : NSSecureCoding])
         }
     }
 
@@ -60,8 +61,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
         if userActivity.activityType == UserActivityFactory.ActivityType.startMetronome.rawValue,
             let userInfo = userActivity.userInfo,
-            let timeSignature = UserInfoFactory.timeSignature(in: userInfo) {
-            (window?.rootViewController as? MainViewController)?.startMetronome(with: timeSignature)
+            let configuration = UserInfoFactory.configuration(in: userInfo) {
+            (window?.rootViewController as? MainViewController)?.startMetronome(with: configuration)
         }
     }
 }

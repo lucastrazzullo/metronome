@@ -30,7 +30,7 @@ struct UserActivityFactory {
 
         activity.title = "\(Copy.Controls.start.localised) \(timeSignature) \(Copy.App.title.localised)"
         activity.keywords = [Copy.App.title.localised, Copy.TimeSignature.title.localised, timeSignature]
-        activity.userInfo = UserInfoFactory.userInfo(for: configuration.timeSignature)
+        activity.userInfo = UserInfoFactory.userInfo(for: configuration)
 
         return activity
     }

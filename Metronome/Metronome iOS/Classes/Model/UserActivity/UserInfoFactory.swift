@@ -11,6 +11,7 @@ import Foundation
 struct UserInfoFactory {
 
     enum ActivityKey: String {
+        case tempoBpm
         case numberOfBeats
         case accentPositions
         case noteLength
@@ -19,19 +20,21 @@ struct UserInfoFactory {
 
     // MARK: Public static methods
 
-    static func userInfo(for timeSignature: TimeSignature) -> [AnyHashable: Any] {
+    static func userInfo(for configuration: MetronomeConfiguration) -> [AnyHashable: Any] {
         return [
-            ActivityKey.numberOfBeats.rawValue: timeSignature.barLength.numberOfBeats,
-            ActivityKey.accentPositions.rawValue: Array(timeSignature.barLength.accentPositions),
-            ActivityKey.noteLength.rawValue: timeSignature.noteLength.rawValue
+            ActivityKey.numberOfBeats.rawValue: configuration.timeSignature.barLength.numberOfBeats,
+            ActivityKey.accentPositions.rawValue: Array(configuration.timeSignature.barLength.accentPositions),
+            ActivityKey.noteLength.rawValue: configuration.timeSignature.noteLength.rawValue,
+            ActivityKey.tempoBpm.rawValue: configuration.tempo.bpm
         ]
     }
 
 
-    static func timeSignature(in userInfo: [AnyHashable: Any]) -> TimeSignature? {
+    static func configuration(in userInfo: [AnyHashable: Any]) -> MetronomeConfiguration? {
         guard
             let numberOfBeats = userInfo[ActivityKey.numberOfBeats.rawValue] as? Int,
-            let noteLengthRawValue = userInfo[ActivityKey.noteLength.rawValue] as? Int
+            let noteLengthRawValue = userInfo[ActivityKey.noteLength.rawValue] as? Int,
+            let tempoBpm = userInfo[ActivityKey.tempoBpm.rawValue] as? Int
             else { return nil }
 
         let barLength: TimeSignature.BarLength = {
@@ -42,6 +45,9 @@ struct UserInfoFactory {
             }
         }()
         let noteLength = TimeSignature.NoteLength(rawValue: noteLengthRawValue) ?? .default
-        return TimeSignature(barLength: barLength, noteLength: noteLength)
+        let timeSignature = TimeSignature(barLength: barLength, noteLength: noteLength)
+        let tempo = Tempo(bpm: tempoBpm)
+
+        return MetronomeConfiguration(timeSignature: timeSignature, tempo: tempo)
     }
 }
