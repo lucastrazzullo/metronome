@@ -2,16 +2,18 @@
 
 Haptic Metronome is a visual/haptic first digital metronome.
 It pulses beats with both a visual reference and a haptic feedback pattern.
+
+It offers a very convenient and straightforward setup for your time signature, tempo (both by selecting a specific tempo, or using the Tap Tempo feature).
+It is very easy to setup groupings of beats by enabling an *accent* per each beat so that it pulses stronger and creates the perfect pattern you need for your music. 
+
 You can optionally switch on/off the audio.
 
-You can change the settings with one-gesture actions, while you keep focussing on your song or practice exercise. Or use the panel control on the bottom of the screen.
+It is currently available for iOS and iPadOS.
+*I'm currently working on bringing the experience on watchOS and macOS* 
 
-Slide up/down with two fingers on the screen to adjust the bpm. Pinch in/out with two fingers anywhere on the screen to adjust the note length. You can toggle on/off by just tapping on the screen with one finger and few other gestures that wait for you to try them.
+Haptic Metronome supports Spotlight research, it exposes few presets to start a metronome with home screen quick actions.
 
-You won't need to learn the gestures all at once. At any time, you can pull up the "tips" screen, which shows you all the gestures you can use on the metronome to set it up.
-
-Your brain will do the rest, you'll get used to these gestures before you even imagine.
-
+It also supports handoff between the two platforms so that you can continue a session on the other device with the same settings you had set on the previous one.
 
 Enjoy your playing!
 
