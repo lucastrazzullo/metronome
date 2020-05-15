@@ -16,7 +16,7 @@ struct BeatView: View {
         ZStack {
             self.background().edgesIgnoringSafeArea(.all)
             VStack {
-                Text(viewModel.label ?? "").foregroundColor(self.foreground())
+                Text(viewModel.label).foregroundColor(self.foreground())
                 Circle().frame(width: 8, height: 8, alignment: .center).foregroundColor(self.accentColor())
             }
         }
@@ -26,7 +26,7 @@ struct BeatView: View {
     // MARK: Private helper methods
 
     private func background() -> some View {
-        if viewModel.isHighlighted {
+        if viewModel.state.contains(.highlighted) {
             return LinearGradient(gradient: Gradient(colors: [Palette.green.color, Palette.blue.color]), startPoint: .topLeading, endPoint: .bottomTrailing)
         } else {
             return LinearGradient(gradient: Gradient(colors: [Color.white.opacity(0.05), Color.white.opacity(0.05)]), startPoint: .topLeading, endPoint: .bottomTrailing)
@@ -35,7 +35,7 @@ struct BeatView: View {
 
 
     private func foreground() -> Color {
-        if viewModel.isHighlighted {
+        if viewModel.state.contains(.highlighted) {
             return Color.white
         } else {
             return Palette.gray.color
@@ -44,10 +44,10 @@ struct BeatView: View {
 
 
     private func accentColor() -> Color {
-        switch true {
-        case viewModel.isAccent && viewModel.isHighlighted:
+        switch viewModel.state {
+        case [.highlighted, .accented]:
             return Palette.purple.color
-        case viewModel.isAccent:
+        case [.accented]:
             return Palette.gray.color
         default:
             return .clear

@@ -24,6 +24,7 @@ enum SystemIcon: String, CaseIterable {
 }
 
 
+#if os(iOS)
 extension Image {
 
     init(_ icon: SystemIcon) {
@@ -44,3 +45,4 @@ struct SystemIcon_Previews: PreviewProvider {
         }
     }
 }
+#endif

@@ -125,6 +125,7 @@
 		81BDF50F245877AD00B4F7F8 /* BeatsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BDF50E245877AC00B4F7F8 /* BeatsViewModel.swift */; };
 		81BE0C0E2348C8B5000053C6 /* TempoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0D2348C8B5000053C6 /* TempoTests.swift */; };
 		81BE0C102348C926000053C6 /* TimeSignatureTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BE0C0F2348C926000053C6 /* TimeSignatureTests.swift */; };
+		81D4B6BF246F0F3E0051A267 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813ABCD6246561E0005A8F92 /* SystemIcon.swift */; };
 		81D525D02460466400F8F541 /* TempoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A69245FF16C00737786 /* TempoPickerViewModel.swift */; };
 		81D525D12460467200F8F541 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A6B245FF1FD00737786 /* Copy.swift */; };
 		81D525D324605ACC00F8F541 /* TimeSignaturePickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A6D246001EC00737786 /* TimeSignaturePickerViewModel.swift */; };
@@ -970,6 +971,7 @@
 				813ABCE52465804A005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */,
 				81BDF4E924586A4C00B4F7F8 /* MetronomeView.swift in Sources */,
 				81D525DA2460744600F8F541 /* ControlsViewModel.swift in Sources */,
+				81D4B6BF246F0F3E0051A267 /* SystemIcon.swift in Sources */,
 				815003B12462EB0500651E88 /* BeatViewModel.swift in Sources */,
 				81BDF4E724586A4C00B4F7F8 /* AppDelegate.swift in Sources */,
 				81BDF4F924586BED00B4F7F8 /* TimeSignature.swift in Sources */,
