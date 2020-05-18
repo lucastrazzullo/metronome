@@ -17,30 +17,6 @@ struct ControlsView: View {
     var body: some View {
         HStack(alignment: .bottom, spacing: 60) {
             Button(action: { self.viewModel.toggleIsRunning() }) { Text(viewModel.metronomeTogglerLabel) }
-            ConfigurationPickerView(viewModel: ConfigurationPickerViewModel(metronome: metronome))
         }.padding()
-    }
-}
-
-
-private struct ConfigurationPickerView: View {
-
-    @ObservedObject var viewModel: ConfigurationPickerViewModel
-
-
-    // MARK: Body
-
-    var body: some View {
-        HStack(alignment: .bottom, spacing: 48) {
-            VStack(alignment: .leading, spacing: nil) {
-                Text(Copy.Tempo.title.localised)
-            }
-            VStack(alignment: .leading, spacing: nil) {
-                Text(Copy.TimeSignature.title.localised)
-            }
-            Button(action: { self.viewModel.commit() },
-                   label: { Text(Copy.Controls.confirm.localised) })
-                .disabled(!viewModel.confirmationEnabled)
-        }
     }
 }
