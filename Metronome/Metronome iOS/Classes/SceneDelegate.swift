@@ -25,13 +25,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             let userInfo = shortcutItem.userInfo,
             let configuration = try? UserInfoDecoder().decode(MetronomeConfiguration.self, from: userInfo) {
             (UIApplication.shared.delegate as? AppDelegate)?.shortcutItemToProcess = nil
-            (window?.rootViewController as? MainViewController)?.startMetronome(with: configuration)
+            (window?.rootViewController as? MetronomeViewController)?.startMetronome(with: configuration)
         }
     }
 
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        (window?.rootViewController as? MainViewController)?.resetMetronome()
+        (window?.rootViewController as? MetronomeViewController)?.resetMetronome()
     }
 
 
@@ -65,9 +65,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let configuration = try? UserInfoDecoder().decode(MetronomeConfiguration.self, from: userInfo) else { return }
         switch activity {
         case .configureMetronome:
-            (window?.rootViewController as? MainViewController)?.setupMetronome(with: configuration)
+            (window?.rootViewController as? MetronomeViewController)?.setupMetronome(with: configuration)
         case .startMetronome:
-            (window?.rootViewController as? MainViewController)?.startMetronome(with: configuration)
+            (window?.rootViewController as? MetronomeViewController)?.startMetronome(with: configuration)
         }
     }
 }

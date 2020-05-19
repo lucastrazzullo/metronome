@@ -10,7 +10,7 @@ import WatchKit
 import SwiftUI
 import Combine
 
-class MetronomeViewController: WKHostingController<MetronomeView> {
+class MetronomeHostingController: WKHostingController<MetronomeView> {
 
     override var body: MetronomeView {
         return MetronomeView(viewModel: metronomeViewModel)

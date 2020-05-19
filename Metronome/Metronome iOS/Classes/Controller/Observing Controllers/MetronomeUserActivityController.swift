@@ -6,7 +6,7 @@
 //  Copyright © 2020 luca strazzullo. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Combine
 
 class MetronomeUserActivityController: NSObject, ObservingController {
@@ -19,12 +19,38 @@ class MetronomeUserActivityController: NSObject, ObservingController {
 
     private let metronome: Metronome
 
+    private var observer: NSObjectProtocol?
+
 
     // MARK: Object life cycle
 
     init(metronome: Metronome) {
         self.metronome = metronome
         super.init()
+        setupObserver()
+    }
+
+
+    deinit {
+        removeObserver()
+    }
+
+
+    // MARK: Application Observer
+
+    private func setupObserver() {
+        observer = NotificationCenter.default.addObserver(forName: UIScene.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main, using: {
+            [weak self] notification in
+            self?.setupMetronomeUserActivity?.resignCurrent()
+            self?.startMetronomeUserActivity?.resignCurrent()
+        })
+    }
+
+
+    private func removeObserver() {
+        if let observer = observer {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
 
 
