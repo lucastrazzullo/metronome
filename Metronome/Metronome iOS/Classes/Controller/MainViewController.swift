@@ -42,7 +42,19 @@ class MainViewController: UIViewController, ContainerViewController {
     }
 
 
+    override func updateUserActivityState(_ activity: NSUserActivity) {
+        if let userInfo = try? UserInfoEncoder<[AnyHashable: Any]>().encode(metronome.configuration) {
+            activity.addUserInfoEntries(from: userInfo)
+        }
+    }
+
+
     // MARK: Public methods
+
+    func setupMetronome(with configuration: MetronomeConfiguration) {
+        metronome.configuration = configuration
+    }
+
 
     func startMetronome(with configuration: MetronomeConfiguration) {
         metronome.configuration = configuration

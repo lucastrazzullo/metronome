@@ -13,7 +13,8 @@ class MetronomeUserActivityController: NSObject, ObservingController {
 
     // MARK: Instance properties
 
-    private var startMetronomeActivity: NSUserActivity?
+    private var setupMetronomeUserActivity: NSUserActivity?
+    private var startMetronomeUserActivity: NSUserActivity?
     private var cancellables: [AnyCancellable] = []
 
     private let metronome: Metronome
@@ -31,13 +32,19 @@ class MetronomeUserActivityController: NSObject, ObservingController {
 
     func set(publisher: MetronomePublisher) {
         cancellables.append(publisher.$configuration.sink { [weak self] configuration in
-            self?.startMetronomeActivity = UserActivityFactory.buildStartMetronomeActivity(for: configuration)
-            self?.startMetronomeActivity?.delegate = self
+            self?.setupMetronomeUserActivity = UserActivityFactory.buildActivity(for: .configureMetronome, with: configuration)
+            self?.setupMetronomeUserActivity?.becomeCurrent()
+
+            self?.startMetronomeUserActivity = UserActivityFactory.buildActivity(for: .startMetronome, with: configuration)
+            self?.startMetronomeUserActivity?.delegate = self
         })
 
         cancellables.append(publisher.$isRunning.sink { [weak self] isRunning in
-            if isRunning { self?.startMetronomeActivity?.becomeCurrent() }
-            else { self?.startMetronomeActivity?.resignCurrent() }
+            if isRunning {
+                self?.startMetronomeUserActivity?.becomeCurrent()
+            } else {
+                self?.setupMetronomeUserActivity?.becomeCurrent()
+            }
         })
     }
 }

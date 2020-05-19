@@ -10,15 +10,8 @@ import Foundation
 
 struct UserActivityFactory {
 
-    enum ActivityType: String {
-        case startMetronome = "com.lucastrazzullo.metronome.start-metronome"
-    }
-
-
-    // MARK: Public static methods
-
-    static func buildStartMetronomeActivity(for configuration: MetronomeConfiguration) -> NSUserActivity {
-        let activityType = ActivityType.startMetronome.rawValue
+    static func buildActivity(for type: ActivityType, with configuration: MetronomeConfiguration) -> NSUserActivity {
+        let activityType = type.rawValue
         let activity = NSUserActivity(activityType: activityType)
         activity.isEligibleForSearch = true
         activity.isEligibleForHandoff = true
@@ -30,7 +23,7 @@ struct UserActivityFactory {
 
         activity.title = "\(Copy.Controls.start.localised) \(timeSignature) \(Copy.App.title.localised)"
         activity.keywords = [Copy.App.title.localised, Copy.TimeSignature.title.localised, timeSignature]
-        activity.userInfo = UserInfoFactory.userInfo(for: configuration)
+        activity.userInfo = try? UserInfoEncoder().encode(configuration)
 
         return activity
     }
