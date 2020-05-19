@@ -8,22 +8,30 @@
 
 import Foundation
 
-struct MetronomeConfiguration {
+struct MetronomeConfiguration: Equatable {
+
     var timeSignature: TimeSignature
     var tempo: Tempo
-}
 
 
-extension MetronomeConfiguration {
+    // MARK: Object life cycle
+
+    static var `default`: MetronomeConfiguration {
+        return MetronomeConfiguration(timeSignature: .default, tempo: .default)
+    }
+
+
+    // MARK: Public methods
 
     func getTimeInterval() -> TimeInterval {
         return Double(60) / Double(tempo.bpm) / (Double(timeSignature.noteLength.rawValue) / Double(4))
     }
 
 
-    func getBmp(with frequency: TimeInterval) -> Int {
+    func getBpm(with frequency: TimeInterval) -> Int {
         let standardNoteBpm = 60 / frequency
-        return Int(standardNoteBpm) * 4 / timeSignature.noteLength.rawValue
+        let bpm = Int(standardNoteBpm) * 4 / timeSignature.noteLength.rawValue
+        return max(Tempo.range.lowerBound, min(Tempo.range.upperBound, bpm))
     }
 
 
@@ -32,12 +40,14 @@ extension MetronomeConfiguration {
     }
 
 
-    mutating func setBarLength(_ length: Int) {
-        timeSignature = TimeSignature(beats: length, noteLength: timeSignature.noteLength)
+    mutating func setAccent(_ isAccent: Bool, onBeatWith position: Int) {
+        if position < timeSignature.barLength.numberOfBeats {
+            timeSignature.barLength.beats[position].isAccent = isAccent
+        }
     }
 
 
-    mutating func setNotLength(_ length: TimeSignature.NoteLength) {
-        timeSignature = TimeSignature(beats: timeSignature.beats, noteLength: length)
+    mutating func setTimeSignature(_ signature: TimeSignature) {
+        timeSignature = signature
     }
 }

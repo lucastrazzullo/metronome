@@ -7,22 +7,22 @@
 //
 
 import SwiftUI
-import Combine
 
 struct MetronomeView: View {
 
-    @ObservedObject var publisher: SnapshotMetronomePublisher<MetronomeViewModel>
-
-
-    // MARK: Body
+    private(set) var viewModel: MetronomeViewModel
 
     var body: some View {
         ZStack {
-            ColorView(color: .black)
-            BeatsView(model: publisher.snapshot.beatViewModels)
-            ChromeView(model: publisher.snapshot.chromeViewModel, helperDidAppear: {
-                self.publisher.metronome.reset()
-            })
+            Color(Palette.black).edgesIgnoringSafeArea(.all)
+            VStack(alignment: .center, spacing: 24) {
+                BeatsView(viewModel: viewModel.beatsViewModel)
+                ControlsView(viewModel: viewModel.controlsViewModel)
+            }
         }
+        .gesture(TapGesture()
+            .onEnded { gesture in
+                self.viewModel.metronome.toggle()
+        })
     }
 }

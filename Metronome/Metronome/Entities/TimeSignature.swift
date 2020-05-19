@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct TimeSignature {
+struct TimeSignature: Equatable {
 
     enum NoteLength: Int, CaseIterable, Hashable {
         case full = 1
@@ -16,30 +16,80 @@ struct TimeSignature {
         case quarter = 4
         case eigth = 8
         case sixteenth = 16
+
+        static var `default`: NoteLength {
+            return .quarter
+        }
+
+        func with(offset: Int) -> NoteLength {
+            let allCases = NoteLength.allCases
+            if let index = allCases.firstIndex(of: self), index + offset >= 0, index + offset < allCases.count {
+                return allCases[index + offset]
+            } else if offset > 0 {
+                return allCases[allCases.count - 1]
+            } else {
+                return allCases[0]
+            }
+        }
     }
 
-    static let minimumBarLength: Int = 1
-    static let maximumBarLength: Int = 16
+    struct BarLength: Equatable {
+
+        static let range = 2 ... 8
+
+        var beats: [Beat]
+
+        var numberOfBeats: Int {
+            return beats.count
+        }
+
+        var accentPositions: Set<Int> {
+            return Set(beats.enumerated().compactMap { index, beat in beat.isAccent ? index : nil })
+        }
+
+        init(numberOfBeats: Int, accentPositions: Set<Int>? = nil) {
+            let numberOfBeats = min(max(BarLength.range.lowerBound, numberOfBeats), BarLength.range.upperBound)
+            let accentPositions = accentPositions ?? [0]
+            self.beats = (0..<numberOfBeats).map { position in
+                return Beat(position: position, isAccent: accentPositions.contains(position))
+            }
+        }
+
+        static var `default`: BarLength {
+            return BarLength(numberOfBeats: 4)
+        }
+
+        static var maximum: BarLength {
+            return BarLength(numberOfBeats: range.upperBound)
+        }
+    }
 
 
     // MARK: Instance properties
 
-    let beats: Int
+    var barLength: BarLength
     let noteLength: NoteLength
 
 
     // MARK: Object life cycle
 
-    init(beats: Int, noteLength: NoteLength) {
-        self.beats = min(max(TimeSignature.minimumBarLength, beats), TimeSignature.maximumBarLength)
+    init(barLength: BarLength, noteLength: NoteLength) {
+        self.barLength = barLength
         self.noteLength = noteLength
     }
-}
 
-
-extension TimeSignature {
 
     static var `default`: TimeSignature {
-        return TimeSignature(beats: 4, noteLength: .quarter)
+        return TimeSignature(barLength: .default, noteLength: .quarter)
+    }
+
+
+    static var commonDefaults: [TimeSignature] {
+        return [
+            TimeSignature(barLength: BarLength(numberOfBeats: 4), noteLength: .quarter),
+            TimeSignature(barLength: BarLength(numberOfBeats: 3), noteLength: .quarter),
+            TimeSignature(barLength: BarLength(numberOfBeats: 6), noteLength: .quarter),
+            TimeSignature(barLength: BarLength(numberOfBeats: 8), noteLength: .quarter)
+        ]
     }
 }

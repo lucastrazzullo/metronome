@@ -10,12 +10,12 @@ import SwiftUI
 
 struct BeatsView: View {
 
-    var model: [BeatViewModel]
+    @ObservedObject private(set) var viewModel: BeatsViewModel
 
     var body: some View {
-        HStack(alignment: .center, spacing: 1) {
-            ForEach(model, id: \.self) { beatViewModel in
-                BeatView(model: beatViewModel)
+        HStack(alignment: .center, spacing: 2) {
+            ForEach(viewModel.beats, id: \.id) { beatViewModel in
+                BeatView(viewModel: beatViewModel)
             }
         }
     }

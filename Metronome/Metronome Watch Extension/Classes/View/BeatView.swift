@@ -10,12 +10,12 @@ import SwiftUI
 
 struct BeatView: View {
 
-    var model: BeatViewModel
+    @ObservedObject private(set) var viewModel: BeatViewModel
 
     var body: some View {
         ZStack {
             self.background().edgesIgnoringSafeArea(.all)
-            Text(String(model.label))
+            Text(String(viewModel.label ?? ""))
                 .font(Font.system(.title))
                 .foregroundColor(self.foreground())
         }.cornerRadius(8)
@@ -25,19 +25,19 @@ struct BeatView: View {
     // MARK: Private helper methods
 
     private func background() -> Color {
-        if model.isHighlighted {
-            return Color.green
+        if viewModel.isHighlighted {
+            return Palette.green.color
         } else {
-            return Color.white.opacity(0.05)
+            return Palette.white.color.opacity(0.05)
         }
     }
 
 
     private func foreground() -> Color {
-        if model.isHighlighted {
-            return Color.white
+        if viewModel.isHighlighted {
+            return Palette.white.color
         } else {
-            return Color.white.opacity(0.1)
+            return Palette.white.color.opacity(0.1)
         }
     }
 }

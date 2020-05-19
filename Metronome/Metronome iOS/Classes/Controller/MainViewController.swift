@@ -10,23 +10,23 @@ import UIKit
 
 class MainViewController: UIViewController, ContainerViewController {
 
-    private let metronomeHapticController: MetronomeHapticController
-    private let metronomeCacheController: MetronomeCacheController
+    private let observerControllers: MultiObservingController
 
     private let metronome: Metronome
-    private let metronomeDispatcher: MetronomeDispatcher
+    private let metronomePublisher: MetronomePublisher
+
+    private let cache: MetronomeStateCache
 
 
     //  MARK: Object life cycle
 
     required init?(coder: NSCoder) {
-        metronomeHapticController = MetronomeHapticController()
-        metronomeCacheController = MetronomeCacheController(entry: UserDefaultBackedEntryCache())
-        metronome = Metronome(with: metronomeCacheController.buildConfigurationWithCachedValues())
+        cache = MetronomeStateCache(entry: UserDefaultBackedEntryCache())
 
-        metronomeDispatcher = MetronomeDispatcher(with: metronome)
-        metronomeDispatcher.addObserver(metronomeHapticController)
-        metronomeDispatcher.addObserver(metronomeCacheController)
+        metronome = Metronome(with: cache.configuration, soundOn: cache.isSoundOn)
+        metronomePublisher = MetronomePublisher(metronome: metronome)
+
+        observerControllers = MultiObservingController(cache: cache)
 
         super.init(coder: coder)
     }
@@ -37,19 +37,40 @@ class MainViewController: UIViewController, ContainerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let metronomeViewController = MetronomeViewController(with: metronomeDispatcher, metronome: metronome)
-        addChildViewController(metronomeViewController, in: view)
-
-        let oneTimeWelcomeViewController = WelcomeViewController()
-        oneTimeWelcomeViewController.delegate = self
-        addChildViewController(oneTimeWelcomeViewController, in: view)
+        addObservingControllers()
+        addViewControllers()
     }
-}
 
 
-extension MainViewController: WelcomeViewControllerDelegate {
+    // MARK: Public methods
 
-    func welcomeViewControllerHasCompleted(_ viewController: WelcomeViewController) {
-        removeChildViewController(viewController)
+    func startMetronome(with configuration: MetronomeConfiguration) {
+        metronome.configuration = configuration
+        metronome.start()
+    }
+
+
+    func resetMetronome() {
+        metronome.reset()
+    }
+
+
+    // MARK: Private helper methods
+
+    private func addObservingControllers() {
+        let controllers: [ObservingController] = [
+            MetronomeApplicationSettingsController(),
+            MetronomeHapticController(),
+            MetronomeCacheController(cache: cache),
+            MetronomeSoundController(),
+            MetronomeUserActivityController(metronome: metronome)
+        ]
+
+        observerControllers.set(observingControllers: controllers, with: metronomePublisher)
+    }
+
+
+    private func addViewControllers() {
+        addChildViewController(MetronomeViewController(with: metronomePublisher), in: view)
     }
 }

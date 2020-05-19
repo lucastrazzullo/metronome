@@ -8,32 +8,7 @@
 
 import Foundation
 
-struct Beat {
-
-    enum Intensity {
-        case strong
-        case normal
-    }
-
-
-    // MARK: Instance properties
-
-    let intensity: Intensity
+struct Beat: Equatable {
     let position: Int
-
-
-    // MARK: Object builder
-
-    static func with(tickIteration: Int) -> Beat {
-        let position = tickIteration + 1
-
-        if position == 1 {
-            return Beat(intensity: .strong, position: position)
-        } else {
-            return Beat(intensity: .normal, position: position)
-        }
-    }
+    var isAccent: Bool
 }
-
-
-extension Beat: Equatable {}
