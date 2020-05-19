@@ -24,7 +24,6 @@ struct MetronomeButtonStyle: ButtonStyle {
             .resizable()
             .renderingMode(highlighted ? .original : .template)
             .foregroundColor(Palette.gray.color)
-            .animation(.default)
         )
     }
 }

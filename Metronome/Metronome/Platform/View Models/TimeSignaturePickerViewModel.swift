@@ -46,6 +46,8 @@ class TimeSignaturePickerViewModel: ObservableObject {
     }
 
 
+    // MARK: Public methods - Bar Length
+
     func decreaseBarLength() {
         selectedBarLength = max(TimeSignature.BarLength.range.lowerBound, min(TimeSignature.BarLength.range.upperBound, selectedBarLength - 1))
         selectedAccentPositions.subtract(selectedBarLength...TimeSignature.BarLength.range.upperBound)
@@ -70,7 +72,25 @@ class TimeSignaturePickerViewModel: ObservableObject {
     }
 
 
+    // MARK: Public methods - Note Length
+
+    func decreaseNoteLength() {
+        if let previous = TimeSignature.NoteLength(rawValue: selectedNoteLength)?.previous() {
+            selectedNoteLength = previous.rawValue
+        }
+    }
+
+
+    func increaseNoteLength() {
+        if let next = TimeSignature.NoteLength(rawValue: selectedNoteLength)?.next() {
+            selectedNoteLength = next.rawValue
+        }
+    }
+
+
     func selectNoteLength(_ length: Int) {
-        selectedNoteLength = length
+        if let noteLength = TimeSignature.NoteLength(rawValue: length) {
+            selectedNoteLength = noteLength.rawValue
+        }
     }
 }

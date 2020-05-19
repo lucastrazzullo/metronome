@@ -21,14 +21,21 @@ struct TimeSignature: Equatable {
             return .quarter
         }
 
-        func with(offset: Int) -> NoteLength {
+        func next() -> NoteLength? {
             let allCases = NoteLength.allCases
-            if let index = allCases.firstIndex(of: self), index + offset >= 0, index + offset < allCases.count {
-                return allCases[index + offset]
-            } else if offset > 0 {
-                return allCases[allCases.count - 1]
+            if let index = allCases.firstIndex(of: self), index + 1 >= 0, index + 1 < allCases.count {
+                return allCases[index + 1]
             } else {
-                return allCases[0]
+                return nil
+            }
+        }
+
+        func previous() -> NoteLength? {
+            let allCases = NoteLength.allCases
+            if let index = allCases.firstIndex(of: self), index - 1 >= 0, index - 1 < allCases.count {
+                return allCases[index - 1]
+            } else {
+                return nil
             }
         }
     }

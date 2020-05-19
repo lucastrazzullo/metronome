@@ -34,6 +34,7 @@ struct TempoPickerView: View {
                     HStack(alignment: .center, spacing: 28) {
                         PickerButton(icon: .minus, action: viewModel.decreaseTempo)
                             .brandFont(.title)
+                            .frame(width: 46, height: 46)
 
                         Text(String(Int(viewModel.selectedTempoBpm)))
                             .brandFont(.largeTitle)
@@ -41,6 +42,7 @@ struct TempoPickerView: View {
 
                         PickerButton(icon: .plus, action: viewModel.increaseTempo)
                             .brandFont(.title)
+                            .frame(width: 46, height: 46)
                     }
                 }
 
