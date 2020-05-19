@@ -369,9 +369,9 @@
 		8124977B234B65EF0047F3E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				81249741234B61C00047F3E3 /* ExtensionDelegate.swift */,
 				8124977D234B68F60047F3E3 /* View */,
 				8124977C234B65F30047F3E3 /* Controller */,
+				81249741234B61C00047F3E3 /* ExtensionDelegate.swift */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
