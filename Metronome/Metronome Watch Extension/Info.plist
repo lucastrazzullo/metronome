@@ -32,5 +32,11 @@
 	</dict>
 	<key>WKExtensionDelegateClassName</key>
 	<string>$(PRODUCT_MODULE_NAME).ExtensionDelegate</string>
+	<key>WKRunsIndependentlyOfCompanionApp</key>
+	<true/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>FuturaPTCondExtraBold.otf</string>
+	</array>
 </dict>
 </plist>

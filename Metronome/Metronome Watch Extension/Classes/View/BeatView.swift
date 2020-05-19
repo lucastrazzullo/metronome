@@ -13,31 +13,92 @@ struct BeatView: View {
     @ObservedObject private(set) var viewModel: BeatViewModel
 
     var body: some View {
-        ZStack {
-            self.background().edgesIgnoringSafeArea(.all)
-            Text(String(viewModel.label ?? ""))
-                .font(Font.system(.title))
-                .foregroundColor(self.foreground())
-        }.cornerRadius(8)
+        ZStack(alignment: .center) {
+            Circle()
+                .foregroundColor(self.backgroundColor())
+
+            Circle()
+                .stroke(self.accentIndicatorColor(), lineWidth: 2)
+        }
     }
 
 
     // MARK: Private helper methods
 
-    private func background() -> Color {
-        if viewModel.isHighlighted {
+    private func backgroundColor() -> Color {
+        if viewModel.state.contains(.highlighted) {
             return Palette.green.color
         } else {
-            return Palette.white.color.opacity(0.05)
+            return Palette.gray.color
         }
     }
 
 
-    private func foreground() -> Color {
-        if viewModel.isHighlighted {
+    private func foregroundColor() -> Color {
+        if viewModel.state.contains(.highlighted) {
             return Palette.white.color
         } else {
-            return Palette.white.color.opacity(0.1)
+            return Palette.gray.color
         }
+    }
+
+
+    private func accentIndicatorColor() -> Color {
+        if viewModel.state.contains(.accented) {
+            return Palette.purple.color
+        } else {
+            return .clear
+        }
+    }
+}
+
+
+// MARK: Previews
+
+struct BeatView_Current_Accented_Preview: PreviewProvider {
+
+    static var previews: some View {
+        let metronome = Metronome(with: .default, soundOn: false)
+        let publisher = MetronomePublisher(metronome: metronome)
+        publisher.isRunning = true
+        publisher.currentBeat = Beat(position: 0, isAccent: true)
+        let viewModel = BeatViewModel(at: 0, metronomePublisher: publisher)
+        return BeatView(viewModel: viewModel)
+    }
+}
+
+
+struct BeatView_Current_Preview: PreviewProvider {
+
+    static var previews: some View {
+        let metronome = Metronome(with: .default, soundOn: false)
+        let publisher = MetronomePublisher(metronome: metronome)
+        publisher.isRunning = true
+        publisher.currentBeat = Beat(position: 1, isAccent: true)
+        let viewModel = BeatViewModel(at: 1, metronomePublisher: publisher)
+        return BeatView(viewModel: viewModel)
+    }
+}
+
+
+struct BeatView_Accented_Preview: PreviewProvider {
+
+    static var previews: some View {
+        let metronome = Metronome(with: .default, soundOn: false)
+        let publisher = MetronomePublisher(metronome: metronome)
+        publisher.currentBeat = Beat(position: 0, isAccent: true)
+        let viewModel = BeatViewModel(at: 0, metronomePublisher: publisher)
+        return BeatView(viewModel: viewModel)
+    }
+}
+
+
+struct BeatView_Preview: PreviewProvider {
+
+    static var previews: some View {
+        let metronome = Metronome(with: .default, soundOn: false)
+        let publisher = MetronomePublisher(metronome: metronome)
+        let viewModel = BeatViewModel(at: 1, metronomePublisher: publisher)
+        return BeatView(viewModel: viewModel)
     }
 }

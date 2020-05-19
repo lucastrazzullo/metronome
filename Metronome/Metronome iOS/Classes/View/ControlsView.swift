@@ -143,7 +143,7 @@ private struct RunningTogglerButton: View {
     @ObservedObject var viewModel: ControlsViewModel
 
     var body: some View {
-        ControlsButton(highlighted: viewModel.metronomeIsRunning, background: .button6, action: viewModel.toggleIsRunning) {
+        ControlsButton(highlighted: !viewModel.metronomeIsRunning, background: .button6, action: viewModel.toggleIsRunning) {
             Text(self.viewModel.metronomeTogglerLabel)
         }
     }

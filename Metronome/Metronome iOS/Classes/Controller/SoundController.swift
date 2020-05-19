@@ -1,5 +1,5 @@
 //
-//  MetronomeSoundController.swift
+//  SoundController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 7/5/20.
@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import AVFoundation
 
-class MetronomeSoundController: ObservingController {
+class SoundController: MetronomeController {
 
     struct SoundURL {
         static let normal = Bundle.main.url(forResource: "Beat-normal", withExtension: "mp3")!

@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "817F992B234CAD0300DA1043"
-               BuildableName = "Metronome.app"
+               BuildableName = "Metronome Cocoa.app"
                BlueprintName = "Metronome Cocoa Watch"
                ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
             </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "817F992B234CAD0300DA1043"
-            BuildableName = "Metronome.app"
+            BuildableName = "Metronome Cocoa.app"
             BlueprintName = "Metronome Cocoa Watch"
             ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
          </BuildableReference>
@@ -80,7 +80,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "817F992B234CAD0300DA1043"
-            BuildableName = "Metronome.app"
+            BuildableName = "Metronome Cocoa.app"
             BlueprintName = "Metronome Cocoa Watch"
             ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
          </BuildableReference>
@@ -89,7 +89,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "817F992B234CAD0300DA1043"
-            BuildableName = "Metronome.app"
+            BuildableName = "Metronome Cocoa.app"
             BlueprintName = "Metronome Cocoa Watch"
             ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
          </BuildableReference>

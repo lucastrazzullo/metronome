@@ -1,5 +1,5 @@
 //
-//  MetronomeCacheController.swift
+//  CacheController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 21/10/19.
@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class MetronomeCacheController: ObservingController {
+class CacheController: MetronomeController {
 
     private let stateCache: MetronomeStateCache
     private var cancellables: [AnyCancellable]

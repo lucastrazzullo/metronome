@@ -47,7 +47,7 @@ class ControlsViewModel: ObservableObject {
         cancellables.append(metronomePublisher.$configuration.sink { [weak self] configuration in
             let timeSignature = configuration.timeSignature
             self?.timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, timeSignature.barLength.numberOfBeats, timeSignature.noteLength.rawValue)
-            self?.tempoLabel = "\(configuration.tempo.bpm)\(Copy.Tempo.unit.localised.uppercased())"
+            self?.tempoLabel = String(format: Copy.Tempo.format.localised, configuration.tempo.bpm, Copy.Tempo.unit.localised.uppercased())
         })
 
         cancellables.append(metronomePublisher.$isSoundOn.sink { [weak self] isSoundOn in

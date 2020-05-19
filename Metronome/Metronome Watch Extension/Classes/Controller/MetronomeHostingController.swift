@@ -10,7 +10,11 @@ import WatchKit
 import SwiftUI
 import Combine
 
-class MetronomeViewController: WKHostingController<MetronomeView> {
+class MetronomeHostingController: WKHostingController<MetronomeView> {
+
+    override var body: MetronomeView {
+        return MetronomeView(viewModel: metronomeViewModel)
+    }
 
     private let metronome: Metronome
     private let metronomePublisher: MetronomePublisher
@@ -36,20 +40,17 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
         cancellables.append(metronomePublisher.$isRunning.sink { isRunning in
             if isRunning {
-                WKInterfaceDevice.current().play(WKHapticType.click)
-                WKExtension.shared().isAutorotating = true
+                WKInterfaceDevice.current().play(WKHapticType.start)
             } else {
                 WKInterfaceDevice.current().play(WKHapticType.stop)
-                WKExtension.shared().isAutorotating = false
             }
         })
 
         cancellables.append(metronomePublisher.$currentBeat.sink { beat in
             guard let beat = beat else { return }
-            switch beat.intensity {
-            case .normal:
+            if beat.isAccent {
                 WKInterfaceDevice.current().play(WKHapticType.start)
-            case .strong:
+            } else {
                 WKInterfaceDevice.current().play(WKHapticType.directionDown)
             }
         })
@@ -59,12 +60,5 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
     override func didDeactivate() {
         metronome.reset()
         super.didDeactivate()
-    }
-
-
-    // MARK: View
-
-    override var body: MetronomeView {
-        return MetronomeView(viewModel: metronomeViewModel)
     }
 }

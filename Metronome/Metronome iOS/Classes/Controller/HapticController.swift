@@ -1,5 +1,5 @@
 //
-//  MetronomeHapticController.swift
+//  HapticController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 18/10/19.
@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class MetronomeHapticController: ObservingController {
+class HapticController: MetronomeController {
 
     private let selectionGenerator = UISelectionFeedbackGenerator()
     private let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)

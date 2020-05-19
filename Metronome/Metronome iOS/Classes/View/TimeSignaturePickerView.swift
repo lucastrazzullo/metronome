@@ -35,6 +35,7 @@ struct TimeSignaturePickerView: View {
                         HStack(alignment: .center, spacing: 28) {
                             PickerButton(icon: .minus, action: viewModel.decreaseBarLength)
                                 .brandFont(.title)
+                                .frame(width: 46, height: 46)
 
                             HStack(alignment: .center, spacing: 8) {
                                 ForEach(viewModel.barLengthItems, id: \.position) { item in
@@ -58,6 +59,7 @@ struct TimeSignaturePickerView: View {
 
                             PickerButton(icon: .plus, action: viewModel.increaseBarLength)
                                 .brandFont(.title)
+                                .frame(width: 46, height: 46)
                         }
                     }
 

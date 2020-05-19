@@ -23,6 +23,7 @@
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>com.lucastrazzullo.metronome.start-metronome</string>
+		<string>com.lucastrazzullo.metronome.configure-metronome</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>
