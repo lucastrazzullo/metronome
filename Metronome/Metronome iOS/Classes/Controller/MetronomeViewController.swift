@@ -10,10 +10,9 @@ import UIKit
 
 class MetronomeViewController: UIViewController, ContainerViewController {
 
-    private let observerControllers: MultiObservingController
-
     private let metronome: Metronome
     private let metronomePublisher: MetronomePublisher
+    private let metronomeObserver: MetronomeObserver
 
     private let cache: MetronomeStateCache
 
@@ -25,8 +24,13 @@ class MetronomeViewController: UIViewController, ContainerViewController {
 
         metronome = Metronome(with: cache.configuration, soundOn: cache.isSoundOn)
         metronomePublisher = MetronomePublisher(metronome: metronome)
-
-        observerControllers = MultiObservingController(cache: cache)
+        metronomeObserver = MetronomeObserver(publisher: metronomePublisher, controllers: [
+            PlatformIdleTimerController(),
+            HapticController(),
+            CacheController(cache: cache),
+            SoundController(),
+            UserActivityController(metronome: metronome)
+        ])
 
         super.init(coder: coder)
     }
@@ -36,9 +40,7 @@ class MetronomeViewController: UIViewController, ContainerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        addObservingControllers()
-        addViewControllers()
+        addChildViewController(MetronomeHostingController(with: metronomePublisher), in: view)
     }
 
 
@@ -57,25 +59,5 @@ class MetronomeViewController: UIViewController, ContainerViewController {
 
     func resetMetronome() {
         metronome.reset()
-    }
-
-
-    // MARK: Private helper methods
-
-    private func addObservingControllers() {
-        let controllers: [ObservingController] = [
-            MetronomeApplicationSettingsController(),
-            MetronomeHapticController(),
-            MetronomeCacheController(cache: cache),
-            MetronomeSoundController(),
-            MetronomeUserActivityController(metronome: metronome)
-        ]
-
-        observerControllers.set(observingControllers: controllers, with: metronomePublisher)
-    }
-
-
-    private func addViewControllers() {
-        addChildViewController(MetronomeHostingController(with: metronomePublisher), in: view)
     }
 }

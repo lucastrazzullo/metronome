@@ -1,5 +1,5 @@
 //
-//  MetronomeApplicationSettingsController.swift
+//  PlatformIdleTimerController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 5/5/20.
@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class MetronomeApplicationSettingsController: ObservingController {
+class PlatformIdleTimerController: MetronomeController {
 
     private var cancellables = [AnyCancellable]()
 

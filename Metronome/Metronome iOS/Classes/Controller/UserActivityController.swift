@@ -1,5 +1,5 @@
 //
-//  MetronomeUserActivityController.swift
+//  UserActivityController.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 11/5/20.
@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class MetronomeUserActivityController: NSObject, ObservingController {
+class UserActivityController: NSObject, MetronomeController {
 
     // MARK: Instance properties
 
@@ -76,7 +76,7 @@ class MetronomeUserActivityController: NSObject, ObservingController {
 }
 
 
-extension MetronomeUserActivityController: NSUserActivityDelegate {
+extension UserActivityController: NSUserActivityDelegate {
 
     func userActivityWasContinued(_ userActivity: NSUserActivity) {
         metronome.reset()
