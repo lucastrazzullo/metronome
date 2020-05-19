@@ -12,6 +12,10 @@ import Combine
 
 class MetronomeViewController: WKHostingController<MetronomeView> {
 
+    override var body: MetronomeView {
+        return MetronomeView(viewModel: metronomeViewModel)
+    }
+
     private let metronome: Metronome
     private let metronomePublisher: MetronomePublisher
     private var metronomeViewModel: MetronomeViewModel
@@ -36,21 +40,20 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
         cancellables.append(metronomePublisher.$isRunning.sink { isRunning in
             if isRunning {
-                WKInterfaceDevice.current().play(WKHapticType.click)
-                WKExtension.shared().isAutorotating = true
+//                WKInterfaceDevice.current().play(WKHapticType.start)
+//                WKExtension.shared().isAutorotating = true
             } else {
-                WKInterfaceDevice.current().play(WKHapticType.stop)
-                WKExtension.shared().isAutorotating = false
+//                WKInterfaceDevice.current().play(WKHapticType.stop)
+//                WKExtension.shared().isAutorotating = false
             }
         })
 
         cancellables.append(metronomePublisher.$currentBeat.sink { beat in
             guard let beat = beat else { return }
-            switch beat.intensity {
-            case .normal:
-                WKInterfaceDevice.current().play(WKHapticType.start)
-            case .strong:
-                WKInterfaceDevice.current().play(WKHapticType.directionDown)
+            if beat.isAccent {
+//                WKInterfaceDevice.current().play(WKHapticType.start)
+            } else {
+//                WKInterfaceDevice.current().play(WKHapticType.directionDown)
             }
         })
     }
@@ -59,12 +62,5 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
     override func didDeactivate() {
         metronome.reset()
         super.didDeactivate()
-    }
-
-
-    // MARK: View
-
-    override var body: MetronomeView {
-        return MetronomeView(viewModel: metronomeViewModel)
     }
 }

@@ -10,44 +10,80 @@ import SwiftUI
 
 struct ControlsView: View {
 
-    struct CornerRoundedButtonStyle: ButtonStyle {
-        let background: Color
-
-        func makeBody(configuration: Self.Configuration) -> some View {
-            configuration.label
-                .padding()
-                .background(background)
-                .cornerRadius(8)
-        }
-    }
-
-
-    // MARK: Instance properties
-
     @ObservedObject private(set) var viewModel: ControlsViewModel
 
     var body: some View {
         VStack(alignment: .center, spacing: 12) {
             HStack(alignment: .center, spacing: 8) {
-                NavigationLink(destination: TimeSignaturePickerView(viewModel: viewModel.timeSignaturePickerViewModel())) {
+                NavigationLink(destination: timeSignaturePickerView()) {
                     Text(viewModel.timeSignatureLabel).font(Font.system(.footnote))
                 }
-                .buttonStyle(CornerRoundedButtonStyle(background: self.viewModel.timeSignatureColor.color))
+                .buttonStyle(ControlsButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button1))
 
-                NavigationLink(destination: TempoPickerView(viewModel: viewModel.tempoPickerViewModel())) {
+                NavigationLink(destination: tempoPickerView()) {
                     Text(viewModel.tempoLabel).font(Font.system(.footnote))
                 }
-                .buttonStyle(CornerRoundedButtonStyle(background: self.viewModel.tempoColor.color))
+                .buttonStyle(ControlsButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button3))
             }
-            .fixedSize(horizontal: true, vertical: false)
-            .foregroundColor(Color.black.opacity(0.7))
 
             HStack(alignment: .center, spacing: 24) {
-                Button(action: { self.viewModel.toggleIsRunning() }, label: {
-                    return Text(viewModel.togglerLabel)
-                })
+                Spacer()
+                Button(action: viewModel.toggleIsRunning) {
+                    Text(viewModel.metronomeTogglerLabel)
+                }
+                .buttonStyle(ControlsButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button5))
+                Spacer()
             }
-            .foregroundColor(Color.white.opacity(0.7))
         }
+    }
+
+
+    // MARK: Private helper methods
+
+    private func timeSignaturePickerView() -> some View {
+        let viewModel = TimeSignaturePickerViewModel(metronome: self.viewModel.metronome)
+        return TimeSignaturePickerView(viewModel: viewModel)
+    }
+
+
+    private func tempoPickerView() -> some View {
+        let viewModel = TempoPickerViewModel(metronome: self.viewModel.metronome)
+        return TempoPickerView(viewModel: viewModel)
+    }
+}
+
+
+private struct ControlsButtonStyle: ButtonStyle {
+
+    private(set) var highlighted: Bool
+    private(set) var background: ShapeIllustration
+
+    func makeBody(configuration: Self.Configuration) -> some View {
+        ZStack {
+            Image(background)
+                .resizable()
+                .renderingMode(highlighted ? .original : .template)
+                .foregroundColor(Palette.gray.color)
+                .animation(.default)
+
+            configuration.label
+                .foregroundColor(.white)
+                .padding(8)
+        }
+        .frame(minHeight: 46)
+    }
+}
+
+
+// MARK: Previews
+
+struct ControlsView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
+        let metronome = Metronome(with: configuration, soundOn: false)
+        let publisher = MetronomePublisher(metronome: metronome)
+        let viewModel = ControlsViewModel(with: publisher)
+        return ControlsView(viewModel: viewModel)
     }
 }

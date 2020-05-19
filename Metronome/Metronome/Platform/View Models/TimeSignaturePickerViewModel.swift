@@ -11,9 +11,9 @@ import Combine
 
 class TimeSignaturePickerViewModel: ObservableObject {
 
-    @Published private(set) var selectedBarLength: Int
-    @Published private(set) var selectedAccentPositions: Set<Int>
-    @Published private(set) var selectedNoteLength: Int
+    @Published var selectedBarLength: Int
+    @Published var selectedAccentPositions: Set<Int>
+    @Published var selectedNoteLength: Int
 
     private(set) var barLengthItems: [Beat]
     private(set) var noteLengthItems: [TimeSignature.NoteLength]
