@@ -139,6 +139,10 @@
 		81E7DEB42461B58D001F4F07 /* MetronomeApplicationSettingsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E7DEB32461B58D001F4F07 /* MetronomeApplicationSettingsController.swift */; };
 		81ECB8012472E687004AAE75 /* ShapeIllustration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DDF30C246C4643005BFDC2 /* ShapeIllustration.swift */; };
 		81ECB8022472E694004AAE75 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81DDF30A246C45E8005BFDC2 /* Images.xcassets */; };
+		81ECB8052473DAC8004AAE75 /* MetronomeButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81ECB8032473DAAD004AAE75 /* MetronomeButtonStyle.swift */; };
+		81ECB8062473DB2A004AAE75 /* PickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8158FC6A246D85B500752374 /* PickerButton.swift */; };
+		81ECB8072473E354004AAE75 /* BrandFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = 817EFA4B2355C60E004E774D /* BrandFont.swift */; };
+		81ECB8082473E388004AAE75 /* FuturaPTCondExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 81ED440C246BF93B009F78B5 /* FuturaPTCondExtraBold.otf */; };
 		81ED440E246BF947009F78B5 /* FuturaPTCondExtraBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 81ED440C246BF93B009F78B5 /* FuturaPTCondExtraBold.otf */; };
 		81FAF02F23427ED1004A8C51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF02E23427ED1004A8C51 /* AppDelegate.swift */; };
 		81FAF03123427ED1004A8C51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81FAF03023427ED1004A8C51 /* SceneDelegate.swift */; };
@@ -261,6 +265,7 @@
 		81DDF30A246C45E8005BFDC2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		81DDF30C246C4643005BFDC2 /* ShapeIllustration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeIllustration.swift; sourceTree = "<group>"; };
 		81E7DEB32461B58D001F4F07 /* MetronomeApplicationSettingsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeApplicationSettingsController.swift; sourceTree = "<group>"; };
+		81ECB8032473DAAD004AAE75 /* MetronomeButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeButtonStyle.swift; sourceTree = "<group>"; };
 		81ED440C246BF93B009F78B5 /* FuturaPTCondExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturaPTCondExtraBold.otf; sourceTree = "<group>"; };
 		81FAF02B23427ED1004A8C51 /* Metronome Cocoa.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Metronome Cocoa.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FAF02E23427ED1004A8C51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -392,6 +397,7 @@
 		8124977D234B68F60047F3E3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				81ECB8032473DAAD004AAE75 /* MetronomeButtonStyle.swift */,
 				8124977E234B68FF0047F3E3 /* MetronomeView.swift */,
 				815003B22462EC6B00651E88 /* BeatsView.swift */,
 				8115EFAE235B660C00527665 /* BeatView.swift */,
@@ -877,6 +883,7 @@
 				81B3F07F245F598B00626E93 /* Localizable.strings in Resources */,
 				81ECB8022472E694004AAE75 /* Images.xcassets in Resources */,
 				817F9942234CAD0500DA1043 /* Assets.xcassets in Resources */,
+				81ECB8082473E388004AAE75 /* FuturaPTCondExtraBold.otf in Resources */,
 				813ABCDB246563A7005A8F92 /* ColorPalette.xcassets in Resources */,
 				813ABCEE24658950005A8F92 /* Beat-highlighted.mp3 in Resources */,
 				813ABCEB24658950005A8F92 /* Beat-normal.mp3 in Resources */,
@@ -931,14 +938,17 @@
 				81807A6C245FF1FD00737786 /* Copy.swift in Sources */,
 				810701A3245F2E78003D0B54 /* Metronome.swift in Sources */,
 				817F9956234CADBC00DA1043 /* MetronomeTicker.swift in Sources */,
+				81ECB8062473DB2A004AAE75 /* PickerButton.swift in Sources */,
 				813ABCD424655FA8005A8F92 /* Palette.swift in Sources */,
 				811FDEC124643AE0008713EF /* BarLengthPickerViewModel.swift in Sources */,
 				81B999AE235B22B500E87778 /* Beat.swift in Sources */,
+				81ECB8072473E354004AAE75 /* BrandFont.swift in Sources */,
 				817F994F234CAD6600DA1043 /* ExtensionDelegate.swift in Sources */,
 				81B999A62359C38A00E87778 /* MetronomePublisher.swift in Sources */,
 				81DF3A632472D22500779BDB /* SystemIcon.swift in Sources */,
 				81807A6A245FF16C00737786 /* TempoPickerViewModel.swift in Sources */,
 				810701A6245F3035003D0B54 /* MetronomeViewModel.swift in Sources */,
+				81ECB8052473DAC8004AAE75 /* MetronomeButtonStyle.swift in Sources */,
 				810701AB245F30DF003D0B54 /* ControlsViewModel.swift in Sources */,
 				815003B52462ECA900651E88 /* ControlsView.swift in Sources */,
 				817F9953234CAD7000DA1043 /* MetronomeViewController.swift in Sources */,

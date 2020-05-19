@@ -35,7 +35,7 @@ struct TempoPickerView: View {
                         PickerButton(icon: .minus, action: viewModel.decreaseTempo)
                             .brandFont(.title)
 
-                        Text(String(viewModel.selectedTempoBpm))
+                        Text(String(Int(viewModel.selectedTempoBpm)))
                             .brandFont(.largeTitle)
                             .frame(minWidth: 100)
 

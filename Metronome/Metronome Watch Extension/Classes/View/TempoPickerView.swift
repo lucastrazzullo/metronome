@@ -19,19 +19,44 @@ struct TempoPickerView: View {
     // MARK: Body
 
     var body: some View {
-        VStack(alignment: .center, spacing: 8) {
-            Picker(selection: self.$viewModel.selectedTempoBpm,
-                   label: Text(Copy.Tempo.unit.localised).padding(2)) {
-                ForEach(self.viewModel.tempoItems, id: \.self) { bpm in
-                    Text(String(bpm)).font(.largeTitle)
-                }
+        VStack(alignment: .center, spacing: 12) {
+            Spacer()
+
+            VStack(alignment: .center) {
+                Text(String(Int(viewModel.selectedTempoBpm)))
+                    .brandFont(.largeTitle)
+                    .focusable(true)
+                    .digitalCrownRotation($viewModel.selectedTempoBpm, from: Double(viewModel.tempoRange.lowerBound), through: Double(viewModel.tempoRange.upperBound), by: 1, sensitivity: .high, isContinuous: false, isHapticFeedbackEnabled: true)
+
+                Text(Copy.Tempo.unit.localised).font(.footnote)
             }
-            Button(action: {
-                self.viewModel.commit()
-                self.presentationMode.wrappedValue.dismiss()
-            }, label: {
-                Text(Copy.Controls.confirm.localised)
-            })
+
+            HStack(alignment: .center) {
+                Spacer()
+                Button(action: done) {
+                    Text(Copy.Controls.done.localised)
+                }
+                .buttonStyle(MetronomeButtonStyle(highlighted: true, background: .button1))
+                Spacer()
+            }
         }
+    }
+
+
+    // MARK: Private helper methods
+
+    private func done() {
+        viewModel.commit()
+        presentationMode.wrappedValue.dismiss()
+    }
+}
+
+
+struct TempoPickerView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let metronome = Metronome(with: .default, soundOn: false)
+        let viewModel = TempoPickerViewModel(metronome: metronome)
+        return TempoPickerView(viewModel: viewModel)
     }
 }

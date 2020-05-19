@@ -24,7 +24,7 @@ enum SystemIcon: String, CaseIterable {
 }
 
 
-#if os(iOS)
+#if os(iOS) || os(watchOS)
 extension Image {
 
     init(_ icon: SystemIcon) {

@@ -15,15 +15,15 @@ struct ControlsView: View {
     var body: some View {
         VStack(alignment: .center, spacing: 12) {
             HStack(alignment: .center, spacing: 8) {
-                NavigationLink(destination: timeSignaturePickerView()) {
-                    Text(viewModel.timeSignatureLabel).font(Font.system(.footnote))
-                }
-                .buttonStyle(ControlsButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button1))
-
                 NavigationLink(destination: tempoPickerView()) {
-                    Text(viewModel.tempoLabel).font(Font.system(.footnote))
+                    Text(viewModel.tempoLabel)
                 }
-                .buttonStyle(ControlsButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button3))
+                .buttonStyle(MetronomeButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button3))
+
+                NavigationLink(destination: timeSignaturePickerView()) {
+                    Text(viewModel.timeSignatureLabel)
+                }
+                .buttonStyle(MetronomeButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button4))
             }
 
             HStack(alignment: .center, spacing: 24) {
@@ -31,7 +31,7 @@ struct ControlsView: View {
                 Button(action: viewModel.toggleIsRunning) {
                     Text(viewModel.metronomeTogglerLabel)
                 }
-                .buttonStyle(ControlsButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button5))
+                .buttonStyle(MetronomeButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button6))
                 Spacer()
             }
         }
@@ -49,28 +49,6 @@ struct ControlsView: View {
     private func tempoPickerView() -> some View {
         let viewModel = TempoPickerViewModel(metronome: self.viewModel.metronome)
         return TempoPickerView(viewModel: viewModel)
-    }
-}
-
-
-private struct ControlsButtonStyle: ButtonStyle {
-
-    private(set) var highlighted: Bool
-    private(set) var background: ShapeIllustration
-
-    func makeBody(configuration: Self.Configuration) -> some View {
-        ZStack {
-            Image(background)
-                .resizable()
-                .renderingMode(highlighted ? .original : .template)
-                .foregroundColor(Palette.gray.color)
-                .animation(.default)
-
-            configuration.label
-                .foregroundColor(.white)
-                .padding(8)
-        }
-        .frame(minHeight: 46)
     }
 }
 

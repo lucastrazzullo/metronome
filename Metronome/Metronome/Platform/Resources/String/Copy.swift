@@ -33,6 +33,8 @@ struct Copy {
 
     enum Tempo: String, CopyIdentifier {
         case title = "metronome.tempo.title"
+        case format = "metronome.tempo.representation.format"
+
         case unit = "metronome.tempo.unit"
     }
 

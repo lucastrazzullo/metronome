@@ -14,11 +14,9 @@ struct BeatsView: View {
 
     var body: some View {
         HStack {
-            Spacer()
             ForEach(viewModel.beats, id: \.id) { beatViewModel in
                 BeatView(viewModel: beatViewModel)
             }
-            Spacer()
         }
     }
 }

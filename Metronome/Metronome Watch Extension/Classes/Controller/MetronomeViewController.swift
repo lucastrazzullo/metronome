@@ -40,20 +40,18 @@ class MetronomeViewController: WKHostingController<MetronomeView> {
 
         cancellables.append(metronomePublisher.$isRunning.sink { isRunning in
             if isRunning {
-//                WKInterfaceDevice.current().play(WKHapticType.start)
-//                WKExtension.shared().isAutorotating = true
+                WKInterfaceDevice.current().play(WKHapticType.start)
             } else {
-//                WKInterfaceDevice.current().play(WKHapticType.stop)
-//                WKExtension.shared().isAutorotating = false
+                WKInterfaceDevice.current().play(WKHapticType.stop)
             }
         })
 
         cancellables.append(metronomePublisher.$currentBeat.sink { beat in
             guard let beat = beat else { return }
             if beat.isAccent {
-//                WKInterfaceDevice.current().play(WKHapticType.start)
+                WKInterfaceDevice.current().play(WKHapticType.start)
             } else {
-//                WKInterfaceDevice.current().play(WKHapticType.directionDown)
+                WKInterfaceDevice.current().play(WKHapticType.directionDown)
             }
         })
     }
