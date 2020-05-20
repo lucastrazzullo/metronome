@@ -15,11 +15,12 @@ class UserActivityController: NSObject, MetronomeController {
 
     private var setupMetronomeUserActivity: NSUserActivity?
     private var startMetronomeUserActivity: NSUserActivity?
+
     private var cancellables: [AnyCancellable] = []
+    private var observer: NSObjectProtocol?
 
     private let metronome: Metronome
 
-    private var observer: NSObjectProtocol?
 
 
     // MARK: Object life cycle

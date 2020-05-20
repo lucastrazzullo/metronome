@@ -9,6 +9,7 @@
 import WatchKit
 import SwiftUI
 import Combine
+import WatchConnectivity
 
 class MetronomeHostingController: WKHostingController<MetronomeView> {
 
@@ -38,6 +39,12 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
     override func awake(withContext context: Any?) {
         super.awake(withContext: context)
 
+        if WCSession.isSupported() {
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
+
         cancellables.append(metronomePublisher.$isRunning.sink { isRunning in
             if isRunning {
                 WKInterfaceDevice.current().play(WKHapticType.start)
@@ -60,5 +67,26 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
     override func didDeactivate() {
         metronome.reset()
         super.didDeactivate()
+    }
+}
+
+
+extension MetronomeHostingController: WCSessionDelegate {
+
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    }
+
+
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        if let configuration = try? UserInfoDecoder().decode(MetronomeConfiguration.self, from: message) {
+            metronome.configuration = configuration
+        }
+    }
+    
+    
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        if let configuration = try? UserInfoDecoder().decode(MetronomeConfiguration.self, from: applicationContext) {
+            metronome.configuration = configuration
+        }
     }
 }

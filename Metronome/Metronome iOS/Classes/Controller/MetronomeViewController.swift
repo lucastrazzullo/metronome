@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import WatchConnectivity
 
 class MetronomeViewController: UIViewController, ContainerViewController {
 
@@ -29,7 +30,8 @@ class MetronomeViewController: UIViewController, ContainerViewController {
             HapticController(),
             CacheController(cache: cache),
             SoundController(),
-            UserActivityController(metronome: metronome)
+            UserActivityController(metronome: metronome),
+            WatchConnectivityController()
         ])
 
         super.init(coder: coder)

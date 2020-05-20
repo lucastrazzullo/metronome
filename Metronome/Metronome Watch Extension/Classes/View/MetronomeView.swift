@@ -15,12 +15,12 @@ struct MetronomeView: View {
 
     var body: some View {
         VStack(alignment: .center, spacing: 24) {
-            BeatsView(viewModel: self.viewModel.beatsViewModel)
-                .frame(height: 24, alignment: .center)
-                .padding(.top, 12)
-                .padding([.leading, .trailing], 4)
+//            BeatsView(viewModel: viewModel.beatsViewModel)
+//                .frame(height: 24, alignment: .center)
+//                .padding(.top, 12)
+//                .padding([.leading, .trailing], 4)
 
-            ControlsView(viewModel: self.viewModel.controlsViewModel)
+            ControlsView(viewModel: viewModel.controlsViewModel)
         }
     }
 }
