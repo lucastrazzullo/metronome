@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import WatchConnectivity
 
-class WatchConnectivityController: NSObject, MetronomeController {
+class WatchConnectivityController: NSObject, MetronomeObserver {
 
     private var cancellable: AnyCancellable?
     private var metronome: Metronome?

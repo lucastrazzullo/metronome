@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class PlatformIdleTimerController: MetronomeController {
+class PlatformIdleTimerController: MetronomeObserver {
 
     private var cancellables = [AnyCancellable]()
 

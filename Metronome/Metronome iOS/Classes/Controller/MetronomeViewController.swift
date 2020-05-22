@@ -13,7 +13,7 @@ class MetronomeViewController: UIViewController, ContainerViewController {
 
     private let metronome: Metronome
     private let metronomePublisher: MetronomePublisher
-    private let metronomeObserver: MetronomeObserver
+    private let metronomeObserver: MetronomePublisherObserversBinder
 
     private let cache: MetronomeStateCache
 
@@ -25,7 +25,7 @@ class MetronomeViewController: UIViewController, ContainerViewController {
 
         metronome = Metronome(with: cache.configuration, soundOn: cache.isSoundOn)
         metronomePublisher = MetronomePublisher(metronome: metronome)
-        metronomeObserver = MetronomeObserver(publisher: metronomePublisher, controllers: [
+        metronomeObserver = MetronomePublisherObserversBinder(publisher: metronomePublisher, controllers: [
             PlatformIdleTimerController(),
             HapticController(),
             CacheController(cache: cache),

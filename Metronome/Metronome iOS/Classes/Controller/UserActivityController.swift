@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class UserActivityController: NSObject, MetronomeController {
+class UserActivityController: NSObject, MetronomeObserver {
 
     // MARK: Instance properties
 

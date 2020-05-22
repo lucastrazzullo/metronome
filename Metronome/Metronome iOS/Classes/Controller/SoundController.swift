@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import AVFoundation
 
-class SoundController: MetronomeController {
+class SoundController: MetronomeObserver {
 
     struct SoundURL {
         static let normal = Bundle.main.url(forResource: "Beat-normal", withExtension: "mp3")!

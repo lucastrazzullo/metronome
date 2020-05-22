@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class HapticController: MetronomeController {
+class HapticController: MetronomeObserver {
 
     private let selectionGenerator = UISelectionFeedbackGenerator()
     private let impactGenerator = UIImpactFeedbackGenerator(style: .heavy)

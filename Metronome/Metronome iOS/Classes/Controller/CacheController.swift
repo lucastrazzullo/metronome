@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class CacheController: MetronomeController {
+class CacheController: MetronomeObserver {
 
     private let stateCache: MetronomeStateCache
     private var cancellables: [AnyCancellable]

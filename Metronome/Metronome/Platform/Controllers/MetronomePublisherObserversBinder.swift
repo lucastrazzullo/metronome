@@ -1,5 +1,5 @@
 //
-//  MetronomeObserver.swift
+//  MetronomePublisherObserversBinder.swift
 //  Metronome Cocoa iOS
 //
 //  Created by luca strazzullo on 19/5/20.
@@ -8,16 +8,11 @@
 
 import Foundation
 
-protocol MetronomeController {
-    func set(publisher: MetronomePublisher)
-}
+class MetronomePublisherObserversBinder {
 
+    private let controllers: [MetronomeObserver]
 
-class MetronomeObserver {
-
-    private let controllers: [MetronomeController]
-
-    init(publisher: MetronomePublisher, controllers: [MetronomeController]) {
+    init(publisher: MetronomePublisher, controllers: [MetronomeObserver]) {
         self.controllers = controllers
         self.controllers.forEach { controller in
             controller.set(publisher: publisher)
