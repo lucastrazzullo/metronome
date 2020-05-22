@@ -44,6 +44,18 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
             session.delegate = self
             session.activate()
         }
+        
+        cancellables.append(metronomePublisher.$configuration.sink { configuration in
+            if let receivedContextConfiguration = try? UserInfoDecoder<[String: Any]>().decode(MetronomeConfiguration.self, from: WCSession.default.receivedApplicationContext), receivedContextConfiguration == configuration {
+                return
+            }
+
+            guard let userInfo = try? UserInfoEncoder<[String: Any]>().encode(configuration) else { return }
+            guard WCSession.default.isCompanionAppInstalled else { return }
+            if WCSession.default.isReachable {
+                WCSession.default.sendMessage(userInfo, replyHandler: nil, errorHandler: nil)
+            }
+        })
 
         cancellables.append(metronomePublisher.$isRunning.sink { isRunning in
             if isRunning {
@@ -68,6 +80,15 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
         metronome.reset()
         super.didDeactivate()
     }
+    
+    
+    // MARK: Public methods
+    
+    func setupMetronome(with configuration: MetronomeConfiguration) {
+        if metronome.configuration != configuration {
+            metronome.configuration = configuration
+        }
+    }
 }
 
 
@@ -79,14 +100,18 @@ extension MetronomeHostingController: WCSessionDelegate {
 
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
         if let configuration = try? UserInfoDecoder().decode(MetronomeConfiguration.self, from: message) {
-            metronome.configuration = configuration
+            DispatchQueue.main.async { [weak self] in
+                self?.setupMetronome(with: configuration)
+            }
         }
     }
     
-    
+
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
         if let configuration = try? UserInfoDecoder().decode(MetronomeConfiguration.self, from: applicationContext) {
-            metronome.configuration = configuration
+            DispatchQueue.main.async { [weak self] in
+                self?.setupMetronome(with: configuration)
+            }
         }
     }
 }

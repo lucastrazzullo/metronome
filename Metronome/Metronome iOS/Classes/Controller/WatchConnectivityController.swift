@@ -33,6 +33,10 @@ class WatchConnectivityController: NSObject, MetronomeController {
     func set(publisher: MetronomePublisher) {
         metronome = publisher.metronome
         cancellable = publisher.$configuration.sink { configuration in
+            if let receivedContextConfiguration = try? UserInfoDecoder<[String: Any]>().decode(MetronomeConfiguration.self, from: WCSession.default.receivedApplicationContext), receivedContextConfiguration == configuration {
+                return
+            }
+
             guard let userInfo = try? UserInfoEncoder<[String: Any]>().encode(configuration) else { return }
             guard WCSession.default.isWatchAppInstalled else { return }
 
@@ -57,5 +61,23 @@ extension WatchConnectivityController: WCSessionDelegate {
 
 
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+    }
+    
+    
+    func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
+        if let configuration = try? UserInfoDecoder().decode(MetronomeConfiguration.self, from: applicationContext), metronome?.configuration != configuration {
+            DispatchQueue.main.async { [weak self] in
+                self?.metronome?.configuration = configuration
+            }
+        }
+    }
+    
+    
+    func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
+        if let configuration = try? UserInfoDecoder().decode(MetronomeConfiguration.self, from: message), metronome?.configuration != configuration {
+            DispatchQueue.main.async { [weak self] in
+                self?.metronome?.configuration = configuration
+            }
+        }
     }
 }
