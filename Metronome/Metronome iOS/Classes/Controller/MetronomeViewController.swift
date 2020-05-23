@@ -7,12 +7,13 @@
 //
 
 import UIKit
+import WatchConnectivity
 
 class MetronomeViewController: UIViewController, ContainerViewController {
 
     private let metronome: Metronome
-    private let metronomePublisher: MetronomePublisher
-    private let metronomeObserver: MetronomeObserver
+    private let metronomeController: MetronomeController
+    private let metronomeSessionBinder: MetronomeSessionPluginsController
 
     private let cache: MetronomeStateCache
 
@@ -23,13 +24,14 @@ class MetronomeViewController: UIViewController, ContainerViewController {
         cache = MetronomeStateCache(entry: UserDefaultBackedEntryCache())
 
         metronome = Metronome(with: cache.configuration, soundOn: cache.isSoundOn)
-        metronomePublisher = MetronomePublisher(metronome: metronome)
-        metronomeObserver = MetronomeObserver(publisher: metronomePublisher, controllers: [
-            PlatformIdleTimerController(),
-            HapticController(),
-            CacheController(cache: cache),
-            SoundController(),
-            UserActivityController(metronome: metronome)
+        metronomeController = DefaultMetronomeController(metronome: metronome)
+        metronomeSessionBinder = MetronomeSessionPluginsController(session: metronomeController.session, plugins: [
+            PlatformIdleTimerPlugin(),
+            HapticPlugin(),
+            CachePlugin(cache: cache),
+            SoundPlugin(),
+            UserActivityPlugin(controller: metronomeController),
+            WatchConnectivityPlugin(controller: metronomeController)
         ])
 
         super.init(coder: coder)
@@ -40,7 +42,7 @@ class MetronomeViewController: UIViewController, ContainerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addChildViewController(MetronomeHostingController(with: metronomePublisher), in: view)
+        addChildViewController(MetronomeHostingController(with: metronomeController), in: view)
     }
 
 

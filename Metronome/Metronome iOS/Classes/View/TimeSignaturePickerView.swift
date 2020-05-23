@@ -137,7 +137,8 @@ struct TimeSignaturePickerView_Preview: PreviewProvider {
 
     static var previews: some View {
         let metronome = Metronome(with: .default, soundOn: false)
-        let viewModel = TimeSignaturePickerViewModel(metronome: metronome)
+        let controller = DefaultMetronomeController(metronome: metronome)
+        let viewModel = TimeSignaturePickerViewModel(controller: controller)
         return TimeSignaturePickerView(viewModel: viewModel)
             .previewLayout(.fixed(width: 568, height: 340))
     }

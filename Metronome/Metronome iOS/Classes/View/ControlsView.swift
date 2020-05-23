@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ControlsView: View {
 
-    @ObservedObject var viewModel: ControlsViewModel
+    @ObservedObject private(set) var viewModel: ControlsViewModel
 
     var body: some View {
         HStack(alignment: .bottom, spacing: 8) {
@@ -70,7 +70,7 @@ private struct TempoButton: View {
             Text(self.viewModel.tempoLabel)
         }
         .sheet(isPresented: $showingPicker) {
-            TempoPickerView(viewModel: TempoPickerViewModel(metronome: self.viewModel.metronome))
+            TempoPickerView(viewModel: TempoPickerViewModel(controller: self.viewModel.controller))
                 .onAppear(perform: { self.viewModel.reset() })
         }
     }
@@ -99,7 +99,7 @@ private struct TempoTapButton: View {
             }
         }
         .sheet(isPresented: $showingPicker) {
-            TapTempoPickerView(viewModel: TapTempoPickerViewModel(metronome: self.viewModel.metronome))
+            TapTempoPickerView(viewModel: TapTempoPickerViewModel(controller: self.viewModel.controller))
                 .onAppear(perform: { self.viewModel.reset() })
         }
     }
@@ -119,7 +119,7 @@ private struct TimeSignatureButton: View {
             Text(self.viewModel.timeSignatureLabel)
         }
         .sheet(isPresented: $showingPicker) {
-            TimeSignaturePickerView(viewModel: TimeSignaturePickerViewModel(metronome: self.viewModel.metronome))
+            TimeSignaturePickerView(viewModel: TimeSignaturePickerViewModel(controller: self.viewModel.controller))
                 .onAppear(perform: { self.viewModel.reset() })
         }
     }

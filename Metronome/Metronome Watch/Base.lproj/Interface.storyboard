@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder.WatchKit.Storyboard" version="3.0" toolsVersion="16096" targetRuntime="watchKit" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="vKR-fY-XkD">
+    <device id="watch38"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
@@ -8,7 +9,7 @@
         <!--Metronome Hosting Controller-->
         <scene sceneID="dch-Sg-Aew">
             <objects>
-                <hostingController id="vKR-fY-XkD" customClass="MetronomeHostingController" customModule="Metronome_Cocoa"/>
+                <hostingController id="vKR-fY-XkD" customClass="MetronomeHostingController" customModule="Metronome_Watch_Ext"/>
             </objects>
             <point key="canvasLocation" x="-92" y="-62"/>
         </scene>

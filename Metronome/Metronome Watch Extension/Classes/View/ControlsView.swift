@@ -41,27 +41,13 @@ struct ControlsView: View {
     // MARK: Private helper methods
 
     private func timeSignaturePickerView() -> some View {
-        let viewModel = TimeSignaturePickerViewModel(metronome: self.viewModel.metronome)
+        let viewModel = TimeSignaturePickerViewModel(controller: self.viewModel.controller)
         return TimeSignaturePickerView(viewModel: viewModel)
     }
 
 
     private func tempoPickerView() -> some View {
-        let viewModel = TempoPickerViewModel(metronome: self.viewModel.metronome)
+        let viewModel = TempoPickerViewModel(controller: self.viewModel.controller)
         return TempoPickerView(viewModel: viewModel)
-    }
-}
-
-
-// MARK: Previews
-
-struct ControlsView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        let configuration = MetronomeConfiguration(timeSignature: .default, tempo: .default)
-        let metronome = Metronome(with: configuration, soundOn: false)
-        let publisher = MetronomePublisher(metronome: metronome)
-        let viewModel = ControlsViewModel(with: publisher)
-        return ControlsView(viewModel: viewModel)
     }
 }

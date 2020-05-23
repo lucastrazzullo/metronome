@@ -45,11 +45,6 @@ struct MetronomeConfiguration: Equatable {
             timeSignature.barLength.beats[position].isAccent = isAccent
         }
     }
-
-
-    mutating func setTimeSignature(_ signature: TimeSignature) {
-        timeSignature = signature
-    }
 }
 
 

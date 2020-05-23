@@ -37,7 +37,7 @@ class MetronomePrecisionTests: XCTestCase {
         tickExpectation?.expectedFulfillmentCount = 120
 
         metronome?.configuration.setBpm(120)
-        metronome?.configuration.setTimeSignature(.default)
+        metronome?.configuration.timeSignature = .default
         metronome?.start()
 
         wait(for: [tickExpectation!], timeout: 60)
@@ -49,7 +49,7 @@ class MetronomePrecisionTests: XCTestCase {
         tickExpectation?.expectedFulfillmentCount = 1200
 
         metronome?.configuration.setBpm(1200)
-        metronome?.configuration.setTimeSignature(.default)
+        metronome?.configuration.timeSignature = .default
         metronome?.start()
 
         wait(for: [tickExpectation!], timeout: 600)

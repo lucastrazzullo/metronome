@@ -15,24 +15,21 @@ class TimeSignaturePickerViewModel: ObservableObject {
     @Published var selectedAccentPositions: Set<Int>
     @Published var selectedNoteLength: Int
 
+    let controller: MetronomeController
+
     private(set) var barLengthItems: [Beat]
     private(set) var noteLengthItems: [TimeSignature.NoteLength]
-
-    private let metronome: Metronome
 
 
     // MARK: Object life cycle
 
-    init(metronome: Metronome) {
-        self.metronome = metronome
-
+    init(controller: MetronomeController) {
+        self.controller = controller
         self.barLengthItems = TimeSignature.BarLength.maximum.beats
         self.noteLengthItems = TimeSignature.NoteLength.allCases
-
-        let timeSignature = metronome.configuration.timeSignature
-        self.selectedBarLength = timeSignature.barLength.numberOfBeats
-        self.selectedAccentPositions = timeSignature.barLength.accentPositions
-        self.selectedNoteLength = timeSignature.noteLength.rawValue
+        self.selectedBarLength = controller.session.configuration.timeSignature.barLength.numberOfBeats
+        self.selectedAccentPositions = controller.session.configuration.timeSignature.barLength.accentPositions
+        self.selectedNoteLength = controller.session.configuration.timeSignature.noteLength.rawValue
     }
 
 
@@ -42,7 +39,7 @@ class TimeSignaturePickerViewModel: ObservableObject {
         let barLength = TimeSignature.BarLength(numberOfBeats: selectedBarLength, accentPositions: selectedAccentPositions)
         let noteLength = TimeSignature.NoteLength(rawValue: selectedNoteLength)
         let timeSignature = TimeSignature(barLength: barLength, noteLength: noteLength ?? .default)
-        metronome.configuration.setTimeSignature(timeSignature)
+        controller.set(timeSignature: timeSignature)
     }
 
 
