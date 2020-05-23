@@ -50,13 +50,3 @@ struct TempoPickerView: View {
         presentationMode.wrappedValue.dismiss()
     }
 }
-
-
-struct TempoPickerView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        let metronome = Metronome(with: .default, soundOn: false)
-        let viewModel = TempoPickerViewModel(metronome: metronome)
-        return TempoPickerView(viewModel: viewModel)
-    }
-}

@@ -13,26 +13,26 @@ class TempoPickerViewModel: ObservableObject {
 
     @Published var selectedTempoBpm: Double
 
+    let controller: MetronomeController
+
     private(set) var tempoItems: [Int]
     private(set) var tempoRange: ClosedRange<Int>
-
-    private let metronome: Metronome
 
 
     // MARK: Object life cycle
 
-    init(metronome: Metronome) {
-        self.metronome = metronome
+    init(controller: MetronomeController) {
+        self.controller = controller
         self.tempoItems = Array(Tempo.range)
         self.tempoRange = Tempo.range
-        self.selectedTempoBpm = Double(metronome.configuration.tempo.bpm)
+        self.selectedTempoBpm = Double(controller.session.configuration.tempo.bpm)
     }
 
 
     // MARK: Public methods
 
     func commit() {
-        metronome.configuration.tempo = Tempo(bpm: Int(selectedTempoBpm))
+        controller.set(tempo: Tempo(bpm: Int(selectedTempoBpm)))
     }
 
 

@@ -12,15 +12,15 @@ class TapTempoPickerViewModel: ObservableObject {
 
     @Published private(set) var selectedTempoBpm: Int?
 
-    private var tapTimestamps: [TimeInterval]
+    let controller: MetronomeController
 
-    private let metronome: Metronome
+    private var tapTimestamps: [TimeInterval]
 
 
     // MARK: Object life cycle
 
-    init(metronome: Metronome) {
-        self.metronome = metronome
+    init(controller: MetronomeController) {
+        self.controller = controller
         self.tapTimestamps = []
     }
 
@@ -29,14 +29,14 @@ class TapTempoPickerViewModel: ObservableObject {
 
     func update(with timestamp: TimeInterval) {
         if let frequency = getFrequency(withNew: timestamp) {
-            selectedTempoBpm = metronome.configuration.getBpm(with: frequency)
+            selectedTempoBpm = controller.session.configuration.getBpm(with: frequency)
         }
     }
 
 
     func commit() {
-        if let tempo = selectedTempoBpm {
-            metronome.configuration.setBpm(tempo)
+        if let bpm = selectedTempoBpm {
+            controller.set(tempoBpm: bpm)
         }
     }
 

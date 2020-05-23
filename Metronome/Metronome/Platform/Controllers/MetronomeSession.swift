@@ -1,5 +1,5 @@
 //
-//  MetronomePublisher.swift
+//  MetronomeSession.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 18/10/19.
@@ -8,7 +8,7 @@
 
 import Combine
 
-class MetronomePublisher {
+class MetronomeSession {
 
     struct Snapshot {
         var configuration: MetronomeConfiguration
@@ -25,7 +25,7 @@ class MetronomePublisher {
     @Published var isRunning: Bool
     @Published var currentBeat: Beat?
 
-    private(set) var metronome: Metronome
+    private var metronome: Metronome
 
 
     // MARK: Object life cycle
@@ -55,7 +55,7 @@ class MetronomePublisher {
 }
 
 
-extension MetronomePublisher: MetronomeDelegate {
+extension MetronomeSession: MetronomeDelegate {
 
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
         self.configuration = configuration

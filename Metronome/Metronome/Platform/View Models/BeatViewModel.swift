@@ -62,22 +62,13 @@ class BeatViewModel: ObservableObject, Identifiable {
         }
 
 
-        mutating func toggleIsAccent() -> Bool {
+        mutating func toggleIsAccent() {
             if contains(.accented) {
                 remove(.accented)
-                return false
             } else {
                 insert(.accented)
-                return true
             }
         }
-    }
-
-
-    // MARK: Public getters
-
-    var isTemporaryValueSelected: Bool {
-        return temporaryIsAccent != nil
     }
 
 
@@ -86,27 +77,29 @@ class BeatViewModel: ObservableObject, Identifiable {
     @Published private(set) var label: String
     @Published private(set) var state: State
 
-    private let metronome: Metronome
-    private let position: Int
+    let controller: MetronomeController
 
-    private var temporaryIsAccent: Bool?
+    private(set) var position: Int
+    private(set) var isTemporaryValueSelected: Bool = false
+
     private var cancellables: [AnyCancellable] = []
 
 
     // MARK: Object life cycle
 
-    init(at position: Int, metronomePublisher: MetronomePublisher) {
-        self.metronome = metronomePublisher.metronome
+    init(at position: Int, controller: MetronomeController) {
         self.position = position
-        self.label = String(position + 1)
-        self.state = State(with: position, timeSignature: metronomePublisher.configuration.timeSignature, highlightedBeat: metronomePublisher.currentBeat, isRunning: metronomePublisher.isRunning)
+        self.controller = controller
 
-        self.cancellables.append(Publishers.CombineLatest(metronomePublisher.$isRunning, metronomePublisher.$currentBeat).sink {
+        self.label = String(position + 1)
+        self.state = State(with: position, timeSignature: controller.session.configuration.timeSignature, highlightedBeat: controller.session.currentBeat, isRunning: controller.session.isRunning)
+
+        self.cancellables.append(Publishers.CombineLatest(controller.session.$isRunning, controller.session.$currentBeat).sink {
             [weak self] isRunning, currentBeat in
             self?.state.set(highlightedBeat: currentBeat, isRunning: isRunning, position: position)
         })
 
-        self.cancellables.append(metronomePublisher.$configuration.sink {
+        self.cancellables.append(controller.session.$configuration.sink {
             [weak self] configuration in
             self?.state.set(timeSignature: configuration.timeSignature, position: position)
         })
@@ -116,22 +109,23 @@ class BeatViewModel: ObservableObject, Identifiable {
     // MARK: Public methods
 
     func toggleIsAccentTemporarely() {
-        temporaryIsAccent = state.toggleIsAccent()
+        state.toggleIsAccent()
+        isTemporaryValueSelected = true
     }
 
 
     func discard() {
-        if let temporaryIsAccent = temporaryIsAccent {
-            state.set(isAccent: !temporaryIsAccent)
-            self.temporaryIsAccent = nil
+        if isTemporaryValueSelected {
+            isTemporaryValueSelected = false
+            state.toggleIsAccent()
         }
     }
 
 
     func commit() {
-        if let temporaryIsAccent = temporaryIsAccent {
-            metronome.configuration.setAccent(temporaryIsAccent, onBeatWith: position)
-            self.temporaryIsAccent = nil
+        if isTemporaryValueSelected {
+            isTemporaryValueSelected = false
+            controller.set(isAccent: state.contains(.accented), forBeatAt: position)
         }
     }
 }

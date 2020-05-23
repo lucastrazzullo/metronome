@@ -11,17 +11,19 @@ import Combine
 
 class MetronomeViewModel {
 
-    private(set) var beatsViewModel: BeatsViewModel
-    private(set) var controlsViewModel: ControlsViewModel
-
-    let metronome: Metronome
+    let controller: MetronomeController
 
 
     // MARK: Object life cycle
 
-    init(metronomePublisher: MetronomePublisher) {
-        metronome = metronomePublisher.metronome
-        beatsViewModel = BeatsViewModel(metronomePublisher: metronomePublisher)
-        controlsViewModel = ControlsViewModel(with: metronomePublisher)
+    init(metronomeController: MetronomeController) {
+        controller = metronomeController
+    }
+
+
+    // MARK Public methods
+
+    func toggleIsRunning() {
+        controller.toggleIsRunning()
     }
 }

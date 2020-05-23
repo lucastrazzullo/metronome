@@ -51,15 +51,3 @@ struct TimeSignaturePickerView: View {
         presentationMode.wrappedValue.dismiss()
     }
 }
-
-
-struct TimeSignaturePickerView_Previews: PreviewProvider {
-
-    static var previews: some View {
-        let timeSignature = TimeSignature(barLength: TimeSignature.BarLength(numberOfBeats: 2), noteLength: .sixteenth)
-        let configuration = MetronomeConfiguration(timeSignature: timeSignature, tempo: .default)
-        let metronome = Metronome(with: configuration, soundOn: false)
-        let viewModel = TimeSignaturePickerViewModel(metronome: metronome)
-        return TimeSignaturePickerView(viewModel: viewModel)
-    }
-}

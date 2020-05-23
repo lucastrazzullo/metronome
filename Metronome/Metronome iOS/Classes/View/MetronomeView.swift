@@ -16,13 +16,25 @@ struct MetronomeView: View {
         ZStack {
             Color(Palette.black).edgesIgnoringSafeArea(.all)
             VStack(alignment: .center, spacing: 24) {
-                BeatsView(viewModel: viewModel.beatsViewModel)
-                ControlsView(viewModel: viewModel.controlsViewModel)
+                BeatsView(viewModel: buildBeatsViewModel())
+                ControlsView(viewModel: buildControlsViewModel())
             }
         }
         .gesture(TapGesture()
             .onEnded { gesture in
-                self.viewModel.metronome.toggle()
+                self.viewModel.toggleIsRunning()
         })
+    }
+
+
+    // MARK: Private helper methods
+
+    private func buildBeatsViewModel() -> BeatsViewModel {
+        return BeatsViewModel(metronomeController: viewModel.controller)
+    }
+
+
+    private func buildControlsViewModel() -> ControlsViewModel {
+        return ControlsViewModel(metronomeController: viewModel.controller)
     }
 }

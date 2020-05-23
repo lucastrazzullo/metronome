@@ -17,9 +17,8 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
         return MetronomeView(viewModel: metronomeViewModel)
     }
 
-    private let metronome: Metronome
-    private let metronomePublisher: MetronomePublisher
-    private var metronomeViewModel: MetronomeViewModel
+    private let metronomeController: MetronomeController
+    private let metronomeViewModel: MetronomeViewModel
 
     private var cancellables: [AnyCancellable] = []
 
@@ -27,9 +26,8 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
     // MARK: Object life cycle
 
     override init() {
-        metronome = Metronome(with: .default, soundOn: false)
-        metronomePublisher = MetronomePublisher(metronome: metronome)
-        metronomeViewModel = MetronomeViewModel(metronomePublisher: metronomePublisher)
+        metronomeController = DummyMetronomeController()
+        metronomeViewModel = MetronomeViewModel(metronomeController: metronomeController)
         super.init()
     }
 
@@ -45,7 +43,7 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
             session.activate()
         }
         
-        cancellables.append(metronomePublisher.$configuration.sink { configuration in
+        cancellables.append(metronomeController.session.$configuration.sink { configuration in
             if let receivedContextConfiguration = try? UserInfoDecoder<[String: Any]>().decode(MetronomeConfiguration.self, from: WCSession.default.receivedApplicationContext), receivedContextConfiguration == configuration {
                 return
             }
@@ -57,7 +55,7 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
             }
         })
 
-        cancellables.append(metronomePublisher.$isRunning.sink { isRunning in
+        cancellables.append(metronomeController.session.$isRunning.sink { isRunning in
             if isRunning {
                 WKInterfaceDevice.current().play(WKHapticType.start)
             } else {
@@ -65,7 +63,7 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
             }
         })
 
-        cancellables.append(metronomePublisher.$currentBeat.sink { beat in
+        cancellables.append(metronomeController.session.$currentBeat.sink { beat in
             guard let beat = beat else { return }
             if beat.isAccent {
                 WKInterfaceDevice.current().play(WKHapticType.start)
@@ -77,7 +75,7 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
 
 
     override func didDeactivate() {
-        metronome.reset()
+        metronomeController.reset()
         super.didDeactivate()
     }
     
@@ -85,9 +83,7 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
     // MARK: Public methods
     
     func setupMetronome(with configuration: MetronomeConfiguration) {
-        if metronome.configuration != configuration {
-            metronome.configuration = configuration
-        }
+        metronomeController.set(configuration: configuration)
     }
 }
 
