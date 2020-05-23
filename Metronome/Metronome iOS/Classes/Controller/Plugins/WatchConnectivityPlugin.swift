@@ -34,7 +34,7 @@ class WatchConnectivityPlugin: NSObject, SessionPlugin {
     // MARK: Public methods
 
     func set(session: MetronomeSession) {
-        cancellable = session.configurationPublisher().sink { configuration in
+        cancellable = session.$configuration.sink { configuration in
             if let receivedContextConfiguration = try? UserInfoDecoder<[String: Any]>().decode(MetronomeConfiguration.self, from: WCSession.default.receivedApplicationContext), receivedContextConfiguration == configuration {
                 return
             }

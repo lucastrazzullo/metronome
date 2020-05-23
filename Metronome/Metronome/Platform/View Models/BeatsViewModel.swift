@@ -22,7 +22,7 @@ class BeatsViewModel: ObservableObject {
 
     init(metronomeController: MetronomeController) {
         controller = metronomeController
-        cancellable = controller.session.configurationPublisher().sink { [weak self] configuration in
+        cancellable = controller.session.$configuration.sink { [weak self] configuration in
             if configuration.timeSignature.barLength.numberOfBeats != self?.beats.count {
                 self?.reloadBeats(configuration.timeSignature.barLength.beats)
             }

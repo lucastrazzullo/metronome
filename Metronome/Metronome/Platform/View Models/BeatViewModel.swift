@@ -94,12 +94,12 @@ class BeatViewModel: ObservableObject, Identifiable {
         self.label = String(position + 1)
         self.state = State(with: position, timeSignature: controller.session.configuration.timeSignature, highlightedBeat: controller.session.currentBeat, isRunning: controller.session.isRunning)
 
-        self.cancellables.append(Publishers.CombineLatest(controller.session.isRunningPublisher(), controller.session.currentBeatPublisher()).sink {
+        self.cancellables.append(Publishers.CombineLatest(controller.session.$isRunning, controller.session.$currentBeat).sink {
             [weak self] isRunning, currentBeat in
             self?.state.set(highlightedBeat: currentBeat, isRunning: isRunning, position: position)
         })
 
-        self.cancellables.append(controller.session.configurationPublisher().sink {
+        self.cancellables.append(controller.session.$configuration.sink {
             [weak self] configuration in
             self?.state.set(timeSignature: configuration.timeSignature, position: position)
         })

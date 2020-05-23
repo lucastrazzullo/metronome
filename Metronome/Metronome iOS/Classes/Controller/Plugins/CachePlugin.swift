@@ -26,10 +26,10 @@ class CachePlugin: SessionPlugin {
     // MARK: Public methods
 
     func set(session: MetronomeSession) {
-        cancellables.append(session.configurationPublisher().sink { [weak self] configuration in
+        cancellables.append(session.$configuration.sink { [weak self] configuration in
             self?.cacheConfigurationValues(configuration: configuration)
         })
-        cancellables.append(session.isSoundOnPublisher().sink { [weak self] isSoundOn in
+        cancellables.append(session.$isSoundOn.sink { [weak self] isSoundOn in
             self?.cacheIsSoundOn(isSoundOn)
         })
     }

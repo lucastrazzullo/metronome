@@ -11,14 +11,16 @@ import Foundation
 class DefaultMetronomeController: MetronomeController {
 
     private(set) var session: MetronomeSession
+
     private let metronome: Metronome
 
 
     // MARK: Object life cycle
 
     init(metronome: Metronome) {
+        self.session = MetronomeSession(with: .with(metronome: metronome))
         self.metronome = metronome
-        self.session = DefaultMetronomeSession(metronome: metronome)
+        self.metronome.delegate = self
     }
     
     
@@ -61,5 +63,35 @@ class DefaultMetronomeController: MetronomeController {
 
     func set(tempoBpm: Int) {
         metronome.configuration.setBpm(tempoBpm)
+    }
+}
+
+
+extension DefaultMetronomeController: MetronomeDelegate {
+
+    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
+        self.session.configuration = configuration
+    }
+
+
+    func metronome(_ metronome: Metronome, didUpdate isSoundOn: Bool) {
+        self.session.isSoundOn = isSoundOn
+    }
+
+
+    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
+        self.session.currentBeat = beat
+    }
+
+
+    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
+        self.session.isRunning = true
+        self.session.currentBeat = beat
+    }
+
+
+    func metronome(_ metronome: Metronome, willResetAt beat: Beat?) {
+        self.session.isRunning = false
+        self.session.currentBeat = beat
     }
 }

@@ -18,7 +18,7 @@ class PlatformIdleTimerPlugin: SessionPlugin {
 
     func set(session: MetronomeSession) {
         cancellables.append(
-            session.isRunningPublisher()
+            session.$isRunning
                 .sink { isRunning in
                     UIApplication.shared.isIdleTimerDisabled = isRunning
                 }
