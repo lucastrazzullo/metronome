@@ -58,7 +58,7 @@ class UserActivityPlugin: NSObject, SessionPlugin {
     // MARK: Public methods
 
     func set(session: MetronomeSession) {
-        cancellables.append(session.$configuration.sink { [weak self] configuration in
+        cancellables.append(session.configurationPublisher().sink { [weak self] configuration in
             self?.setupMetronomeUserActivity = UserActivityFactory.buildActivity(for: .configureMetronome, with: configuration)
             self?.setupMetronomeUserActivity?.becomeCurrent()
 
@@ -66,7 +66,7 @@ class UserActivityPlugin: NSObject, SessionPlugin {
             self?.startMetronomeUserActivity?.delegate = self
         })
 
-        cancellables.append(session.$isRunning.sink { [weak self] isRunning in
+        cancellables.append(session.isRunningPublisher().sink { [weak self] isRunning in
             if isRunning {
                 self?.startMetronomeUserActivity?.becomeCurrent()
             } else {

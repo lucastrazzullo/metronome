@@ -20,13 +20,13 @@ class HapticPlugin: SessionPlugin {
     // MARK: Public methods
 
     func set(session: MetronomeSession) {
-        cancellables.append(session.$currentBeat
+        cancellables.append(session.currentBeatPublisher()
             .sink(receiveValue: { [weak self] beat in
                 guard let beat = beat else { return }
                 self?.impactGenerator.impactOccurred(intensity: beat.isAccent ? 1.0 : 0.5)
             }))
 
-        cancellables.append(session.$isRunning
+        cancellables.append(session.isRunningPublisher()
             .sink(receiveValue: { [weak self] _ in
                 self?.selectionGenerator.selectionChanged()
             }))

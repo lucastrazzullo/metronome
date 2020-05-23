@@ -48,7 +48,7 @@ class SoundPlugin: SessionPlugin {
     // MARK: Public methods
 
     func set(session: MetronomeSession) {
-        cancellables.append(session.$configuration.sink { [weak self] configuration in
+        cancellables.append(session.configurationPublisher().sink { [weak self] configuration in
             guard let engine = self?.engine else { return }
             engine.stop()
 
@@ -81,7 +81,7 @@ class SoundPlugin: SessionPlugin {
             try? engine.start()
         })
 
-        cancellables.append(session.$currentBeat.sink { [weak self, weak session] beat in
+        cancellables.append(session.currentBeatPublisher().sink { [weak self, weak session] beat in
             guard session?.isSoundOn == true, self?.engine.isRunning == true,
                 let beat = beat,
                 let buffer = self?.buffers[beat.position]

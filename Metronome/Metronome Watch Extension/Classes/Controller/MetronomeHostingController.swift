@@ -43,7 +43,7 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
             session.activate()
         }
         
-        cancellables.append(metronomeController.session.$configuration.sink { configuration in
+        cancellables.append(metronomeController.session.configurationPublisher().sink { configuration in
             if let receivedContextConfiguration = try? UserInfoDecoder<[String: Any]>().decode(MetronomeConfiguration.self, from: WCSession.default.receivedApplicationContext), receivedContextConfiguration == configuration {
                 return
             }
@@ -55,7 +55,7 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
             }
         })
 
-        cancellables.append(metronomeController.session.$isRunning.sink { isRunning in
+        cancellables.append(metronomeController.session.isRunningPublisher().sink { isRunning in
             if isRunning {
                 WKInterfaceDevice.current().play(WKHapticType.start)
             } else {
@@ -63,7 +63,7 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
             }
         })
 
-        cancellables.append(metronomeController.session.$currentBeat.sink { beat in
+        cancellables.append(metronomeController.session.currentBeatPublisher().sink { beat in
             guard let beat = beat else { return }
             if beat.isAccent {
                 WKInterfaceDevice.current().play(WKHapticType.start)

@@ -10,7 +10,7 @@ import Foundation
 
 class DummyMetronomeController: MetronomeController {
 
-    private(set) var session: MetronomeSession = MetronomeSession(metronome: Metronome(with: .default, soundOn: false))
+    private(set) var session: MetronomeSession = DummyMetronomeSession()
 
 
     // MARK: Public methods

@@ -44,24 +44,24 @@ class ControlsViewModel: ObservableObject {
         metronomeIsRunning = controller.session.isRunning
         metronomeSoundIsOn = controller.session.isSoundOn
 
-        cancellables.append(controller.session.$configuration.sink { [weak self] configuration in
+        cancellables.append(controller.session.configurationPublisher().sink { [weak self] configuration in
             let timeSignature = configuration.timeSignature
             self?.timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, timeSignature.barLength.numberOfBeats, timeSignature.noteLength.rawValue)
             self?.tempoLabel = String(format: Copy.Tempo.format.localised, configuration.tempo.bpm, Copy.Tempo.unit.localised.uppercased())
         })
 
-        cancellables.append(controller.session.$isSoundOn.sink { [weak self] isSoundOn in
+        cancellables.append(controller.session.isSoundOnPublisher().sink { [weak self] isSoundOn in
             self?.soundTogglerIcon = isSoundOn ? SystemIcon.soundOn : SystemIcon.soundOff
             self?.metronomeSoundIsOn = isSoundOn
         })
 
-        cancellables.append(controller.session.$isRunning.sink { [weak self] isRunning in
+        cancellables.append(controller.session.isRunningPublisher().sink { [weak self] isRunning in
             self?.metronomeIsRunning = isRunning
             self?.metronomeTogglerLabel = isRunning ? Copy.Controls.stop.localised : Copy.Controls.start.localised
             self?.tapTempoIndicatorIsHighlighted = isRunning
         })
 
-        cancellables.append(Publishers.CombineLatest(controller.session.$currentBeat, controller.session.$isRunning).sink {
+        cancellables.append(Publishers.CombineLatest(controller.session.currentBeatPublisher(), controller.session.isRunningPublisher()).sink {
             [weak self] _, isRunning in
             if isRunning {
                 self?.tapTempoIndicatorIsHighlighted.toggle()

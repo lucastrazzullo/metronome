@@ -18,7 +18,7 @@ class DefaultMetronomeController: MetronomeController {
 
     init(metronome: Metronome) {
         self.metronome = metronome
-        self.session = MetronomeSession(metronome: metronome)
+        self.session = DefaultMetronomeSession(metronome: metronome)
     }
     
     

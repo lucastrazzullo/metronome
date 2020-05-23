@@ -8,78 +8,41 @@
 
 import Combine
 
-class MetronomeSession {
-
-    struct Snapshot {
-        var configuration: MetronomeConfiguration
-        var isSoundOn: Bool
-        var isRunning: Bool
-        var currentBeat: Beat?
-    }
+struct Snapshot {
+    var configuration: MetronomeConfiguration
+    var isSoundOn: Bool
+    var isRunning: Bool
+    var currentBeat: Beat?
+}
 
 
-    // MARK: Instance properties
+protocol MetronomeSession: AnyObject {
+    var configuration: MetronomeConfiguration { get set }
+    var isSoundOn: Bool { get set }
+    var isRunning: Bool { get set }
+    var currentBeat: Beat? { get set }
 
-    @Published var configuration: MetronomeConfiguration
-    @Published var isSoundOn: Bool
-    @Published var isRunning: Bool
-    @Published var currentBeat: Beat?
-
-    private var metronome: Metronome
-
-
-    // MARK: Object life cycle
-
-    init(metronome: Metronome) {
-        self.configuration = metronome.configuration
-        self.isSoundOn = metronome.isSoundOn
-        self.isRunning = metronome.isRunning
-        self.currentBeat = metronome.currentBeat
-        self.metronome = metronome
-        self.metronome.delegate = self
-    }
+    func configurationPublisher() -> AnyPublisher<MetronomeConfiguration, Never>
+    func isSoundOnPublisher() -> AnyPublisher<Bool, Never>
+    func isRunningPublisher() -> AnyPublisher<Bool, Never>
+    func currentBeatPublisher() -> AnyPublisher<Beat?, Never>
+}
 
 
-    // MARK: Public methods
+extension MetronomeSession {
 
-    func snapshot() -> Snapshot {
-        return Snapshot(configuration: configuration, isSoundOn: isSoundOn, isRunning: isRunning, currentBeat: currentBeat)
+    func currentSnapshot() -> Snapshot {
+        Snapshot(configuration: configuration, isSoundOn: isSoundOn, isRunning: isRunning, currentBeat: currentBeat)
     }
 
 
     func snapshotPublisher() -> AnyPublisher<Snapshot, Never> {
-        return Publishers.CombineLatest4($configuration, $isSoundOn, $isRunning, $currentBeat)
+        return Publishers.CombineLatest4(
+            configurationPublisher(),
+            isSoundOnPublisher(),
+            isRunningPublisher(),
+            currentBeatPublisher())
             .map(Snapshot.init)
             .eraseToAnyPublisher()
-    }
-}
-
-
-extension MetronomeSession: MetronomeDelegate {
-
-    func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
-        self.configuration = configuration
-    }
-
-
-    func metronome(_ metronome: Metronome, didUpdate isSoundOn: Bool) {
-        self.isSoundOn = isSoundOn
-    }
-
-
-    func metronome(_ metronome: Metronome, didPulse beat: Beat) {
-        self.currentBeat = beat
-    }
-
-
-    func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
-        self.isRunning = true
-        self.currentBeat = beat
-    }
-
-
-    func metronome(_ metronome: Metronome, willResetAt beat: Beat?) {
-        self.isRunning = false
-        self.currentBeat = beat
     }
 }
