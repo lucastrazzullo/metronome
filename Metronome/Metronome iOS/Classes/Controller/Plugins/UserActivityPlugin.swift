@@ -9,18 +9,17 @@
 import UIKit
 import Combine
 
-class UserActivityPlugin: NSObject, SessionPlugin {
+class UserActivityPlugin: NSObject, MetronomePlugin {
 
     // MARK: Instance properties
+
+    weak var controller: MetronomeController?
 
     private var setupMetronomeUserActivity: NSUserActivity?
     private var startMetronomeUserActivity: NSUserActivity?
 
     private var cancellables: [AnyCancellable] = []
     private var observer: NSObjectProtocol?
-
-    private let controller: MetronomeController
-
 
 
     // MARK: Object life cycle
@@ -80,6 +79,6 @@ class UserActivityPlugin: NSObject, SessionPlugin {
 extension UserActivityPlugin: NSUserActivityDelegate {
 
     func userActivityWasContinued(_ userActivity: NSUserActivity) {
-        controller.reset()
+        controller?.reset()
     }
 }

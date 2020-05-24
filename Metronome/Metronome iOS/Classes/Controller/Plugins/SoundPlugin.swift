@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import AVFoundation
 
-class SoundPlugin: SessionPlugin {
+class SoundPlugin: MetronomePlugin {
     internal init(engine: AVAudioEngine, players: [AnyHashable : AVAudioPlayerNode] = [:], buffers: [AnyHashable : AVAudioPCMBuffer] = [:], audios: [AnyHashable : AVAudioFile] = [:], cancellables: [AnyCancellable] = []) {
         self.engine = engine
         self.players = players

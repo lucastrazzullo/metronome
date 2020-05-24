@@ -18,13 +18,18 @@ class DefaultMetronomeController: MetronomeController {
     // MARK: Object life cycle
 
     init(metronome: Metronome) {
-        self.session = MetronomeSession(with: .with(metronome: metronome))
+        self.session = MetronomeSession(withSnapshot: .with(metronome: metronome))
         self.metronome = metronome
         self.metronome.delegate = self
     }
-    
-    
+
+
     // MARK: Public methods
+
+    func start() {
+        metronome.start()
+    }
+
 
     func reset() {
         metronome.reset()

@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import WatchConnectivity
 
-class WatchConnectivityPlugin: NSObject, SessionPlugin {
+class WatchConnectivityPlugin: NSObject, MetronomePlugin {
     
     private let controller: MetronomeController
 

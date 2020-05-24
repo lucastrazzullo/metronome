@@ -10,10 +10,14 @@ import Foundation
 
 class DummyMetronomeController: MetronomeController {
 
-    private(set) var session: MetronomeSession = MetronomeSession(configuration: .default, isSoundOn: false, isRunning: false, currentBeat: nil)
+    private(set) var session: MetronomeSession = .init(withSnapshot: .default())
 
 
     // MARK: Public methods
+
+    func start() {
+    }
+
     
     func reset() {
     }

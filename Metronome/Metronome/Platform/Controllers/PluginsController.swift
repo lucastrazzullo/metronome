@@ -8,16 +8,16 @@
 
 import Foundation
 
-protocol SessionPlugin {
+protocol MetronomePlugin {
     func set(session: MetronomeSession)
 }
 
 
-class MetronomeSessionPluginsController {
+class PluginsController {
 
-    private let plugins: [SessionPlugin]
+    private let plugins: [MetronomePlugin]
 
-    init(session: MetronomeSession, plugins: [SessionPlugin]) {
+    init(session: MetronomeSession, plugins: [MetronomePlugin]) {
         self.plugins = plugins
         self.plugins.forEach { controller in
             controller.set(session: session)

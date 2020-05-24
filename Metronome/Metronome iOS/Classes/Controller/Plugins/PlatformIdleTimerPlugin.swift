@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class PlatformIdleTimerPlugin: SessionPlugin {
+class PlatformIdleTimerPlugin: MetronomePlugin {
 
     private var cancellables = [AnyCancellable]()
 

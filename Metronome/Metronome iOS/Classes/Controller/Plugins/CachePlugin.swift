@@ -9,7 +9,7 @@
 import Foundation
 import Combine
 
-class CachePlugin: SessionPlugin {
+class CachePlugin: MetronomePlugin {
 
     private let stateCache: MetronomeStateCache
     private var cancellables: [AnyCancellable]

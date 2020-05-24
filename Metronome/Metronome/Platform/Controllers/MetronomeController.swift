@@ -8,10 +8,11 @@
 
 import Foundation
 
-protocol MetronomeController {
+protocol MetronomeController: AnyObject {
 
     var session: MetronomeSession { get }
 
+    func start()
     func reset()
     func toggleIsRunning()
     func toggleIsSoundOn()

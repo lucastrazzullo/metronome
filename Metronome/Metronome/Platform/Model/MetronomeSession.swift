@@ -19,6 +19,10 @@ class MetronomeSession {
         static func with(metronome: Metronome) -> Snapshot {
             return Snapshot(configuration: metronome.configuration, isSoundOn: metronome.isSoundOn, isRunning: metronome.isRunning, currentBeat: metronome.currentBeat)
         }
+
+        static func `default`() -> Snapshot {
+            return Snapshot(configuration: .default, isSoundOn: false, isRunning: false, currentBeat: nil)
+        }
     }
 
 
@@ -40,7 +44,7 @@ class MetronomeSession {
     }
 
 
-    init(with snapshot: Snapshot) {
+    init(withSnapshot snapshot: Snapshot) {
         self.configuration = snapshot.configuration
         self.isSoundOn = snapshot.isSoundOn
         self.isRunning = snapshot.isRunning

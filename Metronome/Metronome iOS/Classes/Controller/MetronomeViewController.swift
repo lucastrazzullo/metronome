@@ -11,21 +11,17 @@ import WatchConnectivity
 
 class MetronomeViewController: UIViewController, ContainerViewController {
 
-    private let metronome: Metronome
     private let metronomeController: MetronomeController
-    private let metronomeSessionBinder: MetronomeSessionPluginsController
-
-    private let cache: MetronomeStateCache
+    private let pluginsController: PluginsController
 
 
     //  MARK: Object life cycle
 
     required init?(coder: NSCoder) {
-        cache = MetronomeStateCache(entry: UserDefaultBackedEntryCache())
-
-        metronome = Metronome(with: cache.configuration, soundOn: cache.isSoundOn)
+        let cache = MetronomeStateCache(entry: UserDefaultBackedEntryCache())
+        let metronome = Metronome(with: cache.configuration, soundOn: cache.isSoundOn)
         metronomeController = DefaultMetronomeController(metronome: metronome)
-        metronomeSessionBinder = MetronomeSessionPluginsController(session: metronomeController.session, plugins: [
+        pluginsController = PluginsController(session: metronomeController.session, plugins: [
             PlatformIdleTimerPlugin(),
             HapticPlugin(),
             CachePlugin(cache: cache),
@@ -33,7 +29,6 @@ class MetronomeViewController: UIViewController, ContainerViewController {
             UserActivityPlugin(controller: metronomeController),
             WatchConnectivityPlugin(controller: metronomeController)
         ])
-
         super.init(coder: coder)
     }
 
@@ -49,17 +44,17 @@ class MetronomeViewController: UIViewController, ContainerViewController {
     // MARK: Public methods
 
     func setupMetronome(with configuration: MetronomeConfiguration) {
-        metronome.configuration = configuration
+        metronomeController.set(configuration: configuration)
     }
 
 
     func startMetronome(with configuration: MetronomeConfiguration) {
-        metronome.configuration = configuration
-        metronome.start()
+        metronomeController.set(configuration: configuration)
+        metronomeController.start()
     }
 
 
     func resetMetronome() {
-        metronome.reset()
+        metronomeController.reset()
     }
 }
