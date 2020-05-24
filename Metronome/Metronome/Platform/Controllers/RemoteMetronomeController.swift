@@ -1,5 +1,5 @@
 //
-//  DummyMetronomeController.swift
+//  RemoteMetronomeController.swift
 //  Metronome CocoaTests
 //
 //  Created by luca strazzullo on 22/5/20.
@@ -8,7 +8,7 @@
 
 import Foundation
 
-class DummyMetronomeController: MetronomeController {
+class RemoteMetronomeController: MetronomeController {
 
     private(set) var session: MetronomeSession = .init(withSnapshot: .default())
 

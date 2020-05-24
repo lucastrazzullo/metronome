@@ -21,36 +21,10 @@ struct ControlsView: View {
             SoundTogglerButton(viewModel: viewModel)
             RunningTogglerButton(viewModel: viewModel)
         }
+        .brandFont(.headline)
+            
         .padding([.leading, .trailing, .bottom], 24)
         .padding([.top], 12)
-    }
-}
-
-
-private struct ControlsButton<Content>: View where Content: View {
-
-    private(set) var highlighted: Bool
-    private(set) var background: ShapeIllustration
-    private(set) var action: () -> ()
-    private(set) var content: () -> Content
-
-    var body: some View {
-        Button(action: action) {
-            ZStack {
-                Image(background)
-                    .resizable()
-                    .renderingMode(highlighted ? .original : .template)
-                    .foregroundColor(Palette.gray.color)
-                    .animation(.default)
-
-                content()
-                    .brandFont(.headline)
-                    .padding(12)
-                    .foregroundColor(highlighted ? Palette.white.color : Palette.white.color.opacity(0.29))
-            }
-            .frame(minHeight: 44, idealHeight: 44, maxHeight: 44, alignment: .center)
-            .fixedSize()
-        }
     }
 }
 
@@ -64,11 +38,10 @@ private struct TempoButton: View {
     @State private var showingPicker: Bool = false
 
     var body: some View {
-        ControlsButton(highlighted: !viewModel.metronomeIsRunning, background: .button1, action: {
-            self.showingPicker.toggle()
-        }) {
+        Button(action: { self.showingPicker.toggle() }) {
             Text(self.viewModel.tempoLabel)
         }
+        .buttonStyle(ShapedButtonStyle(highlighted: !viewModel.metronomeIsRunning, shape: .button1))
         .sheet(isPresented: $showingPicker) {
             TempoPickerView(viewModel: TempoPickerViewModel(controller: self.viewModel.controller))
                 .onAppear(perform: { self.viewModel.reset() })
@@ -84,20 +57,15 @@ private struct TempoTapButton: View {
     @State private var showingPicker: Bool = false
 
     var body: some View {
-        ControlsButton(highlighted: !viewModel.metronomeIsRunning, background: .button2, action: {
-            self.showingPicker.toggle()
-        }) {
-            ZStack {
-                GeometryReader { geometry in
-                    Circle()
-                        .frame(width: 8, height: 8, alignment: .center)
-                        .position(x: geometry.size.width - 8, y: 2)
-                        .foregroundColor(self.viewModel.tapTempoIndicatorIsHighlighted ? Palette.green.color : Palette.white.color)
-                }
-
+        Button(action: { self.showingPicker.toggle() }) {
+            HStack(alignment: .top, spacing: 8) {
                 Text(self.viewModel.tapTempoLabel)
+                Circle()
+                    .frame(width: 8, height: 8, alignment: .center)
+                    .foregroundColor(self.viewModel.tapTempoIndicatorIsHighlighted ? Palette.green.color : Palette.white.color)
             }
         }
+        .buttonStyle(ShapedButtonStyle(highlighted: !viewModel.metronomeIsRunning, shape: .button2))
         .sheet(isPresented: $showingPicker) {
             TapTempoPickerView(viewModel: TapTempoPickerViewModel(controller: self.viewModel.controller))
                 .onAppear(perform: { self.viewModel.reset() })
@@ -113,11 +81,10 @@ private struct TimeSignatureButton: View {
     @State private var showingPicker: Bool = false
 
     var body: some View {
-        ControlsButton(highlighted: !viewModel.metronomeIsRunning, background: .button4, action: {
-            self.showingPicker.toggle()
-        }) {
+        Button(action: { self.showingPicker.toggle() }) {
             Text(self.viewModel.timeSignatureLabel)
         }
+        .buttonStyle(ShapedButtonStyle(highlighted: !viewModel.metronomeIsRunning, shape: .button4))
         .sheet(isPresented: $showingPicker) {
             TimeSignaturePickerView(viewModel: TimeSignaturePickerViewModel(controller: self.viewModel.controller))
                 .onAppear(perform: { self.viewModel.reset() })
@@ -131,9 +98,13 @@ private struct SoundTogglerButton: View {
     @ObservedObject var viewModel: ControlsViewModel
 
     var body: some View {
-        ControlsButton(highlighted: viewModel.metronomeSoundIsOn, background: .button5, action: viewModel.toggleSoundOn) {
+        Button(action: viewModel.toggleSoundOn) {
             Image(self.viewModel.soundTogglerIcon)
+                .font(Font.system(.callout).weight(.bold))
+                .padding(.vertical, 4)
+                .frame(minWidth: 32, idealWidth: 32, maxWidth: 32, alignment: .center)
         }
+        .buttonStyle(ShapedButtonStyle(highlighted: viewModel.metronomeSoundIsOn, shape: .button5))
     }
 }
 
@@ -143,8 +114,10 @@ private struct RunningTogglerButton: View {
     @ObservedObject var viewModel: ControlsViewModel
 
     var body: some View {
-        ControlsButton(highlighted: !viewModel.metronomeIsRunning, background: .button6, action: viewModel.toggleIsRunning) {
+        Button(action: viewModel.toggleIsRunning) {
             Text(self.viewModel.metronomeTogglerLabel)
+                .frame(minWidth: 44, idealWidth: 44, maxWidth: 44, alignment: .center)
         }
+        .buttonStyle(ShapedButtonStyle(highlighted: !viewModel.metronomeIsRunning, shape: .button6))
     }
 }

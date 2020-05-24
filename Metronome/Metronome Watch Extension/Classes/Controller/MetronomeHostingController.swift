@@ -26,7 +26,7 @@ class MetronomeHostingController: WKHostingController<MetronomeView> {
     // MARK: Object life cycle
 
     override init() {
-        metronomeController = DummyMetronomeController()
+        metronomeController = RemoteMetronomeController()
         metronomeViewModel = MetronomeViewModel(metronomeController: metronomeController)
         super.init()
     }

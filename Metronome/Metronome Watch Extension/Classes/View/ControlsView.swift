@@ -18,12 +18,12 @@ struct ControlsView: View {
                 NavigationLink(destination: tempoPickerView()) {
                     Text(viewModel.tempoLabel)
                 }
-                .buttonStyle(MetronomeButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button3))
+                .buttonStyle(ShapedButtonStyle(highlighted: !viewModel.metronomeIsRunning, shape: .button3))
 
                 NavigationLink(destination: timeSignaturePickerView()) {
                     Text(viewModel.timeSignatureLabel)
                 }
-                .buttonStyle(MetronomeButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button4))
+                .buttonStyle(ShapedButtonStyle(highlighted: !viewModel.metronomeIsRunning, shape: .button4))
             }
 
             HStack(alignment: .center, spacing: 24) {
@@ -31,7 +31,7 @@ struct ControlsView: View {
                 Button(action: viewModel.toggleIsRunning) {
                     Text(viewModel.metronomeTogglerLabel)
                 }
-                .buttonStyle(MetronomeButtonStyle(highlighted: !viewModel.metronomeIsRunning, background: .button6))
+                .buttonStyle(ShapedButtonStyle(highlighted: !viewModel.metronomeIsRunning, shape: .button6))
                 Spacer()
             }
         }

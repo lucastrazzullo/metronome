@@ -36,7 +36,7 @@ struct TempoPickerView: View {
                 Button(action: done) {
                     Text(Copy.Controls.done.localised)
                 }
-                .buttonStyle(MetronomeButtonStyle(highlighted: true, background: .button1))
+                .buttonStyle(ShapedButtonStyle(highlighted: true, shape: .button1))
                 Spacer()
             }
         }
