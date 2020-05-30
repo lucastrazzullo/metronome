@@ -7,11 +7,10 @@
 //
 
 import UIKit
-import WatchConnectivity
 
 class MetronomeViewController: UIViewController, ContainerViewController {
 
-    private let metronomeController: MetronomeController
+    private let sessionController: SessionController
     private let pluginsController: PluginsController
 
 
@@ -20,15 +19,15 @@ class MetronomeViewController: UIViewController, ContainerViewController {
     required init?(coder: NSCoder) {
         let cache = MetronomeStateCache(entry: UserDefaultBackedEntryCache())
         let metronome = Metronome(with: cache.configuration, soundOn: cache.isSoundOn)
-        metronomeController = DefaultMetronomeController(metronome: metronome)
-        pluginsController = PluginsController(session: metronomeController.session, plugins: [
+        sessionController = MetronomeSessionController(metronome: metronome)
+        pluginsController = PluginsController(with: [
             PlatformIdleTimerPlugin(),
             HapticPlugin(),
             CachePlugin(cache: cache),
             SoundPlugin(),
-            UserActivityPlugin(controller: metronomeController),
-            WatchConnectivityPlugin(controller: metronomeController)
-        ])
+            UserActivityPlugin(controller: sessionController),
+            WatchRemotePlugin(controller: sessionController)
+        ], sessionController: sessionController)
         super.init(coder: coder)
     }
 
@@ -37,24 +36,24 @@ class MetronomeViewController: UIViewController, ContainerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addChildViewController(MetronomeHostingController(with: metronomeController), in: view)
+        addChildViewController(MetronomeHostingController(with: sessionController), in: view)
     }
 
 
     // MARK: Public methods
 
     func setupMetronome(with configuration: MetronomeConfiguration) {
-        metronomeController.set(configuration: configuration)
+        sessionController.set(configuration: configuration)
     }
 
 
     func startMetronome(with configuration: MetronomeConfiguration) {
-        metronomeController.set(configuration: configuration)
-        metronomeController.start()
+        sessionController.set(configuration: configuration)
+        sessionController.start()
     }
 
 
     func resetMetronome() {
-        metronomeController.reset()
+        sessionController.reset()
     }
 }

@@ -11,7 +11,7 @@ import Combine
 
 class MetronomeHostingController: UIHostingController<AnyView>, ContainerViewController {
 
-    init(with controller: MetronomeController) {
+    init(with controller: SessionController) {
         let viewModel = MetronomeViewModel(metronomeController: controller)
         let view = AnyView(MetronomeView(viewModel: viewModel))
         super.init(rootView: view)

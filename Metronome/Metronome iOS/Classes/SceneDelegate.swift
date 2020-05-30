@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         if let shortcutItem = (UIApplication.shared.delegate as? AppDelegate)?.shortcutItemToProcess,
             let userInfo = shortcutItem.userInfo,
-            let configuration = try? UserInfoDecoder().decode(MetronomeConfiguration.self, from: userInfo) {
+            let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: userInfo) {
             (UIApplication.shared.delegate as? AppDelegate)?.shortcutItemToProcess = nil
             (window?.rootViewController as? MetronomeViewController)?.startMetronome(with: configuration)
         }
@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                              localizedTitle: title,
                                              localizedSubtitle: subtitle,
                                              icon: UIApplicationShortcutIcon(type: .play),
-                                             userInfo: try? UserInfoEncoder().encode(configuration))
+                                             userInfo: try? DictionaryEncoder().encode(configuration))
         }
     }
 
@@ -62,7 +62,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
         guard let activity = ActivityType(rawValue: userActivity.activityType) else { return }
         guard let userInfo = userActivity.userInfo else { return }
-        guard let configuration = try? UserInfoDecoder().decode(MetronomeConfiguration.self, from: userInfo) else { return }
+        guard let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: userInfo) else { return }
         switch activity {
         case .configureMetronome:
             (window?.rootViewController as? MetronomeViewController)?.setupMetronome(with: configuration)

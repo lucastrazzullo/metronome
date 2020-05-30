@@ -1,5 +1,5 @@
 //
-//  WatchConnectivityPlugin.swift
+//  WatchRemoteReceiverPlugin.swift
 //  Metronome Cocoa iOS
 //
 //  Created by luca strazzullo on 19/5/20.
@@ -10,31 +10,30 @@ import Foundation
 import Combine
 import WatchConnectivity
 
-class WatchConnectivityPlugin: NSObject, MetronomePlugin {
+class WatchRemoteReceiverPlugin: NSObject, MetronomePlugin {
     
-    private let controller: MetronomeController
-
-    private var cancellable: AnyCancellable?
+    private let controller: SessionController
+    private var cancellables: Set<AnyCancellable> = []
 
 
     // MARK: Object life cycle
 
-    init(controller: MetronomeController) {
+    init(controller: SessionController) {
         self.controller = controller
         super.init()
-
-        if WCSession.isSupported() {
-            let session = WCSession.default
-            session.delegate = self
-            session.activate()
-        }
     }
 
 
     // MARK: Public methods
 
     func set(session: MetronomeSession) {
-        cancellable = session.$configuration.sink { configuration in
+        if WCSession.isSupported() {
+            let session = WCSession.default
+            session.delegate = self
+            session.activate()
+        }
+
+        session.$configuration.sink { configuration in
             if let receivedContextConfiguration = try? UserInfoDecoder<[String: Any]>().decode(MetronomeConfiguration.self, from: WCSession.default.receivedApplicationContext), receivedContextConfiguration == configuration {
                 return
             }
@@ -48,11 +47,12 @@ class WatchConnectivityPlugin: NSObject, MetronomePlugin {
                 try? WCSession.default.updateApplicationContext(userInfo)
             }
         }
+        .store(in: &cancellables)
     }
 }
 
 
-extension WatchConnectivityPlugin: WCSessionDelegate {
+extension WatchRemoteReceiverPlugin: WCSessionDelegate {
 
     func sessionDidBecomeInactive(_ session: WCSession) {
     }

@@ -1,5 +1,5 @@
 //
-//  DefaultMetronomeController.swift
+//  MetronomeSessionController.swift
 //  Metronome CocoaTests
 //
 //  Created by luca strazzullo on 22/5/20.
@@ -7,18 +7,25 @@
 //
 
 import Foundation
+import Combine
 
-class DefaultMetronomeController: MetronomeController {
+class MetronomeSessionController: SessionController {
 
-    private(set) var session: MetronomeSession
+    var sessionPublisher: AnyPublisher<MetronomeSession, Never> {
+        return currentSessionPublisher.eraseToAnyPublisher()
+    }
+    var session: MetronomeSession? {
+        return currentSessionPublisher.value
+    }
 
+    private let currentSessionPublisher: CurrentValueSubject<MetronomeSession, Never>
     private let metronome: Metronome
 
 
     // MARK: Object life cycle
 
     init(metronome: Metronome) {
-        self.session = MetronomeSession(withSnapshot: .with(metronome: metronome))
+        self.currentSessionPublisher = CurrentValueSubject<MetronomeSession, Never>(MetronomeSession(withSnapshot: .with(metronome: metronome)))
         self.metronome = metronome
         self.metronome.delegate = self
     }
@@ -72,31 +79,31 @@ class DefaultMetronomeController: MetronomeController {
 }
 
 
-extension DefaultMetronomeController: MetronomeDelegate {
+extension MetronomeSessionController: MetronomeDelegate {
 
     func metronome(_ metronome: Metronome, didUpdate configuration: MetronomeConfiguration) {
-        self.session.configuration = configuration
+        self.session?.configuration = configuration
     }
 
 
     func metronome(_ metronome: Metronome, didUpdate isSoundOn: Bool) {
-        self.session.isSoundOn = isSoundOn
+        self.session?.isSoundOn = isSoundOn
     }
 
 
     func metronome(_ metronome: Metronome, didPulse beat: Beat) {
-        self.session.currentBeat = beat
+        self.session?.currentBeat = beat
     }
 
 
     func metronome(_ metronome: Metronome, willStartWithSuspended beat: Beat?) {
-        self.session.isRunning = true
-        self.session.currentBeat = beat
+        self.session?.isRunning = true
+        self.session?.currentBeat = beat
     }
 
 
     func metronome(_ metronome: Metronome, willResetAt beat: Beat?) {
-        self.session.isRunning = false
-        self.session.currentBeat = beat
+        self.session?.isRunning = false
+        self.session?.currentBeat = beat
     }
 }

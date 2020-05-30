@@ -75,9 +75,9 @@ class BeatViewModel: ObservableObject, Identifiable {
     // MARK: Instance properties
 
     @Published private(set) var label: String
-    @Published private(set) var state: State
+    @Published private(set) var state: State = []
 
-    let controller: MetronomeController
+    let controller: SessionController
 
     private(set) var position: Int
     private(set) var isTemporaryValueSelected: Bool = false
@@ -87,22 +87,32 @@ class BeatViewModel: ObservableObject, Identifiable {
 
     // MARK: Object life cycle
 
-    init(at position: Int, controller: MetronomeController) {
+    init(at position: Int, controller: SessionController) {
         self.position = position
-        self.controller = controller
-
         self.label = String(position + 1)
-        self.state = State(with: position, timeSignature: controller.session.configuration.timeSignature, highlightedBeat: controller.session.currentBeat, isRunning: controller.session.isRunning)
+        self.controller = controller
+        self.controller.sessionPublisher
+            .sink(receiveValue: setupWith(session:))
+            .store(in: &cancellables)
+    }
 
-        self.cancellables.append(Publishers.CombineLatest(controller.session.$isRunning, controller.session.$currentBeat).sink {
-            [weak self] isRunning, currentBeat in
+
+    //  MARK: Setup
+
+    private func setupWith(session: MetronomeSession) {
+        state = State(with: position, timeSignature: session.configuration.timeSignature, highlightedBeat: session.currentBeat, isRunning: session.isRunning)
+
+        Publishers.CombineLatest(session.$isRunning, session.$currentBeat).sink {
+            [weak self, position] isRunning, currentBeat in
             self?.state.set(highlightedBeat: currentBeat, isRunning: isRunning, position: position)
-        })
+        }
+        .store(in: &cancellables)
 
-        self.cancellables.append(controller.session.$configuration.sink {
-            [weak self] configuration in
+        session.$configuration.sink {
+            [weak self, position] configuration in
             self?.state.set(timeSignature: configuration.timeSignature, position: position)
-        })
+        }
+        .store(in: &cancellables)
     }
 
 

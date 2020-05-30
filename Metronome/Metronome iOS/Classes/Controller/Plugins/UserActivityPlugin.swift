@@ -13,7 +13,7 @@ class UserActivityPlugin: NSObject, MetronomePlugin {
 
     // MARK: Instance properties
 
-    weak var controller: MetronomeController?
+    weak var controller: SessionController?
 
     private var setupMetronomeUserActivity: NSUserActivity?
     private var startMetronomeUserActivity: NSUserActivity?
@@ -24,7 +24,7 @@ class UserActivityPlugin: NSObject, MetronomePlugin {
 
     // MARK: Object life cycle
 
-    init(controller: MetronomeController) {
+    init(controller: SessionController) {
         self.controller = controller
         super.init()
         setupObserver()

@@ -8,7 +8,7 @@
 
 import Foundation
 
-class UserInfoEncoder<ContentType> {
+class DictionaryEncoder<ContentType> {
 
     private let encoder = JSONEncoder()
 
@@ -38,7 +38,7 @@ class UserInfoEncoder<ContentType> {
     }
 }
 
-class UserInfoDecoder<ContentType> {
+class DictionaryDecoder<ContentType> {
 
     private let decoder = JSONDecoder()
 

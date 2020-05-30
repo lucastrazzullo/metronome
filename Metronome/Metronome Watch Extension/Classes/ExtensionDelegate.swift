@@ -19,8 +19,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
                 // Be sure to complete the background task once you’re done.
                 backgroundTask.setTaskCompletedWithSnapshot(false)
             case let snapshotTask as WKSnapshotRefreshBackgroundTask:
-                if let configuration = try? UserInfoDecoder().decode(MetronomeConfiguration.self, from:  snapshotTask.userInfo) {
-                    (WKExtension.shared().rootInterfaceController as? MetronomeHostingController)?.setupMetronome(with: configuration)
+                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from:  snapshotTask.userInfo) {
+                    (WKExtension.shared().rootInterfaceController as? MetronomeHostingController)?.update(with: configuration)
                 }
                 snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
             case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:

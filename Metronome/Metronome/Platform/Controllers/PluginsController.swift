@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Combine
 
 protocol MetronomePlugin {
     func set(session: MetronomeSession)
@@ -16,10 +17,24 @@ protocol MetronomePlugin {
 class PluginsController {
 
     private let plugins: [MetronomePlugin]
+    private var cancellables: Set<AnyCancellable> = []
 
-    init(session: MetronomeSession, plugins: [MetronomePlugin]) {
-        self.plugins = plugins
-        self.plugins.forEach { controller in
+
+    // MARK: Object life cycle
+
+    init(with pluginList: [MetronomePlugin], sessionController: SessionController) {
+        plugins = pluginList
+
+        sessionController.sessionPublisher
+            .sink(receiveValue: set(session:))
+            .store(in: &cancellables)
+    }
+
+
+    // MARK: Session
+
+    private func set(session: MetronomeSession) {
+        plugins.forEach { controller in
             controller.set(session: session)
         }
     }
