@@ -7,33 +7,27 @@
 //
 
 import UIKit
-import WatchConnectivity
 
 class MetronomeViewController: UIViewController, ContainerViewController {
 
-    private let metronome: Metronome
-    private let metronomeController: MetronomeController
-    private let metronomeSessionBinder: MetronomeSessionPluginsController
-
-    private let cache: MetronomeStateCache
+    private let sessionController: SessionController
+    private let pluginsController: PluginsController
 
 
     //  MARK: Object life cycle
 
     required init?(coder: NSCoder) {
-        cache = MetronomeStateCache(entry: UserDefaultBackedEntryCache())
-
-        metronome = Metronome(with: cache.configuration, soundOn: cache.isSoundOn)
-        metronomeController = DefaultMetronomeController(metronome: metronome)
-        metronomeSessionBinder = MetronomeSessionPluginsController(session: metronomeController.session, plugins: [
+        let cache = MetronomeStateCache(entry: UserDefaultBackedEntryCache())
+        let metronome = Metronome(with: cache.configuration, soundOn: cache.isSoundOn)
+        sessionController = MetronomeSessionController(metronome: metronome)
+        pluginsController = PluginsController(with: [
             PlatformIdleTimerPlugin(),
             HapticPlugin(),
             CachePlugin(cache: cache),
             SoundPlugin(),
-            UserActivityPlugin(controller: metronomeController),
-            WatchConnectivityPlugin(controller: metronomeController)
-        ])
-
+            UserActivityPlugin(controller: sessionController),
+            WatchRemotePlugin(controller: sessionController)
+        ], sessionController: sessionController)
         super.init(coder: coder)
     }
 
@@ -42,24 +36,24 @@ class MetronomeViewController: UIViewController, ContainerViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        addChildViewController(MetronomeHostingController(with: metronomeController), in: view)
+        addChildViewController(MetronomeHostingController(with: sessionController), in: view)
     }
 
 
     // MARK: Public methods
 
     func setupMetronome(with configuration: MetronomeConfiguration) {
-        metronome.configuration = configuration
+        sessionController.set(configuration: configuration)
     }
 
 
     func startMetronome(with configuration: MetronomeConfiguration) {
-        metronome.configuration = configuration
-        metronome.start()
+        sessionController.set(configuration: configuration)
+        sessionController.start()
     }
 
 
     func resetMetronome() {
-        metronome.reset()
+        sessionController.reset()
     }
 }

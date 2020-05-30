@@ -9,9 +9,11 @@
 import UIKit
 import Combine
 
-class UserActivityPlugin: NSObject, SessionPlugin {
+class UserActivityPlugin: NSObject, MetronomePlugin {
 
     // MARK: Instance properties
+
+    weak var controller: SessionController?
 
     private var setupMetronomeUserActivity: NSUserActivity?
     private var startMetronomeUserActivity: NSUserActivity?
@@ -19,13 +21,10 @@ class UserActivityPlugin: NSObject, SessionPlugin {
     private var cancellables: [AnyCancellable] = []
     private var observer: NSObjectProtocol?
 
-    private let controller: MetronomeController
-
-
 
     // MARK: Object life cycle
 
-    init(controller: MetronomeController) {
+    init(controller: SessionController) {
         self.controller = controller
         super.init()
         setupObserver()
@@ -80,6 +79,6 @@ class UserActivityPlugin: NSObject, SessionPlugin {
 extension UserActivityPlugin: NSUserActivityDelegate {
 
     func userActivityWasContinued(_ userActivity: NSUserActivity) {
-        controller.reset()
+        controller?.reset()
     }
 }

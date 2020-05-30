@@ -11,12 +11,12 @@ import Combine
 
 class MetronomeViewModel {
 
-    let controller: MetronomeController
+    let controller: SessionController
 
 
     // MARK: Object life cycle
 
-    init(metronomeController: MetronomeController) {
+    init(metronomeController: SessionController) {
         controller = metronomeController
     }
 

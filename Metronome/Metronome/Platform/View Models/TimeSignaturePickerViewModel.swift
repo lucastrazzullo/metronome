@@ -11,25 +11,33 @@ import Combine
 
 class TimeSignaturePickerViewModel: ObservableObject {
 
-    @Published var selectedBarLength: Int
-    @Published var selectedAccentPositions: Set<Int>
-    @Published var selectedNoteLength: Int
+    @Published var selectedBarLength: Int = 0
+    @Published var selectedAccentPositions: Set<Int> = []
+    @Published var selectedNoteLength: Int = 0
 
-    let controller: MetronomeController
+    let barLengthItems: [Beat] = TimeSignature.BarLength.maximum.beats
+    let noteLengthItems: [TimeSignature.NoteLength] = TimeSignature.NoteLength.allCases
+    let controller: SessionController
 
-    private(set) var barLengthItems: [Beat]
-    private(set) var noteLengthItems: [TimeSignature.NoteLength]
+    private var cancellables: Set<AnyCancellable> = []
 
 
     // MARK: Object life cycle
 
-    init(controller: MetronomeController) {
+    init(controller: SessionController) {
         self.controller = controller
-        self.barLengthItems = TimeSignature.BarLength.maximum.beats
-        self.noteLengthItems = TimeSignature.NoteLength.allCases
-        self.selectedBarLength = controller.session.configuration.timeSignature.barLength.numberOfBeats
-        self.selectedAccentPositions = controller.session.configuration.timeSignature.barLength.accentPositions
-        self.selectedNoteLength = controller.session.configuration.timeSignature.noteLength.rawValue
+        self.controller.sessionPublisher
+            .sink(receiveValue: setupWith(session:))
+            .store(in: &cancellables)
+    }
+
+
+    //  MARK: Setup
+
+    private func setupWith(session: MetronomeSession) {
+        selectedBarLength = session.configuration.timeSignature.barLength.numberOfBeats
+        selectedAccentPositions = session.configuration.timeSignature.barLength.accentPositions
+        selectedNoteLength = session.configuration.timeSignature.noteLength.rawValue
     }
 
 

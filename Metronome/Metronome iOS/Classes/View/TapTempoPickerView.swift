@@ -91,7 +91,7 @@ struct TapTempoPickerView_Preview: PreviewProvider {
 
     static var previews: some View {
         let metronome = Metronome(with: .default, soundOn: false)
-        let controller = DefaultMetronomeController(metronome: metronome)
+        let controller = MetronomeSessionController(metronome: metronome)
         let viewModel = TapTempoPickerViewModel(controller: controller)
         return TapTempoPickerView(viewModel: viewModel)
             .previewLayout(.fixed(width: 568, height: 320))

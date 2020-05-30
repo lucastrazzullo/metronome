@@ -11,21 +11,32 @@ import Combine
 
 class TempoPickerViewModel: ObservableObject {
 
-    @Published var selectedTempoBpm: Double
+    @Published var selectedTempoBpm: Double = 0
 
-    let controller: MetronomeController
+    let controller: SessionController
 
-    private(set) var tempoItems: [Int]
-    private(set) var tempoRange: ClosedRange<Int>
+    private(set) var tempoItems: [Int] = Array(Tempo.range)
+    private(set) var tempoRange: ClosedRange<Int> = Tempo.range
+
+    private var cancellables: Set<AnyCancellable> = []
 
 
     // MARK: Object life cycle
 
-    init(controller: MetronomeController) {
+    init(controller: SessionController) {
         self.controller = controller
-        self.tempoItems = Array(Tempo.range)
-        self.tempoRange = Tempo.range
-        self.selectedTempoBpm = Double(controller.session.configuration.tempo.bpm)
+        self.controller.sessionPublisher
+            .sink(receiveValue: setupWith(session:))
+            .store(in: &cancellables)
+    }
+
+
+    //  MARK: Setup
+
+    private func setupWith(session: MetronomeSession) {
+        session.$configuration
+            .sink(receiveValue: { [weak self] in self?.selectedTempoBpm = Double($0.tempo.bpm) })
+            .store(in: &cancellables)
     }
 
 

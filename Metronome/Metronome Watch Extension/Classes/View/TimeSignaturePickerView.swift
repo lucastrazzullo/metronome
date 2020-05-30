@@ -39,7 +39,7 @@ struct TimeSignaturePickerView: View {
             Button(action: done) {
                 Text(Copy.Controls.done.localised)
             }
-            .buttonStyle(MetronomeButtonStyle(highlighted: true, background: .button4))
+            .buttonStyle(ShapedButtonStyle(highlighted: true, shape: .button4))
         }
     }
 

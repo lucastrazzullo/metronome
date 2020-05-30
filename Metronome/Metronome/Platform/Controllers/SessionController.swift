@@ -7,11 +7,14 @@
 //
 
 import Foundation
+import Combine
 
-protocol MetronomeController {
+protocol SessionController: AnyObject {
 
-    var session: MetronomeSession { get }
+    var sessionPublisher: AnyPublisher<MetronomeSession, Never> { get }
+    var session: MetronomeSession? { get }
 
+    func start()
     func reset()
     func toggleIsRunning()
     func toggleIsSoundOn()

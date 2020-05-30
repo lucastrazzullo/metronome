@@ -19,26 +19,33 @@ struct TempoPickerView: View {
     // MARK: Body
 
     var body: some View {
-        VStack(alignment: .center, spacing: 12) {
-            Spacer()
+        ZStack(alignment: .bottom) {
+            ZStack() {
+                Circle()
+                    .trim(from: 0, to: trimPercentage())
+                    .stroke(style: StrokeStyle(lineWidth: 6,
+                                               lineCap: .round,
+                                               lineJoin: .round))
+                    .foregroundColor(Palette.yellow.color)
+                    .animation(.default)
+                    .padding(8)
 
-            VStack(alignment: .center) {
-                Text(String(Int(viewModel.selectedTempoBpm)))
-                    .brandFont(.largeTitle)
-                    .focusable(true)
-                    .digitalCrownRotation($viewModel.selectedTempoBpm, from: Double(viewModel.tempoRange.lowerBound), through: Double(viewModel.tempoRange.upperBound), by: 1, sensitivity: .high, isContinuous: false, isHapticFeedbackEnabled: true)
+                VStack(alignment: .center) {
+                    Text(String(Int(viewModel.selectedTempoBpm)))
 
-                Text(Copy.Tempo.unit.localised).font(.footnote)
-            }
+                        .brandFont(.largeTitle)
+                        .focusable(true)
+                        .digitalCrownRotation($viewModel.selectedTempoBpm, from: Double(viewModel.tempoRange.lowerBound), through: Double(viewModel.tempoRange.upperBound), by: 1, sensitivity: .high, isContinuous: false, isHapticFeedbackEnabled: true)
 
-            HStack(alignment: .center) {
-                Spacer()
-                Button(action: done) {
-                    Text(Copy.Controls.done.localised)
+                    Text(Copy.Tempo.unit.localised).font(.footnote)
                 }
-                .buttonStyle(MetronomeButtonStyle(highlighted: true, background: .button1))
-                Spacer()
+                .padding(.bottom, 24)
             }
+
+            Button(action: viewModel.commit, label: {
+                Text(Copy.Controls.done.localised)
+            })
+            .buttonStyle(ShapedButtonStyle(highlighted: true, shape: .button4))
         }
     }
 
@@ -48,5 +55,21 @@ struct TempoPickerView: View {
     private func done() {
         viewModel.commit()
         presentationMode.wrappedValue.dismiss()
+    }
+
+
+    private func trimPercentage() -> CGFloat {
+        return CGFloat(viewModel.selectedTempoBpm / Double(viewModel.tempoRange.upperBound - viewModel.tempoRange.lowerBound))
+    }
+}
+
+
+struct TempoPickerView_Previews: PreviewProvider {
+
+    static var previews: some View {
+        let controller = RemoteSessionController()
+        controller.set(tempoBpm: 300)
+        let viewModel = TempoPickerViewModel(controller: controller)
+        return TempoPickerView(viewModel: viewModel)
     }
 }

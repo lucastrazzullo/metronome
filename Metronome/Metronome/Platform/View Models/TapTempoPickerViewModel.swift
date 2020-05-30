@@ -7,21 +7,22 @@
 //
 
 import Foundation
+import Combine
 
 class TapTempoPickerViewModel: ObservableObject {
 
     @Published private(set) var selectedTempoBpm: Int?
 
-    let controller: MetronomeController
+    let controller: SessionController
 
-    private var tapTimestamps: [TimeInterval]
+    private var tapTimestamps: [TimeInterval] = []
+    private var cancellables: Set<AnyCancellable> = []
 
 
     // MARK: Object life cycle
 
-    init(controller: MetronomeController) {
+    init(controller: SessionController) {
         self.controller = controller
-        self.tapTimestamps = []
     }
 
 
@@ -29,7 +30,7 @@ class TapTempoPickerViewModel: ObservableObject {
 
     func update(with timestamp: TimeInterval) {
         if let frequency = getFrequency(withNew: timestamp) {
-            selectedTempoBpm = controller.session.configuration.getBpm(with: frequency)
+            selectedTempoBpm = controller.session?.configuration.getBpm(with: frequency)
         }
     }
 

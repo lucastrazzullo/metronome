@@ -23,7 +23,7 @@ struct UserActivityFactory {
 
         activity.title = "\(Copy.Controls.start.localised) \(timeSignature) \(Copy.App.title.localised)"
         activity.keywords = [Copy.App.title.localised, Copy.TimeSignature.title.localised, timeSignature]
-        activity.userInfo = try? UserInfoEncoder().encode(configuration)
+        activity.userInfo = try? DictionaryEncoder().encode(configuration)
 
         return activity
     }
