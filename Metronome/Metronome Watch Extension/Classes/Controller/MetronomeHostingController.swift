@@ -13,6 +13,7 @@ class MetronomeHostingController: WKHostingController<TempoPickerView> {
 
     override var body: TempoPickerView {
         let viewModel = TempoPickerViewModel(controller: sessionController)
+        viewModel.isAutomaticCommitActive = true
         return TempoPickerView(viewModel: viewModel)
     }
 

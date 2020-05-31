@@ -15,6 +15,8 @@ class TempoPickerViewModel: ObservableObject {
 
     let controller: SessionController
 
+    var isAutomaticCommitActive: Bool = false
+
     private(set) var tempoItems: [Int] = Array(Tempo.range)
     private(set) var tempoRange: ClosedRange<Int> = Tempo.range
 
@@ -28,6 +30,12 @@ class TempoPickerViewModel: ObservableObject {
         self.controller.sessionPublisher
             .sink(receiveValue: setupWith(session:))
             .store(in: &cancellables)
+
+        self.$selectedTempoBpm
+            .debounce(for: 0.8, scheduler: DispatchQueue.main)
+            .filter({ [weak self] _ in self?.isAutomaticCommitActive ?? false })
+            .sink(receiveValue: { [weak self] _ in self?.commit() })
+            .store(in: &cancellables)
     }
 
 
@@ -35,7 +43,9 @@ class TempoPickerViewModel: ObservableObject {
 
     private func setupWith(session: MetronomeSession) {
         session.$configuration
-            .sink(receiveValue: { [weak self] in self?.selectedTempoBpm = Double($0.tempo.bpm) })
+            .map({ $0.tempo.bpm })
+            .removeDuplicates()
+            .sink(receiveValue: { [weak self] in self?.selectedTempoBpm = Double($0) })
             .store(in: &cancellables)
     }
 
