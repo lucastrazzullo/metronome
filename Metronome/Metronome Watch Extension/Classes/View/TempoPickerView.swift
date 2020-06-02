@@ -11,8 +11,6 @@ import Combine
 
 struct TempoPickerView: View {
 
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-
     @ObservedObject private(set) var viewModel: TempoPickerViewModel
 
 
@@ -52,10 +50,8 @@ struct TempoPickerView: View {
                 .padding(.top, 12)
             }
 
-            Button(action: {}) {
-                Text(Copy.Tempo.title.localised)
-            }
-            .buttonStyle(ShapedButtonStyle(highlighted: true, shape: .button6))
+            Text(Copy.Tempo.title.localised)
+                .brandFont(.headline)
         }
     }
 

@@ -32,6 +32,13 @@ class MetronomeHostingController: WKHostingController<TempoPickerView> {
 
     // MARK: Interface life cycle
 
+    override func awake(withContext context: Any?) {
+        if let context = context as? [String: Any], let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: context) {
+            sessionController.set(configuration: configuration)
+        }
+    }
+
+
     override func didDeactivate() {
         sessionController.reset()
         super.didDeactivate()

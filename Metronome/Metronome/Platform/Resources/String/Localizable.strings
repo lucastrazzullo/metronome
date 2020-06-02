@@ -49,30 +49,3 @@
 
 "metronome.picker.tap_tempo.title" = "Tap tempo";
 "metronome.picker.tap_tempo.value.placeholder" = "Tap here ...";
-
-
-// MARK: Welcome
-
-"welcome.title" = "Welcome! Here are a few tips for you.";
-
-
-// MARK: Tips
-
-"tips.title" = "Tips";
-"tips.swipeUp.title" = "Show tips";
-"tips.swipeUp.description" = "Swipe up to present tips";
-
-"tips.toggle.title" = "On/Off";
-"tips.toggle.description" = "Single Tap to toggle on/off";
-
-"tips.vertical_slide.title" = "Tempo";
-"tips.vertical_slide.description" = "Slide with two fingers up/down to update tempo";
-
-"tips.horizontal_slide.title" = "Bar Length (4)/4";
-"tips.horizontal_slide.description" = "Slide with two fingers left/right to update bar length";
-
-"tips.pinch.title" = "Note Length 4/(4)";
-"tips.pinch.description" = "Pinch in/out to update note length";
-
-"tips.long_press.title" = "Tap Tempo";
-"tips.long_press.description" = "Long press to present tempo tap recogniser";
