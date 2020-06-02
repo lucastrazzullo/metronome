@@ -16,22 +16,28 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
             // Use a switch statement to check the task type
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
-                // Be sure to complete the background task once you’re done.
-                backgroundTask.setTaskCompletedWithSnapshot(false)
+                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from:  backgroundTask.userInfo) {
+                    (WKExtension.shared().rootInterfaceController as? MetronomeHostingController)?.update(with: configuration)
+                }
+                backgroundTask.setTaskCompletedWithSnapshot(true)
             case let snapshotTask as WKSnapshotRefreshBackgroundTask:
                 if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from:  snapshotTask.userInfo) {
                     (WKExtension.shared().rootInterfaceController as? MetronomeHostingController)?.update(with: configuration)
                 }
                 snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
             case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
-                // Be sure to complete the connectivity task once you’re done.
-                connectivityTask.setTaskCompletedWithSnapshot(false)
+                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from:  connectivityTask.userInfo) {
+                    (WKExtension.shared().rootInterfaceController as? MetronomeHostingController)?.update(with: configuration)
+                }
+                connectivityTask.setTaskCompletedWithSnapshot(true)
             case let urlSessionTask as WKURLSessionRefreshBackgroundTask:
                 // Be sure to complete the URL session task once you’re done.
                 urlSessionTask.setTaskCompletedWithSnapshot(false)
             case let relevantShortcutTask as WKRelevantShortcutRefreshBackgroundTask:
-                // Be sure to complete the relevant-shortcut task once you're done.
-                relevantShortcutTask.setTaskCompletedWithSnapshot(false)
+                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from:  relevantShortcutTask.userInfo) {
+                    (WKExtension.shared().rootInterfaceController as? MetronomeHostingController)?.update(with: configuration)
+                }
+                relevantShortcutTask.setTaskCompletedWithSnapshot(true)
             case let intentDidRunTask as WKIntentDidRunRefreshBackgroundTask:
                 // Be sure to complete the intent-did-run task once you're done.
                 intentDidRunTask.setTaskCompletedWithSnapshot(false)
