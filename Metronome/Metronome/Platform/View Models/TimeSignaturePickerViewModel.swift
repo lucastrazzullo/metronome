@@ -65,9 +65,7 @@ class TimeSignaturePickerViewModel: ObservableObject {
 
 
     func toggleIsAccent(at position: Int) {
-        if position >= selectedBarLength {
-            selectedBarLength = position + 1
-        } else {
+        if position < selectedBarLength {
             if selectedAccentPositions.contains(position) {
                 selectedAccentPositions.remove(position)
             } else {
