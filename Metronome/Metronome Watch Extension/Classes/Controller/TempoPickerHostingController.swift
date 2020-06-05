@@ -9,24 +9,16 @@
 import WatchKit
 import SwiftUI
 
-class MetronomeHostingController: WKHostingController<TempoPickerView> {
+class TempoPickerHostingController: WKHostingController<TempoPickerView> {
+
+    var sessionController: SessionController {
+        return (WKExtension.shared().delegate as! ExtensionDelegate).sessionController
+    }
 
     override var body: TempoPickerView {
         let viewModel = TempoPickerViewModel(controller: sessionController)
         viewModel.isAutomaticCommitActive = true
         return TempoPickerView(viewModel: viewModel)
-    }
-
-    private let sessionController: RemoteSessionController
-    private let metronomeViewModel: MetronomeViewModel
-
-
-    // MARK: Object life cycle
-
-    override init() {
-        sessionController = RemoteSessionController()
-        metronomeViewModel = MetronomeViewModel(metronomeController: sessionController)
-        super.init()
     }
 
 
@@ -42,12 +34,5 @@ class MetronomeHostingController: WKHostingController<TempoPickerView> {
     override func didDeactivate() {
         sessionController.reset()
         super.didDeactivate()
-    }
-    
-    
-    // MARK: Public methods
-    
-    func update(with configuration: MetronomeConfiguration) {
-        sessionController.set(configuration: configuration)
     }
 }
