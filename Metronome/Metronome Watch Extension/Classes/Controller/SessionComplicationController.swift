@@ -39,9 +39,9 @@ class SessionComplicationController: NSObject, CLKComplicationDataSource {
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
         let tempo = controller.session?.configuration.tempo ?? Tempo(bpm: 120)
 
-        let template = CLKComplicationTemplateModularSmallRingText()
-        template.fillFraction = percentage(per: tempo)
-        template.textProvider = CLKSimpleTextProvider(text: String(tempo.bpm))
+        let template = CLKComplicationTemplateModularSmallStackText()
+        template.line1TextProvider = CLKSimpleTextProvider(text: String(tempo.bpm))
+        template.line2TextProvider = CLKSimpleTextProvider(text: Copy.Tempo.unit.localised)
 
         let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
         handler(entry)
@@ -59,17 +59,9 @@ class SessionComplicationController: NSObject, CLKComplicationDataSource {
 
     func getPlaceholderTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         let tempo = Tempo(bpm: 120)
-        let template = CLKComplicationTemplateModularSmallRingText()
-        template.fillFraction = percentage(per: tempo)
-        template.textProvider = CLKSimpleTextProvider(text: String(tempo.bpm))
+        let template = CLKComplicationTemplateModularSmallStackText()
+        template.line1TextProvider = CLKSimpleTextProvider(text: String(tempo.bpm))
+        template.line2TextProvider = CLKSimpleTextProvider(text: Copy.Tempo.unit.localised)
         handler(template)
-    }
-
-
-    // MARK: Private helper methods
-
-    private func percentage(per tempo: Tempo) -> Float {
-        let tempo = controller.session?.configuration.tempo ?? Tempo(bpm: 120)
-        return Float(Double(tempo.bpm) / Double(Tempo.range.upperBound - Tempo.range.lowerBound))
     }
 }
