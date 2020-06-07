@@ -38,7 +38,7 @@ struct TimeSignaturePickerView: View {
                                 .frame(width: 46, height: 46)
 
                             HStack(alignment: .center, spacing: 8) {
-                                ForEach(viewModel.barLengthItems, id: \.position) { item in
+                                ForEach(viewModel.beats, id: \.position) { item in
                                     Button(action: { self.viewModel.toggleIsAccent(at: item.position) }) {
                                         VStack(alignment: .center, spacing: 4) {
                                             Text(String(item.position + 1))
@@ -69,13 +69,13 @@ struct TimeSignaturePickerView: View {
                             .opacity(0.36)
 
                         HStack(alignment: .center, spacing: 12) {
-                            ForEach(viewModel.noteLengthItems, id: \.self) { length in
-                                Button(action: { self.viewModel.selectNoteLength(length.rawValue) }) {
-                                    Text(String(length.rawValue))
+                            ForEach(viewModel.noteItems, id: \.self) { note in
+                                Button(action: { self.viewModel.selectNote(note) }) {
+                                    Text(String(note.rawValue))
                                         .brandFont(.subheadline)
                                         .padding([.top, .bottom], 8)
                                         .padding([.leading, .trailing], 12)
-                                        .background(Palette.white.color.opacity(self.opacity(forNoteWith: length.rawValue)))
+                                        .background(Palette.white.color.opacity(self.opacity(forNoteWith: note.rawValue)))
                                         .cornerRadius(4)
                                 }
                             }
@@ -121,12 +121,12 @@ struct TimeSignaturePickerView: View {
 
 
     private func opacity(forBeatAt position: Int) -> Double {
-        return viewModel.selectedBarLength > position ? 1 : 0.2
+        return Int(viewModel.selectedBarLength) > position ? 1 : 0.2
     }
 
 
     private func opacity(forNoteWith length: Int) -> Double {
-        return viewModel.selectedNoteLength == length ? 1 : 0.2
+        return viewModel.selectedNote.rawValue == length ? 1 : 0.2
     }
 }
 

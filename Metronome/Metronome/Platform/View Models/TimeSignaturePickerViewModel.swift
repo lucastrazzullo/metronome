@@ -11,12 +11,18 @@ import Combine
 
 class TimeSignaturePickerViewModel: ObservableObject {
 
-    @Published var selectedBarLength: Int = 0
+    @Published var selectedBarLength: Double = Double(TimeSignature.default.barLength.numberOfBeats)
+    @Published var selectedNoteIndex: Double = Double(TimeSignature.NoteLength.allCases.firstIndex(of: TimeSignature.default.noteLength) ?? 0)
     @Published var selectedAccentPositions: Set<Int> = []
-    @Published var selectedNoteLength: Int = 0
 
-    let barLengthItems: [Beat] = TimeSignature.BarLength.maximum.beats
-    let noteLengthItems: [TimeSignature.NoteLength] = TimeSignature.NoteLength.allCases
+    var selectedNote: TimeSignature.NoteLength {
+        return noteItems[Int(selectedNoteIndex)]
+    }
+
+    var isAutomaticCommitActive: Bool = false
+
+    let beats: [Beat] = TimeSignature.BarLength.maximum.beats
+    let noteItems: [TimeSignature.NoteLength] = TimeSignature.NoteLength.allCases
     let controller: SessionController
 
     private var cancellables: Set<AnyCancellable> = []
@@ -29,24 +35,32 @@ class TimeSignaturePickerViewModel: ObservableObject {
         self.controller.sessionPublisher
             .sink(receiveValue: setupWith(session:))
             .store(in: &cancellables)
+
+        self.$selectedBarLength
+            .combineLatest($selectedNoteIndex)
+            .combineLatest($selectedAccentPositions)
+            .debounce(for: 0.8, scheduler: DispatchQueue.main)
+            .filter({ [weak self] _ in self?.isAutomaticCommitActive ?? false })
+            .sink(receiveValue: { [weak self] _ in self?.commit() })
+            .store(in: &cancellables)
     }
 
 
     //  MARK: Setup
 
     private func setupWith(session: MetronomeSession) {
-        selectedBarLength = session.configuration.timeSignature.barLength.numberOfBeats
+        selectedBarLength = Double(session.configuration.timeSignature.barLength.numberOfBeats)
         selectedAccentPositions = session.configuration.timeSignature.barLength.accentPositions
-        selectedNoteLength = session.configuration.timeSignature.noteLength.rawValue
+        selectedNoteIndex = Double(noteItems.firstIndex(of: session.configuration.timeSignature.noteLength) ?? 0)
     }
 
 
     // MARK: Public methods
 
     func commit() {
-        let barLength = TimeSignature.BarLength(numberOfBeats: selectedBarLength, accentPositions: selectedAccentPositions)
-        let noteLength = TimeSignature.NoteLength(rawValue: selectedNoteLength)
-        let timeSignature = TimeSignature(barLength: barLength, noteLength: noteLength ?? .default)
+        let barLength = TimeSignature.BarLength(numberOfBeats: Int(selectedBarLength), accentPositions: selectedAccentPositions)
+        let noteLength = noteItems[Int(selectedNoteIndex)]
+        let timeSignature = TimeSignature(barLength: barLength, noteLength: noteLength)
         controller.set(timeSignature: timeSignature)
     }
 
@@ -54,18 +68,18 @@ class TimeSignaturePickerViewModel: ObservableObject {
     // MARK: Public methods - Bar Length
 
     func decreaseBarLength() {
-        selectedBarLength = max(TimeSignature.BarLength.range.lowerBound, min(TimeSignature.BarLength.range.upperBound, selectedBarLength - 1))
-        selectedAccentPositions.subtract(selectedBarLength...TimeSignature.BarLength.range.upperBound)
+        selectedBarLength = Double(max(TimeSignature.BarLength.range.lowerBound, min(TimeSignature.BarLength.range.upperBound, Int(selectedBarLength) - 1)))
+        selectedAccentPositions.subtract(Int(selectedBarLength)...TimeSignature.BarLength.range.upperBound)
     }
 
 
     func increaseBarLength() {
-        selectedBarLength = max(TimeSignature.BarLength.range.lowerBound, min(TimeSignature.BarLength.range.upperBound, selectedBarLength + 1))
+        selectedBarLength = Double(max(TimeSignature.BarLength.range.lowerBound, min(TimeSignature.BarLength.range.upperBound, Int(selectedBarLength) + 1)))
     }
 
 
     func toggleIsAccent(at position: Int) {
-        if position < selectedBarLength {
+        if position < Int(selectedBarLength) {
             if selectedAccentPositions.contains(position) {
                 selectedAccentPositions.remove(position)
             } else {
@@ -78,22 +92,22 @@ class TimeSignaturePickerViewModel: ObservableObject {
     // MARK: Public methods - Note Length
 
     func decreaseNoteLength() {
-        if let previous = TimeSignature.NoteLength(rawValue: selectedNoteLength)?.previous() {
-            selectedNoteLength = previous.rawValue
+        if Int(selectedNoteIndex) - 1 >= 0 {
+            selectedNoteIndex -= 1
         }
     }
 
 
     func increaseNoteLength() {
-        if let next = TimeSignature.NoteLength(rawValue: selectedNoteLength)?.next() {
-            selectedNoteLength = next.rawValue
+        if Int(selectedNoteIndex) + 1 < noteItems.count {
+            selectedNoteIndex += 1
         }
     }
 
 
-    func selectNoteLength(_ length: Int) {
-        if let noteLength = TimeSignature.NoteLength(rawValue: length) {
-            selectedNoteLength = noteLength.rawValue
+    func selectNote(_ note: TimeSignature.NoteLength) {
+        if let index = noteItems.firstIndex(of: note) {
+            selectedNoteIndex = Double(index)
         }
     }
 }

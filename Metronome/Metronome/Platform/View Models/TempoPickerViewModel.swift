@@ -11,14 +11,11 @@ import Combine
 
 class TempoPickerViewModel: ObservableObject {
 
-    @Published var selectedTempoBpm: Double = 0
+    @Published var selectedTempoBpm: Double = Double(Tempo.default.bpm)
 
     let controller: SessionController
 
     var isAutomaticCommitActive: Bool = false
-
-    private(set) var tempoItems: [Int] = Array(Tempo.range)
-    private(set) var tempoRange: ClosedRange<Int> = Tempo.range
 
     private var cancellables: Set<AnyCancellable> = []
 
