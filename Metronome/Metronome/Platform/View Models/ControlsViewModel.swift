@@ -28,10 +28,10 @@ class ControlsViewModel: ObservableObject {
 
     // MARK: Object life cycle
 
-    init(metronomeController: SessionController) {
-        controller = metronomeController
+    init(sessionController: SessionController) {
+        controller = sessionController
 
-        metronomeController.sessionPublisher
+        sessionController.sessionPublisher
             .sink(receiveValue: setupWith(session:))
             .store(in: &cancellables)
     }

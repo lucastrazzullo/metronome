@@ -10,7 +10,7 @@ import SwiftUI
 
 struct MetronomeView: View {
 
-    private(set) var viewModel: MetronomeViewModel
+    private(set) var viewModel: SessionViewModel
 
     var body: some View {
         ZStack {
@@ -30,11 +30,11 @@ struct MetronomeView: View {
     // MARK: Private helper methods
 
     private func buildBeatsViewModel() -> BeatsViewModel {
-        return BeatsViewModel(metronomeController: viewModel.controller)
+        return BeatsViewModel(sessionController: viewModel.controller)
     }
 
 
     private func buildControlsViewModel() -> ControlsViewModel {
-        return ControlsViewModel(metronomeController: viewModel.controller)
+        return ControlsViewModel(sessionController: viewModel.controller)
     }
 }

@@ -10,44 +10,96 @@ import SwiftUI
 
 struct ControlsView: View {
 
-    @ObservedObject private(set) var viewModel: ControlsViewModel
+    enum Picker {
+        case tempo
+        case beats
+        case note
+    }
+
+
+    // MARK: Instance properties
+
+    @ObservedObject private(set) var tempoViewModel: TempoPickerViewModel
+    @ObservedObject private(set) var timeSignatureViewModel: TimeSignaturePickerViewModel
+
+    @State private var activePicker: Picker = .tempo
 
     var body: some View {
-        VStack(alignment: .center, spacing: 12) {
-            HStack(alignment: .center, spacing: 8) {
-                NavigationLink(destination: tempoPickerView()) {
-                    Text(viewModel.tempoLabel)
-                }
-                .buttonStyle(ShapedButtonStyle(highlighted: !viewModel.metronomeIsRunning, shape: .button3))
+        ZStack {
+            GeometryReader { geometry in
+                VStack(alignment: .center, spacing: 2) {
+                    VStack(alignment: .center) {
+                        Text(String(Int(self.tempoViewModel.selectedTempoBpm)))
+                            .brandFont(.title)
+                        Text(Copy.Tempo.unit.localised)
+                            .brandFont(.footnote)
+                            .opacity(0.75)
+                    }
+                    .frame(width: geometry.size.width, height: geometry.size.height / 2 - 2)
+                    .background(LinearGradient(self.activePicker == .tempo ? Palette.Gradients.greenBlue : Palette.Gradients.gray))
+                    .cornerRadius(8)
+                    .onTapGesture { self.activePicker = .tempo }
+                    .focusable(self.activePicker == .tempo)
+                    .digitalCrownRotation(self.$tempoViewModel.selectedTempoBpm,
+                                          from: Double(Tempo.range.lowerBound),
+                                          through: Double(Tempo.range.upperBound),
+                                          by: 1, sensitivity: .high,
+                                          isContinuous: false, isHapticFeedbackEnabled: true)
 
-                NavigationLink(destination: timeSignaturePickerView()) {
-                    Text(viewModel.timeSignatureLabel)
-                }
-                .buttonStyle(ShapedButtonStyle(highlighted: !viewModel.metronomeIsRunning, shape: .button4))
-            }
+                    HStack(alignment: .center, spacing: 2) {
+                        VStack {
+                            Text(String(Int(self.timeSignatureViewModel.selectedBarLength)))
+                                .brandFont(.title)
+                            Text("beats")
+                                .brandFont(.caption)
+                                .opacity(0.75)
+                        }
+                        .frame(width: geometry.size.width / 2 - 1, height: geometry.size.height / 2 - 1)
+                        .background(LinearGradient(self.activePicker == .beats ? Palette.Gradients.orangePink : Palette.Gradients.gray))
+                        .cornerRadius(8)
+                        .onTapGesture { self.activePicker = .beats }
+                        .focusable(self.activePicker == .beats)
+                        .digitalCrownRotation(self.$timeSignatureViewModel.selectedBarLength,
+                                              from: Double(TimeSignature.BarLength.range.lowerBound),
+                                              through: Double(TimeSignature.BarLength.range.upperBound),
+                                              by: 1, sensitivity: .low,
+                                              isContinuous: false, isHapticFeedbackEnabled: true)
 
-            HStack(alignment: .center, spacing: 24) {
-                Spacer()
-                Button(action: viewModel.toggleIsRunning) {
-                    Text(viewModel.metronomeTogglerLabel)
+                        VStack {
+                            Text(String(self.timeSignatureViewModel.selectedNote.rawValue))
+                                .brandFont(.title)
+                            Text("note")
+                                .brandFont(.caption)
+                                .opacity(0.75)
+                        }
+                        .frame(width: geometry.size.width / 2 - 1, height: geometry.size.height / 2 - 1)
+                        .background(LinearGradient(self.activePicker == .note ? Palette.Gradients.pinkOrange : Palette.Gradients.gray))
+                        .cornerRadius(8)
+                        .onTapGesture { self.activePicker = .note }
+                        .focusable(self.activePicker == .note)
+                        .digitalCrownRotation(self.$timeSignatureViewModel.selectedNoteIndex,
+                                              from: 0,
+                                              through: Double(self.timeSignatureViewModel.noteItems.count - 1),
+                                              by: 1, sensitivity: .low,
+                                              isContinuous: false, isHapticFeedbackEnabled: true)
+                    }
                 }
-                .buttonStyle(ShapedButtonStyle(highlighted: !viewModel.metronomeIsRunning, shape: .button6))
-                Spacer()
             }
         }
     }
+}
 
 
-    // MARK: Private helper methods
+struct ControlsView_Previews: PreviewProvider {
 
-    private func timeSignaturePickerView() -> some View {
-        let viewModel = TimeSignaturePickerViewModel(controller: self.viewModel.controller)
-        return TimeSignaturePickerView(viewModel: viewModel)
-    }
+    static var previews: some View {
+        let configuration = MetronomeConfiguration.default
+        let controller = RemoteSessionController()
+        controller.set(configuration: configuration)
 
+        let tempoViewModel = TempoPickerViewModel(controller: controller)
+        let timeSignatureViewModel = TimeSignaturePickerViewModel(controller: controller)
 
-    private func tempoPickerView() -> some View {
-        let viewModel = TempoPickerViewModel(controller: self.viewModel.controller)
-        return TempoPickerView(viewModel: viewModel)
+        return ControlsView(tempoViewModel: tempoViewModel, timeSignatureViewModel: timeSignatureViewModel)
     }
 }

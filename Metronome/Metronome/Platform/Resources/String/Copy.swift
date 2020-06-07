@@ -70,30 +70,4 @@ struct Copy {
             case valuePlaceholder = "metronome.picker.tap_tempo.value.placeholder"
         }
     }
-
-    enum Welcome: String, CopyIdentifier {
-        case title = "welcome.title"
-    }
-
-    enum Tips: String, CopyIdentifier {
-        case title = "tips.title"
-
-        case swipeUpTitle = "tips.swipeUp.title"
-        case swipeUpDescription = "tips.swipeUp.description"
-
-        case toggleTitle = "tips.toggle.title"
-        case toggleDescription = "tips.toggle.description"
-
-        case verticalSlideTitle = "tips.vertical_slide.title"
-        case verticalSlideDescription = "tips.vertical_slide.description"
-
-        case horizontalSlideTitle = "tips.horizontal_slide.title"
-        case horizontalSlideDescription = "tips.horizontal_slide.description"
-
-        case pinchTitle = "tips.pinch.title"
-        case pinchDescription = "tips.pinch.description"
-
-        case longPressTitle = "tips.long_press.title"
-        case longPressDescription = "tips.long_press.description"
-    }
 }

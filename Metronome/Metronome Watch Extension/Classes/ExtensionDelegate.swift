@@ -7,39 +7,90 @@
 //
 
 import WatchKit
+import Combine
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
+    let sessionController: SessionController = RemoteSessionController()
+    var cancellables: Set<AnyCancellable> = []
+
+
+    // MARK: Application life cycle
+
+    func applicationDidFinishLaunching() {
+        sessionController.sessionPublisher
+            .flatMap { session in return session.$configuration }
+            .sink { [weak self] configuration in
+                let server = CLKComplicationServer.sharedInstance()
+                for complication in server.activeComplications ?? [] {
+                    server.reloadTimeline(for: complication)
+                }
+
+                if let targetDate = self?.nextReloadTime(after: Date()) {
+                    WKExtension.shared().scheduleBackgroundRefresh(
+                        withPreferredDate: targetDate,
+                        userInfo: nil,
+                        scheduledCompletion: { _ in }
+                    )
+                }
+            }
+            .store(in: &cancellables)
+    }
+
+
+    // MARK: Background life cycle
+
     func handle(_ backgroundTasks: Set<WKRefreshBackgroundTask>) {
-        // Sent when the system needs to launch the application in the background to process tasks. Tasks arrive in a set, so loop through and process each one.
         for task in backgroundTasks {
-            // Use a switch statement to check the task type
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
-                // Be sure to complete the background task once you’re done.
-                backgroundTask.setTaskCompletedWithSnapshot(false)
-            case let snapshotTask as WKSnapshotRefreshBackgroundTask:
-                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from:  snapshotTask.userInfo) {
-                    (WKExtension.shared().rootInterfaceController as? MetronomeHostingController)?.update(with: configuration)
+                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: backgroundTask.userInfo) {
+                    sessionController.set(configuration: configuration)
                 }
-                snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: Date.distantFuture, userInfo: nil)
+                backgroundTask.setTaskCompletedWithSnapshot(true)
+            case let snapshotTask as WKSnapshotRefreshBackgroundTask:
+                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: snapshotTask.userInfo) {
+                    sessionController.set(configuration: configuration)
+                }
+                let expirationDate = nextReloadTime(after: Date())
+                snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: expirationDate, userInfo: nil)
             case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
-                // Be sure to complete the connectivity task once you’re done.
-                connectivityTask.setTaskCompletedWithSnapshot(false)
+                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: connectivityTask.userInfo) {
+                    sessionController.set(configuration: configuration)
+                }
+                connectivityTask.setTaskCompletedWithSnapshot(true)
             case let urlSessionTask as WKURLSessionRefreshBackgroundTask:
-                // Be sure to complete the URL session task once you’re done.
                 urlSessionTask.setTaskCompletedWithSnapshot(false)
             case let relevantShortcutTask as WKRelevantShortcutRefreshBackgroundTask:
-                // Be sure to complete the relevant-shortcut task once you're done.
-                relevantShortcutTask.setTaskCompletedWithSnapshot(false)
+                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: relevantShortcutTask.userInfo) {
+                    sessionController.set(configuration: configuration)
+                }
+                relevantShortcutTask.setTaskCompletedWithSnapshot(true)
             case let intentDidRunTask as WKIntentDidRunRefreshBackgroundTask:
-                // Be sure to complete the intent-did-run task once you're done.
                 intentDidRunTask.setTaskCompletedWithSnapshot(false)
             default:
-                // make sure to complete unhandled task types
                 task.setTaskCompletedWithSnapshot(false)
             }
         }
     }
 
+
+    // MARK: Private helper methods
+
+    private func nextReloadTime(after date: Date) -> Date {
+        let calendar = Calendar(identifier: .gregorian)
+        let targetMinutes = DateComponents(minute: 15)
+
+        var nextReloadTime = calendar.nextDate(
+            after: date,
+            matching: targetMinutes,
+            matchingPolicy: .nextTime
+        )!
+
+        if nextReloadTime.timeIntervalSince(date) < 5 * 60 {
+            nextReloadTime.addTimeInterval(3600)
+        }
+
+        return nextReloadTime
+    }
 }

@@ -21,7 +21,8 @@ private var systemFontDescription: [Font.TextStyle: BrandSystemFontDescription] 
     .callout: (16, .regular),
     .footnote: (12, .regular),
     .title: (32, .bold),
-    .body: (18, .regular)
+    .body: (18, .regular),
+    .caption: (10, .medium)
 ]
 
 
