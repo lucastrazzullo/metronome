@@ -11,7 +11,7 @@ import Combine
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
-    let sessionController: RemoteSessionController = RemoteSessionController()
+    let sessionController: SessionController = RemoteSessionController()
     var cancellables: Set<AnyCancellable> = []
 
 

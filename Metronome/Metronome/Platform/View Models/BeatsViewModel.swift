@@ -20,8 +20,8 @@ class BeatsViewModel: ObservableObject {
 
     // MARK: Object life cycle
 
-    init(metronomeController: SessionController) {
-        controller = metronomeController
+    init(sessionController: SessionController) {
+        controller = sessionController
         cancellable = controller.sessionPublisher
             .flatMap { $0.$configuration }
             .sink { [weak self] configuration in

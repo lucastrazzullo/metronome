@@ -5,10 +5,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBWatchKitPlugin" version="16012"/>
     </dependencies>
     <scenes>
-        <!--Tempo Picker Hosting Controller-->
+        <!--Session Hosting Controller-->
         <scene sceneID="dch-Sg-Aew">
             <objects>
-                <hostingController id="vKR-fY-XkD" customClass="TempoPickerHostingController" customModule="Metronome_Watch_Ext"/>
+                <hostingController id="vKR-fY-XkD" customClass="SessionHostingController" customModule="Metronome_Watch_Ext"/>
             </objects>
             <point key="canvasLocation" x="-92" y="-62"/>
         </scene>

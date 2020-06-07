@@ -9,16 +9,16 @@
 import WatchKit
 import SwiftUI
 
-class TempoPickerHostingController: WKHostingController<TempoPickerView> {
+class SessionHostingController: WKHostingController<AnyView> {
 
     var sessionController: SessionController {
         return (WKExtension.shared().delegate as! ExtensionDelegate).sessionController
     }
 
-    override var body: TempoPickerView {
+    override var body: AnyView {
         let viewModel = TempoPickerViewModel(controller: sessionController)
         viewModel.isAutomaticCommitActive = true
-        return TempoPickerView(viewModel: viewModel)
+        return AnyView(TempoPickerView(viewModel: viewModel))
     }
 
 

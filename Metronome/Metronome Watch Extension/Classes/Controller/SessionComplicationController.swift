@@ -1,5 +1,5 @@
 //
-//  TempoComplicationController.swift
+//  SessionComplicationController.swift
 //  Metronome Watch Extension
 //
 //  Created by luca strazzullo on 5/6/20.
@@ -9,9 +9,9 @@
 import WatchKit
 import ClockKit
 
-class TempoComplicationController: NSObject, CLKComplicationDataSource {
+class SessionComplicationController: NSObject, CLKComplicationDataSource {
 
-    var sessionController: SessionController {
+    private var controller: SessionController {
         return (WKExtension.shared().delegate as! ExtensionDelegate).sessionController
     }
 
@@ -37,7 +37,7 @@ class TempoComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Timeline Population
 
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
-        let tempo = sessionController.session?.configuration.tempo ?? Tempo(bpm: 120)
+        let tempo = controller.session?.configuration.tempo ?? Tempo(bpm: 120)
 
         let template = CLKComplicationTemplateModularSmallRingText()
         template.fillFraction = percentage(per: tempo)
@@ -69,7 +69,7 @@ class TempoComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: Private helper methods
 
     private func percentage(per tempo: Tempo) -> Float {
-        let tempo = sessionController.session?.configuration.tempo ?? Tempo(bpm: 120)
+        let tempo = controller.session?.configuration.tempo ?? Tempo(bpm: 120)
         return Float(Double(tempo.bpm) / Double(Tempo.range.upperBound - Tempo.range.lowerBound))
     }
 }
