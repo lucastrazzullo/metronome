@@ -11,14 +11,6 @@ import Combine
 import AVFoundation
 
 class SoundPlugin: MetronomePlugin {
-    internal init(engine: AVAudioEngine, players: [AnyHashable : AVAudioPlayerNode] = [:], buffers: [AnyHashable : AVAudioPCMBuffer] = [:], audios: [AnyHashable : AVAudioFile] = [:], cancellables: [AnyCancellable] = []) {
-        self.engine = engine
-        self.players = players
-        self.buffers = buffers
-        self.audios = audios
-        self.cancellables = cancellables
-    }
-
 
     struct SoundURL {
         static let normal = Bundle.main.url(forResource: "Beat-normal", withExtension: "mp3")!
@@ -36,7 +28,7 @@ class SoundPlugin: MetronomePlugin {
     // MARK: Object life cycle
 
     init() {
-        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+        try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .spokenAudio)
         try? AVAudioSession.sharedInstance().setActive(true)
 
         engine = AVAudioEngine()

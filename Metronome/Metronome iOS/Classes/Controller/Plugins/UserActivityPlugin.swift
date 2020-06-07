@@ -19,7 +19,6 @@ class UserActivityPlugin: NSObject, MetronomePlugin {
     private var startMetronomeUserActivity: NSUserActivity?
 
     private var cancellables: [AnyCancellable] = []
-    private var observer: NSObjectProtocol?
 
 
     // MARK: Object life cycle
@@ -27,30 +26,6 @@ class UserActivityPlugin: NSObject, MetronomePlugin {
     init(controller: SessionController) {
         self.controller = controller
         super.init()
-        setupObserver()
-    }
-
-
-    deinit {
-        removeObserver()
-    }
-
-
-    // MARK: Application Observer
-
-    private func setupObserver() {
-        observer = NotificationCenter.default.addObserver(forName: UIScene.didEnterBackgroundNotification, object: nil, queue: OperationQueue.main, using: {
-            [weak self] notification in
-            self?.setupMetronomeUserActivity?.resignCurrent()
-            self?.startMetronomeUserActivity?.resignCurrent()
-        })
-    }
-
-
-    private func removeObserver() {
-        if let observer = observer {
-            NotificationCenter.default.removeObserver(observer)
-        }
     }
 
 
@@ -80,5 +55,29 @@ extension UserActivityPlugin: NSUserActivityDelegate {
 
     func userActivityWasContinued(_ userActivity: NSUserActivity) {
         controller?.reset()
+    }
+}
+
+
+extension UserActivityPlugin: ApplicationStateAwarePlugin {
+
+    func applicationDidEnterForeground() {
+        setupMetronomeUserActivity?.becomeCurrent()
+    }
+
+
+    func applicationDidEnterForefroundNotificationName() -> NSNotification.Name {
+        return UIScene.willEnterForegroundNotification
+    }
+
+
+    func applicationDidEnterBackground() {
+        setupMetronomeUserActivity?.resignCurrent()
+        startMetronomeUserActivity?.resignCurrent()
+    }
+
+
+    func applicationDidEnterBackgroundNotificationName() -> NSNotification.Name {
+        return UIScene.didEnterBackgroundNotification
     }
 }
