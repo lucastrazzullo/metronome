@@ -21,7 +21,7 @@ class MetronomeViewController: UIViewController, ContainerViewController {
         let metronome = Metronome(with: cache.configuration, soundOn: cache.isSoundOn)
         sessionController = MetronomeSessionController(metronome: metronome)
         pluginsController = PluginsController(with: [
-            PlatformIdleTimerPlugin(),
+            IdleTimerPlugin(),
             HapticPlugin(),
             CachePlugin(cache: cache),
             SoundPlugin(),

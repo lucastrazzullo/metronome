@@ -13,7 +13,7 @@ class TapTempoPickerViewModel: ObservableObject {
 
     @Published private(set) var selectedTempoBpm: Int?
 
-    let controller: SessionController
+    private let controller: SessionController
 
     private var tapTimestamps: [TimeInterval] = []
     private var cancellables: Set<AnyCancellable> = []

@@ -13,10 +13,9 @@ class TempoPickerViewModel: ObservableObject {
 
     @Published var selectedTempoBpm: Double = Double(Tempo.default.bpm)
 
-    let controller: SessionController
-
     var isAutomaticCommitActive: Bool = false
 
+    private let controller: SessionController
     private var cancellables: Set<AnyCancellable> = []
 
 

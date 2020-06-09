@@ -20,11 +20,10 @@ class TimeSignaturePickerViewModel: ObservableObject {
     }
 
     var isAutomaticCommitActive: Bool = false
-
     let beats: [Beat] = TimeSignature.BarLength.maximum.beats
     let noteItems: [TimeSignature.NoteLength] = TimeSignature.NoteLength.allCases
-    let controller: SessionController
 
+    private let controller: SessionController
     private var cancellables: Set<AnyCancellable> = []
 
 

@@ -142,7 +142,7 @@
 		81DDF30F246C487B005BFDC2 /* ShapeIllustration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DDF30C246C4643005BFDC2 /* ShapeIllustration.swift */; };
 		81DDF310246C4960005BFDC2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81DDF30A246C45E8005BFDC2 /* Images.xcassets */; };
 		81DF3A632472D22500779BDB /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813ABCD6246561E0005A8F92 /* SystemIcon.swift */; };
-		81E7DEB42461B58D001F4F07 /* PlatformIdleTimerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E7DEB32461B58D001F4F07 /* PlatformIdleTimerPlugin.swift */; };
+		81E7DEB42461B58D001F4F07 /* IdleTimerPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81E7DEB32461B58D001F4F07 /* IdleTimerPlugin.swift */; };
 		81ECB8012472E687004AAE75 /* ShapeIllustration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DDF30C246C4643005BFDC2 /* ShapeIllustration.swift */; };
 		81ECB8022472E694004AAE75 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81DDF30A246C45E8005BFDC2 /* Images.xcassets */; };
 		81ECB8062473DB2A004AAE75 /* PickerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8158FC6A246D85B500752374 /* PickerButton.swift */; };
@@ -287,7 +287,7 @@
 		81D525D524605AF600F8F541 /* ConfigurationPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPickerViewModel.swift; sourceTree = "<group>"; };
 		81DDF30A246C45E8005BFDC2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		81DDF30C246C4643005BFDC2 /* ShapeIllustration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeIllustration.swift; sourceTree = "<group>"; };
-		81E7DEB32461B58D001F4F07 /* PlatformIdleTimerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformIdleTimerPlugin.swift; sourceTree = "<group>"; };
+		81E7DEB32461B58D001F4F07 /* IdleTimerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleTimerPlugin.swift; sourceTree = "<group>"; };
 		81ED440C246BF93B009F78B5 /* FuturaPTCondExtraBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = FuturaPTCondExtraBold.otf; sourceTree = "<group>"; };
 		81FAF02B23427ED1004A8C51 /* Metronome iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Metronome iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81FAF02E23427ED1004A8C51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -489,7 +489,7 @@
 		8189516124797F5900BEAD16 /* Plugins */ = {
 			isa = PBXGroup;
 			children = (
-				81E7DEB32461B58D001F4F07 /* PlatformIdleTimerPlugin.swift */,
+				81E7DEB32461B58D001F4F07 /* IdleTimerPlugin.swift */,
 				8115EFC0235DBF6E00527665 /* HapticPlugin.swift */,
 				8115EFBE235DBCF000527665 /* CachePlugin.swift */,
 				818533052464489500D3F7DC /* SoundPlugin.swift */,
@@ -1084,7 +1084,7 @@
 				81D525D724605DE100F8F541 /* Copy.swift in Sources */,
 				8115EFC1235DBF6E00527665 /* HapticPlugin.swift in Sources */,
 				813ABCE324658049005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */,
-				81E7DEB42461B58D001F4F07 /* PlatformIdleTimerPlugin.swift in Sources */,
+				81E7DEB42461B58D001F4F07 /* IdleTimerPlugin.swift in Sources */,
 				81DDF30F246C487B005BFDC2 /* ShapeIllustration.swift in Sources */,
 				81FAF02F23427ED1004A8C51 /* AppDelegate.swift in Sources */,
 				8179A9832353A22100B33770 /* ControlsView.swift in Sources */,
@@ -1182,7 +1182,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				INFOPLIST_FILE = "Metronome Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1208,7 +1208,7 @@
 				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				INFOPLIST_FILE = "Metronome Watch Extension/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1235,7 +1235,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				IBSC_MODULE = Metronome_Watch_Extension;
 				INFOPLIST_FILE = "Metronome Watch/Info.plist";
@@ -1258,7 +1258,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				IBSC_MODULE = Metronome_Watch_Extension;
 				INFOPLIST_FILE = "Metronome Watch/Info.plist";
@@ -1444,7 +1444,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				INFOPLIST_FILE = "Metronome iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1467,7 +1467,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 27;
+				CURRENT_PROJECT_VERSION = 28;
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				INFOPLIST_FILE = "Metronome iOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
