@@ -39,7 +39,7 @@ class Metronome {
         return ticker.isRunning
     }
 
-    private(set) var currentBeat: Beat?
+    var currentBeat: Beat?
 
     private var ticker: MetronomeTicker
 

@@ -18,12 +18,11 @@ protocol SessionController: AnyObject {
     func reset()
     func toggleIsRunning()
     func toggleIsSoundOn()
-    
-    func set(configuration: MetronomeConfiguration)
 
+    func set(snapshot: MetronomeSession.Snapshot)
+    func set(configuration: MetronomeConfiguration)
     func set(timeSignature: TimeSignature)
     func set(isAccent: Bool, forBeatAt position: Int)
-
     func set(tempo: Tempo)
     func set(tempoBpm: Int)
 }

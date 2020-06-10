@@ -10,7 +10,7 @@ import Foundation
 import Combine
 import WatchConnectivity
 
-class RemoteSessionController: NSObject, SessionController {
+class RemoteSessionController: NSObject {
 
     var sessionPublisher: AnyPublisher<MetronomeSession, Never> {
         return currentSessionPublisher.ignoreNil().eraseToAnyPublisher()
@@ -41,68 +41,93 @@ class RemoteSessionController: NSObject, SessionController {
     private func set(session: MetronomeSession) {
         currentSessionPublisher.send(session)
 
-        session.$configuration
-            .removeDuplicates()
-            .sink(receiveValue: didUpdateConfiguration)
+        session.snapshotPublisher()
+            .filter { $0.owner == .watch }
+            .removeDuplicates { $0.configuration == $1.configuration && $0.isRunning == $1.isRunning }
+            .sink(receiveValue: didUpdateWithSnapshot)
             .store(in: &cancellables)
     }
 
 
-    private func didUpdateConfiguration(_ configuration: MetronomeConfiguration) {
+    private func didUpdateWithSnapshot(_ snapshot: MetronomeSession.Snapshot) {
         guard WCSession.default.isCompanionAppInstalled else { return }
+        guard WCSession.default.isReachable else { return }
 
-        let currentContextConfiguration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: WCSession.default.applicationContext)
-        guard WCSession.default.isReachable, currentContextConfiguration != configuration else { return }
-
-        guard let dictionary = try? DictionaryEncoder<[String: Any]>().encode(configuration) else { return }
+        guard let dictionary = try? DictionaryEncoder<[String: Any]>().encode(snapshot) else { return }
         WCSession.default.sendMessage(dictionary, replyHandler: nil, errorHandler: nil)
     }
+}
 
 
-    // MARK: Public methods
+extension RemoteSessionController: SessionController {
 
     func start() {
+        session?.set(isRunning: true, owner: .watch)
     }
 
-    
+
     func reset() {
+        session?.set(isRunning: false, owner: .watch)
     }
 
 
     func toggleIsRunning() {
-    }
-
-
-    func toggleIsSoundOn() {
-    }
-
-
-    func set(configuration: MetronomeConfiguration) {
-        if session == nil {
-            set(session: MetronomeSession(configuration: configuration, isSoundOn: false, isRunning: false, currentBeat: nil))
-        } else {
-            session?.configuration = configuration
+        if let isRunning = session?.isRunning {
+            session?.set(isRunning: !isRunning, owner: .watch)
         }
     }
 
 
+    func toggleIsSoundOn() {
+        if let isSoundOn = session?.isSoundOn {
+            session?.set(isSoundOn: !isSoundOn, owner: .watch)
+        }
+    }
+
+
+    func set(configuration: MetronomeConfiguration) {
+        session?.set(configuration: configuration, owner: .watch)
+    }
+
+
     func set(timeSignature: TimeSignature) {
-        session?.configuration.timeSignature = timeSignature
+        if var configuration = session?.configuration {
+            configuration.timeSignature = timeSignature
+            session?.set(configuration: configuration, owner: .watch)
+        }
     }
 
 
     func set(tempo: Tempo) {
-        session?.configuration.tempo = tempo
+        if var configuration = session?.configuration {
+            configuration.tempo = tempo
+            session?.set(configuration: configuration, owner: .watch)
+        }
     }
 
 
     func set(isAccent: Bool, forBeatAt position: Int) {
-        session?.configuration.setAccent(isAccent, onBeatWith: position)
+        if var configuration = session?.configuration {
+            configuration.setAccent(isAccent, onBeatWith: position)
+            session?.set(configuration: configuration, owner: .watch)
+        }
     }
 
 
     func set(tempoBpm: Int) {
-        session?.configuration.setBpm(tempoBpm)
+        if var configuration = session?.configuration {
+            configuration.setBpm(tempoBpm)
+            session?.set(configuration: configuration, owner: .watch)
+        }
+    }
+
+
+    func set(snapshot: MetronomeSession.Snapshot) {
+        if let session = session {
+            session.update(with: snapshot)
+        } else {
+            set(session: MetronomeSession(withSnapshot: snapshot))
+        }
     }
 }
 
@@ -114,19 +139,19 @@ extension RemoteSessionController: WCSessionDelegate {
 
 
     func session(_ session: WCSession, didReceiveApplicationContext applicationContext: [String : Any]) {
-        if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: applicationContext) {
-            DispatchQueue.main.async { [weak self] in
-                self?.set(configuration: configuration)
-            }
+        DispatchQueue.main.async {
+            guard let snapshot = try? DictionaryDecoder().decode(MetronomeSession.Snapshot.self, from: applicationContext) else { return }
+            guard snapshot.owner == .phone else { return }
+            self.set(snapshot: snapshot)
         }
     }
 
 
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: message) {
-            DispatchQueue.main.async { [weak self] in
-                self?.set(configuration: configuration)
-            }
+        DispatchQueue.main.async {
+            guard let snapshot = try? DictionaryDecoder().decode(MetronomeSession.Snapshot.self, from: message) else { return }
+            guard snapshot.owner == .phone else { return }
+            self.set(snapshot: snapshot)
         }
     }
 }

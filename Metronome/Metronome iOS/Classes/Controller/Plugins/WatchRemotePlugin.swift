@@ -33,24 +33,22 @@ class WatchRemotePlugin: NSObject, MetronomePlugin {
             watchKitSession.activate()
         }
 
-        session.$configuration
-            .removeDuplicates()
-            .sink(receiveValue: didUpdateConfiguration)
+        session.snapshotPublisher()
+            .filter { $0.owner == .phone }
+            .removeDuplicates { $0.configuration == $1.configuration && $0.isRunning == $1.isRunning }
+            .sink(receiveValue: didUpdateWithSnapshot)
             .store(in: &cancellables)
     }
 
 
-    private func didUpdateConfiguration(_ configuration: MetronomeConfiguration) {
+    private func didUpdateWithSnapshot(with snapshot: MetronomeSession.Snapshot) {
         guard WCSession.default.isWatchAppInstalled else { return }
-        guard let dictionary = try? DictionaryEncoder<[String: Any]>().encode(configuration) else { return }
-
-        let currentContextConfiguration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: WCSession.default.applicationContext)
-        if currentContextConfiguration != configuration {
-            try? WCSession.default.updateApplicationContext(dictionary)
-        }
+        guard let dictionary = try? DictionaryEncoder<[String: Any]>().encode(snapshot) else { return }
 
         if WCSession.default.isReachable {
             WCSession.default.sendMessage(dictionary, replyHandler: nil, errorHandler: nil)
+        } else if let contextSnapshot = try? DictionaryDecoder().decode(MetronomeSession.Snapshot.self, from: WCSession.default.applicationContext), contextSnapshot != snapshot {
+            try? WCSession.default.updateApplicationContext(dictionary)
         }
     }
 }
@@ -71,19 +69,23 @@ extension WatchRemotePlugin: WCSessionDelegate {
 
 
     func sessionReachabilityDidChange(_ session: WCSession) {
-        guard let configuration = controller.session?.configuration else { return }
-        guard let dictionary = try? DictionaryEncoder<[String: Any]>().encode(configuration) else { return }
-        if WCSession.default.isReachable {
-            WCSession.default.sendMessage(dictionary, replyHandler: nil, errorHandler: nil)
+        DispatchQueue.main.async {
+            guard let snapshot = self.controller.session?.currentSnapshot() else { return }
+            guard snapshot.owner == .phone else { return }
+            guard let dictionary = try? DictionaryEncoder<[String: Any]>().encode(snapshot) else { return }
+
+            if WCSession.default.isReachable {
+                WCSession.default.sendMessage(dictionary, replyHandler: nil, errorHandler: nil)
+            }
         }
     }
-    
-    
+
+
     func session(_ session: WCSession, didReceiveMessage message: [String : Any]) {
-        if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: message) {
-            DispatchQueue.main.async { [weak self] in
-                self?.controller.set(configuration: configuration)
-            }
+        DispatchQueue.main.async {
+            guard let snapshot = try? DictionaryDecoder().decode(MetronomeSession.Snapshot.self, from: message) else { return }
+            guard snapshot.owner == .watch else { return }
+            self.controller.set(snapshot: snapshot)
         }
     }
 }

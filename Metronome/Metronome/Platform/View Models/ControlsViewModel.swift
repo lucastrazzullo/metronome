@@ -28,10 +28,9 @@ class ControlsViewModel: ObservableObject {
 
     // MARK: Object life cycle
 
-    init(sessionController: SessionController) {
-        controller = sessionController
-
-        sessionController.sessionPublisher
+    init(controller: SessionController) {
+        self.controller = controller
+        self.controller.sessionPublisher
             .sink(receiveValue: setupWith(session:))
             .store(in: &cancellables)
     }

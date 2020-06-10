@@ -37,7 +37,7 @@ class SessionComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Timeline Population
 
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
-        let tempo = controller.session?.configuration.tempo ?? Tempo(bpm: 120)
+        let tempo = controller.session?.configuration.tempo ?? Tempo.default
 
         let template = CLKComplicationTemplateModularSmallStackText()
         template.line1TextProvider = CLKSimpleTextProvider(text: String(tempo.bpm))

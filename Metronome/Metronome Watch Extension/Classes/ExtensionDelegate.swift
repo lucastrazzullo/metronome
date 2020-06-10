@@ -11,7 +11,7 @@ import Combine
 
 class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
-    let sessionController: SessionController = RemoteSessionController()
+    let sessionController: RemoteSessionController = RemoteSessionController()
     var cancellables: Set<AnyCancellable> = []
 
 
@@ -19,7 +19,8 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
 
     func applicationDidFinishLaunching() {
         sessionController.sessionPublisher
-            .flatMap { session in return session.$configuration }
+            .map { $0.configuration }
+            .removeDuplicates()
             .sink { [weak self] configuration in
                 let server = CLKComplicationServer.sharedInstance()
                 for complication in server.activeComplications ?? [] {
@@ -44,26 +45,26 @@ class ExtensionDelegate: NSObject, WKExtensionDelegate {
         for task in backgroundTasks {
             switch task {
             case let backgroundTask as WKApplicationRefreshBackgroundTask:
-                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: backgroundTask.userInfo) {
-                    sessionController.set(configuration: configuration)
+                if let snapshot = try? DictionaryDecoder().decode(MetronomeSession.Snapshot.self, from: backgroundTask.userInfo) {
+                    sessionController.set(snapshot: snapshot)
                 }
                 backgroundTask.setTaskCompletedWithSnapshot(true)
             case let snapshotTask as WKSnapshotRefreshBackgroundTask:
-                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: snapshotTask.userInfo) {
-                    sessionController.set(configuration: configuration)
+                if let snapshot = try? DictionaryDecoder().decode(MetronomeSession.Snapshot.self, from: snapshotTask.userInfo) {
+                    sessionController.set(snapshot: snapshot)
                 }
                 let expirationDate = nextReloadTime(after: Date())
                 snapshotTask.setTaskCompleted(restoredDefaultState: true, estimatedSnapshotExpiration: expirationDate, userInfo: nil)
             case let connectivityTask as WKWatchConnectivityRefreshBackgroundTask:
-                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: connectivityTask.userInfo) {
-                    sessionController.set(configuration: configuration)
+                if let snapshot = try? DictionaryDecoder().decode(MetronomeSession.Snapshot.self, from: connectivityTask.userInfo) {
+                    sessionController.set(snapshot: snapshot)
                 }
                 connectivityTask.setTaskCompletedWithSnapshot(true)
             case let urlSessionTask as WKURLSessionRefreshBackgroundTask:
                 urlSessionTask.setTaskCompletedWithSnapshot(false)
             case let relevantShortcutTask as WKRelevantShortcutRefreshBackgroundTask:
-                if let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: relevantShortcutTask.userInfo) {
-                    sessionController.set(configuration: configuration)
+                if let snapshot = try? DictionaryDecoder().decode(MetronomeSession.Snapshot.self, from: relevantShortcutTask.userInfo) {
+                    sessionController.set(snapshot: snapshot)
                 }
                 relevantShortcutTask.setTaskCompletedWithSnapshot(true)
             case let intentDidRunTask as WKIntentDidRunRefreshBackgroundTask:
