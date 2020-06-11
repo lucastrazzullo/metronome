@@ -17,6 +17,7 @@ class SessionHostingController: WKHostingController<AnyView> {
 
     override var body: AnyView {
         let controlsViewModel = ControlsViewModel(controller: sessionController)
+        let tapTempoViewModel = TapTempoPickerViewModel(controller: sessionController)
 
         let tempoViewModel = TempoPickerViewModel(controller: sessionController)
         tempoViewModel.isAutomaticCommitActive = true
@@ -24,7 +25,7 @@ class SessionHostingController: WKHostingController<AnyView> {
         let timeSignatureViewModel = TimeSignaturePickerViewModel(controller: sessionController)
         timeSignatureViewModel.isAutomaticCommitActive = true
 
-        return AnyView(ControlsView(controlsViewModel: controlsViewModel, tempoViewModel: tempoViewModel, timeSignatureViewModel: timeSignatureViewModel))
+        return AnyView(ControlsView(controlsViewModel: controlsViewModel, tapTempoViewModel: tapTempoViewModel, tempoViewModel: tempoViewModel, timeSignatureViewModel: timeSignatureViewModel))
     }
 
 

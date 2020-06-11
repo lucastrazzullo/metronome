@@ -12,6 +12,7 @@ struct ControlsView: View {
 
     enum Picker {
         case tempo
+        case tapTempo
         case beats
         case note
     }
@@ -20,10 +21,12 @@ struct ControlsView: View {
     // MARK: Instance properties
 
     @ObservedObject private(set) var controlsViewModel: ControlsViewModel
+    @ObservedObject private(set) var tapTempoViewModel: TapTempoPickerViewModel
     @ObservedObject private(set) var tempoViewModel: TempoPickerViewModel
     @ObservedObject private(set) var timeSignatureViewModel: TimeSignaturePickerViewModel
 
     @State private var activePicker: Picker = .tempo
+    @State private var tapIndicatorHighlighted: Bool = false
 
     var body: some View {
         ZStack {
@@ -41,6 +44,7 @@ struct ControlsView: View {
                         .background(LinearGradient(self.isActive(picker: .tempo) ? Palette.Gradients.yellowGreen : Palette.Gradients.gray))
                         .cornerRadius(8)
                         .onTapGesture { self.activePicker = .tempo }
+                        .onLongPressGesture { self.activePicker = .tapTempo }
                         .focusable(self.isActive(picker: .tempo))
                         .digitalCrownRotation(self.$tempoViewModel.selectedTempoBpm,
                                               from: Double(Tempo.range.lowerBound),
@@ -53,7 +57,7 @@ struct ControlsView: View {
                             Image(SystemIcon.play).brandFont(.title)
                         }
                         .frame(width: geometry.size.width / 2 - 1, height: geometry.size.height / 2 - 1)
-                        .background(LinearGradient(self.controlsViewModel.metronomeIsRunning ? Palette.Gradients.greenBlue : Palette.Gradients.gray))
+                        .background(LinearGradient(self.controlsViewModel.metronomeIsRunning ? Palette.Gradients.blueGreen : Palette.Gradients.gray))
                         .cornerRadius(8)
                         .onTapGesture { self.controlsViewModel.toggleIsRunning() }
                     }
@@ -96,6 +100,7 @@ struct ControlsView: View {
                                               isContinuous: false, isHapticFeedbackEnabled: true)
                     }
                 }
+                self.tapTempoView(with: geometry).animation(.default)
             }
         }
     }
@@ -105,6 +110,39 @@ struct ControlsView: View {
 
     private func isActive(picker: Picker) -> Bool {
         return activePicker == picker && !self.controlsViewModel.metronomeIsRunning
+    }
+
+
+    private func tapTempoView(with geometry: GeometryProxy) -> some View {
+        guard activePicker == .tapTempo else { return AnyView(EmptyView()) }
+
+        return AnyView(
+            VStack(alignment: .center) {
+                Circle()
+                    .foregroundColor(self.tapIndicatorHighlighted ? Palette.purple.color : Palette.white.color)
+                    .frame(width: 8, height: 8, alignment: .center)
+                Text(String(Int(self.tempoViewModel.selectedTempoBpm)))
+                    .brandFont(.title)
+                Text(Copy.Tempo.unit.localised)
+                    .brandFont(.footnote)
+                    .opacity(0.75)
+
+                Button(action: {
+                    self.tapTempoViewModel.commit()
+                    self.activePicker = .tempo
+                }, label: {
+                    Text(Copy.Controls.done.localised)
+                })
+            }
+            .frame(width: geometry.size.width, height: geometry.size.height)
+            .background(LinearGradient(Palette.Gradients.greenBlue))
+            .cornerRadius(8)
+            .gesture(TapGesture()
+            .onEnded { gesture in
+                self.tapTempoViewModel.update(with: Date().timeIntervalSinceReferenceDate)
+                self.tapIndicatorHighlighted.toggle()
+            })
+        )
     }
 }
 
@@ -119,8 +157,9 @@ struct ControlsView_Previews: PreviewProvider {
 
         let controlsViewModel = ControlsViewModel(controller: controller)
         let tempoViewModel = TempoPickerViewModel(controller: controller)
+        let tapTempoViewModel = TapTempoPickerViewModel(controller: controller)
         let timeSignatureViewModel = TimeSignaturePickerViewModel(controller: controller)
 
-        return ControlsView(controlsViewModel: controlsViewModel, tempoViewModel: tempoViewModel, timeSignatureViewModel: timeSignatureViewModel)
+        return ControlsView(controlsViewModel: controlsViewModel, tapTempoViewModel: tapTempoViewModel, tempoViewModel: tempoViewModel, timeSignatureViewModel: timeSignatureViewModel)
     }
 }
