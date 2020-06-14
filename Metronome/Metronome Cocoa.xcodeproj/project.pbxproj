@@ -1211,7 +1211,7 @@
 				PRODUCT_NAME = "Metronome Watch Ext";
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome watchkitextension - Development";
 				SDKROOT = watchos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 6.0;
@@ -1237,7 +1237,7 @@
 				PRODUCT_NAME = "Metronome Watch Ext";
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome watchkitextension - Distribution";
 				SDKROOT = watchos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 6.0;
@@ -1260,7 +1260,7 @@
 				PRODUCT_NAME = "Metronome Watch";
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome watchkitapp - Development";
 				SDKROOT = watchos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 6.0;
@@ -1283,7 +1283,7 @@
 				PRODUCT_NAME = "Metronome Watch";
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome watchkitapp - Distribution";
 				SDKROOT = watchos;
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 4;
 				WATCHOS_DEPLOYMENT_TARGET = 6.0;

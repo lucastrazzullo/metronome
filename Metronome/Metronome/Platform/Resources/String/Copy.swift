@@ -40,11 +40,14 @@ struct Copy {
 
     enum TimeSignature: String, CopyIdentifier {
         case title = "metronome.time_signature.title"
+        case titleShort = "metronome.time_signature.title.short"
         case format = "metronome.time_signature.representation.format"
 
+        case barLengthTitleShort = "metronome.time_signature.bar_length.title.short"
         case barLength = "metronome.time_signature.bar_length.title"
         case barLengthSuffixFormat = "metronome.time_signature.bar_length.suffix.format"
 
+        case noteLengthTitleShort = "metronome.time_signature.note_length.title.short"
         case noteLength = "metronome.time_signature.note_length.title"
         case noteLengthPrefixFormat = "metronome.time_signature.note_length.prefix.format"
 
