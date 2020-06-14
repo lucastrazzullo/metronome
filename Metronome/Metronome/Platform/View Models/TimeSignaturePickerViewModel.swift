@@ -20,11 +20,10 @@ class TimeSignaturePickerViewModel: ObservableObject {
     }
 
     var isAutomaticCommitActive: Bool = false
-
     let beats: [Beat] = TimeSignature.BarLength.maximum.beats
     let noteItems: [TimeSignature.NoteLength] = TimeSignature.NoteLength.allCases
-    let controller: SessionController
 
+    private let controller: SessionController
     private var cancellables: Set<AnyCancellable> = []
 
 
@@ -49,9 +48,15 @@ class TimeSignaturePickerViewModel: ObservableObject {
     //  MARK: Setup
 
     private func setupWith(session: MetronomeSession) {
-        selectedBarLength = Double(session.configuration.timeSignature.barLength.numberOfBeats)
-        selectedAccentPositions = session.configuration.timeSignature.barLength.accentPositions
-        selectedNoteIndex = Double(noteItems.firstIndex(of: session.configuration.timeSignature.noteLength) ?? 0)
+        session.$configuration
+            .map({ $0.timeSignature })
+            .removeDuplicates()
+            .sink { [weak self] timeSignature in
+                self?.selectedBarLength = Double(timeSignature.barLength.numberOfBeats)
+                self?.selectedAccentPositions = timeSignature.barLength.accentPositions
+                self?.selectedNoteIndex = Double(self?.noteItems.firstIndex(of: timeSignature.noteLength) ?? 0)
+            }
+            .store(in: &cancellables)
     }
 
 

@@ -37,11 +37,24 @@ class SessionComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Timeline Population
 
     func getCurrentTimelineEntry(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTimelineEntry?) -> Void) {
-        let tempo = controller.session?.configuration.tempo ?? Tempo(bpm: 120)
+        let tempo = controller.session?.configuration.tempo ?? Tempo.default
+        let timeSignature = controller.session?.configuration.timeSignature ?? TimeSignature.default
 
-        let template = CLKComplicationTemplateModularSmallStackText()
-        template.line1TextProvider = CLKSimpleTextProvider(text: String(tempo.bpm))
-        template.line2TextProvider = CLKSimpleTextProvider(text: Copy.Tempo.unit.localised)
+        let template: CLKComplicationTemplate
+        switch complication.family {
+        case .circularSmall:
+            template = buildCircularSmallTemplate(for: tempo)
+        case .modularSmall:
+            template = buildModularSmallTemplate(for: tempo)
+        case .modularLarge:
+            template = buildModularLargeTemplate(for: tempo, timeSignature: timeSignature)
+        case .utilitarianSmall:
+            template = buildCircularSmallTemplate(for: tempo)
+        case .graphicCorner:
+            template = buildGraphicCornerTemplate(for: tempo)
+        default:
+            template = buildModularSmallTemplate(for: tempo)
+        }
 
         let entry = CLKComplicationTimelineEntry(date: Date(), complicationTemplate: template)
         handler(entry)
@@ -58,10 +71,60 @@ class SessionComplicationController: NSObject, CLKComplicationDataSource {
     // MARK: - Placeholder Templates
 
     func getPlaceholderTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
-        let tempo = Tempo(bpm: 120)
+        switch complication.family {
+        case .circularSmall, .utilitarianSmall:
+            handler(buildCircularSmallTemplate(for: .default))
+        case .modularSmall:
+            handler(buildModularSmallTemplate(for: .default))
+        case .modularLarge, .utilitarianLarge:
+            handler(buildModularLargeTemplate(for: .default, timeSignature: .default))
+        case .graphicCorner:
+            handler(buildGraphicCornerTemplate(for: .default))
+        default:
+            handler(buildModularSmallTemplate(for: .default))
+        }
+    }
+
+
+    // MARK: - Private helper methods
+
+    private func buildCircularSmallTemplate(for tempo: Tempo) -> CLKComplicationTemplate {
+        let template = CLKComplicationTemplateCircularSmallRingText()
+        template.fillFraction = fillFraction(for: tempo)
+        template.textProvider = CLKSimpleTextProvider(text: String(tempo.bpm))
+        return template
+    }
+
+
+    private func buildModularSmallTemplate(for tempo: Tempo) -> CLKComplicationTemplate {
         let template = CLKComplicationTemplateModularSmallStackText()
         template.line1TextProvider = CLKSimpleTextProvider(text: String(tempo.bpm))
         template.line2TextProvider = CLKSimpleTextProvider(text: Copy.Tempo.unit.localised)
-        handler(template)
+        return template
+    }
+
+
+    private func buildModularLargeTemplate(for tempo: Tempo, timeSignature: TimeSignature) -> CLKComplicationTemplate {
+        let template = CLKComplicationTemplateModularLargeTable()
+        template.headerTextProvider = CLKSimpleTextProvider(text: "Metronome")
+        template.row1Column1TextProvider = CLKSimpleTextProvider(text: Copy.Tempo.title.localised)
+        template.row1Column2TextProvider = CLKSimpleTextProvider(format: Copy.Tempo.format.localised, tempo.bpm, Copy.Tempo.unit.localised)
+        template.row2Column1TextProvider = CLKSimpleTextProvider(text: Copy.TimeSignature.titleShort.localised)
+        template.row2Column2TextProvider = CLKSimpleTextProvider(format: Copy.TimeSignature.format.localised, timeSignature.barLength.numberOfBeats, timeSignature.noteLength.rawValue)
+        return template
+    }
+
+
+    private func buildGraphicCornerTemplate(for tempo: Tempo) -> CLKComplicationTemplate {
+        let template = CLKComplicationTemplateGraphicCornerGaugeText()
+        template.outerTextProvider = CLKSimpleTextProvider(text: Copy.Tempo.unit.localised)
+        template.leadingTextProvider = CLKSimpleTextProvider(text: String(tempo.bpm))
+        template.gaugeProvider = CLKSimpleGaugeProvider(style: .fill, gaugeColor: .yellow, fillFraction: fillFraction(for: tempo))
+        return template
+    }
+
+
+    private func fillFraction(for tempo: Tempo) -> Float {
+        Float(Double(tempo.bpm) / Double(Tempo.range.upperBound - Tempo.range.lowerBound))
     }
 }

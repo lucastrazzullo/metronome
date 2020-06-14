@@ -22,11 +22,14 @@
 // MARK: Time Signature
 
 "metronome.time_signature.title" = "Time signature";
+"metronome.time_signature.title.short" = "Signature";
 "metronome.time_signature.representation.format" = "%d/%d";
 
+"metronome.time_signature.bar_length.title.short" = "Beats";
 "metronome.time_signature.bar_length.title" = "Bar length";
 "metronome.time_signature.bar_length.suffix.format" = "/%d";
 
+"metronome.time_signature.note_length.title.short" = "Note";
 "metronome.time_signature.note_length.title" = "Note length";
 "metronome.time_signature.note_length.prefix.format" = "%d/";
 

@@ -11,85 +11,88 @@ import Combine
 import AVFoundation
 
 class SoundPlugin: MetronomePlugin {
-    internal init(engine: AVAudioEngine, players: [AnyHashable : AVAudioPlayerNode] = [:], buffers: [AnyHashable : AVAudioPCMBuffer] = [:], audios: [AnyHashable : AVAudioFile] = [:], cancellables: [AnyCancellable] = []) {
-        self.engine = engine
-        self.players = players
-        self.buffers = buffers
-        self.audios = audios
-        self.cancellables = cancellables
-    }
-
 
     struct SoundURL {
         static let normal = Bundle.main.url(forResource: "Beat-normal", withExtension: "mp3")!
         static let accent = Bundle.main.url(forResource: "Beat-highlighted", withExtension: "mp3")!
     }
 
-    private let engine: AVAudioEngine
+    private var engine: AVAudioEngine?
     private var players: [AnyHashable: AVAudioPlayerNode] = [:]
     private var buffers: [AnyHashable: AVAudioPCMBuffer] = [:]
     private var audios: [AnyHashable: AVAudioFile] = [:]
 
-    private var cancellables: [AnyCancellable] = []
-
-
-    // MARK: Object life cycle
-
-    init() {
-        try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
-        try? AVAudioSession.sharedInstance().setActive(true)
-
-        engine = AVAudioEngine()
-        engine.isAutoShutdownEnabled = true
-        engine.mainMixerNode.volume = 1
-    }
+    private var cancellables: Set<AnyCancellable> = []
 
 
     // MARK: Public methods
 
     func set(session: MetronomeSession) {
-        cancellables.append(session.$configuration.sink { [weak self] configuration in
-            guard let engine = self?.engine else { return }
-            engine.stop()
+        session.$configuration.combineLatest(session.$isSoundOn)
+            .sink { [weak self] configuration, isSoundOn in
 
-            self?.players.values.forEach({ player in
-                player.reset()
-                engine.disconnectNodeInput(player)
-            })
-            self?.players.removeAll()
-            self?.buffers.removeAll()
-            self?.audios.removeAll()
+                if isSoundOn, self?.engine == nil {
+                    try? AVAudioSession.sharedInstance().setCategory(.playback, mode: .spokenAudio)
+                    try? AVAudioSession.sharedInstance().setActive(true)
 
-            for beat in configuration.timeSignature.barLength.beats {
-                let soundURL = beat.isAccent ? SoundURL.accent : SoundURL.normal
-                guard let audio = try? AVAudioFile(forReading: soundURL) else { return }
+                    self?.engine = AVAudioEngine()
+                    self?.engine?.isAutoShutdownEnabled = true
+                    self?.engine?.mainMixerNode.volume = 1
+                }
 
-                let player = AVAudioPlayerNode()
-                engine.attach(player)
-                engine.connect(player, to: engine.mainMixerNode, format: audio.processingFormat)
+                if !isSoundOn, self?.engine != nil {
+                    self?.engine?.stop()
+                    self?.engine = nil
 
-                let audioFormat = audio.processingFormat
-                let audioFrameCount = UInt32(audio.length)
-                let buffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: audioFrameCount)!
+                    try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .spokenAudio)
+                    try? AVAudioSession.sharedInstance().setActive(false)
+                }
 
-                try? audio.read(into: buffer)
+                guard let engine = self?.engine, isSoundOn else { return }
+                engine.stop()
 
-                self?.audios[beat.position] = audio
-                self?.buffers[beat.position] = buffer
-                self?.players[beat.position] = player
+                self?.players.values.forEach({ player in
+                    player.reset()
+                    if engine.attachedNodes.contains(player) {
+                        engine.disconnectNodeInput(player)
+                    }
+                })
+                self?.players.removeAll()
+                self?.buffers.removeAll()
+                self?.audios.removeAll()
+
+                for beat in configuration.timeSignature.barLength.beats {
+                    let soundURL = beat.isAccent ? SoundURL.accent : SoundURL.normal
+                    guard let audio = try? AVAudioFile(forReading: soundURL) else { return }
+
+                    let player = AVAudioPlayerNode()
+                    engine.attach(player)
+                    engine.connect(player, to: engine.mainMixerNode, format: audio.processingFormat)
+
+                    let audioFormat = audio.processingFormat
+                    let audioFrameCount = UInt32(audio.length)
+                    let buffer = AVAudioPCMBuffer(pcmFormat: audioFormat, frameCapacity: audioFrameCount)!
+
+                    try? audio.read(into: buffer)
+
+                    self?.audios[beat.position] = audio
+                    self?.buffers[beat.position] = buffer
+                    self?.players[beat.position] = player
+                }
+                try? engine.start()
             }
-            try? engine.start()
-        })
+            .store(in: &cancellables)
 
-        cancellables.append(session.$currentBeat.sink { [weak self, weak session] beat in
-            guard session?.isSoundOn == true, self?.engine.isRunning == true,
-                let beat = beat,
-                let buffer = self?.buffers[beat.position]
-                else { return }
+        session.$currentBeat
+            .sink { [weak self, weak session] beat in
+                guard session?.isSoundOn == true, self?.engine?.isRunning == true,
+                    let beat = beat, let buffer = self?.buffers[beat.position]
+                    else { return }
 
-            self?.players[beat.position]?.stop()
-            self?.players[beat.position]?.scheduleBuffer(buffer, completionHandler: nil)
-            self?.players[beat.position]?.play()
-        })
+                self?.players[beat.position]?.stop()
+                self?.players[beat.position]?.scheduleBuffer(buffer, completionHandler: nil)
+                self?.players[beat.position]?.play()
+            }
+            .store(in: &cancellables)
     }
 }

@@ -24,7 +24,7 @@ class Metronome {
 
     var configuration: MetronomeConfiguration {
         didSet {
-            reset()
+            ticker.update(timeInterval: configuration.getTimeInterval())
             delegate?.metronome(self, didUpdate: configuration)
         }
     }
@@ -39,7 +39,7 @@ class Metronome {
         return ticker.isRunning
     }
 
-    private(set) var currentBeat: Beat?
+    var currentBeat: Beat?
 
     private var ticker: MetronomeTicker
 

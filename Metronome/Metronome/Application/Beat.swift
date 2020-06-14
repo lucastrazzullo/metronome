@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Beat: Equatable {
+struct Beat: Equatable, Codable {
     let position: Int
     var isAccent: Bool
 }

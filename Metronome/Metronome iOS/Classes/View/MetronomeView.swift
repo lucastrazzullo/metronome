@@ -35,6 +35,6 @@ struct MetronomeView: View {
 
 
     private func buildControlsViewModel() -> ControlsViewModel {
-        return ControlsViewModel(sessionController: viewModel.controller)
+        return ControlsViewModel(controller: viewModel.controller)
     }
 }

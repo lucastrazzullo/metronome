@@ -1,5 +1,5 @@
 //
-//  PlatformIdleTimerPlugin.swift
+//  IdleTimerPlugin.swift
 //  Metronome iOS
 //
 //  Created by luca strazzullo on 5/5/20.
@@ -9,7 +9,7 @@
 import UIKit
 import Combine
 
-class PlatformIdleTimerPlugin: MetronomePlugin {
+class IdleTimerPlugin: MetronomePlugin {
 
     private var cancellables = [AnyCancellable]()
 

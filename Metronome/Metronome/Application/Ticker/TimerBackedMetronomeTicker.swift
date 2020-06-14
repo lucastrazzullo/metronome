@@ -37,6 +37,16 @@ class TimerBackedMetronomeTicker: MetronomeTicker {
     }
 
 
+    func update(timeInterval: TimeInterval) {
+        guard self.timeInterval != timeInterval else { return }
+        self.timeInterval = timeInterval
+
+        if isRunning {
+            self.timer = Timer.scheduledTimer(timeInterval: timeInterval * 0.01, target: self, selector: #selector(didTick), userInfo: nil, repeats: true)
+        }
+    }
+
+
     func reset() {
         delegate?.metronomeTickerWillReset(self)
 

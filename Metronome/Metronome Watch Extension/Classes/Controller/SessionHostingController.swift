@@ -9,34 +9,24 @@
 import WatchKit
 import SwiftUI
 
-class SessionHostingController: WKHostingController<AnyView> {
+class SessionHostingController: WKHostingController<RemoteSessionView> {
 
-    var sessionController: SessionController {
+    var sessionController: RemoteSessionController {
         return (WKExtension.shared().delegate as! ExtensionDelegate).sessionController
     }
 
-    override var body: AnyView {
-        let tempoViewModel = TempoPickerViewModel(controller: sessionController)
-        tempoViewModel.isAutomaticCommitActive = true
-
-        let timeSignatureViewModel = TimeSignaturePickerViewModel(controller: sessionController)
-        timeSignatureViewModel.isAutomaticCommitActive = true
-
-        return AnyView(ControlsView(tempoViewModel: tempoViewModel, timeSignatureViewModel: timeSignatureViewModel))
+    override var body: RemoteSessionView {
+        return RemoteSessionView(viewModel: RemoteSessionViewModel(controller: sessionController))
     }
 
 
     // MARK: Interface life cycle
 
     override func awake(withContext context: Any?) {
-        if let context = context as? [String: Any], let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: context) {
-            sessionController.set(configuration: configuration)
+        if let context = context as? [String: Any],
+            let snapshot = try? DictionaryDecoder().decode(MetronomeSession.Snapshot.self, from: context),
+            snapshot.owner == .phone {
+            sessionController.set(snapshot: snapshot)
         }
-    }
-
-
-    override func didDeactivate() {
-        sessionController.reset()
-        super.didDeactivate()
     }
 }

@@ -13,7 +13,9 @@ class TapTempoPickerViewModel: ObservableObject {
 
     @Published private(set) var selectedTempoBpm: Int?
 
-    let controller: SessionController
+    var isAutomaticCommitActive: Bool = false
+
+    private let controller: SessionController
 
     private var tapTimestamps: [TimeInterval] = []
     private var cancellables: Set<AnyCancellable> = []
@@ -23,6 +25,12 @@ class TapTempoPickerViewModel: ObservableObject {
 
     init(controller: SessionController) {
         self.controller = controller
+
+        self.$selectedTempoBpm
+            .debounce(for: 0.8, scheduler: DispatchQueue.main)
+            .filter({ [weak self] _ in self?.isAutomaticCommitActive ?? false })
+            .sink(receiveValue: { [weak self] _ in self?.commit() })
+            .store(in: &cancellables)
     }
 
 
