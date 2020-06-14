@@ -138,6 +138,8 @@
 		81D525D624605AF600F8F541 /* ConfigurationPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D525D524605AF600F8F541 /* ConfigurationPickerViewModel.swift */; };
 		81D525D724605DE100F8F541 /* Copy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81807A6B245FF1FD00737786 /* Copy.swift */; };
 		81D525DA2460744600F8F541 /* ControlsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 810701A8245F30DF003D0B54 /* ControlsViewModel.swift */; };
+		81D53DEF24962D83007626A9 /* RemoteSessionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D53DEE24962D83007626A9 /* RemoteSessionView.swift */; };
+		81D53DF224962DE7007626A9 /* RemoteSessionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81D53DF124962DE7007626A9 /* RemoteSessionViewModel.swift */; };
 		81DDF30E246C469E005BFDC2 /* SystemIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813ABCD6246561E0005A8F92 /* SystemIcon.swift */; };
 		81DDF30F246C487B005BFDC2 /* ShapeIllustration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81DDF30C246C4643005BFDC2 /* ShapeIllustration.swift */; };
 		81DDF310246C4960005BFDC2 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 81DDF30A246C45E8005BFDC2 /* Images.xcassets */; };
@@ -285,6 +287,8 @@
 		81C391F924782CE600A51EF5 /* MetronomeSessionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetronomeSessionController.swift; sourceTree = "<group>"; };
 		81CC2791247429F8006D87CA /* WatchRemotePlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WatchRemotePlugin.swift; sourceTree = "<group>"; };
 		81D525D524605AF600F8F541 /* ConfigurationPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfigurationPickerViewModel.swift; sourceTree = "<group>"; };
+		81D53DEE24962D83007626A9 /* RemoteSessionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSessionView.swift; sourceTree = "<group>"; };
+		81D53DF124962DE7007626A9 /* RemoteSessionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteSessionViewModel.swift; sourceTree = "<group>"; };
 		81DDF30A246C45E8005BFDC2 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		81DDF30C246C4643005BFDC2 /* ShapeIllustration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapeIllustration.swift; sourceTree = "<group>"; };
 		81E7DEB32461B58D001F4F07 /* IdleTimerPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdleTimerPlugin.swift; sourceTree = "<group>"; };
@@ -384,6 +388,7 @@
 		8124977B234B65EF0047F3E3 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				81D53DF024962DDA007626A9 /* Model */,
 				8124977D234B68F60047F3E3 /* View */,
 				8124977C234B65F30047F3E3 /* Controller */,
 				81249741234B61C00047F3E3 /* ExtensionDelegate.swift */,
@@ -404,6 +409,7 @@
 		8124977D234B68F60047F3E3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				81D53DEE24962D83007626A9 /* RemoteSessionView.swift */,
 				815003B42462ECA900651E88 /* ControlsView.swift */,
 			);
 			path = View;
@@ -596,6 +602,14 @@
 			isa = PBXGroup;
 			children = (
 				81D525D524605AF600F8F541 /* ConfigurationPickerViewModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		81D53DF024962DDA007626A9 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				81D53DF124962DE7007626A9 /* RemoteSessionViewModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -976,6 +990,7 @@
 				813ABCE424658049005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */,
 				81C391F22478265E00A51EF5 /* SessionController.swift in Sources */,
 				81CC279324743098006D87CA /* DictionaryCodable.swift in Sources */,
+				81D53DEF24962D83007626A9 /* RemoteSessionView.swift in Sources */,
 				81807A6C245FF1FD00737786 /* Copy.swift in Sources */,
 				810701A3245F2E78003D0B54 /* Metronome.swift in Sources */,
 				817F9956234CADBC00DA1043 /* MetronomeTicker.swift in Sources */,
@@ -986,6 +1001,7 @@
 				812B351F247ADABF007406C0 /* ShapedButton.swift in Sources */,
 				817F994F234CAD6600DA1043 /* ExtensionDelegate.swift in Sources */,
 				81DF3A632472D22500779BDB /* SystemIcon.swift in Sources */,
+				81D53DF224962DE7007626A9 /* RemoteSessionViewModel.swift in Sources */,
 				81807A6A245FF16C00737786 /* TempoPickerViewModel.swift in Sources */,
 				812C3FDC2482926400C1E836 /* PublisherExtensions.swift in Sources */,
 				810701A6245F3035003D0B54 /* SessionViewModel.swift in Sources */,

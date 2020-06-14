@@ -9,23 +9,14 @@
 import WatchKit
 import SwiftUI
 
-class SessionHostingController: WKHostingController<AnyView> {
+class SessionHostingController: WKHostingController<RemoteSessionView> {
 
     var sessionController: RemoteSessionController {
         return (WKExtension.shared().delegate as! ExtensionDelegate).sessionController
     }
 
-    override var body: AnyView {
-        let controlsViewModel = ControlsViewModel(controller: sessionController)
-        let tapTempoViewModel = TapTempoPickerViewModel(controller: sessionController)
-        let tempoViewModel = TempoPickerViewModel(controller: sessionController)
-        let timeSignatureViewModel = TimeSignaturePickerViewModel(controller: sessionController)
-
-        tapTempoViewModel.isAutomaticCommitActive = true
-        tempoViewModel.isAutomaticCommitActive = true
-        timeSignatureViewModel.isAutomaticCommitActive = true
-
-        return AnyView(ControlsView(controlsViewModel: controlsViewModel, tapTempoViewModel: tapTempoViewModel, tempoViewModel: tempoViewModel, timeSignatureViewModel: timeSignatureViewModel))
+    override var body: RemoteSessionView {
+        return RemoteSessionView(viewModel: RemoteSessionViewModel(controller: sessionController))
     }
 
 
