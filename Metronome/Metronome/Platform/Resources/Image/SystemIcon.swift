@@ -10,7 +10,7 @@ import SwiftUI
 
 enum SystemIcon: String, CaseIterable {
 
-    case play = "play"
+    case play = "play.fill"
     case soundOn = "volume.3"
     case soundOff = "volume.slash"
     case arrowDown = "chevron.compact.down"
