@@ -11,17 +11,14 @@ import Combine
 
 class IdleTimerPlugin: MetronomePlugin {
 
-    private var cancellables = [AnyCancellable]()
+    private var cancellables = Set<AnyCancellable>()
 
 
     // MARK: Public methods
 
     func set(session: MetronomeSession) {
-        cancellables.append(
-            session.$isRunning
-                .sink { isRunning in
-                    UIApplication.shared.isIdleTimerDisabled = isRunning
-                }
-        )
+        session.$isRunning
+            .sink { isRunning in UIApplication.shared.isIdleTimerDisabled = isRunning }
+            .store(in: &cancellables)
     }
 }
