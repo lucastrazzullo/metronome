@@ -48,8 +48,6 @@ class SessionComplicationController: NSObject, CLKComplicationDataSource {
             template = buildModularSmallTemplate(for: tempo)
         case .modularLarge:
             template = buildModularLargeTemplate(for: tempo, timeSignature: timeSignature)
-        case .utilitarianSmall:
-            template = buildCircularSmallTemplate(for: tempo)
         case .graphicCorner:
             template = buildGraphicCornerTemplate(for: tempo)
         default:
@@ -72,11 +70,11 @@ class SessionComplicationController: NSObject, CLKComplicationDataSource {
 
     func getPlaceholderTemplate(for complication: CLKComplication, withHandler handler: @escaping (CLKComplicationTemplate?) -> Void) {
         switch complication.family {
-        case .circularSmall, .utilitarianSmall:
+        case .circularSmall:
             handler(buildCircularSmallTemplate(for: .default))
         case .modularSmall:
             handler(buildModularSmallTemplate(for: .default))
-        case .modularLarge, .utilitarianLarge:
+        case .modularLarge:
             handler(buildModularLargeTemplate(for: .default, timeSignature: .default))
         case .graphicCorner:
             handler(buildGraphicCornerTemplate(for: .default))
