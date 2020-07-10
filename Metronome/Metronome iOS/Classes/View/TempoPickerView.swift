@@ -63,7 +63,7 @@ struct TempoPickerView: View {
         }
         .padding(.top, 12)
         .padding([.bottom, .leading, .trailing], 4)
-        .background(LinearGradient(.yellowGreen).edgesIgnoringSafeArea(.all))
+        .background(LinearGradient.oblique(.yellowGreen).edgesIgnoringSafeArea(.all))
         .foregroundColor(Palette.black.color)
     }
 

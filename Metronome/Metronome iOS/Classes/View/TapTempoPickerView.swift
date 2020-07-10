@@ -57,7 +57,7 @@ struct TapTempoPickerView: View {
         }
         .padding(.top, 24)
         .padding([.bottom, .leading, .trailing], 4)
-        .background(LinearGradient(.greenBlue).edgesIgnoringSafeArea(.all))
+        .background(LinearGradient.oblique(.greenBlue).edgesIgnoringSafeArea(.all))
         .foregroundColor(Palette.black.color)
         .gesture(TapGesture()
             .onEnded { gesture in

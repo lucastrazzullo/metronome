@@ -57,7 +57,7 @@
       <RemoteRunnable
          runnableDebuggingMode = "2"
          BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/Metronome iOS">
+         RemotePath = "/Metronome">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "817F992B234CAD0300DA1043"
@@ -76,7 +76,7 @@
       <RemoteRunnable
          runnableDebuggingMode = "2"
          BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/Metronome iOS">
+         RemotePath = "/Metronome">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "817F992B234CAD0300DA1043"

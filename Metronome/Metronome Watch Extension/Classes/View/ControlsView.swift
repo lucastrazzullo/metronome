@@ -63,7 +63,7 @@ struct ControlsView: View {
                         .frame(
                             width: self.activePicker == .tapTempo ? geometry.size.width : geometry.size.width / 2 - 1,
                             height: self.activePicker == .tapTempo ? geometry.size.height : geometry.size.height / 2 - 1)
-                        .background(LinearGradient(self.isActive(picker: .tempo) ? Palette.Gradients.yellowGreen : self.isActive(picker: .tapTempo) ? Palette.Gradients.blueGreen : Palette.Gradients.gray))
+                        .background(LinearGradient.oblique(self.isActive(picker: .tempo) ? Palette.Gradients.yellowGreen : self.isActive(picker: .tapTempo) ? Palette.Gradients.blueGreen : Palette.Gradients.gray))
                         .cornerRadius(8)
                         .onTapGesture {
                             self.tapIndicatorHighlighted.toggle()
@@ -89,7 +89,7 @@ struct ControlsView: View {
                         .frame(
                             width: self.activePicker == .tapTempo ? 0 : geometry.size.width / 2 - 1,
                             height: self.activePicker == .tapTempo ? 0 : geometry.size.height / 2 - 1)
-                        .background(LinearGradient(self.controlsViewModel.metronomeIsRunning ? Palette.Gradients.blueGreen : Palette.Gradients.gray))
+                        .background(LinearGradient.oblique(self.controlsViewModel.metronomeIsRunning ? Palette.Gradients.blueGreen : Palette.Gradients.gray))
                         .cornerRadius(8)
                         .onTapGesture { self.controlsViewModel.toggleIsRunning() }
                     }
@@ -105,7 +105,7 @@ struct ControlsView: View {
                         .frame(
                             width: self.activePicker == .tapTempo ? 0 : geometry.size.width / 2 - 1,
                             height: self.activePicker == .tapTempo ? 0 : geometry.size.height / 2 - 1)
-                        .background(LinearGradient(self.isActive(picker: .beats) ? Palette.Gradients.orangePink : Palette.Gradients.gray))
+                        .background(LinearGradient.oblique(self.isActive(picker: .beats) ? Palette.Gradients.orangePink : Palette.Gradients.gray))
                         .cornerRadius(8)
                         .onTapGesture { self.activePicker = .beats }
                         .focusable(self.isActive(picker: .beats))
@@ -125,7 +125,7 @@ struct ControlsView: View {
                         .frame(
                             width: self.activePicker == .tapTempo ? 0 : geometry.size.width / 2 - 1,
                             height: self.activePicker == .tapTempo ? 0 : geometry.size.height / 2 - 1)
-                        .background(LinearGradient(self.isActive(picker: .note) ? Palette.Gradients.pinkOrange : Palette.Gradients.gray))
+                        .background(LinearGradient.oblique(self.isActive(picker: .note) ? Palette.Gradients.pinkOrange : Palette.Gradients.gray))
                         .cornerRadius(8)
                         .onTapGesture { self.activePicker = .note }
                         .focusable(self.isActive(picker: .note))

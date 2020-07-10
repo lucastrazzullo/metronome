@@ -57,7 +57,7 @@ private struct BeatCardView: View {
 
     var body: some View {
         ZStack(alignment: .center) {
-            LinearGradient(backgroundGradient(for: state))
+            LinearGradient.oblique(backgroundGradient(for: state))
                 .cornerRadius(12, corners: [.bottomLeft, .bottomRight])
                 .edgesIgnoringSafeArea(.all)
                 .shadow(color: Palette.black.color.opacity(0.45), radius: 2, x: 0, y: -2)

@@ -44,6 +44,14 @@
 		812C3FDC2482926400C1E836 /* PublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812C3FD92482920000C1E836 /* PublisherExtensions.swift */; };
 		812C3FDD2482926400C1E836 /* PublisherExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812C3FD92482920000C1E836 /* PublisherExtensions.swift */; };
 		812E5B422355155900F04E41 /* TapTempoPickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 812E5B412355155900F04E41 /* TapTempoPickerViewModel.swift */; };
+		8139CD8024B88AB600933698 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81047D0924693D7A00199100 /* ViewExtensions.swift */; };
+		8139CD8124B88AB600933698 /* ViewExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81047D0924693D7A00199100 /* ViewExtensions.swift */; };
+		8139CD8324B88AE900933698 /* LinearGradientExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139CD8224B88AE900933698 /* LinearGradientExtensions.swift */; };
+		8139CD8424B88AE900933698 /* LinearGradientExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139CD8224B88AE900933698 /* LinearGradientExtensions.swift */; };
+		8139CD8524B88AE900933698 /* LinearGradientExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139CD8224B88AE900933698 /* LinearGradientExtensions.swift */; };
+		8139CD8724B88AFC00933698 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139CD8624B88AFC00933698 /* ColorExtensions.swift */; };
+		8139CD8824B88AFC00933698 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139CD8624B88AFC00933698 /* ColorExtensions.swift */; };
+		8139CD8924B88AFC00933698 /* ColorExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8139CD8624B88AFC00933698 /* ColorExtensions.swift */; };
 		813ABCD424655FA8005A8F92 /* Palette.swift in Sources */ = {isa = PBXBuildFile; fileRef = 815DA89924617D7000FEE8B1 /* Palette.swift */; };
 		813ABCDB246563A7005A8F92 /* ColorPalette.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 815DA89724617D5600FEE8B1 /* ColorPalette.xcassets */; };
 		813ABCDF2465801C005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813ABCDE2465801C005A8F92 /* TimerBackedMetronomeTicker.swift */; };
@@ -230,6 +238,8 @@
 		812B351B247ADA75007406C0 /* ShapedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShapedButton.swift; sourceTree = "<group>"; };
 		812C3FD92482920000C1E836 /* PublisherExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PublisherExtensions.swift; sourceTree = "<group>"; };
 		812E5B412355155900F04E41 /* TapTempoPickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapTempoPickerViewModel.swift; sourceTree = "<group>"; };
+		8139CD8224B88AE900933698 /* LinearGradientExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearGradientExtensions.swift; sourceTree = "<group>"; };
+		8139CD8624B88AFC00933698 /* ColorExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtensions.swift; sourceTree = "<group>"; };
 		813ABCD6246561E0005A8F92 /* SystemIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemIcon.swift; sourceTree = "<group>"; };
 		813ABCDE2465801C005A8F92 /* TimerBackedMetronomeTicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerBackedMetronomeTicker.swift; sourceTree = "<group>"; };
 		813ABCE824658950005A8F92 /* Beat-normal.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "Beat-normal.mp3"; sourceTree = "<group>"; };
@@ -419,6 +429,9 @@
 			isa = PBXGroup;
 			children = (
 				812C3FD92482920000C1E836 /* PublisherExtensions.swift */,
+				81047D0924693D7A00199100 /* ViewExtensions.swift */,
+				8139CD8224B88AE900933698 /* LinearGradientExtensions.swift */,
+				8139CD8624B88AFC00933698 /* ColorExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -444,7 +457,6 @@
 		8158FC69246D85A700752374 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				81047D0924693D7A00199100 /* ViewExtensions.swift */,
 				8158FC6A246D85B500752374 /* PickerButton.swift */,
 				812B351B247ADA75007406C0 /* ShapedButton.swift */,
 			);
@@ -989,16 +1001,19 @@
 			files = (
 				813ABCE424658049005A8F92 /* TimerBackedMetronomeTicker.swift in Sources */,
 				81C391F22478265E00A51EF5 /* SessionController.swift in Sources */,
+				8139CD8424B88AE900933698 /* LinearGradientExtensions.swift in Sources */,
 				81CC279324743098006D87CA /* DictionaryCodable.swift in Sources */,
 				81D53DEF24962D83007626A9 /* RemoteSessionView.swift in Sources */,
 				81807A6C245FF1FD00737786 /* Copy.swift in Sources */,
 				810701A3245F2E78003D0B54 /* Metronome.swift in Sources */,
 				817F9956234CADBC00DA1043 /* MetronomeTicker.swift in Sources */,
 				81ECB8062473DB2A004AAE75 /* PickerButton.swift in Sources */,
+				8139CD8124B88AB600933698 /* ViewExtensions.swift in Sources */,
 				813ABCD424655FA8005A8F92 /* Palette.swift in Sources */,
 				81B999AE235B22B500E87778 /* Beat.swift in Sources */,
 				81ECB8072473E354004AAE75 /* BrandFont.swift in Sources */,
 				812B351F247ADABF007406C0 /* ShapedButton.swift in Sources */,
+				8139CD8824B88AFC00933698 /* ColorExtensions.swift in Sources */,
 				817F994F234CAD6600DA1043 /* ExtensionDelegate.swift in Sources */,
 				81DF3A632472D22500779BDB /* SystemIcon.swift in Sources */,
 				81D53DF224962DE7007626A9 /* RemoteSessionViewModel.swift in Sources */,
@@ -1033,9 +1048,11 @@
 				810701A4245F2E78003D0B54 /* Metronome.swift in Sources */,
 				81BDF50D2458761000B4F7F8 /* ControlsView.swift in Sources */,
 				81BDF4FD24586BED00B4F7F8 /* MetronomeConfiguration.swift in Sources */,
+				8139CD8924B88AFC00933698 /* ColorExtensions.swift in Sources */,
 				81BDF50524586C9900B4F7F8 /* BeatsView.swift in Sources */,
 				815DA89E24617FF500FEE8B1 /* Palette.swift in Sources */,
 				811FDEC024642BDE008713EF /* TapTempoPickerViewModel.swift in Sources */,
+				8139CD8524B88AE900933698 /* LinearGradientExtensions.swift in Sources */,
 				81D525D02460466400F8F541 /* TempoPickerViewModel.swift in Sources */,
 				81BDF50B24586D1000B4F7F8 /* ColorView.swift in Sources */,
 				812C3FDD2482926400C1E836 /* PublisherExtensions.swift in Sources */,
@@ -1048,6 +1065,7 @@
 				81D4B6BF246F0F3E0051A267 /* SystemIcon.swift in Sources */,
 				815003B12462EB0500651E88 /* BeatViewModel.swift in Sources */,
 				81BDF4E724586A4C00B4F7F8 /* AppDelegate.swift in Sources */,
+				8139CD8024B88AB600933698 /* ViewExtensions.swift in Sources */,
 				81BDF4F924586BED00B4F7F8 /* TimeSignature.swift in Sources */,
 				81BDF50F245877AD00B4F7F8 /* BeatsViewModel.swift in Sources */,
 				81BDF50224586C3500B4F7F8 /* SessionViewModel.swift in Sources */,
@@ -1092,7 +1110,9 @@
 				81C391FB24782CEE00A51EF5 /* MetronomeSessionController.swift in Sources */,
 				815003AF2462EA0100651E88 /* BeatViewModel.swift in Sources */,
 				8189515E24797E9F00BEAD16 /* PluginsController.swift in Sources */,
+				8139CD8724B88AFC00933698 /* ColorExtensions.swift in Sources */,
 				81B999B1235B569600E87778 /* BeatView.swift in Sources */,
+				8139CD8324B88AE900933698 /* LinearGradientExtensions.swift in Sources */,
 				81047D0A24693D7A00199100 /* ViewExtensions.swift in Sources */,
 				811FDEC724643F9C008713EF /* TimeSignaturePickerViewModel.swift in Sources */,
 				8198E79A2474034F00D582E3 /* DictionaryCodable.swift in Sources */,

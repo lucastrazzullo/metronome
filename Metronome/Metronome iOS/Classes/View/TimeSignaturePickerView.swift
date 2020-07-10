@@ -102,7 +102,7 @@ struct TimeSignaturePickerView: View {
         }
         .padding(.top, 12)
         .padding([.bottom, .leading, .trailing], 4)
-        .background(LinearGradient(.orangePink).edgesIgnoringSafeArea(.all))
+        .background(LinearGradient.oblique(.orangePink).edgesIgnoringSafeArea(.all))
         .foregroundColor(Palette.black.color)
     }
 
