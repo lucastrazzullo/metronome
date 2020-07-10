@@ -35,9 +35,10 @@ struct TimeSignaturePickerView: View {
                         HStack(alignment: .center, spacing: 28) {
                             PickerButton(icon: .minus, action: viewModel.decreaseBarLength)
                                 .brandFont(.title)
+                                .frame(width: 46, height: 46)
 
                             HStack(alignment: .center, spacing: 8) {
-                                ForEach(viewModel.barLengthItems, id: \.position) { item in
+                                ForEach(viewModel.beats, id: \.position) { item in
                                     Button(action: { self.viewModel.toggleIsAccent(at: item.position) }) {
                                         VStack(alignment: .center, spacing: 4) {
                                             Text(String(item.position + 1))
@@ -58,6 +59,7 @@ struct TimeSignaturePickerView: View {
 
                             PickerButton(icon: .plus, action: viewModel.increaseBarLength)
                                 .brandFont(.title)
+                                .frame(width: 46, height: 46)
                         }
                     }
 
@@ -67,13 +69,13 @@ struct TimeSignaturePickerView: View {
                             .opacity(0.36)
 
                         HStack(alignment: .center, spacing: 12) {
-                            ForEach(viewModel.noteLengthItems, id: \.self) { length in
-                                Button(action: { self.viewModel.selectNoteLength(length.rawValue) }) {
-                                    Text(String(length.rawValue))
+                            ForEach(viewModel.noteItems, id: \.self) { note in
+                                Button(action: { self.viewModel.selectNote(note) }) {
+                                    Text(String(note.rawValue))
                                         .brandFont(.subheadline)
                                         .padding([.top, .bottom], 8)
                                         .padding([.leading, .trailing], 12)
-                                        .background(Palette.white.color.opacity(self.opacity(forNoteWith: length.rawValue)))
+                                        .background(Palette.white.color.opacity(self.opacity(forNoteWith: note.rawValue)))
                                         .cornerRadius(4)
                                 }
                             }
@@ -100,7 +102,7 @@ struct TimeSignaturePickerView: View {
         }
         .padding(.top, 12)
         .padding([.bottom, .leading, .trailing], 4)
-        .background(LinearGradient(.orangePink).edgesIgnoringSafeArea(.all))
+        .background(LinearGradient.oblique(.orangePink).edgesIgnoringSafeArea(.all))
         .foregroundColor(Palette.black.color)
     }
 
@@ -119,12 +121,12 @@ struct TimeSignaturePickerView: View {
 
 
     private func opacity(forBeatAt position: Int) -> Double {
-        return viewModel.selectedBarLength > position ? 1 : 0.2
+        return Int(viewModel.selectedBarLength) > position ? 1 : 0.2
     }
 
 
     private func opacity(forNoteWith length: Int) -> Double {
-        return viewModel.selectedNoteLength == length ? 1 : 0.2
+        return viewModel.selectedNote.rawValue == length ? 1 : 0.2
     }
 }
 
@@ -135,7 +137,8 @@ struct TimeSignaturePickerView_Preview: PreviewProvider {
 
     static var previews: some View {
         let metronome = Metronome(with: .default, soundOn: false)
-        let viewModel = TimeSignaturePickerViewModel(metronome: metronome)
+        let controller = MetronomeSessionController(metronome: metronome)
+        let viewModel = TimeSignaturePickerViewModel(controller: controller)
         return TimeSignaturePickerView(viewModel: viewModel)
             .previewLayout(.fixed(width: 568, height: 340))
     }

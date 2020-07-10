@@ -50,25 +50,8 @@ enum Palette: String {
             case .pinkOrange:
                 return [Color("pinkOrange-1"), Color("pinkOrange-2")]
             case .gray:
-                return [Palette.gray.color, Palette.gray.color]
+                return [Color("grayGray-1"), Color("grayGray-2")]
             }
         }
-    }
-}
-
-
-extension Color {
-
-    init(_ palette: Palette) {
-        self = palette.color
-    }
-}
-
-
-extension LinearGradient {
-
-    init(_ gradient: Palette.Gradients) {
-        let gradient = Gradient(colors: gradient.colors)
-        self = LinearGradient(gradient: gradient, startPoint: .topLeading, endPoint: .bottomTrailing)
     }
 }

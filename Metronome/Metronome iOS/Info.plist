@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Metronome</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -23,6 +25,7 @@
 	<key>NSUserActivityTypes</key>
 	<array>
 		<string>com.lucastrazzullo.metronome.start-metronome</string>
+		<string>com.lucastrazzullo.metronome.configure-metronome</string>
 	</array>
 	<key>UIAppFonts</key>
 	<array>

@@ -8,6 +8,12 @@
 
 import Foundation
 
+protocol EntryCache {
+    func set(value: Any?, for key: String)
+    func value(for key: String) -> Any?
+}
+
+
 class Cache {
 
     private(set) var entry: EntryCache

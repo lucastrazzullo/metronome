@@ -11,35 +11,54 @@ import Combine
 
 class TempoPickerViewModel: ObservableObject {
 
-    @Published private(set) var temporarySelectedTempo: Int
+    @Published var selectedTempoBpm: Double = Double(Tempo.default.bpm)
 
-    private(set) var tempoItems: [Int]
+    var isAutomaticCommitActive: Bool = false
 
-    private let metronome: Metronome
+    private let controller: SessionController
+    private var cancellables: Set<AnyCancellable> = []
 
 
     // MARK: Object life cycle
 
-    init(metronome: Metronome) {
-        self.metronome = metronome
-        self.tempoItems = Array(Tempo.range)
-        self.temporarySelectedTempo = metronome.configuration.tempo.bpm
+    init(controller: SessionController) {
+        self.controller = controller
+        self.controller.sessionPublisher
+            .sink(receiveValue: setupWith(session:))
+            .store(in: &cancellables)
+
+        self.$selectedTempoBpm
+            .debounce(for: 0.8, scheduler: DispatchQueue.main)
+            .filter({ [weak self] _ in self?.isAutomaticCommitActive ?? false })
+            .sink(receiveValue: { [weak self] _ in self?.commit() })
+            .store(in: &cancellables)
+    }
+
+
+    //  MARK: Setup
+
+    private func setupWith(session: MetronomeSession) {
+        session.$configuration
+            .map({ $0.tempo.bpm })
+            .removeDuplicates()
+            .sink(receiveValue: { [weak self] in self?.selectedTempoBpm = Double($0) })
+            .store(in: &cancellables)
     }
 
 
     // MARK: Public methods
 
     func commit() {
-        metronome.configuration.tempo = Tempo(bpm: temporarySelectedTempo)
+        controller.set(tempo: Tempo(bpm: Int(selectedTempoBpm)))
     }
 
 
     func decreaseTempo() {
-        temporarySelectedTempo = max(Tempo.range.lowerBound, min(Tempo.range.upperBound, temporarySelectedTempo - 1))
+        selectedTempoBpm = Double(max(Tempo.range.lowerBound, min(Tempo.range.upperBound, Int(selectedTempoBpm - 1))))
     }
 
 
     func increaseTempo() {
-        temporarySelectedTempo = max(Tempo.range.lowerBound, min(Tempo.range.upperBound, temporarySelectedTempo + 1))
+        selectedTempoBpm = Double(max(Tempo.range.lowerBound, min(Tempo.range.upperBound, Int(selectedTempoBpm + 1))))
     }
 }

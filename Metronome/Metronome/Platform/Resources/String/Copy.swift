@@ -33,16 +33,21 @@ struct Copy {
 
     enum Tempo: String, CopyIdentifier {
         case title = "metronome.tempo.title"
+        case format = "metronome.tempo.representation.format"
+
         case unit = "metronome.tempo.unit"
     }
 
     enum TimeSignature: String, CopyIdentifier {
         case title = "metronome.time_signature.title"
+        case titleShort = "metronome.time_signature.title.short"
         case format = "metronome.time_signature.representation.format"
 
+        case barLengthTitleShort = "metronome.time_signature.bar_length.title.short"
         case barLength = "metronome.time_signature.bar_length.title"
         case barLengthSuffixFormat = "metronome.time_signature.bar_length.suffix.format"
 
+        case noteLengthTitleShort = "metronome.time_signature.note_length.title.short"
         case noteLength = "metronome.time_signature.note_length.title"
         case noteLengthPrefixFormat = "metronome.time_signature.note_length.prefix.format"
 
@@ -67,31 +72,5 @@ struct Copy {
             case title = "metronome.picker.tap_tempo.title"
             case valuePlaceholder = "metronome.picker.tap_tempo.value.placeholder"
         }
-    }
-
-    enum Welcome: String, CopyIdentifier {
-        case title = "welcome.title"
-    }
-
-    enum Tips: String, CopyIdentifier {
-        case title = "tips.title"
-
-        case swipeUpTitle = "tips.swipeUp.title"
-        case swipeUpDescription = "tips.swipeUp.description"
-
-        case toggleTitle = "tips.toggle.title"
-        case toggleDescription = "tips.toggle.description"
-
-        case verticalSlideTitle = "tips.vertical_slide.title"
-        case verticalSlideDescription = "tips.vertical_slide.description"
-
-        case horizontalSlideTitle = "tips.horizontal_slide.title"
-        case horizontalSlideDescription = "tips.horizontal_slide.description"
-
-        case pinchTitle = "tips.pinch.title"
-        case pinchDescription = "tips.pinch.description"
-
-        case longPressTitle = "tips.long_press.title"
-        case longPressDescription = "tips.long_press.description"
     }
 }

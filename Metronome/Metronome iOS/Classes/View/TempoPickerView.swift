@@ -34,13 +34,15 @@ struct TempoPickerView: View {
                     HStack(alignment: .center, spacing: 28) {
                         PickerButton(icon: .minus, action: viewModel.decreaseTempo)
                             .brandFont(.title)
+                            .frame(width: 46, height: 46)
 
-                        Text(String(viewModel.temporarySelectedTempo))
+                        Text(String(Int(viewModel.selectedTempoBpm)))
                             .brandFont(.largeTitle)
                             .frame(minWidth: 100)
 
                         PickerButton(icon: .plus, action: viewModel.increaseTempo)
                             .brandFont(.title)
+                            .frame(width: 46, height: 46)
                     }
                 }
 
@@ -61,7 +63,7 @@ struct TempoPickerView: View {
         }
         .padding(.top, 12)
         .padding([.bottom, .leading, .trailing], 4)
-        .background(LinearGradient(.yellowGreen).edgesIgnoringSafeArea(.all))
+        .background(LinearGradient.oblique(.yellowGreen).edgesIgnoringSafeArea(.all))
         .foregroundColor(Palette.black.color)
     }
 
@@ -81,7 +83,8 @@ struct TempoPickerView_Preview: PreviewProvider {
 
     static var previews: some View {
         let metronome = Metronome(with: .default, soundOn: false)
-        let viewModel = TempoPickerViewModel(metronome: metronome)
+        let controller = MetronomeSessionController(metronome: metronome)
+        let viewModel = TempoPickerViewModel(controller: controller)
         return TempoPickerView(viewModel: viewModel)
             .previewLayout(.fixed(width: 568, height: 320))
     }

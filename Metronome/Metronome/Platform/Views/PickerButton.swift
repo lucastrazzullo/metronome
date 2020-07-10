@@ -26,7 +26,6 @@ struct PickerButton: View {
 
             Image(icon)
         }
-        .frame(width: 46, height: 46)
         .gesture(TapGesture()
             .onEnded({
                 self.cancellable?.cancel()

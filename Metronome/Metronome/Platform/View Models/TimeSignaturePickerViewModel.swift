@@ -11,56 +11,80 @@ import Combine
 
 class TimeSignaturePickerViewModel: ObservableObject {
 
-    @Published private(set) var selectedBarLength: Int
-    @Published private(set) var selectedAccentPositions: Set<Int>
-    @Published private(set) var selectedNoteLength: Int
+    @Published var selectedBarLength: Double = Double(TimeSignature.default.barLength.numberOfBeats)
+    @Published var selectedNoteIndex: Double = Double(TimeSignature.NoteLength.allCases.firstIndex(of: TimeSignature.default.noteLength) ?? 0)
+    @Published var selectedAccentPositions: Set<Int> = []
 
-    private(set) var barLengthItems: [Beat]
-    private(set) var noteLengthItems: [TimeSignature.NoteLength]
+    var selectedNote: TimeSignature.NoteLength {
+        return noteItems[Int(selectedNoteIndex)]
+    }
 
-    private let metronome: Metronome
+    var isAutomaticCommitActive: Bool = false
+    let beats: [Beat] = TimeSignature.BarLength.maximum.beats
+    let noteItems: [TimeSignature.NoteLength] = TimeSignature.NoteLength.allCases
+
+    private let controller: SessionController
+    private var cancellables: Set<AnyCancellable> = []
 
 
     // MARK: Object life cycle
 
-    init(metronome: Metronome) {
-        self.metronome = metronome
+    init(controller: SessionController) {
+        self.controller = controller
+        self.controller.sessionPublisher
+            .sink(receiveValue: setupWith(session:))
+            .store(in: &cancellables)
 
-        self.barLengthItems = TimeSignature.BarLength.maximum.beats
-        self.noteLengthItems = TimeSignature.NoteLength.allCases
+        self.$selectedBarLength
+            .combineLatest($selectedNoteIndex)
+            .combineLatest($selectedAccentPositions)
+            .debounce(for: 0.8, scheduler: DispatchQueue.main)
+            .filter({ [weak self] _ in self?.isAutomaticCommitActive ?? false })
+            .sink(receiveValue: { [weak self] _ in self?.commit() })
+            .store(in: &cancellables)
+    }
 
-        let timeSignature = metronome.configuration.timeSignature
-        self.selectedBarLength = timeSignature.barLength.numberOfBeats
-        self.selectedAccentPositions = timeSignature.barLength.accentPositions
-        self.selectedNoteLength = timeSignature.noteLength.rawValue
+
+    //  MARK: Setup
+
+    private func setupWith(session: MetronomeSession) {
+        session.$configuration
+            .map({ $0.timeSignature })
+            .removeDuplicates()
+            .sink { [weak self] timeSignature in
+                self?.selectedBarLength = Double(timeSignature.barLength.numberOfBeats)
+                self?.selectedAccentPositions = timeSignature.barLength.accentPositions
+                self?.selectedNoteIndex = Double(self?.noteItems.firstIndex(of: timeSignature.noteLength) ?? 0)
+            }
+            .store(in: &cancellables)
     }
 
 
     // MARK: Public methods
 
     func commit() {
-        let barLength = TimeSignature.BarLength(numberOfBeats: selectedBarLength, accentPositions: selectedAccentPositions)
-        let noteLength = TimeSignature.NoteLength(rawValue: selectedNoteLength)
-        let timeSignature = TimeSignature(barLength: barLength, noteLength: noteLength ?? .default)
-        metronome.configuration.setTimeSignature(timeSignature)
+        let barLength = TimeSignature.BarLength(numberOfBeats: Int(selectedBarLength), accentPositions: selectedAccentPositions)
+        let noteLength = noteItems[Int(selectedNoteIndex)]
+        let timeSignature = TimeSignature(barLength: barLength, noteLength: noteLength)
+        controller.set(timeSignature: timeSignature)
     }
 
 
+    // MARK: Public methods - Bar Length
+
     func decreaseBarLength() {
-        selectedBarLength = max(TimeSignature.BarLength.range.lowerBound, min(TimeSignature.BarLength.range.upperBound, selectedBarLength - 1))
-        selectedAccentPositions.subtract(selectedBarLength...TimeSignature.BarLength.range.upperBound)
+        selectedBarLength = Double(max(TimeSignature.BarLength.range.lowerBound, min(TimeSignature.BarLength.range.upperBound, Int(selectedBarLength) - 1)))
+        selectedAccentPositions.subtract(Int(selectedBarLength)...TimeSignature.BarLength.range.upperBound)
     }
 
 
     func increaseBarLength() {
-        selectedBarLength = max(TimeSignature.BarLength.range.lowerBound, min(TimeSignature.BarLength.range.upperBound, selectedBarLength + 1))
+        selectedBarLength = Double(max(TimeSignature.BarLength.range.lowerBound, min(TimeSignature.BarLength.range.upperBound, Int(selectedBarLength) + 1)))
     }
 
 
     func toggleIsAccent(at position: Int) {
-        if position >= selectedBarLength {
-            selectedBarLength = position + 1
-        } else {
+        if position < Int(selectedBarLength) {
             if selectedAccentPositions.contains(position) {
                 selectedAccentPositions.remove(position)
             } else {
@@ -70,7 +94,25 @@ class TimeSignaturePickerViewModel: ObservableObject {
     }
 
 
-    func selectNoteLength(_ length: Int) {
-        selectedNoteLength = length
+    // MARK: Public methods - Note Length
+
+    func decreaseNoteLength() {
+        if Int(selectedNoteIndex) - 1 >= 0 {
+            selectedNoteIndex -= 1
+        }
+    }
+
+
+    func increaseNoteLength() {
+        if Int(selectedNoteIndex) + 1 < noteItems.count {
+            selectedNoteIndex += 1
+        }
+    }
+
+
+    func selectNote(_ note: TimeSignature.NoteLength) {
+        if let index = noteItems.firstIndex(of: note) {
+            selectedNoteIndex = Double(index)
+        }
     }
 }

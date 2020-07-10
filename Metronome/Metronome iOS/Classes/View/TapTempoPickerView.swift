@@ -57,7 +57,7 @@ struct TapTempoPickerView: View {
         }
         .padding(.top, 24)
         .padding([.bottom, .leading, .trailing], 4)
-        .background(LinearGradient(.greenBlue).edgesIgnoringSafeArea(.all))
+        .background(LinearGradient.oblique(.greenBlue).edgesIgnoringSafeArea(.all))
         .foregroundColor(Palette.black.color)
         .gesture(TapGesture()
             .onEnded { gesture in
@@ -91,7 +91,8 @@ struct TapTempoPickerView_Preview: PreviewProvider {
 
     static var previews: some View {
         let metronome = Metronome(with: .default, soundOn: false)
-        let viewModel = TapTempoPickerViewModel(metronome: metronome)
+        let controller = MetronomeSessionController(metronome: metronome)
+        let viewModel = TapTempoPickerViewModel(controller: controller)
         return TapTempoPickerView(viewModel: viewModel)
             .previewLayout(.fixed(width: 568, height: 320))
     }

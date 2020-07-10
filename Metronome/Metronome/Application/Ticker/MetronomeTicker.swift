@@ -20,5 +20,6 @@ protocol MetronomeTicker: AnyObject {
     var isRunning: Bool { get }
 
     func start(with timeInterval: TimeInterval)
+    func update(timeInterval: TimeInterval)
     func reset()
 }

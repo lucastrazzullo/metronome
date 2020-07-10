@@ -13,18 +13,21 @@ class BeatsViewModel: ObservableObject {
 
     @Published private(set) var beats: [BeatViewModel] = []
 
-    private let publisher: MetronomePublisher
+    let controller: SessionController
+
     private var cancellable: AnyCancellable?
 
 
     // MARK: Object life cycle
 
-    init(metronomePublisher: MetronomePublisher) {
-        publisher = metronomePublisher
-        cancellable = metronomePublisher.$configuration.sink { [weak self] configuration in
-            if configuration.timeSignature.barLength.numberOfBeats != self?.beats.count {
-                self?.reloadBeats(configuration.timeSignature.barLength.beats)
-            }
+    init(sessionController: SessionController) {
+        controller = sessionController
+        cancellable = controller.sessionPublisher
+            .flatMap { $0.$configuration }
+            .sink { [weak self] configuration in
+                if configuration.timeSignature.barLength.numberOfBeats != self?.beats.count {
+                    self?.reloadBeats(configuration.timeSignature.barLength.beats)
+                }
         }
     }
 
@@ -33,7 +36,7 @@ class BeatsViewModel: ObservableObject {
 
     private func reloadBeats(_ beats: [Beat]) {
         self.beats = beats.map { beat in
-            return BeatViewModel(at: beat.position, metronomePublisher: publisher)
+            return BeatViewModel(at: beat.position, controller: controller)
         }
     }
 }

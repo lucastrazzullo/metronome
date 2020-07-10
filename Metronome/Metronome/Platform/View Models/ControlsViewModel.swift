@@ -11,27 +11,35 @@ import Combine
 
 class ControlsViewModel: ObservableObject {
 
-    @Published var tempoLabel: String
-    @Published var tapTempoLabel: String
-    @Published var tapTempoIndicatorIsHighlighted: Bool
-    @Published var timeSignatureLabel: String
-    @Published var metronomeTogglerLabel: String
-    @Published var soundTogglerIcon: SystemIcon
+    @Published var tempoLabel: String = ""
+    @Published var tapTempoLabel: String = ""
+    @Published var tapTempoIndicatorIsHighlighted: Bool = false
+    @Published var timeSignatureLabel: String = ""
+    @Published var metronomeTogglerLabel: String = ""
+    @Published var soundTogglerIcon: SystemIcon = .soundOff
 
-    @Published var metronomeIsRunning: Bool
-    @Published var metronomeSoundIsOn: Bool
+    @Published var metronomeIsRunning: Bool = false
+    @Published var metronomeSoundIsOn: Bool = false
 
-    let metronome: Metronome
+    let controller: SessionController
 
-    private var cancellables: [AnyCancellable] = []
+    private var cancellables: Set<AnyCancellable> = []
 
 
     // MARK: Object life cycle
 
-    init(with metronomePublisher: MetronomePublisher) {
-        metronome = metronomePublisher.metronome
+    init(controller: SessionController) {
+        self.controller = controller
+        self.controller.sessionPublisher
+            .sink(receiveValue: setupWith(session:))
+            .store(in: &cancellables)
+    }
 
-        let timeSignature = metronome.configuration.timeSignature
+
+    //  MARK: Setup
+
+    private func setupWith(session: MetronomeSession) {
+        let timeSignature = session.configuration.timeSignature
         timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, timeSignature.barLength.numberOfBeats, timeSignature.noteLength.rawValue)
         tempoLabel = Copy.Tempo.unit.localised.uppercased()
 
@@ -41,50 +49,54 @@ class ControlsViewModel: ObservableObject {
         metronomeTogglerLabel = Copy.Controls.start.localised
         soundTogglerIcon = SystemIcon.soundOff
 
-        metronomeIsRunning = metronome.isRunning
-        metronomeSoundIsOn = metronome.isSoundOn
+        metronomeIsRunning = session.isRunning
+        metronomeSoundIsOn = session.isSoundOn
 
-        cancellables.append(metronomePublisher.$configuration.sink { [weak self] configuration in
+        session.$configuration.sink { [weak self] configuration in
             let timeSignature = configuration.timeSignature
             self?.timeSignatureLabel = String(format: Copy.TimeSignature.format.localised, timeSignature.barLength.numberOfBeats, timeSignature.noteLength.rawValue)
-            self?.tempoLabel = "\(configuration.tempo.bpm)\(Copy.Tempo.unit.localised.uppercased())"
-        })
+            self?.tempoLabel = String(format: Copy.Tempo.format.localised, configuration.tempo.bpm, Copy.Tempo.unit.localised.uppercased())
+        }
+        .store(in: &cancellables)
 
-        cancellables.append(metronomePublisher.$isSoundOn.sink { [weak self] isSoundOn in
+        session.$isSoundOn.sink { [weak self] isSoundOn in
             self?.soundTogglerIcon = isSoundOn ? SystemIcon.soundOn : SystemIcon.soundOff
             self?.metronomeSoundIsOn = isSoundOn
-        })
+        }
+        .store(in: &cancellables)
 
-        cancellables.append(metronomePublisher.$isRunning.sink { [weak self] isRunning in
+        session.$isRunning.sink { [weak self] isRunning in
             self?.metronomeIsRunning = isRunning
             self?.metronomeTogglerLabel = isRunning ? Copy.Controls.stop.localised : Copy.Controls.start.localised
             self?.tapTempoIndicatorIsHighlighted = isRunning
-        })
+        }
+        .store(in: &cancellables)
 
-        cancellables.append(Publishers.CombineLatest(metronomePublisher.$currentBeat, metronomePublisher.$isRunning).sink {
+        Publishers.CombineLatest(session.$currentBeat, session.$isRunning).sink {
             [weak self] _, isRunning in
             if isRunning {
                 self?.tapTempoIndicatorIsHighlighted.toggle()
             } else {
                 self?.tapTempoIndicatorIsHighlighted = false
             }
-        })
+        }
+        .store(in: &cancellables)
     }
 
 
     // MARK: Public methods
 
     func reset() {
-        metronome.reset()
+        controller.reset()
     }
 
 
     func toggleIsRunning() {
-        metronome.toggle()
+        controller.toggleIsRunning()
     }
 
 
     func toggleSoundOn() {
-        metronome.isSoundOn.toggle()
+        controller.toggleIsSoundOn()
     }
 }

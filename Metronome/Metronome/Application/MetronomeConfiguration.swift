@@ -45,9 +45,44 @@ struct MetronomeConfiguration: Equatable {
             timeSignature.barLength.beats[position].isAccent = isAccent
         }
     }
+}
 
 
-    mutating func setTimeSignature(_ signature: TimeSignature) {
-        timeSignature = signature
+extension MetronomeConfiguration: Codable {
+
+    enum CodingKeys: String, CodingKey {
+        case tempoBpm
+        case numberOfBeats
+        case accentPositions
+        case noteLength
+    }
+
+
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        let tempoBpm = try values.decode(Int.self, forKey: .tempoBpm)
+        let numberOfBeats = try values.decode(Int.self, forKey: .numberOfBeats)
+        let noteLengthRaw = try values.decode(Int.self, forKey: .noteLength)
+        let accentPositions = try? values.decode([Int].self, forKey: .accentPositions)
+
+        let barLength: TimeSignature.BarLength
+        if let accentPositions = accentPositions {
+            barLength = TimeSignature.BarLength(numberOfBeats: numberOfBeats, accentPositions: Set(accentPositions))
+        } else {
+            barLength = TimeSignature.BarLength(numberOfBeats: numberOfBeats)
+        }
+        let noteLength = TimeSignature.NoteLength(rawValue: noteLengthRaw) ?? .default
+
+        timeSignature = TimeSignature(barLength: barLength, noteLength: noteLength)
+        tempo = Tempo(bpm: tempoBpm)
+    }
+
+
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(tempo.bpm, forKey: .tempoBpm)
+        try container.encode(timeSignature.barLength.numberOfBeats, forKey: .numberOfBeats)
+        try container.encode(Array(timeSignature.barLength.accentPositions), forKey: .accentPositions)
+        try container.encode(timeSignature.noteLength.rawValue, forKey: .noteLength)
     }
 }

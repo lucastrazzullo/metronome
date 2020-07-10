@@ -15,22 +15,22 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "817F992B234CAD0300DA1043"
-               BuildableName = "Metronome.app"
-               BlueprintName = "Metronome Cocoa Watch"
+               BuildableName = "Metronome Watch.app"
+               BlueprintName = "Metronome Watch"
                ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
          <BuildActionEntry
-            buildForTesting = "NO"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "81FAF02A23427ED1004A8C51"
-               BuildableName = "Metronome Cocoa.app"
-               BlueprintName = "Metronome Cocoa iOS"
+               BuildableName = "Metronome iOS.app"
+               BlueprintName = "Metronome iOS"
                ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -54,18 +54,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/Metronome iOS">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "817F992B234CAD0300DA1043"
-            BuildableName = "Metronome.app"
-            BlueprintName = "Metronome Cocoa Watch"
+            BuildableName = "Metronome Watch.app"
+            BlueprintName = "Metronome Watch"
             ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -73,27 +71,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <RemoteRunnable
-         runnableDebuggingMode = "2"
-         BundleIdentifier = "com.apple.Carousel"
-         RemotePath = "/Metronome iOS">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "817F992B234CAD0300DA1043"
-            BuildableName = "Metronome.app"
-            BlueprintName = "Metronome Cocoa Watch"
+            BuildableName = "Metronome Watch.app"
+            BlueprintName = "Metronome Watch"
             ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
          </BuildableReference>
-      </RemoteRunnable>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "817F992B234CAD0300DA1043"
-            BuildableName = "Metronome.app"
-            BlueprintName = "Metronome Cocoa Watch"
-            ReferencedContainer = "container:Metronome Cocoa.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

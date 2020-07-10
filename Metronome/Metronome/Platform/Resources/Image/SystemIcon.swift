@@ -10,6 +10,7 @@ import SwiftUI
 
 enum SystemIcon: String, CaseIterable {
 
+    case play = "play.fill"
     case soundOn = "volume.3"
     case soundOff = "volume.slash"
     case arrowDown = "chevron.compact.down"
@@ -24,6 +25,7 @@ enum SystemIcon: String, CaseIterable {
 }
 
 
+#if os(iOS) || os(watchOS)
 extension Image {
 
     init(_ icon: SystemIcon) {
@@ -44,3 +46,4 @@ struct SystemIcon_Previews: PreviewProvider {
         }
     }
 }
+#endif

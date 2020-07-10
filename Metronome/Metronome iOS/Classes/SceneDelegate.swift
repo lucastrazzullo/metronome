@@ -23,15 +23,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func sceneDidBecomeActive(_ scene: UIScene) {
         if let shortcutItem = (UIApplication.shared.delegate as? AppDelegate)?.shortcutItemToProcess,
             let userInfo = shortcutItem.userInfo,
-            let configuration = UserInfoFactory.configuration(in: userInfo) {
+            let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: userInfo) {
             (UIApplication.shared.delegate as? AppDelegate)?.shortcutItemToProcess = nil
-            (window?.rootViewController as? MainViewController)?.startMetronome(with: configuration)
+            (window?.rootViewController as? MetronomeViewController)?.startMetronome(with: configuration)
         }
     }
 
 
     func sceneDidEnterBackground(_ scene: UIScene) {
-        (window?.rootViewController as? MainViewController)?.resetMetronome()
+        (window?.rootViewController as? MetronomeViewController)?.resetMetronome()
     }
 
 
@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                              localizedTitle: title,
                                              localizedSubtitle: subtitle,
                                              icon: UIApplicationShortcutIcon(type: .play),
-                                             userInfo: UserInfoFactory.userInfo(for: configuration) as? [String : NSSecureCoding])
+                                             userInfo: try? DictionaryEncoder().encode(configuration))
         }
     }
 
@@ -60,10 +60,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     // MARK: User Activity
 
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        if userActivity.activityType == UserActivityFactory.ActivityType.startMetronome.rawValue,
-            let userInfo = userActivity.userInfo,
-            let configuration = UserInfoFactory.configuration(in: userInfo) {
-            (window?.rootViewController as? MainViewController)?.startMetronome(with: configuration)
+        guard let activity = ActivityType(rawValue: userActivity.activityType) else { return }
+        guard let userInfo = userActivity.userInfo else { return }
+        guard let configuration = try? DictionaryDecoder().decode(MetronomeConfiguration.self, from: userInfo) else { return }
+        switch activity {
+        case .configureMetronome:
+            (window?.rootViewController as? MetronomeViewController)?.setupMetronome(with: configuration)
+        case .startMetronome:
+            (window?.rootViewController as? MetronomeViewController)?.startMetronome(with: configuration)
         }
     }
 }
