@@ -1226,7 +1226,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucastrazzullo.metronome.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "Metronome Watch Ext";
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome watchkitextension - Development";
@@ -1252,7 +1252,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucastrazzullo.metronome.watchkitapp.watchkitextension;
 				PRODUCT_NAME = "Metronome Watch Ext";
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome watchkitextension - Distribution";
@@ -1275,7 +1275,7 @@
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				IBSC_MODULE = Metronome_Watch_Extension;
 				INFOPLIST_FILE = "Metronome Watch/Info.plist";
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucastrazzullo.metronome.watchkitapp;
 				PRODUCT_NAME = "Metronome Watch";
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome watchkitapp - Development";
@@ -1298,7 +1298,7 @@
 				DEVELOPMENT_TEAM = UC9U5RZ8UF;
 				IBSC_MODULE = Metronome_Watch_Extension;
 				INFOPLIST_FILE = "Metronome Watch/Info.plist";
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucastrazzullo.metronome.watchkitapp;
 				PRODUCT_NAME = "Metronome Watch";
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome watchkitapp - Distribution";
@@ -1487,7 +1487,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucastrazzullo.metronome;
 				PRODUCT_NAME = "Metronome iOS";
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome - Development";
@@ -1510,7 +1510,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.2.1;
+				MARKETING_VERSION = 1.2.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.lucastrazzullo.metronome;
 				PRODUCT_NAME = "Metronome iOS";
 				PROVISIONING_PROFILE_SPECIFIER = "Metronome - Distribution";
